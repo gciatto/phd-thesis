@@ -1,6 +1,8 @@
 phd-thesis.pdf
 *~
 
+.vscode/
+
 ## Core latex/pdflatex auxiliary files:
 *.aux
 *.lof
