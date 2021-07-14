@@ -5,16 +5,14 @@
 \usepackage{hyperref}
 \usepackage{graphicx}
 \usepackage{xcolor}
-\usepackage{amssymb}
-\usepackage{amsmath}
-\usepackage{latexsym}
-\usepackage{amsthm}
+\usepackage{amssymb,amsmath}
+% \usepackage{latexsym}
 \usepackage[english]{cleveref}
 \usepackage{geometry}
 \usepackage{listings}
 \usepackage{titling}
 \usepackage[inline]{enumitem}
-
+\usepackage{setspace}
 
 \newcommand{\acknowledgementsname}{Acknowledgements}
 \newcommand{\introductionname}{Introduction}
@@ -39,6 +37,7 @@
 \newenvironment{dedication}{\chapter*{}\begin{flushright}\itshape}{\normalfont\end{flushright}}
 \newenvironment{inlinelist}{\begin{enumerate*}[label=\emph{(\roman{*})}]}{\end{enumerate*}}
 
+% \newcommand{\linespacing}[#1]{}
 \newcommand{\chapterWithoutNumber}[1]{\chapter*{#1}\addcontentsline{toc}{chapter}{#1}}
 
 %-----------------------------------------------------
