@@ -13,6 +13,8 @@
 \usepackage{geometry}
 \usepackage{listings}
 \usepackage{titling}
+\usepackage[inline]{enumitem}
+
 
 \newcommand{\acknowledgementsname}{Acknowledgements}
 \newcommand{\introductionname}{Introduction}
@@ -33,10 +35,9 @@
 \newcommand{\gcnote}[1]{\todo[size=\scriptsize,color=green,inline]{\textbf{Giovanni Ciatto:} #1}}
 
 \newenvironment{abstract}{\chapter*{\centering\abstractname}\addcontentsline{toc}{chapter}{\abstractname}}{} 
-
 \newenvironment{acknowledgements}{\chapter*{\acknowledgementsname}}{} 
-
 \newenvironment{dedication}{\chapter*{}\begin{flushright}\itshape}{\normalfont\end{flushright}}
+\newenvironment{inlinelist}{\begin{enumerate*}[label=\emph{(\roman{*})}]}{\end{enumerate*}}
 
 \newcommand{\chapterWithoutNumber}[1]{\chapter*{#1}\addcontentsline{toc}{chapter}{#1}}
 

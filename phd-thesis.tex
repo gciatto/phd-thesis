@@ -45,37 +45,75 @@ Optional. Max 1 page.
 \label{chap:introduction}
 %----------------------------------------------------------------------------------------
 
-In the last decade we have witnessed an explosion in the exploitation of artificial intelligence (AI) both in the academy and in the industry in virtually all strategical sectors.
+In the last decade we have witnessed an explosion in the exploitation of artificial intelligence (AI) both in the academy and in the industry, and in virtually all strategical sectors of human expertise.
 %
 This is not the first time in history that AI attains unprecedented levels of attention, expectation, and fundings, yet it is the first time that such momentum is driven by a pervasive adoption of data science (DS) and, in particular, machine learning (ML).
 
 Nowadays, the tree terms -- AI, DS, and ML -- are often used mistakenly interchangeably, especially by practitioners.
 %
-Should we speculate on what the causes of such phenomenon are, we argue this is likely due to the strong hype characterising modern data-driven solutions---both in theory and in practice.
+Should we speculate on what the causes of such phenomenon are, we would argue this is likely due to the strong hype characterising modern data-driven solutions---both in theory and in practice.
 %
-This leads both researchers and practitioners to focus on the development of data-driven frameworks or technologies which, in turn, create a sampling bias making people think that ML exhausts DS, and DS saturates AI.
+This leads both researchers and practitioners to focus on the development of \emph{ML-oriented} frameworks or technologies which, in turn, create a sampling bias making people think that ML exhausts DS, and DS saturates AI.
 %
 As we further discuss in the subsequent chapters, this is really far from the truth.
 %
 There are many interesting aspects of AI which lay outside the realm of DS.
 %
-Notably, in this thesis we focus on computational logics (CL)---a prominent aspect of AI populating the portion which is not covered by DS.
+Notably, in this thesis we focus on computational logics (CL) -- a prominent aspect of AI populating the portion which is not covered by DS -- and its potential role in complementing DS.
 
 As sub-fields of AI, both DS and CL share the common goal of mimicking human intelligence.
 %
 Of course, they do so in different ways.
 %
-They focus on different notions and aspects of intelligence, they pursue intelligence through different ways, and for different reasons.
+They focus on different notions and aspects of intelligence, they pursue intelligence through different ways, and for different purposes.
 %
 Notably, most differences lay in the way CL and DS treat \emph{knowledge}, and, in particular, in the way knowledge is represented, acquired, manipulated, and transferred.
 
-CL, for instance, focuses on rational intelligence, which relies on \emph{symbolically} represented knowledge, either acquired via logic induction or via manual handcrafting, manipulated via logical inference (e.g. deduction or abduction), and transferred by simply presenting symbols into shared formats.
+CL, for instance, focuses on \emph{rational} intelligence, and it aims at endowing machines with human-like, automated \emph{reasoning} capabilities.
 %
-Dually, DS focuses on intuitive intelligence, which relies on sub-symbolically (e.g. \emph{numerically}) represented knowledge, commonly acquired from data via ML, manipulated via algebraic or differential operations, and transferred in disparate, purpose-specific ways.
+Following this purpose, it relies on \emph{symbolically} represented knowledge, either acquired via logic induction or via manual handcrafting, manipulated via logic inference (e.g. deduction or abduction), and transferred by simply presenting symbols into shared formats.
+%
+Dually, DS focuses on \emph{intuitive} intelligence, and it aims at endowing humans with statistical tools for mining significant and predictive information from data, in a principled way.
+%
+When applied to machines, DS provides them with powerful pattern matching, recognition, or stimulus-response capabilities. 
+%
+For this reason, it relies on sub-symbolically (e.g. \emph{numerically}) represented knowledge, commonly acquired from data via ML, manipulated via algebraic or differential operations, and transferred in disparate, purpose-specific ways.
 
-This thesis stems from the acknowledgement that CS and DS are complementary rather than in competition.
+Of course, both CL and DS come with shortcomings.
 %
-It aims to \emph{elicit} and \emph{enable} the many possible bridges among the two fields.
+On the one side, CL commonly requires
+%
+\begin{inlinelist}
+    \item some symbolic knowledge to be eventually handcrafted by humans, manually; and
+    \item the task at hand to have a clear formulation, which can be expressed via crisp symbols.
+\end{inlinelist}
+%
+The former issue, clearly hinders scalability, making CL fall short on the knowledge provisioning side.
+%
+Vice versa, DS is very well suited on this side, as it naturally leverages on scalable algorithms which have been designed mine information semi-automatically from data, possibly scaling up to very large datasets.
+%
+The latter issue, in turn, makes CL poorly suited to handle fuzzy tasks which are hard to formalise or encode symbolically---think, for instance, to the task of handwritten digits recognition.
+%
+On the other side, DS commonly requires
+%
+\begin{inlinelist}
+    \item very large amounts of data to be effective; and
+    \item users to be willing and capable of interpreting the numeric results it outputs.
+\end{inlinelist}
+%
+The former issue actually constrains the exploitation of DS into use cases where data is already available or a provisioning procedure is admissible.
+%
+Vice versa, CL is data efficient as it can bring valuable results even in presence of very small prior knowledge.
+%
+The latter issue is, in turn, among the most relevant topic nowadays.
+%
+Given the wide exploitation of DS in some many areas of expertise, clarity and intelligibility of its outcomes are becoming a critical aspects---mostly because of their sub-symbolic nature.
+%
+Vice versa, CL is inherently symbolic in nature and therefore less subject to such interpretability issues.
+
+Accordingly, this thesis stems from the acknowledgement that CS and DS are complementary rather than in competition.
+%
+Along this line, it aims to \emph{elicit} and \emph{enable} the many possible bridges among the two fields.
 
 On the one side, we \emph{elicit} analogies, dichotomies, and possible synergies among CL and DS by analysing them along four orthogonal dimensions, corresponding to as many knowledge-related activities, namely:
 %
@@ -99,30 +137,6 @@ Along this line, in particular, we assess the current state of the art for techn
 The latter in particular is the contribution by which we \emph{enable} the actual combination of CL and DS in practice.
 
 \gcnote{Agent oriented mindset.}
-
-\paragraph{The technological view}
-
-There exists a popular tweet spinning around Twitter since a few years about the difference among artificial intelligence (AI) and machine learning (ML).
-%
-It essentially states the main difference lays in the underlying programming language: ``if it is written in Python, it probably ML; if it is written PowerPoint, then it is probably AI''.
-%
-The fun fact here is that PowerPoint is not programming language.
-%
-The tweet is of course deliberately provocative, somewhat disrespectful, and ultimately raw.
-%
-However, it brings a number of points which are very useful to understand the scope of this thesis.
-
-This thesis lays at the intersection among computational logic (CL), computer science (CS), software engineering (SE), and data science (DS).
-%
-While CS and SE are two sides of the same coin, CL and DS are two pretty large and fertile islands in the archipelago of AI.
-
-It may sound like a trivial detail but the tweet above, despite its rawness, is still able to discern among ML and AI.
-%
-In a world where the two terms are mistakenly being used interchangeably, this particular point should be appreciated.
-
-
-
-
 
 \part{What}
 \label{part:what}
