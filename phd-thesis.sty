@@ -1,22 +1,33 @@
-% !TeX root = phd-thesis.tex
 \usepackage[english]{babel}
-
-% common utilities
 \usepackage{hyperref}
 \usepackage{graphicx}
-\usepackage{xcolor}
 \usepackage{amssymb,amsmath}
-% \usepackage{latexsym}
 \usepackage[english]{cleveref}
 \usepackage{geometry}
-\usepackage{listings}
 \usepackage{titling}
 \usepackage[inline]{enumitem}
 \usepackage{setspace}
+\usepackage{fancyhdr}
+
+\fancypagestyle{plain}{
+	\fancyhf{}
+	\fancyfoot[RE,LO]{\leftmark}
+	\fancyfoot[LE,RO]{\thepage}
+	\renewcommand{\footrulewidth}{1pt}
+}
+
+\fancypagestyle{fancy}{
+	\fancyhf{}
+	\fancyhead[CE,CO]{\rightmark}
+	\fancyfoot[RE,LO]{\leftmark}
+	\fancyfoot[LE,RO]{\thepage}
+	\renewcommand{\headrulewidth}{1pt}
+	\renewcommand{\footrulewidth}{1pt}
+}
+
+\pagestyle{fancy}
 
 \newcommand{\acknowledgementsname}{Acknowledgements}
-\newcommand{\introductionname}{Introduction}
-\newcommand{\conclusionsname}{Conclusions}
 
 \newcommand{\school}[1]{\def\theschool{#1}}
 \newcommand{\programme}[1]{\def\theprogramme{#1}}
@@ -27,52 +38,83 @@
 \newcommand{\cycle}[1]{\def\thecycle{#1}}
 \newcommand{\examyear}[1]{\def\theexamyear{#1}}
 
-% \usepackage[disable]{todonotes} % decommentare prima della versione finale
-\usepackage{todonotes} % commentare prima della versione finale
-\newcommand{\gcsidenote}[1]{\todo[size=\tiny,color=green]{\textbf{GC:} #1}}
-\newcommand{\gcnote}[1]{\todo[size=\scriptsize,color=green,inline]{\textbf{Giovanni Ciatto:} #1}}
-
 \newenvironment{abstract}{\chapter*{\centering\abstractname}\addcontentsline{toc}{chapter}{\abstractname}}{} 
 \newenvironment{acknowledgements}{\chapter*{\acknowledgementsname}}{} 
 \newenvironment{dedication}{\chapter*{}\begin{flushright}\itshape}{\normalfont\end{flushright}}
 \newenvironment{inlinelist}{\begin{enumerate*}[label=\emph{(\roman{*})}]}{\end{enumerate*}}
 
-% \newcommand{\linespacing}[#1]{}
 \newcommand{\chapterWithoutNumber}[1]{\chapter*{#1}\addcontentsline{toc}{chapter}{#1}}
 
-%-----------------------------------------------------
-% LISTING CONFIGURATIONS
-%-----------------------------------------------------
-
-\crefname{lstlisting}{listing}{listing}	
-\Crefname{lstlisting}{Listing}{\lstlistingname}
-
-\lstset{
-	showstringspaces=false,
-	basicstyle=\ttfamily,
-	commentstyle={\color{olive}},
-	identifierstyle=\color{black},
-	ndkeywordstyle={\color{blue}},
-	stringstyle={\color{magenta}},
-	emphstyle={},
-	keywordstyle={\color{blue}},
-	breaklines=true,
-	numbers=left,
-	numberstyle=\tiny\color{gray},
-	numbersep=10pt,
-	tabsize=2,
-	extendedchars=true,
-	frame=trBL,
-	frameround=fttt,
+\def\themainlinespacing{1}
+\newcommand{\mainlinespacing}[1]{\def\themainlinespacing{#1}}
+\let\oldmainmatter\mainmatter
+\renewcommand{\mainmatter}{
+	\oldmainmatter
+	% \onehalfspacing % https://tex.stackexchange.com/questions/30073/why-is-the-linespread-factor-as-it-is
+	\setstretch{\themainlinespacing}
 }
 
-\lstdefinelanguage{Kotlin}{
-	comment=[l]{//},
-	emph={delegate, filter, first, firstOrNull, forEach, lazy, map, mapNotNull, println, return@},
-	keywords={abstract, actual, as, as?, break, by, class, companion, continue, data, do, dynamic, else, enum, expect, false, final, for, fun, get, if, import, in, interface, internal, is, null, object, override, package, private, public, return, set, super, suspend, this, throw, true, try, typealias, val, var, vararg, when, where, while},
-	morecomment=[s]{/*}{*/},
-	morestring=[b]",
-	morestring=[s]{"""*}{*"""},
-	ndkeywords={@Deprecated, @JvmField, @JvmName, @JvmOverloads, @JvmStatic, @JvmSynthetic, Array, Byte, Double, Float, Int, Integer, Iterable, Long, Runnable, Short, String, Unit, it},
-	sensitive=true
+\newcommand{\frontispiece}{
+	\newgeometry{margin=0.8in}
+	\begin{titlepage}
+		\centering
+		\large
+		\textbf{\theschool}
+		\\
+		\noindent\hrulefill
+		\vspace{0.4cm}
+		
+		\Large
+		\theprogramme
+
+		\Huge
+		\vspace{4cm}
+		\textbf{
+			\thetitle
+		}
+		
+		\large
+		\vspace{1cm}
+		Settore Concorsuale:
+		\\
+		\textsc{\thecontestsector}
+		\\\vspace{0.5cm}
+		Settore Scientifico Disciplinare:
+		\\
+		\textsc{\thescientificsector}
+
+		\vspace{4cm}
+		%
+		\begin{minipage}[t]{0.64\textwidth}
+			\begin{flushleft}
+				\textit{Coordinatore Dottorato} 
+				\\ 
+				\textbf{Prof. \thecoordinator}
+				\\
+				\vspace{0.4cm}
+				\textit{Supervisore} 
+				\\
+				\textbf{Prof. \thesupervisor}
+			\end{flushleft}
+		\end{minipage}
+		%
+		\begin{minipage}[t]{0.34\textwidth}
+			\begin{flushright}
+				\textit{Candidato} 
+				\\ 
+				\textbf{\theauthor}
+			\end{flushright}
+		\end{minipage}
+		\\
+		
+		\vfill
+		\noindent\hrulefill
+		\vspace{0.3cm}
+		\Large
+		
+		\thecycle{} Ciclo
+		\\
+		Esame Finale Anno \theexamyear
+	\end{titlepage}
+	\restoregeometry
 }

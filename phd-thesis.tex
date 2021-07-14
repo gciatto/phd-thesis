@@ -1,6 +1,8 @@
 \documentclass[12pt,a4paper,openright,twoside]{book}
 \usepackage[utf8]{inputenc}
 \usepackage{phd-thesis}
+\usepackage{code-lstlistings}
+\usepackage{notes}
 
 \school{ALMA MATER STUDIORUM -- UNIVERSITÀ DI BOLOGNA}
 \programme{Dottorato di Ricerca in Data Science and Computation}
@@ -14,11 +16,12 @@
 \cycle{XXXIII}
 \examyear{2022}
 
+\mainlinespacing{1.5} % line spacing in mainmatter
+
 \begin{document}
 	
 \frontmatter
-
-\include{front.tex}
+\frontispiece
 
 \begin{abstract}	
 Max 2000 characters, strict.
@@ -39,11 +42,9 @@ Optional. Max 1 page.
 %----------------------------------------------------------------------------------------
 
 \mainmatter
-\onehalfspacing % https://tex.stackexchange.com/questions/30073/why-is-the-linespread-factor-as-it-is
-\setstretch{1.5}
 
 %----------------------------------------------------------------------------------------
-\chapter{\introductionname}
+\chapter{Introduction}
 \label{chap:introduction}
 %----------------------------------------------------------------------------------------
 
@@ -125,8 +126,11 @@ On the one side, we \emph{elicit} analogies, dichotomies, and possible synergies
 %
 \begin{description}
     \item[representation] | i.e. the way knowledge is expressed and made interpretable by either machines or human beings, or both; e.g. via symbols, formul\ae, or tensors of real numbers 
+
     \item[acquisition] | i.e. the way novel knowledge is learned from prior information, mined from data, or attained from external sources; e.g. via data mining, via induction, or via interaction 
+    
     \item[inference] |  i.e. the way decisions, suggestions, recommendations, or predictions can be automatically computed out of prior knowledge; e.g. via automated deduction/abduction, or via classification/regression
+    
     \item[explanation] | i.e. the way knowledge can be transferred to another entity---be it computational or human
 \end{description}
 
@@ -310,7 +314,7 @@ Speciale
 %----------------------------------------------------------------------------------------
 
 \nocite{*} % uncomment this to show all the reference in the .bib file
-\bibliographystyle{plain}
+\bibliographystyle{alpha}
 \bibliography{phd-thesis}
 
 
