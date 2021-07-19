@@ -3,6 +3,7 @@
 \usepackage{phd-thesis}
 \usepackage{code-lstlistings}
 \usepackage{notes}
+\usepackage{shortcuts}
 
 \school{ALMA MATER STUDIORUM -- UNIVERSITÀ DI BOLOGNA}
 \programme{Dottorato di Ricerca in Data Science and Computation}
@@ -16,7 +17,7 @@
 \cycle{XXXIII}
 \examyear{2022}
 
-\mainlinespacing{1.5} % line spacing in mainmatter
+\mainlinespacing{1.5} % line spacing in mainmatter, comment to default (1)
 
 \begin{document}
 	
@@ -97,10 +98,10 @@ Vice versa, DS is very well suited on this side, as it naturally leverages on sc
 %
 The latter issue, in turn, makes CL poorly suited to handle fuzzy tasks which are hard to formalise or encode symbolically---think, for instance, to the task of handwritten digits recognition.
 %
-On the other side, DS commonly requires
+On the other side, to be effective, DS commonly requires
 %
 \begin{inlinelist}
-    \item very large amounts of data to be effective; and
+    \item very large amounts of data; and
     \item users to be willing and capable of interpreting the numeric results it outputs.
 \end{inlinelist}
 %
@@ -108,7 +109,7 @@ The former issue actually constrains the exploitation of DS into use cases where
 %
 Vice versa, CL is data efficient as it can bring valuable results even in presence of very small prior knowledge.
 %
-The latter issue is, in turn, among the most relevant topic nowadays.
+The interpretability issue is, in turn, among the most relevant topic nowadays.
 %
 Given the wide exploitation of DS in some many areas of expertise, clarity and intelligibility of its outcomes are becoming a critical aspects---mostly because of their sub-symbolic nature.
 %
@@ -156,10 +157,136 @@ Under such a mindset, human agents are intelligent by definition, whereas softwa
 %
 Accordingly, what we have so far called ``machines'' are indeed ``software agents'', and the overall role of the agent-oriented mindset is about focussing on \emph{who} is charge of manipulating knowledge and \emph{when}, other than \emph{where} should knowledge be located in the meanwhile.
 
+
+\paragraph{Structure of the thesis}
+
+Summarising, the whole thesis discusses in what ways CL and DS can jointly contribute to the management of knowledge within the scope of modern and future intelligent systems, and how technically sound software technologies can be realised along the path.
+%
+An agent-oriented mindset permeates the whole discussion, by stressing pivotal role of autonomous agents in exploiting both means to reach higher degrees of intelligence.
+%
+Accordingly, this thesis is organised in three parts, named \emph{What}, \emph{How}, and \emph{Who}, respectively.
+
+In the first part (\emph{What}), we focus on the computational perspective.
+%
+There, we present the two main branches of AI---namely, the \emph{symbolic} and \emph{sub-symbolic} ones.
+%
+In particular, we recall classical definitions and survey the current state of the art for both CL and DS.
+%
+We finally present their strengths and weaknesses, and the many possible bridges among them, w.r.t. knowledge representation, acquisition, manipulation, and transfer.
+
+In the second part (\emph{How}), we focus on the technological perspective.
+%
+There, we survey the current state of technologies.
+%
+In particular, we focus on logic-based technologies laying at the intersection with DS, identifying the current lacks w.r.t. current theoretical advances. 
+%
+We then propose the notion of AI ecosystem, and \twopkt{} as its main reification in software.
+%
+Finally, we present a number of possible ways to extend the \twopkt{} ecosystem towards DS.
+
+Finally, the third part (\emph{Who}) closes the loop by discussing the role of agents \ldots
+\note{TBD}
+
+
 \part{What}
 \label{part:what}
 
 \chapter{Symbolic and Sub-Symbolic sides of AI}
+
+AI is a multi-faceted discipline leveraging on contributions coming from several areas of human knowledge, there including Mathematics, Computer Science, Statistics, Psychology, Philosophy, and many others.
+%
+A famous and comprehensive survey on the many aspects of AI is proposed by Russell and Norving in \cite{russell2016artificial}.
+%
+In the second half the $20^{th}$ century -- when AI was firstly recognised as discipline by itself -- several approaches towards machine intelligence became subject of intensive research efforts, leading to the vast corpus of literature and to the abundance of techniques available today.
+
+Notably, two main families of approaches has initially emerged in AI, namely, the \emph{symbolic} and \emph{connectionist} ones \cite{Smolensky1987, SUN2001783}.
+%
+While the former focuses on represententing the world through symbols -- in turn representing concepts --, thus emulating how the human \emph{mind} reasons and infers, the latter aims at mimicking human intuition by emulating how the human \emph{brain} works at a very low level.
+%
+Despite both families have both pros and cons, they have stepped through both glory and misery---in terms of expectations, funding, research interest, and industry adoption \cite{Hendler2008, russell2016artificial}.
+
+For instance, despite the initial hype, artificial neural networks (NN) -- the warhorse of connectionism -- encountered their first \emph{winter} when Rosenblatt's \emph{perceptron} \cite{rosenblatt1957perceptron} was proven unable to learn the XOR function \cite{Minsky1988}.
+%
+The period following the publication of the well-known Back-Propagation algorithm \cite{Bryson1979} and the proof that multi-layered perceptrons could be used as universal functional approximators \cite{Cybenko1989}, can be considered as the second \emph{spring} of connectionist approaches.
+%
+However, at the time -- likely, because of computational limits of the hardware and the lack of data -- the success of connectionist approaches can be considered very moderate, especially when compared with the explosion of deep NN and deep learning (DL) \cite{goodfellow2016deep} which was pervasive in both the academy and the industry during the 2010s, and can thus be considered the third spring of AI.
+
+Even if it is currently not as popular as NN, the history of symbolic AI is extremely important as well---mostly because of the prominent influence it has on the many fields converging in AI.
+%
+Despite their original ambition of reproducing human reasoning \emph{in toto} has been was inevitably rejected by facts, symbolic approaches gave birth to several research lines which are nowadays considered autonomous fields, such as computational logic \cite{lloyd1990computational}, logic programming \cite{apt1990logic}, planning \cite[Chap. 10-11]{russell2016artificial}, multi agent systems \cite{ferber1999multi}, etc. 
+
+A few decades later, many things has changed.
+%
+ML, DL, Data Mining \cite{hand2006data}, and Bayesian Inference have enormously widened the spectrum of tasks AI can handle, other than the amount of use cases where AI can be applied.
+%
+Nevertheless, a dualism is still there, alive and healthy, dividing symbolic approaches from what are now called \emph{numeric} (or \emph{non-}symbolic) ones.
+
+Nowadays, numeric techniques include NN, but they are not limited to the connectionist techniques.
+%
+The panorama of numeric techniques has been widened by the development of several algorithms -- along with their efficient implementations --, such as SVM \cite{Smola2004}, K-Means, Expectation Maximisation \cite{Dempster77maximumlikelihood}, Viterbi \cite{Viterbi06}, etc, which mostly leverage on \emph{numerical} computations while not being backed by a biological metaphor.
+
+Summarising, at the gates of 2020s, AI consists of a number of powerful techniques -- often backed by sound theoretical or empirical backgrounds --, which are widely employed to automate disparate tasks, both in the industry and in the research.
+%
+Such tasks, and, in particular, the techniques supporting them, can be categorised within two mostly disjoint families---namely the symbolic and numeric ones.
+
+\subsubsection{Weak vs.\ Strong AI}
+
+A fundamental question in AI concerns the ultimate goal of the discipline itself.
+%
+Some say AI should (tend to) produce machines which are actually able to think intelligently -- thus adapt to different situations, understand the context their are situated into, learn from the interactions with the environment and with others --, while say it would be sufficient to create machines simply acting \emph{as if} they were thinking intelligently.
+%
+The former perspective is classically known as \emph{strong} AI, while the latter is known as \emph{weak} AI.
+%
+Searle's Chinese Room argument \cite{searle1980} clearly explains the difference among the two by means of a practical example, whereas the well known Turing test \cite{Turing1950} provides a practical means to decide whether a machine's AI is actually strong or not.
+
+Even without discussing the many important and subtle philosophical issues arising from such a dualistic view of AI, we note what follows.
+%
+The original goal of AI was reaching strong AI.
+%
+This is likely why, initially, so much hype was put in both symbolic and connectionist approaches.
+%
+But this is also justifying the strong disappointment which led AI towards its first winter.
+%
+Most researchers soon realised that weak AI was a far more affordable deal, and this is likely why they stopped seeking generality and started focusing on how to improve each single technique, tailoring them to the domains where they could bring more advantage.
+
+A few years later, the global effect is that a plethora of techniques is available to effectively and efficiently tackle as many tasks.
+%
+But the glue keeping everything together is still human intelligence \cite{Yao2018}.
+%
+Indeed, symbolic techniques still require human beings to \emph{handcraft} most complex rules or to \emph{manually} build large knowledge bases.
+%
+Similarly, most ML-powered models still rely on data scientists to lead their training process.
+%
+Data scientists are still needed, for instance, to clean-up and pre-process data, and to set up predictors hyper-parameters through their experience, or to leverage on their intuition to interpret how a trained predictor is functioning.
+
+Summarising, the success of AI nowadays is also due to its reduced expectations with respect to what can be delegated to machines.
+%
+As a side effect, poor care is dedicated in studying how AI could be used to \emph{automate} the many processes involving several, interrelated AI-powered tasks.
+
+\subsubsection{Symbolic vs.\ Sub-symbolic AI}
+
+In the recent years, also because of the rise of XAI, the religious war among the two souls of AI, has hopefully came to an end.
+%
+More and more authors nowadays are progressively realising and accepting that symbolic and sub-symbolic approaches are \emph{complementary} -- rather than in a competition --, as their combination is now being considered a fruitful way to mutually soften their corners \cite{Hoehndorf2017, xailp-woa2019, lpaas-bdcc2}.
+%
+In fact, while symbolic approaches are well suited for relatively small-sized problems where complex and exact tasks has to be performed, possibly relying on structured data -- like for instance planning a sequence of actions, finding a path in a graph taking several constrains into an account, deducing information from a prior knowledge base, or learning mathematical relations from vary small data sets --, sub-symbolic (also called \emph{numerical}) approaches are best suited for those use cases where big (up to huge) amounts of possibly unstructured data  must be processed, where errors or lack of precision is tolerated to some extent, if unavoidable---like for instance classifying images or texts, profiling customers by looking at their shopping history, forecasting the weather for a particular area, etc.
+
+As widely recognised by the XAI community, a key weakness of numeric AI is that it often produces or relies on black-box models which are often hard to (fully) understand for humans \cite{GuidottiMRTGP19}.
+%
+Such hardness is likely due to the fact that most models and algorithms employed in ML and Data Mining, do not rely on (nor produce) symbolic representations for the knowledge they extract from data, but they rather scatter such knowledge among several elementary units -- like, for instance, neurons in NN, or support vectors in SVM -- which carry very few information if considered one by one, and require a strong cognitive effort for being understood as a whole.
+%
+Such issues, are not affecting symbolic techniques---especially when symbols are wisely chosen in order to steer humans' intuition.
+%
+This is because symbols are far closer to what our conscious, rational mind used to handle.
+%
+For all such reasons, many researchers in the story of AI have argued that a comprehensive approach unifying the two worlds would bring great advantage.
+
+\sidenote{Spostare il capoverso sotto in un posto più opportuno}
+Several works, among the various springs of AI, proposed to extract symbolic knowledge from numeric models.
+%
+As witnessed by a number of surveys \cite{GuidottiMRTGP19, GarcezBRFHIKLMS15, AndrewsDT95, GarcezBG01} and works on the topic \cite{BolognaH18, BolognaH16, FrosstH17, JohanssonN09, KrishnanSB1999, HruschkaE2006, ZhouZYS1983, CravenS95, AugastaK12, SatoT2002, KahramanliA09a} -- some of which are from the 80s or the 90s -- the potential of symbolic knowledge \emph{extraction} is well understood, despite not being subject to hype.
+%
+Unfortunately, a comprehensive and general framework tackling such problem in a general way is still missing.
 
 \section{Computational Logic}
 
@@ -208,7 +335,44 @@ Deduction, Abduction, Induction, Probabilistic, etc.
 
 \chapter{Explaining AI via Symbolic Knowledge}
 
-\cite{ccnavos-extraamas2021-expectation}
+%%% !!!!! ATTENTION !!!!!
+%%% this subsubsection is taken from a published paper
+
+Despite the open philosophical issues, it is undeniable that AI and ML are nowadays becoming more and more intertwined with a growing number of aspects of people's every day life \cite{helbing2019, elliott2019}. 
+%
+In fact, more and more decisions are delegated by humans to software agents whose intelligent behaviour is not the result of some skilled developer endowing it with some clever code, but rather the consequence the agents' capability of learning, planning, or inferring what to do from data.
+
+In spite of the large adoption, intelligent machines whose behaviour is the result of automatic synthesis / learning procedures are difficult to trust for most people---in particular when they are not expert in the field.
+%
+This is especially true for agents leveraging on machine or deep learning based techniques, often producing models whose internal behaviour is opaque and hard to explain for their developers too.
+
+There, agents often tend to accumulate their knowledge into \emph{black-box} predictive models which are trained through ML or DL.
+%
+Broadly speaking, the ``black-box'' expression is used to refer to models where knowledge is not explicitly represented -- such as in NN, support vector machines (SVM), or random forests --, and it is therefore difficult, for humans, to understand what a black-box actually knows, or what leads to a particular decision.
+
+Such difficulty in understanding black-boxes content and functioning is what prevents people from fully trusting -- and thus accepting -- them.
+%
+In several contexts, such as the medical or financial ones, it is not sufficient for intelligent agents to output bare decisions, since, for instance, ethical and legal issues may arise. 
+%
+An \emph{explanation} for each decision is therefore often desirable, preferable, or even required.  
+%
+Furthermore, it may happen for instance that black-boxes \emph{silently} learn something wrong (e.g., Google image recognition software that classified black people as gorillas \cite{fourcade2017, crawford2016artificial}), or something right, but in a biased way (like  the ``background bias'' problem, causing for instance husky images to be recognised only because of their snowy background \cite{RibeiroSG16}).
+
+To tackle such trust issues, the \emph{eXplainable Artificial Intelligence} (XAI) research field has recently emerged, and a comprehensive research road map has been proposed by DARPA \cite{darpa2016-xai}, targeting the themes of explainability and interpretability in AI -- and in particular ML -- as a challenge of paramount importance in a world where AI is becoming more and more pervasively adopted.
+%
+There, DARPA reviews the main approaches to make AI either more interpretable or \emph{a posteriori} explainable, it categorises the many currently available techniques aimed at building meaningful interpretations or explanations for black-box models, it summarises the open problems and challenges, and it provides a reference framework for the researchers interested in the field.
+
+Broadly speaking, research efforts in the field of XAI are focused on achieving key properties in AI, such as \emph{interpretability}, \emph{transparency}, \emph{explainability}, \emph{accountability}, and \emph{trustworthiness}.
+%
+Unfortunately, such goals are still far from being reached.
+%
+For instance, as pointed out in \cite{Lipton18}, the aforementioned properties are still lacking a formal and agreed-upon definition.
+%
+Some authors \cite{Rudin2019} propose to strengthen the adoption of most \emph{interpretable} (i.e. algorithmically transparent) predictive models -- such as generalised linear models or decision trees --, while others seek new ways to produce \emph{post-hoc} explanations capable of tackling even most opaque predictors, such as NN.
+%
+However, as demonstrated by the comprehensive survey produced by Guidotti et al. \cite{GuidottiMRTGP19}, most works only target classification problems, and they rarely take wider properties -- such as accountability and trustworthiness -- into account.
+
+\cite{expectation-extraamas2021}
 
 \section{Explanation vs. Interpretation: Overview}
 
@@ -288,8 +452,8 @@ Speciale
 \part{Who}
 \label{part:who}
 
-\cite{cncc-extraamas2021-imagination}
-\cite{ccnavos-extraamas2021-expectation}
+\cite{imagination-extraamas2021}
+\cite{expectation-extraamas2021}
 
 \chapter{Adding Control to Data via Agents}
 
@@ -313,7 +477,11 @@ Speciale
 % BIBLIOGRAPHY
 %----------------------------------------------------------------------------------------
 
-\nocite{*} % uncomment this to show all the reference in the .bib file
+\backmatter
+
+\part*{}
+
+% \nocite{*} % uncomment this to show all the reference in the .bib file
 \bibliographystyle{alpha}
 \bibliography{phd-thesis}
 
