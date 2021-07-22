@@ -476,35 +476,210 @@ Indeed, some approaches adopt as explanation a set of rules, others a decision t
 %
 Moreover, recent works highlight the importance for an explanation to guarantee some properties, e.g., soundness, completeness, and compactness \cite{GuidottiMRTGP19}. 
 
-\note{Probabilmente si può tagliare da qui in poi}
+% \note{Probabilmente si può tagliare da qui in poi}
 
-This is why our proposal aims at integrating sub-symbolic approaches with symbolic ones.
-%
-To this end, DT can be exploited as an effective bridge between the symbolic and sub-symbolic realms.
-%
-In fact, DT can be easily \emph{(i)} built from an existing sub-symbolic predictor, and \emph{(ii)} translated into symbolic knowledge -- as it is shown in the reminder of this paper -- thanks to their rule-based nature.
+% This is why our proposal aims at integrating sub-symbolic approaches with symbolic ones.
+% %
+% To this end, DT can be exploited as an effective bridge between the symbolic and sub-symbolic realms.
+% %
+% In fact, DT can be easily \emph{(i)} built from an existing sub-symbolic predictor, and \emph{(ii)} translated into symbolic knowledge -- as it is shown in the reminder of this paper -- thanks to their rule-based nature.
 
-Decision trees are an interpretable family of predictors that have been proposed as a \emph{global} means for explaining other, less interpretable, sorts of black-box predictors \cite{TrattnerPR2019,BastaniKB17}---such as neural networks \cite{CravenS95}.
-%
-The main idea behind such an approach is to build a DT approximating the behaviour of a given predictor, possibly, by only considering its inputs and its outputs.
-%
-Such approximation essentially trades off predictive performance with interpretability.
-%
-In fact, the structure of such a DT would then be used to provide useful insights concerning the original predictor inner functioning. 
+% Decision trees are an interpretable family of predictors that have been proposed as a \emph{global} means for explaining other, less interpretable, sorts of black-box predictors \cite{TrattnerPR2019,BastaniKB17}---such as neural networks \cite{CravenS95}.
+% %
+% The main idea behind such an approach is to build a DT approximating the behaviour of a given predictor, possibly, by only considering its inputs and its outputs.
+% %
+% Such approximation essentially trades off predictive performance with interpretability.
+% %
+% In fact, the structure of such a DT would then be used to provide useful insights concerning the original predictor inner functioning. 
 
-Describing the particular means for extracting DT from black-boxes is outside the scope of this paper.
-%
-Given the vast literature on the topic -- e.g., consider reading \cite{GuidottiMRTGP19,AndrewsDT95} for an overview or \cite{CravenS95,JohanssonN09,FrosstH17} for a practical examples -- we simply assume an extracted DT is available and it has an high \emph{fidelity}---meaning that the loss in terms of predictive performance is low, w.r.t. the original black-box.
-%
-In fact, whereas there exist several works focussing on how to synthesise DT out of black-box predictors, no attention is paid to merging them with symbolic approaches, which can play a key role in enhancing the interpretability and explainability of the system.
-%
-In this paper we focus on such a matter.
+% Describing the particular means for extracting DT from black-boxes is outside the scope of this paper.
+% %
+% Given the vast literature on the topic -- e.g., consider reading \cite{GuidottiMRTGP19,AndrewsDT95} for an overview or \cite{CravenS95,JohanssonN09,FrosstH17} for a practical examples -- we simply assume an extracted DT is available and it has an high \emph{fidelity}---meaning that the loss in terms of predictive performance is low, w.r.t. the original black-box.
+% %
+% In fact, whereas there exist several works focussing on how to synthesise DT out of black-box predictors, no attention is paid to merging them with symbolic approaches, which can play a key role in enhancing the interpretability and explainability of the system.
+% %
+% In this paper we focus on such a matter.
 
-We believe that a logical representation of DT may be interesting and enabling for further research directions.
+% We believe that a logical representation of DT may be interesting and enabling for further research directions.
+% %
+% For instance, as far as explainability is concerned, we show how logic-translated DT can be used to both navigate the knowledge stored within the corresponding predictors -- thus acting as \emph{global} explanators --, and produce \emph{narrative} explanations for their predictions---thus acting as \emph{local} explanators. 
+% %
+% Note that the restriction on the DT representation makes it easy to map DT onto logical clauses, since DT are finite and with a limited expressivity (if / else conditions).
+
+%===============================================================================
+\section{XAI Background}\label{sec:background}
+%===============================================================================
+
+Most intelligent systems (IS) today leverage on \emph{numerical} predictive models which are trained from data through ML.
 %
-For instance, as far as explainability is concerned, we show how logic-translated DT can be used to both navigate the knowledge stored within the corresponding predictors -- thus acting as \emph{global} explanators --, and produce \emph{narrative} explanations for their predictions---thus acting as \emph{local} explanators. 
+The reason for such a wide adoption is easy to understand.
 %
-Note that the restriction on the DT representation makes it easy to map DT onto logical clauses, since DT are finite and with a limited expressivity (if / else conditions).
+We live in an era where the availability of data is unprecedented, and ML algorithms make it possible to semi-automatically detect useful statistical information hidden into such data.
+%
+Information, in turn, supports decision making, monitoring, planning, and forecasting in virtually any human activity where data is available.
+
+However, ML is not the silver bullet.
+%
+Despite the increased predictive power, ML comes with some well-known drawbacks which make it perform poorly in some use cases.
+%
+One blatant example is algorithmic \emph{opacity}---that is, essentially, the difficulty of human mind in \emph{understanding} how ML-based IS function or compute their outputs.
+%
+Such difficulty is a serious issue in all those contexts where human beings are liable for their decision or must provide some sort of \emph{explanation} for it---even if the decision has been supported by some IS.
+%
+For instance, think about a doctor willing to motivate a serious, computer-aided diagnosis, or, a bank employee in need of explaining to a customer why his/her profile is inadequate for a loan.
+%
+In all contexts, ML is at the same time an enabling -- as it aids the decision process by automating it -- and a limiting factor---as opacity prevents human awareness of \emph{how} the decision process works.
+
+Opacity is why ML predictors are also referred to as \emph{black boxes} into the literature.
+%
+The ``black box'' expression refers to models where knowledge is not explicitly represented \cite{Lipton18}. 
+%
+The lack of some explicit, symbolic representation of knowledge is what makes it hard for humans to \emph{understand} the functioning of black boxes, and why they led to suggest or undertake a given decision.
+%
+Obviously, troubles in understanding black-box content and functioning prevents people from fully trusting -- therefore accepting -- them. 
+%
+To make the picture even more complex, current regulations such as the GDPR \cite{gdpr-voigt2017} are starting to recognise the citizens' \emph{right to explanation} \cite{explanation-aimag38}---which implicitly requires IS to eventually become \emph{understandable}.
+%
+In fact, understanding IS is essential to guarantee algorithmic fairness, to identify potential bias/problems in the training data, and to ensure that IS perform as designed and expected. 
+
+%%%%
+\begin{figure}
+	\centering
+	\includegraphics[width=.5\linewidth]{figures/interpretability-performance-tradeoff}
+	\caption{Interpretability/performance trade-off for some common sorts of black-box predictors}
+	\label{fig:tradeoff}
+\end{figure}
+%%%%
+
+Unfortunately, the notion of understandability is neither standardised nor systematically assessed, yet.
+%
+At the same time, there is no consensus on what exactly providing an \emph{explanation} should mean when decisions are supported by a black box.
+%
+However, several authors agree that not all black boxes are equally \emph{interpretable}---meaning that some black boxes are easier to understand than others for our mind.
+%
+For example, \Cref{fig:tradeoff} is a common way to illustrate the differences in black-box interpretability.
+
+Even though informal -- as pointed on in \cite{Rudin2019}, given the lack of way to measure ``interpretability'' -- \Cref{fig:tradeoff} effectively express why more research is need on understandability.
+%
+In fact, the image essentially states how the better performing black boxes are also the less interpretable ones.
+%
+This is a problem in practice since only rarely predictive performances can be sacrificed in favour of an higher degree of interpretability.
+
+To tackle such issues, the \emph{eXplainable AI} (XAI henceforth) research field has recently emerged.
+%
+Among the many authors and organisations involved in the topic, DARPA has proposed a comprehensive research road map \cite{darpa2016-xai} which reviews the main approaches to make black boxes more understandable.
+%
+There, DARPA categorises the many currently available techniques aimed at building meaningful interpretations or explanations for black-box models, it summarises the open problems and challenges, and it provides a successful reference framework for the researchers interested in the field.
+%
+Unfortunately, in spite of the great effort in defining terms, objects, and methods for the research line, a clear definition of fundamental notions such as \emph{interpretation} and \emph{explanation} is still missing.
+
+%-------------------------------------------------------------------------------
+\subsection{Related works}\label{ssec:related}
+%-------------------------------------------------------------------------------
+
+Notions such as explanation, interpretation, transparency, etc, are mentioned, introduced, or informally defined in several works.
+%
+However, a coherent framework has not emerged yet.
+
+In this subsection we recall some of the main contributions from the literature where the concepts of explanation and interpretation -- or any variant of theirs -- are discussed.
+%
+Our goal here is to highlight the current lack of consensus on the meaning of such terms, for which we propose a possible, unambiguous alternative in the next sections.
+
+Similarly to what we do here, Lipton \cite{Lipton18} starts his discussion by recognising how most definition of ML interpretability are often inconsistent and underspecified.
+%
+In his clarification effort, Lipton essentially maps interpretability on the notion of \emph{transparency}, and explanation on the notion of \emph{post-hoc} interpretation.
+%
+Then, he enumerates and describes the several possible variants of transparency, that are 
+%
+\begin{enumerate*}[label=\emph{(\roman{*})}]
+	\item simulatability -- i.e., the \emph{practical} possibility, for a human being, to ``contemplate the entire model at once'' and simulate its functioning on some data  -- which characterises, for instance, generalised linear models;
+	
+	\item decomposability -- i.e., the possibility, for the model to be decomposed in elementary parts whose functioning is intuitively understandable for humans and helpful in understanding the whole model -- which characterises, for instance, decision trees; and
+	
+	\item algorithmic transparency -- i.e., the possibility, for a human being, to intuitively understand how a given learning algorithm, or the predictors it produces, operate -- which characterises, for instance, k-nearest-neighbours techniques.
+\end{enumerate*}
+%
+Similarly, \emph{post-hoc} interpretability is defined as an approach where some information is extracted from a black box in order to ease its understanding.
+%
+Such information have not necessarily to expose the internal functioning of the black box.
+%
+As stated in the paper: ``examples of post-hoc interpretations include the verbal explanations produced by people or the saliency maps used to analyze deep neural networks''.
+
+Conversely, Besold et al. \cite{BesoldU2018} discuss the notion of explanation at a fundamental level.
+%
+There, the authors provide a nice philosophical overview on such topic, concluding that ``explanation is an epistemological activity and explanations are an epistemological accomplishment---they satisfy a sort of epistemic longing, a desire to know something more than we currently know. Not only do they satisfy this desire to know, they also provide the explanation-seeker a direction of action that they did not previously have''.
+%
+Then they discuss the topic of explanation in AI from an historical perspective.
+%
+In particular, when focussing on ML, they introduce the following classification of IS systems:
+%
+\begin{enumerate*}[label=\emph{(\roman{*})}]
+	\item opaque systems -- i.e., black boxes acting as oracles where the logic behind predictions is not observable or understandable --,
+	
+	\item interpretable systems -- i.e., white boxes whose functioning is understandable to humans, also thanks to expertise, resources, or tools --, and
+	
+	\item comprehensible systems---i.e., ``systems which emit \emph{symbols} along with their outputs, allowing the user to relate properties of the input to the output''.
+\end{enumerate*}
+%
+According to this classification, while interpretable systems can be inspected to be understood -- thus letting observer draw their explanations by themselves--, comprehensible systems must explicitly provide a symbolic explanation of their functioning.
+%
+The focus there is thus on \emph{who} produces explanations, rather than \emph{how}.
+
+In \cite{DoshiVelezK2017}, interpretability of ML systems is defined as ``the ability to explain or to present in understandable terms to a human''.
+%
+Interpretations and explanations are therefore collapsed in this work, as confirmed by the authors using the two terms interchangeably.
+%
+The reminder of that paper focuses 
+\begin{enumerate*}[label=\emph{(\roman{*})}]
+	\item on identifying under which circumstances interpretability is needed in ML, and
+	\item how to assess the quality of some explanation.
+\end{enumerate*}
+
+The survey by Guidotti et al. \cite{GuidottiMRTGP19} is a nice entry point to explainable ML.
+%
+It consists of an exhaustive and recent survey overviewing the main notions, goals, problems, and (sub-)categories in this field and it encompasses a taxonomy of existing approaches for ``opening the black box''---which may vary a lot depending on the sort of data and the family of predictors at hand.
+%
+There, the authors define the verb to interpret as the act of ``providing some meaning of explaining and presenting in understandable terms some concepts'', borrowing such a definition from the Merriam-Webster\footnote{\url{https://www.merriam-webster.com/dictionary/interpret}} dictionary.
+%
+Consequently, they define interpretability as ``the ability to explain or to provide the meaning in understandable terms to a human''---a definition they again borrow from \cite{DoshiVelezK2017}.
+%
+So, in this case as well the notions of \emph{interpretation} and \emph{explanations} are collapsed.
+
+In \cite{Rudin2019}, Rudin does not explicitly provide a definition for explainability or interpretability, and she refers about interpretable or explainable ML almost interchangeably.
+%
+However, she states some interesting properties about \emph{interpretability}, which influenced our work.
+%
+In particular, she acknowledges that ``interpretability is a domain-specific notion''.
+%
+Furthermore, she links interpretability of information with its complexity -- and, in particular, its \emph{sparsity} --, as the amount of cognitive entities the human mind can at one is very limited ($\sim 7 \pm 2$ according to \cite{numberseven-psyrev63}). 
+%
+As far as explainability is concerned, apparently, Rudin adopts a \emph{post-hoc} perspective similar to the one in \cite{Lipton18}, as she writes ``an explanation is a separate model that is supposed to replicate most of the behaviour of a black box''.
+%
+In the reminder of the paper, the author argues how the path towards interpretable ML steps through a wider adoption of inherently interpretable predictors -- such as generalised linear models or decision trees -- instead of the relying on \emph{post-hoc} explanations which do not reveal what is inside black boxes---thus preventing their full understanding.
+
+Finally, the recent article by Rosenfeld et al. \cite{RosenfeldR2019} is similar in its intents to our current work.
+%
+There, the authors attempt to formally define what explanation and interpretation respectively are in the case of ML-based classification. 
+%
+However, their work differs from ours in several ways.
+%
+In particular, they define interpretation and explanation differently from what we do.
+%
+In fact, according to the authors, ``interpretation'' is a function mapping data, data schemes, and predictors to some representation of the predictors internal logic, whereas ``explanation'' is defined as ``the human-centric objective for the user to understand'' a predictor using the aforementioned interpretation function.
+%
+Other notions are formally defined into the paper, such as for instance, 
+%
+\begin{enumerate*}[label=\emph{(\roman{*})}]
+	\item explicitness, 
+	\item fairness, 
+	\item faithfullness,
+	\item justification, and
+	\item transparency.
+\end{enumerate*}
+%
+Such concepts are formally defined in terms of the aforementioned interpretation and explanation functions.
+%
+The reminder of the paper then re-interprets the field of XAI in terms of all the notions mentioned so far. 
 
 \section{Explanation vs. Interpretation: Overview}
 
