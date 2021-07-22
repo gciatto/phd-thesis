@@ -681,9 +681,379 @@ Such concepts are formally defined in terms of the aforementioned interpretation
 %
 The reminder of the paper then re-interprets the field of XAI in terms of all the notions mentioned so far. 
 
-\section{Explanation vs. Interpretation: Overview}
+\section{Explanation vs. Interpretation}\label{sec:basics}
 
-\note{Essentially report the whole \cite{agentbasedxai-aamas2020} paper}
+This section introduces the preliminary notions, intuitions, and notations we leverage upon in \cref{ssec:framework} and subsequent sections, in order to formalise our abstract framework for agent-based explanations.
+%
+We start by providing an intuition for the notion of \emph{interpretation}, and, consequently, for the \emph{act} of interpreting something.
+%
+Accordingly, we provide an intuition for the property of ``being interpretable'' as well, stressing its comparative nature.
+%
+Analogously to what we did with \emph{interpretation}, we then provide intuitions for terms such as \emph{explanation} and its derivatives.
+
+%---
+\paragraph{About interpretation.}
+%---
+
+Taking inspiration from the field of Logics, we define the \emph{act} of ``interpreting'' some object $X$ as the activity performed by an agent $A$ -- either human or software -- assigning a \emph{subjective} meaning to $X$.
+%
+Such meaning is what we call \emph{interpretation}.
+%
+Roughly speaking, an object $X$ is said to be  \emph{interpretable} for an agent $A$ if it is \emph{easy} for $A$ to draw an interpretation for $X$---where ``easy'' means $A$ requires a low \emph{computational} (or \emph{cognitive}) effort to understand $X$.
+%
+For instance, consider the case of road signs, which contain symbols instead of scripts to be easily, quickly, and intuitively interpretable.
+
+We model such intuition through a function $I_A(X) \mapsto [0, 1]$ providing a \emph{degree of interpretability} -- or simply interpretability, for short -- for $X$, in the eyes of $A$.
+%
+The value $I_A(X)$ is not required to be directly observable or measurable in practice, since agents' mind may be inaccessible in most cases.
+%
+This is far from being an issue, since we are not actually interested in the absolute value of $I_A(X)$, for some object $X$, but rather we are interested in being able to order different objects w.r.t.\ their subjective interpretability.
+%
+For instance, we write $I_A(X) > I_A(Y)$, for two objects $X$ and $Y$, meaning that the former is more interpretable than the latter, according to $A$.
+%
+For example, consider the case of a neural network and a decision tree, both trained on the same examples to solve the same problem with similar predictive performances.
+%
+Both objects may be represented as graphs.
+%
+However, it is likely for a human observer to see the decision tree as more interpretable---as their nodes bring semantically meaningful, high-level information.
+
+Summarising, we stress the subjective nature of interpretations, as agents assign them to objects according to their State of Mind (SoM) \cite{PremackW1978} and background knowledge, and they need not be formally defined any further.
+
+%%%%
+\begin{figure}
+    \centering
+    \includegraphics[width=.5\linewidth]{figures/framework.pdf}
+    \caption{Explanation vs. Interpretation: a simple framework}
+    \label{fig:framework}
+\end{figure}
+%%%%
+
+%---
+\paragraph{About explanation.}
+%---
+We define ``explaining'' as the activity of producing a more interpretable object $X'$ out of a less interpretable one, namely $X$, performed by agent $A$.
+%
+More formally, we define \emph{explanation} as a function $E(X) \mapsto X'$ mapping objects into other objects, possibly, in such a way that $I_A(X') > I_A(X)$, for some agent $A$.
+%
+The simple framework described so far is summarised in \cref{fig:framework}.
+
+Notice that human beings tend to collapse into the concept of ``explanation'' the whole sequence of steps actually involving both explaining and interpreting, according to our framework.
+%
+This happens because, if the explained object $X'$ is as interpretable for the listening agent $B$ as it is for the explaining agent $A$, then both $A$ and $B$ are likely to be satisfied with $X'$.
+%
+Conversely, it may also happen the explanation $E$ adopted by $A$ produces an object $X'$, which is more interpretable than $X$ for $A$ but not for $B$.
+%
+Similarly to how two persons would handle such an unpleasant situation, we envision that interaction and communication may be adopted to break such \emph{impasses} in multi-agent systems.
+
+In the following sections, we develop such an idea, describing how our simple framework could be extended to support ML-based intelligent systems.
+
+%-------------------------------------------------------------------------------
+\subsection{A conceptual framework for XAI}\label{ssec:framework}
+%-------------------------------------------------------------------------------
+
+In AI several tasks can be reduced to a functional model $M: X \rightarrow Y$ mapping some input data $X \subseteq \mathcal{X}$ from an input domain $\mathcal{X}$ into some output data $Y \subseteq \mathcal{Y}$ from an output domain $\mathcal{Y}$.
+
+In the following, we denote as $\mathcal{M}$  the set of all \emph{analogous} models $M': X \rightarrow \mathcal{Y}$, which attempts to solve the same problem on the same input data---usually, in (possibly slightly) different ways.
+%
+For instance, according to this definition, a decision tree and a neural network, both trained on the same data-set to solve the same classification problem with similar accuracies, are analogous---even if they belong to different families of predictors.
+
+At a very high abstraction level, many tasks in AI may be devoted to compute, for instance:
+%
+\begin{itemize}
+    \item the best $M^* \in \mathcal{M}$, given $X \subseteq \mathcal{X}$ and $Y \subseteq \mathcal{Y}$ (e.g. supervised ML),
+    \item the best $M^*$ and $Y$, given $X$ (e.g.\ unsupervised ML),
+    \item the best $Y^*$, given $X$ and $M$ (e.g.\ informed/uninformed search),
+    \item the best $X^*$, given $Y$ and $M$ (e.g.\  abduction, most likely explanation), etc 
+\end{itemize}
+%
+according to some goodness criterion which is specific for the task at hand.
+
+In the reminder of this section, we discuss how explanation may be defined as a function searching or building a -- possibly more interpretable -- model w.r.t.\ the one to be explained.
+%
+For this process to even make sense, of course, we require the resulting model to be not only analogous to the original but also similar in the way it behaves on the same data.
+%
+We formalise such a concept through the notion of \emph{fidelity}.
+
+Let $M, M' \in \mathcal{M}$ be two analogous models.
+%
+We then say $M$ has a \emph{locally} good \emph{fidelity} w.r.t.\ $M'$ and $Z$ if and only if $\Delta f(M(Z), M'(Z)) < \delta$ for some arbitrarily small threshold $\delta \geq 0$ and for some subset of the input data $Z \subset X$.
+%
+There, $\Delta f : 2^\mathcal{Y} \times 2^\mathcal{Y} \rightarrow \mathbb{R}_{\geq 0}$ is a function measuring the performance \emph{difference} among two analogous models.
+
+%%%%
+\begin{figure}
+    \centering
+    \includegraphics[width=.5\linewidth]{figures/local.pdf}
+    \caption{Local explanation and interpretation of model $M$}
+    \label{fig:local}
+\end{figure}
+%%%%
+
+%---
+\paragraph{Local interpretations.}
+%---
+
+When an observer agent $A$ is \emph{interpreting} a model $M$ behaviour w.r.t.\ some input data $Z \subseteq X$, it is actually trying to assign a subjective interpretability value $I_A(R)$ to some representation $R = r(M, Z)$ of choice, aimed at highlighting the behaviour of $M$ w.r.t.\ the data in $Z$.
+%
+There, $r : \mathcal{M} \times 2^\mathcal{X} \rightarrow \mathcal{R}$ is \emph{representation means}, i.e., a function mapping models into \emph{local} representations w.r.t.\ a particular subset of the input domain, whereas $\mathcal{R}$ is the set of model representations.
+%
+For instance, in the case $M$ is a classifier, $R$ may be a graphical representation of (a portion of) the decision boundary/surface for a couple of input features.
+
+There may be more or less interpretable \emph{representations} of a particular model for the same observer $A$.
+%
+Furthermore, representations may be either global or local as well, depending on whether they represent the behaviour of the model for the whole input space, or for just a portion of it.
+%
+For example, consider the case of a plot showing the decision boundary of a neural network classifier.
+%
+This representation is likely far more interpretable to the human observer than a graph representation showing the network structure, as it synthesise the global behaviour of the network concisely and intuitively.
+%
+Similarly, saliency maps are an interpretable way to \emph{locally} represent the behaviour of a network w.r.t. some particular input image.
+%
+So, a way for easing interpretation for a given model behaviour w.r.t.\ a particular sort of inputs is about looking for the right representation in the eyes of the observer.
+
+%---
+\paragraph{Local explanations.}    
+%---
+
+Conversely, when an observer $A$ is \emph{explaining} a model $M$ w.r.t.\ some input data $Z \subseteq X$, it is actually trying to produce a model $M' = E(M, Z)$ through some function $E: \mathcal{M} \times 2^\mathcal{X} \rightarrow \mathcal{M}$.
+%
+In this case, we say $M'$ is a \emph{local explanation} for $M$ w.r.t.\ to $Z$.
+%
+We also say that $M'$ is produced through the explanation strategy $E$.
+
+Furthermore, we define an explanation $M'$ as \emph{admissible} if it has a valid fidelity w.r.t.\ the original model $M$ and the data in $Z$---where $Z$ is the same subset of the input data used by the explanation strategy.
+%
+More precisely, we say $M'$ is $\delta$-admissible in $Z$ w.r.t.\ $M$ if $\Delta f(M(Z), M'(Z)) < \delta$.
+
+Finally, we define an explanation $M'$ as \emph{clear} for $A$, in $Z$, and w.r.t.\ the original model $M$, if there exists some representation $R' = r(M', Z)$ which is more interpretable than the original model representation $R$.
+%
+More precisely, we say $M'$ is $\varepsilon$-clear for $A$, in $Z$, and w.r.t $M$ if $I_A(R') - I_A(R) > \varepsilon$ for some arbitrarily big threshold $\varepsilon > 0$.
+
+Several \emph{explanations} may actually be produced for the same model $M$.
+%
+For each explanation, there may be again more or less interpretable \emph{representations}.
+%
+Of course, explanations are useful if they ease the seek for more interpretable representations.
+%
+Thus, providing an explanation for a given model behaviour w.r.t.\ a particular class of inputs is about creating \emph{ad-hoc} metaphors aimed at easing the observer's understanding.
+
+%%%%
+\begin{figure}
+    \centering
+    \includegraphics[width=.5\linewidth]{figures/global.pdf}
+    \caption{Global explanation and interpretation of model}
+    \label{fig:global}
+\end{figure}
+%%%%
+
+%---
+\paragraph{Global / local explanations.}
+%---
+
+The theoretical framework described so far -- which is graphically synthesised in \cref{fig:local} -- is aimed at modelling \emph{local} interpretations and explanations, that are, the two means an explanator agent may exploit in order to make AI tasks' \emph{outcomes} more understandable in the eyes of some explanee. 
+
+Conversely, when the goal is not to understand some model outcome, but the model itself, from a \emph{global} perspective -- or, equivalently, when the goal is to understand the model outcome w.r.t the whole set of input data $X$ --, the theoretical framework described so far is simplified as shown in \cref{fig:global}, where the dependency on the input data is omitted from functions $E$, $\Delta f$, and $r$.
+%
+This is possible because we consider the global case as a particular case of the local one, where $Z \equiv X$.
+
+Finally, we remark that the case where a model $M$ is to be understood on a single input-output pair, say $x$ and $y = M(x)$, is simply captured by the aforementioned local model, through the constraint $Z = \{ x \}$ and $M(Z) = \{ y \}$.
+
+%-------------------------------------------------------------------------------
+\subsection{Discussion}
+%-------------------------------------------------------------------------------
+
+Our framework is deliberately abstract in order to capture a number of features we believe to be essential in XAI.
+%
+First of all, our framework acknowledges -- and properly captures -- the orthogonality of interpretability w.r.t.\ explainability. 
+%
+This is quite new, indeed, considering that most authors tend to use the two concepts as if they were equivalent or interchangeable.
+
+Furthermore, our framework explicitly recognises the \emph{subjective} nature of interpretation, as well as the subtly \emph{objective} nature of explanation.
+%
+Indeed, interpretation is a subjective activity directly related to agents' perception and SoM, whereas explanation is an epistemic, computational action which aims at producing a high-fidelity model.
+%
+The last step is objective in the sense that it does not depend on the agent's perceptions and SoM, thus being reproducible in principle.
+%
+Of course, the \emph{effectivess} of an explanation is again a subjective aspect.
+%
+Indeed, a clear explanation (for some agent) is a more interpretable variant of some given model--- thus, the subjective activity of interpretation is again implicitly involved.
+
+The proposed framework also captures the importance of representations.
+%
+This is yet another degree of freedom that agents may exploit in their seek for a wider understandability of a given model.
+%
+While other frameworks consider interpretability as an intrinsic property of AI models, we stress the fact that a given model may be represented in several ways, and each representation may be interpreted differently by different agents.
+%
+As further discussed in the remainder of this paper, this is far from being an issue.
+%
+This subjectivity is deliberate, and it is the starting point of some interesting discussions.
+
+Finally, our framework acknowledges the global/local duality of both explanation and interpretation, thus enabling AI models to be understood either general or with respect to a particular input/output pair.
+
+%-------------------------------------------------------------------------------
+\subsection{Practical remarks}
+%-------------------------------------------------------------------------------
+
+The ultimate goal of our framework is to provide a general, flexible, yet minimal framework describing the many aspects concerning AI understandability in the eyes of a \emph{single} agent.
+%
+We here illustrate several practical issues affecting our framework in practice, and further constraining it.
+
+According to our conceptual framework, a \emph{rational} agent seeking to understand some model $M$ (or make it understandable) may either choose to elaborate on the \emph{interpretation axis} -- thus looking for a (better) representation $R$ of $M$ -- or it can elaborate on the \emph{explainability axis}---thus producing a novel, high fidelity model $M'$, coming with a representation $R'$ which is more interpretable than the original one (i.e., $R$).
+
+Notice that, in practice, the nature of the model constrains the set of admissible representations.
+%
+This means that a rational agent is likely to exploit both the explanation and interpretation axes in the general case---because novel representations may become available through an explanation.
+%
+we argue and assume that each family of AI models comes with just a few \emph{natural} representations.
+%
+Because of this practical remark, we expect that, in real-world scenarios, an agent seeking for understandability is likely to ``work'' on both the interpretation and the explanation axes.
+
+For instance, consider decision trees, which come with a natural representation as a tree of subsequent choices leading to a decision.
+%
+Conversely, neural networks can either be represented as graphs or as algebraic combinations of tensors.
+%
+In any case, neural network models are commonly considered less interpretable than other models.
+%
+In such situation, a rational agent willing to make a neural network more understandable may choose to combine decision trees extraction (explanation) -- possibly focusing on methods from the literature \cite{AndrewsDT95,xailp-woa2019} -- to produce a decision tree whose tree-like structure (representation) could be presented to the human observer to ease his/her interpretation.
+%
+The decision-tree like representation is not ordinarily available for neural networks, but it may become available provided that an explanation step is performed.
+
+Another interesting trait of our framework concerns the semantics of clear explanations.
+%
+The current definition requires explanation strategies to consume a model $M$ with a given representation $R$ and to produce a high-fidelity model $M'$ for which a representation $R'$ exists, which is more interpretable than $R$.
+%
+Several semantics may fit this definition.
+%
+This is deliberate, since different semantics may come with different computational requirements, properties, and guarantees.
+%
+For instance, one agent may be interested in finding the \emph{best} explanation---that is, the one for which \emph{each} representation is more interpretable than the most interpretable representation of the original model.
+%
+Similarly, in some cases, it may be sufficient -- other than more feasible -- to find an \emph{admissible} explanation---that is, a high-fidelity model for which \emph{some} representation exists that is more interpretable than \emph{some} representation of the original model. 
+%
+However, the inspection of the possible semantics and their properties falls outside the scope of this paper and is going to be considered as a future research direction.
+
+\subsection{Assessment of the Framework}\label{sec:validation}
+
+The abstraction level of the presented framework has also been conceived in order to capture most of the current state of the art.
+%
+Along this line, this section aims at validating the fitting of the existing contributions w.r.t.\ the framework presented in section \cref{ssec:framework}: if our framework is expressive enough, it should allow most (if not all) existing approaches to be uniformly framed, to be easily understood and compared.
+%
+To this end, we leverage on the work by Guidotti et al.\ \cite{GuidottiMRTGP19}, where the authors perform a detailed and extensive survey on the state-of-the-art methods for XAI, by categorising the surveyed methods according to an elegant taxonomy.
+%
+Thus, hereafter, we adopt their taxonomy as a reference for assessing our framework.
+
+The taxonomy proposed by Guidotti et al.\ essentially discriminates among two main categories of XAI methods.
+%
+These are the ``transparent box design'' and the ``black-box explanation'' categories. 
+%
+While the former category is not further decomposed, the latter comes with three more sub-categories, such as ``model explanation'', the ``outcome explanation'', and the ``model inspection''.
+%
+Notice that, despite the authors' definition of ``explanation'' does not precisely match the one proposed in this paper, we maintained the original categorisation.
+
+The remainder of this section navigates such a taxonomy accordingly, by describing how each (sub-)category -- along with the methods therein located -- fits our abstract framework.
+
+%-------------------------------------------------------------------------------
+\subsubsection{Model explanation}
+%-------------------------------------------------------------------------------
+
+The mapping of the methods classified as part of the ``model explanation'' sub-category into our framework is seamless.
+%
+Hence, it can be defined as follows:
+%
+\begin{itemize}
+    \item[] Let $M$ be a sub-symbolic classifier whose internal functioning representation $R$ is poorly interpretable in the eyes of some explanee $A$, and let $E(\cdot)$ be some \emph{global} explanation strategy.
+    %
+    Then, the model explanation problem consists of computing some \emph{global} explanation $M' = E(M)$ which is $\delta$-admissible and $\varepsilon$-clear w.r.t.\ to $A$, for some $\delta, \varepsilon > 0$. 
+\end{itemize}
+%
+For instance, according to Guidotti et al., possible sub-symbolic classifiers are neural (possibly deep) networks, support vector machines, and random forests.
+%
+Conversely, explanation strategies may consist of algorithms aimed at 
+%
+\begin{enumerate*}[label=\emph{(\roman{*})}]
+    \item extracting decision trees/rules out of sub-symbolic predictors and the data they have been trained upon, 
+    \item compute feature importance vectors,
+    \item detecting saliency masks,
+    \item detecting partial dependency plots, etc. 
+\end{enumerate*}
+
+In our framework, all the algorithms mentioned above can be described as \emph{explanation strategies}. 
+%
+Such mapping is plausible given their ability to compute an admissible, and possibly more explicit models out of black boxes and the data they have been trained upon.
+%
+However, it is worth to highlight that the clarity gain produced by such explanation strategies mostly relies on the implicit assumption that their output models come with a natural representation which is intuitively interpretable to the human mind.
+
+%-------------------------------------------------------------------------------
+\subsubsection{Outcome explanation}
+%-------------------------------------------------------------------------------
+
+Methods classified as part of the ``outcome explanation'' sub-category can be very naturally described in our framework as well.
+%
+In fact, it can be defined as follows:
+%
+\begin{itemize}
+    \item[] Let $M$ be some sub-symbolic classifier whose internal functioning representation $R = r(M, Z)$ in some subset $Z \subset \mathcal{X}$ of the input domain is poorly interpretable to some explanee $A$, and let $E(\cdot, \cdot)$ be some \emph{local} explanation strategy.
+    %
+    Then, the outcome explanation problem consists of computing some \emph{local} explanation $M' = E(M, Z)$ which is $\delta$-admissible and $\varepsilon$-clear w.r.t.\ to $A$, for some $\delta, \varepsilon > 0$
+\end{itemize}
+%
+Summarising, while input black boxes may still be classifiers of any sort, explanation, and explanation strategies differ from the ``model explanation'' case.
+%
+In particular, explanation strategies in this sub-category may rely on techniques leveraging on attention models, decision trees/rules extraction, or well-established algorithms such as LIME \cite{RibeiroSG16}, and its extensions---which are essentially aimed at estimating the contribution of every input feature of the input domain to the particular outcome of the black box to be explained.
+
+Notice that the explanation strategies in this category are only required to be admissible and clear in the portion of the input space surrounding the input data under study.
+%
+Such a portion is implicitly assumed to be relatively small in most cases.
+%
+Furthermore, the explanation strategy is less constrained than in the global case, as it is not required to produce explanations elsewhere.
+
+%-------------------------------------------------------------------------------
+\subsubsection{Model inspection}
+%-------------------------------------------------------------------------------
+
+Methods classified as part of the ``model inspection'' sub-category can be naturally defined as follows:
+%
+\begin{itemize}
+    \item[] Let $M$ be a sub-symbolic classifier whose available \emph{global} representation $R = r(M)$ is poorly interpretable to some explanee $A$, and let $r(\cdot), r'(\cdot)$ be two different representation means.
+    %
+    Then, the model inspection problem consists of computing some representation $R' = r'(M)$ such that $I_A(R') > I_A(R)$
+\end{itemize}
+%
+Of course, solutions to the model inspection problem vary a lot depending on which specific representation means $r(\cdot)$ is exploited by the explanator, other than the nature of the data the black box is trained upon.
+%
+Guidotti et al.\ also provide a nice overview of the several sorts of representations means which may be useful to tackle the model inspection problem, like, for instance, sensitivity analysis, partial dependency plots, activation maximization images, tree visualisation, etc.
+
+It is worth pointing out the capability of our framework to reveal the actual nature of the inspection problem.
+%
+Indeed, it clearly shows how this is the first problem among the ones presented so far, which only relies on the interpretation axis alone to provide understandability.
+
+%-------------------------------------------------------------------------------
+\subsubsection{Transparent box design}
+%-------------------------------------------------------------------------------
+
+Finally, methods classified as part of the ``transparent box design'' sub-category can be naturally defined as follows:
+%
+\begin{itemize}
+    \item[] Let $X \subseteq \mathcal{X}$ be a dataset from some input domain $\mathcal{X}$, let $r(\cdot)$ be a representation means, and let $A$ be the explanee agent.
+    %
+    Then the transparent box design problem consists of computing a classifier $M$ for which a global representation $R = r(M, X)$ exists such that $I_A(R) > 1 - \delta$, for some $\delta > 0$
+\end{itemize}
+%
+Although very simple, the transparent-box design is of paramount importance in XAI systems as it is the basic brick of most general explanation strategies.
+%
+Indeed, it may be implicit in the functioning of some explanation strategy $E$ to be adopted in some other model or outcome explanation problem.
+
+For instance, consider the case of a local explanation strategy $E(M, X) \mapsto M'$.
+%
+In the general case, to compute $M'$, it relies on some input data $X$ and the internal of the to-be-explained model $M$.
+%
+However, there may be cases where the actual internal of $M$ are not considered by the particular logic adopted by $E$.
+%
+Instead, in such cases, $E$ may only rely on $X$ and the outcomes of $M$, which are $Y = M(X)$.
+%
+In this case, the explanation strategy $E$ is said \emph{pedagogical}---whereas in the general case it is said \emph{decompositional} (cf.\ \cite{AndrewsDT95}).
+
+In other words, as made evident by our framework, the pedagogical methods exploited to deal with the model or outcome explanation problems must internally solve the transparent box design problem, as they must build an interpretable model out of some sampled data-set and nothing more.
 
 \section{Symbolic Knowledge Extraction}
 
