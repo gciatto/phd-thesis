@@ -265,21 +265,35 @@ As a side effect, poor care is dedicated in studying how AI could be used to \em
 
 \subsubsection{Symbolic vs.\ Sub-symbolic AI}
 
-In the recent years, also because of the rise of XAI, the religious war among the two souls of AI, has hopefully come to an end.
+In the recent years, the historical dichotomy between the ``two souls'' of AI has been reconciled, in favour of a comprehensive vision where symbolic and sub-symbolic approaches are seen as \emph{complementary} -- rather than in a competition -- so that they mutually soften their corners \cite{Hoehndorf2017, xailp-woa2019, lpaas-bdcc2}.
 %
-More and more authors nowadays are progressively realising and accepting that symbolic and sub-symbolic approaches are \emph{complementary} -- rather than in a competition --, as their combination is now being considered a fruitful way to mutually soften their corners \cite{Hoehndorf2017, xailp-woa2019, lpaas-bdcc2}.
-%
-In fact, while symbolic approaches are well suited for relatively small-sized problems where complex and exact tasks has to be performed, possibly relying on structured data -- like for instance planning a sequence of actions, finding a path in a graph taking several constrains into an account, deducing information from a prior knowledge base, or learning mathematical relations from vary small data sets --, sub-symbolic approaches are best suited for those use cases where big (up to huge) amounts of possibly unstructured data  must be processed, where errors or lack of precision is tolerated to some extent, if unavoidable---like for instance classifying images or texts, profiling customers by looking at their shopping history, forecasting the weather for a particular area, etc.
-
-As widely recognised by the XAI community, a key weakness of sub-symbolic AI is that it often produces or relies on black-box models which are often hard to (fully) understand for humans \cite{GuidottiMRTGP19}.
-%
-Such hardness is likely due to the fact that most models and algorithms employed in ML and Data Mining, do not rely on (nor produce) symbolic representations for the knowledge they extract from data, but they rather scatter such knowledge among several elementary units -- like, for instance, neurons in NN, or support vectors in SVM -- which carry very few information if considered one by one, and require a strong cognitive effort for being understood as a whole.
+While symbolic approaches are well suited for relatively small-sized problems where complex and exact tasks has to be performed, possibly relying on structured data -- like for instance planning a sequence of actions, finding a path in a graph taking several constrains into an account, deducing information from a prior knowledge base, or learning mathematical relations from vary small data sets --, sub-symbolic approaches are best suited for those use cases where big (up to huge) amounts of possibly unstructured data  must be processed, where errors or lack of precision is tolerated to some extent, if unavoidable---like for instance classifying images or texts, profiling customers by looking at their shopping history, forecasting the weather for a particular area, etc.
 %
 Such issues, are not affecting symbolic techniques---especially when symbols are wisely chosen in order to steer humans' intuition.
 %
 This is because symbols are far closer to what our conscious, rational mind used to handle.
 %
 For all such reasons, many researchers in the story of AI have argued that a comprehensive approach unifying the two worlds would bring great advantage.
+%
+More precisely, complementarity between symbolic and sub-symbolic AI naturally emerges when comparing the two approaches under the following perspectives:
+%
+\begin{itemize}
+    \item sub-symbolic AI is \emph{opaque}, meaning that human beings struggle in understanding the functioning and behaviour of sub-symbolically intelligent systems; instead, symbolic AI is more \emph{transparent}, as it is both human- and machine-interpretable at the same time
+    %
+    \item sub-symbolic AI can improve itself \emph{automatically} by consuming data, but it is difficult to extend and re-use outside the contexts it was designed for; 
+    %
+    conversely, symbolic AI is flexible and extensible, but requires humans to \emph{manually} provide symbolic knowledge
+    %
+    \item sub-symbolic AI is adequate for \emph{fuzzy} problems where some (minimal) degree of error or uncertainty can be tolerated;
+    %
+    whereas symbolic AI calls for precise data and queries provided by human beings, yet provides exact, \emph{crisp} results as its outcome.
+\end{itemize}
+%
+The two most active research lines that currently focus on unifying symbolic and sub-symbolic AI are \emph{neural-symbolic computing} (NSC) \cite{BesoldU2018} and \emph{explainable artificial intelligence} (XAI) \cite{darpa2016-xai}. 
+%
+The former focuses on merging neural networks with logic-based technologies at a fundamental level, while the latter encompasses diverse studies aimed at exploiting symbolic AI to \emph{explain} the internal functioning of sub-symbolic AI, thus making it more interpretable in the eyes of human beings.
+%
+In the reminder of this section we explore both NSC and XAI.
 
 \section{Computational Logic}
 \mypapers[section]{cco-softwarex-2021-2pkt,Korner2020HistoryFuturePrologTPLP,logictech-information11}
