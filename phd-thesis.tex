@@ -17,7 +17,7 @@
 \cycle{XXXIII}
 \examyear{2022}
 
-\mainlinespacing{1.5} % line spacing in mainmatter, comment to default (1)
+\mainlinespacing{1.241} % line spacing in mainmatter, comment to default (1)
 
 \begin{document}
 	
@@ -201,7 +201,7 @@ In the second half the $20^{th}$ century -- when AI was firstly recognised as di
 
 Notably, two main families of approaches has initially emerged in AI, namely, the \emph{symbolic} and \emph{connectionist} ones \cite{Smolensky1987, SUN2001783}.
 %
-While the former focuses on represententing the world through symbols -- in turn representing concepts --, thus emulating how the human \emph{mind} reasons and infers, the latter aims at mimicking human intuition by emulating how the human \emph{brain} works at a very low level.
+While the former focuses on representing the world through symbols -- in turn representing concepts --, thus emulating how the human \emph{mind} reasons and infers, the latter aims at mimicking human intuition by emulating how the human \emph{brain} works at a very low level.
 %
 Despite both families have both pros and cons, they have stepped through both glory and misery---in terms of expectations, funding, research interest, and industry adoption \cite{Hendler2008, russell2016artificial}.
 
@@ -219,15 +219,15 @@ A few decades later, many things has changed.
 %
 ML, DL, Data Mining \cite{hand2006data}, and Bayesian Inference have enormously widened the spectrum of tasks AI can handle, other than the amount of use cases where AI can be applied.
 %
-Nevertheless, a dualism is still there, alive and healthy, dividing symbolic approaches from what are now called \emph{numeric} (or \emph{non-}symbolic) ones.
+Nevertheless, a dualism is still there, alive and healthy, dividing symbolic approaches from what are now called \emph{sub-symbolic}  ones.
 
-Nowadays, numeric techniques include NN, but they are not limited to the connectionist techniques.
+Nowadays, sub-symbolic techniques include NN, but they are not limited to the connectionist techniques.
 %
-The panorama of numeric techniques has been widened by the development of several algorithms -- along with their efficient implementations --, such as SVM \cite{Smola2004}, K-Means, Expectation Maximisation \cite{Dempster77maximumlikelihood}, Viterbi \cite{Viterbi06}, etc, which mostly leverage on \emph{numerical} computations while not being backed by a biological metaphor.
+The panorama of sub-symbolic techniques has been widened by the development of several data-mining algorithms -- along with their efficient implementations --, such as SVM \cite{Smola2004}, K-Means, Expectation Maximisation \cite{Dempster77maximumlikelihood}, Viterbi \cite{Viterbi06}, etc, which mostly leverage on \emph{numerical} computations while not being backed by a biological metaphor.
 
 Summarising, at the gates of 2020s, AI consists of a number of powerful techniques -- often backed by sound theoretical or empirical backgrounds --, which are widely employed to automate disparate tasks, both in the industry and in the research.
 %
-Such tasks, and, in particular, the techniques supporting them, can be categorised within two mostly disjoint families---namely the symbolic and numeric ones.
+Such tasks, and, in particular, the techniques supporting them, can be categorised within two mostly disjoint families---namely the symbolic and sub-symbolic ones.
 
 \subsubsection{Weak vs.\ Strong AI}
 
@@ -265,13 +265,13 @@ As a side effect, poor care is dedicated in studying how AI could be used to \em
 
 \subsubsection{Symbolic vs.\ Sub-symbolic AI}
 
-In the recent years, also because of the rise of XAI, the religious war among the two souls of AI, has hopefully came to an end.
+In the recent years, also because of the rise of XAI, the religious war among the two souls of AI, has hopefully come to an end.
 %
 More and more authors nowadays are progressively realising and accepting that symbolic and sub-symbolic approaches are \emph{complementary} -- rather than in a competition --, as their combination is now being considered a fruitful way to mutually soften their corners \cite{Hoehndorf2017, xailp-woa2019, lpaas-bdcc2}.
 %
-In fact, while symbolic approaches are well suited for relatively small-sized problems where complex and exact tasks has to be performed, possibly relying on structured data -- like for instance planning a sequence of actions, finding a path in a graph taking several constrains into an account, deducing information from a prior knowledge base, or learning mathematical relations from vary small data sets --, sub-symbolic (also called \emph{numerical}) approaches are best suited for those use cases where big (up to huge) amounts of possibly unstructured data  must be processed, where errors or lack of precision is tolerated to some extent, if unavoidable---like for instance classifying images or texts, profiling customers by looking at their shopping history, forecasting the weather for a particular area, etc.
+In fact, while symbolic approaches are well suited for relatively small-sized problems where complex and exact tasks has to be performed, possibly relying on structured data -- like for instance planning a sequence of actions, finding a path in a graph taking several constrains into an account, deducing information from a prior knowledge base, or learning mathematical relations from vary small data sets --, sub-symbolic approaches are best suited for those use cases where big (up to huge) amounts of possibly unstructured data  must be processed, where errors or lack of precision is tolerated to some extent, if unavoidable---like for instance classifying images or texts, profiling customers by looking at their shopping history, forecasting the weather for a particular area, etc.
 
-As widely recognised by the XAI community, a key weakness of numeric AI is that it often produces or relies on black-box models which are often hard to (fully) understand for humans \cite{GuidottiMRTGP19}.
+As widely recognised by the XAI community, a key weakness of sub-symbolic AI is that it often produces or relies on black-box models which are often hard to (fully) understand for humans \cite{GuidottiMRTGP19}.
 %
 Such hardness is likely due to the fact that most models and algorithms employed in ML and Data Mining, do not rely on (nor produce) symbolic representations for the knowledge they extract from data, but they rather scatter such knowledge among several elementary units -- like, for instance, neurons in NN, or support vectors in SVM -- which carry very few information if considered one by one, and require a strong cognitive effort for being understood as a whole.
 %
@@ -281,22 +281,97 @@ This is because symbols are far closer to what our conscious, rational mind used
 %
 For all such reasons, many researchers in the story of AI have argued that a comprehensive approach unifying the two worlds would bring great advantage.
 
-\sidenote{Spostare il capoverso sotto in un posto più opportuno}
-Several works, among the various springs of AI, proposed to extract symbolic knowledge from numeric models.
-%
-As witnessed by a number of surveys \cite{GuidottiMRTGP19, GarcezBRFHIKLMS15, AndrewsDT95, GarcezBG01} and works on the topic \cite{BolognaH18, BolognaH16, FrosstH17, JohanssonN09, KrishnanSB1999, HruschkaE2006, ZhouZYS1983, CravenS95, AugastaK12, SatoT2002, KahramanliA09a} -- some of which are from the 80s or the 90s -- the potential of symbolic knowledge \emph{extraction} is well understood, despite not being subject to hype.
-%
-Unfortunately, a comprehensive and general framework tackling such problem in a general way is still missing.
-
 \section{Computational Logic}
+\mypapers[section]{cco-softwarex-2021-2pkt,Korner2020HistoryFuturePrologTPLP}
 
-\cite{cco-softwarex-2021-2pkt}
-\cite{Korner2020HistoryFuturePrologTPLP}
+\emph{Computational logic} (CL) \cite{lloyd1990computational} is a fundamental research area for \emph{artificial intelligence} (AI), dealing with formal logic as a means for computing \cite{Paulson2018}.
+%
+Its penetration into \emph{symbolic AI} is nearly pervasive nowadays, and increasingly going deeper within \emph{sub-symbolic AI} \cite{xaisurvey-ia14,lptech4mas-jaamas35}: CL has enabled the development of the former in the past, and it is now pushing the latter towards interpretability and explainability.
+%
+Be it exploited to manipulate symbols, or to make sub-symbolic solutions human-intelligible, the common expectation behind CL is to endow software systems with \emph{automated} reasoning.
+
+Generally speaking, automated reasoning involves three major aspects:
+%
+\begin{inlinelist}
+    \item logic,
+    \item inference rule, and
+    \item resolution strategy.
+\end{inlinelist}
+%
+\emph{Logics} formally define how knowledge is represented and how novel knowledge can be derived from prior one.
+%
+Each logic comes with several \emph{inference rules}, dictating how to produce new knowledge under particular circumstances.
+%
+When coupled with some \emph{resolution strategy}, inference rules become deterministic algorithms that computers can execute.
+
+Many logics exist in CL -- e.g. propositional, first-order (FOL), temporal, deontic, etc. --, each one targeting a specific domain.
+%
+For instance, temporal logic enables reasoning about the chronological ordering of events, deontic logic supports reasoning about permissions/prohibitions and their circumstances, while FOL is general-purpose.
+%
+Furthermore, different inference rules exist for different logics.
+%
+Some are \emph{deductive} -- drawing conclusions out of premises --, some are \emph{inductive} -- looking for general rules out of several premises-conclusion examples --, while other are \emph{abductive}---speculating on which premises caused some conclusions.
+%
+Finally, when a resolution strategy exists for some rule and logic, %-- possibly leveraging some symbolic or sub-symbolic AI technique -- 
+it can be reified in software, and used to build intelligent systems capable of automated reasoning.
+%
+Software of that sort are commonly referred to as a part of the \emph{logic programming} (LP) paradigm~\cite{Nerode1996}.
+
+In LP, programs are typically \emph{theories} (a.k.a.\ \emph{knowledge bases}, KB), i.e.\ collections of sentences in logical form, expressing \emph{facts} and \emph{rules} about some domain, typically in the form of \emph{clauses}, i.e.:
+\[ \mathit{Head} \impliedBy \mathit{Body_1},\ ...,\ \mathit{Body_n} \]%,
+where both $\mathit{Head}$ and $\mathit{Body_i}$ are \emph{atomic} formul\ae{}, and the whole sentence is read declaratively as logical implication (right-to-left).
+%
+If $n = 0$, the clause is called \emph{fact}, \emph{rule} otherwiese.
+%
+An atomic formula is an expression in the form $P(t_1,...,t_m)$ where $P$ is a $m$-ary predicate ($m \geq 0$), and $t_j$ are \emph{terms}.
+%
+Terms are the most general sort of data structure in LP languages.
+%
+They can be \emph{constant} (either \emph{numbers} or \emph{atoms}/strings), \emph{variables}, or recursive elements named \emph{structures}.
+%
+Structures are used to represent clauses, lists, sets, or other sorts of expressions.
+
+Logic \emph{solvers} exploit KB to answer users' \emph{queries} via some inference procedure and resolution strategy.
+%
+For instance, Prolog interpreters exploit a \emph{deductive} procedure rooted into the SLDNF resolution principle \cite{Kowalski1974, Clark77}, and a depth-first strategy.
+%
+Yet, other options exist like, e.g., abductive \cite{FungIff97}, inductive \cite{Muggleton94}, probabilistic \cite{RaedtK15} inference.
+%
+Each of them represents a particular reification of a logic solver.
+
+A common mechanisms in LP is the \emph{unification} algorithm \cite{MartelliMontanari1982} for constructing a \emph{most general unifier} (MGU) for any two suitable terms.
+%
+Provided that an MGU exists, its subsequent \emph{application} to the terms, makes them syntactically equal.
+%
+This is a basic brick in virtually all LP algorithms, regardless of the particular inference rule.
+
+Summarising, LP leverages several mechanisms -- terms and clauses representation, knowledge base storage, unification, resolution, etc. --, which constitute the basis of any logic solver.
+%
+Subsets of these mechanisms may be useful \textit{per se}.
 
 \section{Data Science and Machine Learning}
+%
+\mypapers[section]{xailp-woa2019,xaisurvey-ia14,agentbasedxai-extraamas2020}
 
-\cite{xailp-woa2019}
-\cite{xaisurvey-ia14}
+Since several practical AI problems -- such as image recognition, financial and medical decision support systems -- can be reduced to \emph{supervised} ML -- which can be further grouped in terms of either  \emph{classification} or \emph{regression} problems \cite{twala2010,smlreview-faia160} --, in the reminder of this paper we focus on this set of ML problems. 
+
+In those cases, a \emph{learning algorithm} is commonly exploited to estimate the specific nature and shape of an unknown \emph{prediction} function (or \emph{predictor}) $p^*: \mathcal{X} \rightarrow \mathcal{Y}$, mapping each input vector $\mathbf{x}$ from a given input space $\mathcal{X}$ into a prediction from a given output space $\mathcal{Y}$.
+%
+To do so, the learning algorithm takes into account a number $N$ of examples in the form $(\mathbf{x}_i,\mathbf{y}_i)$ such that $\mathbf{x}_i \in X \subset \mathcal{X}$, $\mathbf{y}_i \in Y \subset \mathcal{Y}$, and $|X| \equiv |Y| \equiv N$.
+%
+There, each $\mathbf{x}_i$ represents an instance of the input data for which the expected output value $\mathbf{y}_i$ is known or has already been estimated.
+%
+Such sorts of ML problems are said to be ``supervised'' because the expected targets $Y$ are available, whereas they are said to be ``regression'' problems if $Y$ consists of continuous or numerable values, or ``classification'' problems if $Y$ consists of categorical values. 
+
+The learning algorithm usually assumes $p^* \in \mathcal{P}$, for a given \emph{family} $\mathcal{P}$ of predictors---meaning that the unknown prediction function exists, and it is from $\mathcal{P}$.
+%
+The algorithm then \emph{trains} a predictor $\hat{p} \in \mathcal{P}$ such that the value of a given loss function $\lambda : \mathcal{Y} \times \mathcal{Y} \rightarrow \mathbb{R}$ -- computing the discrepancy among predicted and expected outputs -- is minimal or reasonably low---i.e.: $\hat{p} = \underset{p \in \mathcal{P}}{\text{argmin}} \left\{ \sum_{i=1}^{N} \lambda(\mathbf{y}_i,\ p(\mathbf{x}_i)) \right\}$.
+
+Depending on the predictor family $\mathcal{P}$ of choice, the nature of the learning algorithm and the admissible shapes of $\hat{p}$ may vary dramatically, as well as the their \emph{interpretability}.
+%
+Even if the interpretability of predictor families is not a well-defined feature, most authors agree on the fact that some predictor families are \emph{more interpretable than others} \cite{Lipton18}---in the sense that it is easier for humans to understand the functioning and the predictions of the former ones.
+%
+For instance, it is widely acknowledged that \emph{generalized linear models} (GLM) are more interpretable than neural networks (NN), whereas \emph{decision trees} (DT) \cite{breiman1984classification} are among the most interpretable families \cite{GuidottiMRTGP19}.
 
 \chapter{Representing Data and Knowledge}
 
@@ -372,16 +447,72 @@ Some authors \cite{Rudin2019} propose to strengthen the adoption of most \emph{i
 %
 However, as demonstrated by the comprehensive survey produced by Guidotti et al. \cite{GuidottiMRTGP19}, most works only target classification problems, and they rarely take wider properties -- such as accountability and trustworthiness -- into account.
 
-\cite{expectation-extraamas2021}
+\sidenote{Spostare il capoverso sotto in un posto più opportuno}
+Several works, among the various springs of AI, proposed to extract symbolic knowledge from sub-symbolic models.
+%
+As witnessed by a number of surveys \cite{GuidottiMRTGP19, GarcezBRFHIKLMS15, AndrewsDT95, GarcezBG01} and works on the topic \cite{BolognaH18, BolognaH16, FrosstH17, JohanssonN09, KrishnanSB1999, HruschkaE2006, ZhouZYS1983, CravenS95, AugastaK12, SatoT2002, KahramanliA09a} -- some of which are from the 80s or the 90s -- the potential of symbolic knowledge \emph{extraction} is well understood, despite not being subject to hype.
+%
+Unfortunately, a comprehensive and general framework tackling such problem in a general way is still missing.
+
+\note{Armonizzare quanto segue con ciò che precede}
+
+Since the adoption of interpretable predictors usually comes at cost of a lower potential in terms of predictive performance, \emph{explanations} are the newly preferred way for providing understandable predictions without necessarily sacrificing accuracy.
+%
+The idea, and the main goal of XAI is to create intelligible and understandable explanations for uninterpretable predictors \emph{without} replacing or modifying them.
+%
+Thus explanations are built through a number of heterogeneous techniques, broadly referred to as \emph{explanators} \cite{GuidottiMRTGP19}---just to cite some, \emph{decision rules} \cite{Augasta2012}, \emph{feature importance} \cite{tolomei2017interpretable}, saliency masks \cite{FongV17}, sensitivity analysis \cite{SundararajanTY17}, etc.
+
+The state of the art for explainability currently recognises two main sorts of explanators, namely, either local or global. 
+%
+While \emph{local} explanators attempt to provide an explanation for each particular prediction of a given predictor $p$, the \emph{global} ones attempt to provide an explanation for the predictor $p$ as a whole.
+%
+In other words, local explanators provide an answer to the question ``why does $p$ predict $\mathbf{y}$ for the input $\mathbf{x}$?'' -- such as the LIME technique presented in \cite{RibeiroSG16} --, whereas global explanators provide an answer to the question ``how does $p$ build its predictions?''---such as decision rules.
+
+In spite of the many approaches proposed to explain black boxes, some important scientific questions still remain unanswered. 
+%
+One of the most important open problems is that, until now, there is no agreement on what an explanation is. 
+%
+Indeed, some approaches adopt as explanation a set of rules, others a decision tree, others rely on visualisation techniques \cite{GuidottiMRTGP19}. 
+%
+Moreover, recent works highlight the importance for an explanation to guarantee some properties, e.g., soundness, completeness, and compactness \cite{GuidottiMRTGP19}. 
+
+\note{Probabilmente si può tagliare da qui in poi}
+
+This is why our proposal aims at integrating sub-symbolic approaches with symbolic ones.
+%
+To this end, DT can be exploited as an effective bridge between the symbolic and sub-symbolic realms.
+%
+In fact, DT can be easily \emph{(i)} built from an existing sub-symbolic predictor, and \emph{(ii)} translated into symbolic knowledge -- as it is shown in the reminder of this paper -- thanks to their rule-based nature.
+
+Decision trees are an interpretable family of predictors that have been proposed as a \emph{global} means for explaining other, less interpretable, sorts of black-box predictors \cite{TrattnerPR2019,BastaniKB17}---such as neural networks \cite{CravenS95}.
+%
+The main idea behind such an approach is to build a DT approximating the behaviour of a given predictor, possibly, by only considering its inputs and its outputs.
+%
+Such approximation essentially trades off predictive performance with interpretability.
+%
+In fact, the structure of such a DT would then be used to provide useful insights concerning the original predictor inner functioning. 
+
+Describing the particular means for extracting DT from black-boxes is outside the scope of this paper.
+%
+Given the vast literature on the topic -- e.g., consider reading \cite{GuidottiMRTGP19,AndrewsDT95} for an overview or \cite{CravenS95,JohanssonN09,FrosstH17} for a practical examples -- we simply assume an extracted DT is available and it has an high \emph{fidelity}---meaning that the loss in terms of predictive performance is low, w.r.t. the original black-box.
+%
+In fact, whereas there exist several works focussing on how to synthesise DT out of black-box predictors, no attention is paid to merging them with symbolic approaches, which can play a key role in enhancing the interpretability and explainability of the system.
+%
+In this paper we focus on such a matter.
+
+We believe that a logical representation of DT may be interesting and enabling for further research directions.
+%
+For instance, as far as explainability is concerned, we show how logic-translated DT can be used to both navigate the knowledge stored within the corresponding predictors -- thus acting as \emph{global} explanators --, and produce \emph{narrative} explanations for their predictions---thus acting as \emph{local} explanators. 
+%
+Note that the restriction on the DT representation makes it easy to map DT onto logical clauses, since DT are finite and with a limited expressivity (if / else conditions).
 
 \section{Explanation vs. Interpretation: Overview}
 
-\cite{agentbasedxai-aamas2020}
-\cite{agentbasedxai-extraamas2020}
+\note{Essentially report the whole \cite{agentbasedxai-aamas2020} paper}
 
 \section{Symbolic Knowledge Extraction}
 
-\cite{aco-extraamas2021-shallow2deep}
+\cite{shallow2deep-extraamas2021}
 \cite{xailp-woa2019}
 
 \section{Symbolic Knowledge Injection}

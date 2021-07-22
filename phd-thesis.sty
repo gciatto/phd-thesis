@@ -61,6 +61,12 @@
 	\setstretch{\themainlinespacing}
 }
 
+\newcommand{\mypapers}[2][chapter]{
+	\begin{flushright}\tiny
+		This #1 contains contributions from the following works of ours: \cite{#2}
+	\end{flushright}
+}
+
 \newcommand{\frontispiece}{
 	\newgeometry{margin=0.8in}
 	\begin{titlepage}
