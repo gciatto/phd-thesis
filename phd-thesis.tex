@@ -282,7 +282,34 @@ This is because symbols are far closer to what our conscious, rational mind used
 For all such reasons, many researchers in the story of AI have argued that a comprehensive approach unifying the two worlds would bring great advantage.
 
 \section{Computational Logic}
-\mypapers[section]{cco-softwarex-2021-2pkt,Korner2020HistoryFuturePrologTPLP}
+\mypapers[section]{cco-softwarex-2021-2pkt,Korner2020HistoryFuturePrologTPLP,logictech-information11}
+
+In computer science (CS) and artificial intelligence (AI), logic is perhaps the main means for endowing machines with human-like reasoning capabilities, as it is rigorous enough to express \emph{computations}, and represent knowledge in a human-understandable way.
+%
+In decades, the contribution of logic in CS and AI has widened enough to be considered a discipline by itself---\emph{computational logic} (CL).
+%
+Logic in CL has then been exploited for diverse purposes---for instance, as a means to \emph{(i)} compute, \emph{(ii)} represent computation, \emph{(iii)} reason about computational systems.
+
+Several logic formalisms exist in CL.
+%
+They all leverage on some sort of \emph{inference rule} aimed at drawing new \emph{consequences} from a corpus of \emph{premises}.
+%
+Both premises and consequences  represent chunks of useful knowledge expressed as valid \emph{formulae} according to some language of choice. 
+%
+So, the language adopted to represent them, as well as the rules exploited to draw inferences, are of paramount importance when it comes to define logic formalisms.
+%
+This is why formalisms in CL essentially differ
+%
+\emph{(i)} in the particular language adopted for representing knowledge, and
+\emph{(ii)} in the particular sort of inference rule adopted for reasoning.
+
+Among the most known ones, it is certainly worth mentioning \emph{propositional calculus}, \emph{first-order logic}, \emph{higher-order logic}, \emph{modal logic}, up to \emph{Horn clauses}, and \emph{description logic}.
+%
+Propositional calculus, for instance, adopts modus ponens, modus tollens, and abduction as inference rules, while other formalisms make different choices, e.g., induction or modalities (in modal logic). 
+%
+Horn clauses, in its turn, adopt the \emph{resolution principle} (in several variants: SLD, SLDNF, tabled-SLD); the same applies to description logic.
+
+\note{Armonizzare il pezzo sopra con quello sotto}
 
 \emph{Computational logic} (CL) \cite{lloyd1990computational} is a fundamental research area for \emph{artificial intelligence} (AI), dealing with formal logic as a means for computing \cite{Paulson2018}.
 %
@@ -349,6 +376,106 @@ Summarising, LP leverages several mechanisms -- terms and clauses representation
 %
 Subsets of these mechanisms may be useful \textit{per se}.
 
+%-------------------------------------------------------------------------------
+\subsection{Knowledge Representation}
+%-------------------------------------------------------------------------------
+
+\emph{Knowledge representation} has always been regarded as a key issue since the early days of AI, since no reasoning can exist without knowledge.
+%
+Its instances spread from \emph{deductive data bases} \cite{green1968} to \emph{description logics} \cite{baader2002} and \emph{ontologies} \cite{cimiano2006-ontologies}, to name just a few. 
+%
+Many kinds of logic-based knowledge representation systems have been proposed over the years, mostly relying on description logics and modal logics to represent, respectively, terminological knowledge and time-dependent or subjective knowledge.
+
+Early KR formalisms, such as \emph{semantic networks} and \emph{frames} \cite{sowa2014}, also aimed at providing a structured representation of information.
+%
+Description logics are based on the same ideas, but without the formal weaknesses that made the use of their precursors problematic. 
+%
+In DL, complex concepts are built from simpler ones with an emphasis on the decidability of the reasoning tasks and on the provision of sound, complete and empirically-tractable reasoning services. 
+%
+Applications range from reasoning with database schemas and queries \cite{artale2002} to \emph{ontology languages} such as OIL, DAML+OIL and OWL \cite{horrocks2005}---always keeping in mind that not only the key inference problems should be decidable, but also that the decision procedures should be implemented \emph{efficiently}.
+
+Ontology-based approaches are popular because of their basic goal---a common understanding of some domain that can be shared between people and application systems.
+%
+At the same time, it should be understood that the general concepts and relations of a top-level ontology can rarely accommodate all of the systems peculiarities \cite{van2008,valente2005}.
+
+A number of systems based on DL have been developed -- e.g. \cite{cohen1994,moller2003} -- in diverse application domains, such as natural language processing, configuration of technical systems, software information systems, optimising queries to databases, planning.
+
+%-------------------------------------------------------------------------------
+\subsection{Reasoning Approaches \& Techniques}\label{ssec:reasoning}
+%-------------------------------------------------------------------------------
+
+Logic-based reasoning approaches root back to John McCarthy's work of 1958 \cite{Mccarthy1958}, aimed at developing the idea of formalising the so-called \emph{commonsense reasoning} to build \emph{intelligent artifacts}. 
+%
+This also means to consider non-trivial involved issues, such as the need of formalising the situation, actions and causal laws, etc.
+%
+% Many tools have been developed over the years for commonsense reasoning formalisation: there are freely available commonsense knowledge bases and natural language processing toolkits, supporting practical textual-reasoning tasks on real-world documents including analogy-making, and other context oriented inferences---see for instance \cite{lieberman2004,trinh2018,liu2004conceptnet,liu2002goose,shapiro1999sneps}). 
+% %
+% There have been also a number of attempts to construct very large knowledge bases of commonsense knowledge by hand, one of the largest being the CYC program by Douglas Lenat at CyCorp \cite{lenat1995-cyc}. 
+
+The modern approach to automated theorem proving starts with Robinson's resolution principle \cite{robinson1965}: since then, several technologies have exploited \emph{deduction} on first-order logic knowledge base to provide reasoning capabilities in diverse areas---logic programming, deductive data bases, and constraint logic programming (CLP) possibly being the major ones.
+%
+Other approaches and techniques, however, built upon the \emph{induction} and \emph{abduction} principles.
+
+As its name suggests, \emph{deduction} operates top-down, deriving a true conclusion from a universal true premise: logically speaking, this means that the conclusion's truth necessarily follows from the premise's truth.
+%
+\emph{Induction}, instead, operates bottom-up, basically making a guess -- a generalization -- from specific known facts: so, the reasoning involves an element of probability, as the conclusion is not based on universal premises.
+%
+\emph{Abduction} is somehow similar, but seeks for cause-effect relationships---i.e., the goal is to find out under which hypotheses (or premises) a certain goal is provable. 
+%
+Such technologies are exploited, in particular, for the verification of compliance of specific properties \cite{montali2010}. 
+
+\emph{Logic programming} (LP) is likely the most widely-adopted technology based on deduction. 
+%
+From Colmerauer and Kowalsky's seminal work \cite{Kowalski1974,colmerauer1986-theoreticalProlog}, the Prolog language has been since then one of the most exploited language in AI applications \cite{Dawson1996}. 
+%
+Other valuable approaches include \emph{fuzzy logic}, \emph{answer-set programming} (ASP), \emph{constraint logic programming} (CLP), \emph{non-monotonic reasoning}, and \emph{belief-desire-intention} (BDI).
+
+Fuzzy logic \cite{yen1999} aims at dealing with lack of precision or uncertainty.
+%
+In this sense, it is perhaps closer in spirit to the human thinking than traditional logic systems. 
+%
+Not surprisingly, fuzzy approaches are exploited as a key technology in specific application areas, e.g., the selection of manufacturing technologies \cite{goyal2012}, and industrial processes where the control via conventional methods suffers from the lack of quantitative data about I/O relations.
+%
+There, a fuzzy logic controller effectively synthesises an automatic control strategy from a linguistic control strategy based on an expert's knowledge. 
+
+\emph{Answer set programming} (ASP) and \emph{constraint logic programming} (CLP) are the two main logical paradigms for dealing with various classes of NP-complete combinatorial problems. 
+%
+ASP solvers are aimed at computing the answer sets of standard logic programs; these tools can be seen as theorem provers, or model builders, enhanced with several built-in heuristics to guide the exploration of the solution space.
+%
+% Some of the best known solvers are Clingo \cite{gebser2014-clingo} and DLV \cite{eiter2000}.
+
+Constraint logic programming (CLP) \cite{jaffar1987}, perhaps the most natural extension of LP (or, its most relevant generalisation), has evolved over the years into a powerful programming paradigm, widely used to model and solve hard real-life problems \cite{Rossi2000} in diverse application domains---from circuit verification to scheduling, resource allocation, timetabling, control systems, etc.
+%
+CLP technologies can be seen as complementary to \emph{operation research} (OR) techniques: while OR is often the only way to find the optimal solution, CLP provides generality, together with a high-level modelling environment, search control, compactness of the problem representation, constraint propagation, and fast methods to achieve a valuable solution \cite{rossi2008}.
+%
+% CLP tools evolved from the  ancestor -- CHIP \cite{simonis1995-chip}, the first to adopt constraint propagation -- to the constraint-handling libraries of ILOG \cite{ilog} and COSYTEC \cite{aggoun1993}, up to CLP languages such as Prolog III \cite{colmerauer1990}, Prolog IV \cite{benhamou1995}, CLP(R) \cite{jaffar1992}, and clp(fd) \cite{codognet1996}.
+
+Non-monotonic reasoning means to face the basic objection \cite{minsky1975} that logic could not represent knowledge and commonsense reasoning as humans because the human reasoning is inherently \emph{non monotonic}---that is, consequences are not always preserved, in contrast to first-order logic.
+%
+Since then, a family of approaches have been developed to suit specific needs---among these, \emph{default reasoning} \cite{reiter1980}, \emph{defeasible reasoning} \cite{pollock1987}, \emph{abstract argumentation} theory \cite{bondarenko1997}. 
+%
+Defeasible reasoning, in particular, is widely adopted in \emph{AI \& law} applications, to represent the complex intertwining of legal norms, often overlapping among each other, possibly from different, non-coherent sources.
+%
+Abstract argumentation theory, in its turn, is concerned with the formalisation and implementation of methods for rationally resolving disagreements, providing a general approach for modelling conflicts between arguments, and a semantics to establish if an argument can be acceptable or not.
+
+Belief-desire-intention (BDI) logic is a kind of modal logic used for formalising, validating, and designing cognitive \emph{agents}---typically, in the \emph{multi-agent systems} (MAS) context.
+%
+A cognitive agent is an entity consisting of 
+\emph{(i)} a belief base storing the agent's \emph{beliefs}, i.e. what the agent knows about the world, itself, and other agents;
+\emph{(ii)} a set of \emph{desires} (or goals), i.e. the proprieties of the world the agent wants to eventually become true;
+\emph{(iii)} a \emph{plan} library, encapsulating the agent's procedural knowledge (in the form of plans) aimed at making some goals become true; and
+\emph{(iv)} a set of \emph{intentions}, storing the states of the plans the agent is currently enacting as an attempt to satisfy some desires.
+%
+All such data usually consist of first-order formulas.
+%
+Then, the dynamic behaviour of a BDI agent is driven by either internal (updates to the belief-base or changes in the set of desires) or external (perceptions or messages coming from the outside) events, which may cause new intentions to be created, or current intentions to be dropped.
+%
+By suitably capturing the revision of beliefs, and supporting the concurrent execution of goal-oriented computations, BDI architectures overcome critical issues of ``classical'' logic-based technologies -- \emph{concurrency} and \emph{mutability} -- in a sound way.
+%
+Overall, BDI architecture leads to a clear and intuitive design, where the underlying BDI logic provides for the formal background.
+%
+Among the frameworks rooted on a BDI approach, let us mention the AgentSpeak(L) \cite{Rao96} abstract language and its major implementation, namely Jason, Structured Circuit Semantics \cite{lee1994}, Act Plan Interlingua \cite{huber1999-jam}, JACK \cite{howden2001}, and dMARS---a platform for building complex, distributed, time-critical systems in C++ \cite{dmars}.
+
 \section{Data Science and Machine Learning}
 %
 \mypapers[section]{xailp-woa2019,xaisurvey-ia14,agentbasedxai-extraamas2020}
@@ -409,9 +536,6 @@ Deduction, Abduction, Induction, Probabilistic, etc.
 \subsection{Knowledge Graph Embedding}
 
 \chapter{Explaining AI via Symbolic Knowledge}
-
-%%% !!!!! ATTENTION !!!!!
-%%% this subsubsection is taken from a published paper
 
 Despite the open philosophical issues, it is undeniable that AI and ML are nowadays becoming more and more intertwined with a growing number of aspects of people's every day life \cite{helbing2019, elliott2019}. 
 %
