@@ -438,6 +438,87 @@ The latter problem is inherently sub-symbolic as it requires acquiring, processi
 %
 \mypapers[section]{xailp-woa2019,xaisurvey-ia14,agentbasedxai-extraamas2020}
 
+Data science (DS) is a relatively young discipline laying at the intersection among AI, Statistics, CS and SE.
+%
+It essentially deals with the extraction of relevant information out of data, and, in particular, with the \emph{data-driven} creation of \emph{predictive} models of real world phenomena.
+%
+Thanks to its focus on predictive models, DS is applied to virtually all statistical sciences, ranging from physics to law, stepping through biology, healthcare, or finance.
+%
+In all such scenarios, the reliance on real-world data is quintessential to tune such predictive models in such a way to make them adhere to reality.
+
+As a science, DS studies the many means one can exploit to % whenever in need to
+%
+\begin{inlinelist}
+    \item let a software agent learn new behaviours from examples, which would otherwise be hard to encode for human developers (e.g. handwritten text recognition),
+    \item automatically recognise patterns of similar objects given a number of examples (e.g. face detection),
+    \item detect recurrent patterns in data, even in lack of prior examples (e.g. customer profiling),
+    \item predict the future evolution of a phenomenon given its historical data (e.g. stock performance predictor),
+    \item simulate the dynamics of complex phenomena (e.g. weather forecasting),
+    \item figure out the mathematical relation biding two or more variables, from a number of samples (e.g. studying estate market prices),
+    \item fuse data coming from different sources to infer unobservable measures (e.g. indoor localization), etc.
+\end{inlinelist}
+%
+other than, of course the theories and practices to assess and increase the predictive performance of all such models.
+%
+In doing so, DS borrows countless algorithms, methods, and techniques from disparate fields, including but not limited to machine learning (there including supervised, unsupervised, and reinforcement learning), data mining, Bayesian inference, statistics, etc.
+
+Despite the plethora of algorithms and methods which lay nowadays under the DS umbrella, a concise overview of the discipline can be outlined in terms of \emph{tasks}.
+%
+Several algorithms can be used in DS to perform a well-established pool of data-analytics tasks having a clear knowledge-related goal.
+%
+Most common tasks in DS are for instance:
+%
+\begin{description}
+    \item[function fitting] (a.k.a. classification or regression) | i.e. the \emph{supervised} learning task of inferring the input-output relation among a number samples, to be later able to estimate likely outputs for novel, unseen inputs;
+    \item[clustering] | i.e. the \emph{unsupervised} learning task of finding similar groups of instances in a dataset -- according to a given notion of \emph{similarity} or distance --, to be later able to classify novel instances according to some group;
+    \item[anomaly detection] | i.e. the \emph{unsupervised} learning task of tuning an algorithm to discern ``normal'' situations from exceptional ones, provided that some historical data is available, to later be able to detect the latter;
+    \item[filtering] (resp. \textbf{smoothing} or \textbf{forecasting}) | i.e. the Bayesian task of estimating the unknown \emph{current} (resp. \emph{past} or \emph{future}) state of a system given a sample of observations capturing the evolution of a number of variables which should depend of that state;  
+    \item[most likely explanation] | like the above, but focussing on the most likely \emph{sequence} of states a system has traversed.
+\end{description}
+%
+Most of these tasks may be implemented in several ways and by several algorithms.
+%
+For instance, function fitting alone may be realised using neural networks, (generalised) linear models, support vector machines, decision trees, and many others.
+
+For all such tasks, two major phases are commonly identified by DS, namely \emph{training} (a.k.a. learning, or fitting) and inference (a.k.a. usage).
+%
+The first phase (training) commonly occurs behind the scenes, and it is conducted by \emph{data scientists} -- i.e. human being --, despite involving some semi-automatic tasks.
+%
+The second phase (inference) is commonly what AI consumers use and deal with.
+%
+During training, the most adequate algorithm is selected for the data and the task at hand, and it is then tranined on data, producing a predictive \emph{model} which, hopefully, is predictive enough to be later used on novel data.
+%
+Users may then exploit the model by feeding it with novel data, to draw predictions.
+
+Notably, regardless of their technical details, all the data-analytics tasks above may leverage on a number of lower level activities which are orthogonal w.r.t. the choice of the particular implementing algorithm, as they involve routine operations, assessment procedures, or best practices which are commonly executed either before or after the data-analytics task itself.
+%
+Examples of these kind of activities are, for instance:
+%
+\begin{description}
+    \item[feature engineering] | i.e. a whole class of pre-processing techniques -- such normalising numeric data into predefined intervals, changing the way data is encoded, or creating new data from the available one -- which may be used to improve or transform the available data, in order to improve the performance of the data analytics task;
+    \item[dimensionality reduction] | i.e. a whole class of data manipulation techniques aimed at selecting the most relevant attributes of data for a given data-analytics task (before running the task)---such as principal component analysis;
+    \item[model assessment] i.e. a whole class of statistical methods, algorithms, and practices to assess the performance of the data-analytic task in a principle way---such as for instance supervised learning metrics (e.g. accuracy, or mean-squared error) or procedures such as cross-validation or test set separation;
+    \item[model selection] i.e. a number of strategies, approaches, and practices to let data scientiest select the best predictive model when multiple options fit the data and the situation at hand---e.g. by leveraging on \emph{cross-validation}, possibly in combination with a grid search strategy to identify the most adequate type of pre 
+\end{description}
+%
+Despite being really important for the practice of data science, such aspects are quite marginal within the scope of this thesis.
+%
+Accordingly, in the following chapters we focus data-analytics tasks, and in particular supervised learning ones. 
+
+\paragraph{}
+
+% Data analytics
+%     - general goals: learning otherwise hard-to-formalise tasks, recognise patterns, detect patterns in data, predicting the future knowing the past, creating predictive models from data + plus all collateral activities
+%     - tasks: supervised learning, unsurpervised learning, feature engineering, bayesian modelling, reinforcement learning
+%     - practices: function fitting, clustering, dimensionality reduction, feature selection, filtering, smoothing, forecasting, data fusion
+%     - inference vs. fitting
+
+% Big data processing:
+%     - general goals: online processing of large or unlimited streams of data, offline processing of large amounts of data, storage and querying of large amounts of data,
+
+
+
+
 \subsection{Machine Learning}
 
 Since several practical AI problems -- such as image recognition, financial and medical decision support systems -- can be reduced to \emph{supervised} ML -- which can be further grouped in terms of either  \emph{classification} or \emph{regression} problems \cite{twala2010,smlreview-faia160} --, in the reminder of this paper we focus on this set of ML problems. 
