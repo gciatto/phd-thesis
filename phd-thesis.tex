@@ -191,7 +191,7 @@ Finally, the third part (\emph{Who}) closes the loop by discussing the role of a
 \part{What}
 \label{part:what}
 
-\chapter{Symbolic and Sub-Symbolic sides of AI}
+\chapter{Historical Perspective on AI}
 
 AI is a multi-faceted discipline leveraging on contributions coming from several areas of human knowledge, there including Mathematics, Computer Science, Statistics, Psychology, Philosophy, and many others.
 %
@@ -273,57 +273,24 @@ Such issues, are not affecting symbolic techniques---especially when symbols are
 %
 This is because symbols are far closer to what our conscious, rational mind used to handle.
 %
-For all such reasons, many researchers in the story of AI have argued that a comprehensive approach unifying the two worlds would bring great advantage.
-%
+For all such reasons, many researchers along the history of AI have argued that a comprehensive approach unifying the two worlds would bring great advantage.
+
 More precisely, complementarity between symbolic and sub-symbolic AI naturally emerges when comparing the two approaches under the following perspectives:
 %
 \begin{itemize}
     \item sub-symbolic AI is \emph{opaque}, meaning that human beings struggle in understanding the functioning and behaviour of sub-symbolically intelligent systems; instead, symbolic AI is more \emph{transparent}, as it is both human- and machine-interpretable at the same time
     %
-    \item sub-symbolic AI can improve itself \emph{automatically} by consuming data, but it is difficult to extend and re-use outside the contexts it was designed for; 
+    \item sub-symbolic AI can improve itself \emph{automatically} by consuming data, but it is difficult to extend and re-use outside the contexts it was designed for; conversely, symbolic AI is flexible and extensible, but requires humans to \emph{manually} provide symbolic knowledge
     %
-    conversely, symbolic AI is flexible and extensible, but requires humans to \emph{manually} provide symbolic knowledge
-    %
-    \item sub-symbolic AI is adequate for \emph{fuzzy} problems where some (minimal) degree of error or uncertainty can be tolerated;
-    %
-    whereas symbolic AI calls for precise data and queries provided by human beings, yet provides exact, \emph{crisp} results as its outcome.
+    \item sub-symbolic AI is adequate for \emph{fuzzy} problems where some (minimal) degree of error or uncertainty can be tolerated; whereas symbolic AI calls for precise data and queries provided by human beings, yet provides exact, \emph{crisp} results as its outcome.
 \end{itemize}
+
+In the remainder of this chapter, we provide a brief overview of the two major disciplines laying within the scope of symbolic or sub-symbolic AI, respectively.
 %
-The two most active research lines that currently focus on unifying symbolic and sub-symbolic AI are \emph{neural-symbolic computing} (NSC) \cite{BesoldU2018} and \emph{explainable artificial intelligence} (XAI) \cite{darpa2016-xai}. 
-%
-The former focuses on merging neural networks with logic-based technologies at a fundamental level, while the latter encompasses diverse studies aimed at exploiting symbolic AI to \emph{explain} the internal functioning of sub-symbolic AI, thus making it more interpretable in the eyes of human beings.
-%
-In the reminder of this section we explore both NSC and XAI.
+These are computational logic -- a prominent branch of symbolic AI leveraging on logics to per form any knowledge-related task, ranging from representation to inference --, and data science -- a prominent branch of sub-symbolic AI leveraging on statistics to manipulate data and mine knowledge out of them.
 
 \section{Computational Logic}
 \mypapers[section]{cco-softwarex-2021-2pkt,Korner2020HistoryFuturePrologTPLP,logictech-information11}
-
-In computer science (CS) and artificial intelligence (AI), logic is perhaps the main means for endowing machines with human-like reasoning capabilities, as it is rigorous enough to express \emph{computations}, and represent knowledge in a human-understandable way.
-%
-In decades, the contribution of logic in CS and AI has widened enough to be considered a discipline by itself---\emph{computational logic} (CL).
-%
-Logic in CL has then been exploited for diverse purposes---for instance, as a means to \emph{(i)} compute, \emph{(ii)} represent computation, \emph{(iii)} reason about computational systems.
-
-Several logic formalisms exist in CL.
-%
-They all leverage on some sort of \emph{inference rule} aimed at drawing new \emph{consequences} from a corpus of \emph{premises}.
-%
-Both premises and consequences  represent chunks of useful knowledge expressed as valid \emph{formulae} according to some language of choice. 
-%
-So, the language adopted to represent them, as well as the rules exploited to draw inferences, are of paramount importance when it comes to define logic formalisms.
-%
-This is why formalisms in CL essentially differ
-%
-\emph{(i)} in the particular language adopted for representing knowledge, and
-\emph{(ii)} in the particular sort of inference rule adopted for reasoning.
-
-Among the most known ones, it is certainly worth mentioning \emph{propositional calculus}, \emph{first-order logic}, \emph{higher-order logic}, \emph{modal logic}, up to \emph{Horn clauses}, and \emph{description logic}.
-%
-Propositional calculus, for instance, adopts modus ponens, modus tollens, and abduction as inference rules, while other formalisms make different choices, e.g., induction or modalities (in modal logic). 
-%
-Horn clauses, in its turn, adopt the \emph{resolution principle} (in several variants: SLD, SLDNF, tabled-SLD); the same applies to description logic.
-
-\note{Armonizzare il pezzo sopra con quello sotto}
 
 \emph{Computational logic} (CL) \cite{lloyd1990computational} is a fundamental research area for \emph{artificial intelligence} (AI), dealing with formal logic as a means for computing \cite{Paulson2018}.
 %
@@ -334,65 +301,166 @@ Be it exploited to manipulate symbols, or to make sub-symbolic solutions human-i
 Generally speaking, automated reasoning involves three major aspects:
 %
 \begin{inlinelist}
-    \item logic,
-    \item inference rule, and
-    \item resolution strategy.
+    \item logics,
+    \item inference rules, and
+    \item resolution strategies.
 \end{inlinelist}
-%
-\emph{Logics} formally define how knowledge is represented and how novel knowledge can be derived from prior one.
+
+\emph{Logic} formally defines how knowledge is represented and how novel knowledge can be derived from prior one.
 %
 Each logic comes with several \emph{inference rules}, dictating how to produce new knowledge under particular circumstances.
 %
-When coupled with some \emph{resolution strategy}, inference rules become deterministic algorithms that computers can execute.
+When coupled with some \emph{resolution strategy}, inference rules become deterministic algorithms that computers can execute to reason autonomously.
 
-Many logics exist in CL -- e.g. propositional, first-order (FOL), temporal, deontic, etc. --, each one targeting a specific domain.
+Many logics exist in CL -- e.g. propositional, first-order (FOL), temporal, deontic, etc. --, each one targeting a specific way of reasoning.
 %
 For instance, temporal logic enables reasoning about the chronological ordering of events, deontic logic supports reasoning about permissions/prohibitions and their circumstances, while FOL is general-purpose.
 %
-Furthermore, different inference rules exist for different logics.
+Furthermore, different sorts of inference rules exist for different logics.
 %
 Some are \emph{deductive} -- drawing conclusions out of premises --, some are \emph{inductive} -- looking for general rules out of several premises-conclusion examples --, while other are \emph{abductive}---speculating on which premises caused some conclusions.
 %
-Finally, when a resolution strategy exists for some rule and logic, %-- possibly leveraging some symbolic or sub-symbolic AI technique -- 
-it can be reified in software, and used to build intelligent systems capable of automated reasoning.
+Finally, when a resolution strategy exists for some rule and logic, it can be reified in software, and used to build intelligent systems capable of automated reasoning.
 %
 Software of that sort are commonly referred to as a part of the \emph{logic programming} (LP) paradigm~\cite{Nerode1996}.
 
-In LP, programs are typically \emph{theories} (a.k.a.\ \emph{knowledge bases}, KB), i.e.\ collections of sentences in logical form, expressing \emph{facts} and \emph{rules} about some domain, typically in the form of \emph{clauses}, i.e.:
-\[ \mathit{Head} \impliedBy \mathit{Body_1},\ ...,\ \mathit{Body_n} \]%,
-where both $\mathit{Head}$ and $\mathit{Body_i}$ are \emph{atomic} formul\ae{}, and the whole sentence is read declaratively as logical implication (right-to-left).
+In LP, programs are typically \emph{theories} (a.k.a.\ \emph{knowledge bases}, KB), i.e.\ collections of sentences in logical form, expressing \emph{facts} and \emph{rules} about some domain, typically in the form of \emph{clauses}, i.e. expressions connecting a number of interrelated \emph{predicates} via logic connectives (e.g. operators such as $\wedge$, $\vee$, $\rightarrow$, $\leftrightarrow$, $\lnot$, etc.).
+ %, i.e.:
+% \[ \mathit{Head} \impliedBy \mathit{Body_1},\ ...,\ \mathit{Body_n} \]%,
+% where both $\mathit{Head}$ and $\mathit{Body_i}$ are \emph{atomic} formul\ae{}, and the whole sentence is read declaratively as logical implication (right-to-left).
+% %
+% If $n = 0$, the clause is called \emph{fact}, \emph{rule} otherwiese.
+% %
+% An atomic formula is an expression in the form $P(t_1,...,t_m)$ where $P$ is a $m$-ary predicate ($m \geq 0$), and $t_j$ are \emph{terms}.
+% %
+% Terms are the most general sort of data structure in LP languages.
+% %
+% They can be \emph{constant} (either \emph{numbers} or \emph{atoms}/strings), \emph{variables}, or recursive elements named \emph{structures}.
+% %
+% Structures are used to represent clauses, lists, sets, or other sorts of expressions.
 %
-If $n = 0$, the clause is called \emph{fact}, \emph{rule} otherwiese.
-%
-An atomic formula is an expression in the form $P(t_1,...,t_m)$ where $P$ is a $m$-ary predicate ($m \geq 0$), and $t_j$ are \emph{terms}.
-%
-Terms are the most general sort of data structure in LP languages.
-%
-They can be \emph{constant} (either \emph{numbers} or \emph{atoms}/strings), \emph{variables}, or recursive elements named \emph{structures}.
-%
-Structures are used to represent clauses, lists, sets, or other sorts of expressions.
+There, predicates represent statements describing or relating one or more entities about the domain at hand.
 
-Logic \emph{solvers} exploit KB to answer users' \emph{queries} via some inference procedure and resolution strategy.
+Depending on the particular logic of choice, predicates -- and therefore clauses -- may, carry \emph{variables}, i.e. placeholders for unknown entities, and possibly quantifiers for those variables ($\exists$ or $\forall$).
 %
-For instance, Prolog interpreters exploit a \emph{deductive} procedure rooted into the SLDNF resolution principle \cite{Kowalski1974, Clark77}, and a depth-first strategy.
+Some logics may also endow clauses with further information, such as for instance \emph{probabilities} -- describing the degree of likelihood for a clause to hold true --, or \emph{modalities}---describing the context in which a clause may hold (e.g. \emph{when}).
 %
-Yet, other options exist like, e.g., abductive \cite{FungIff97}, inductive \cite{Muggleton94}, probabilistic \cite{RaedtK15} inference.
+In any case, logic information is represented in such a way that both human and computational agents can interpret and manipulate it, in principle.
+
+One powerful trait of logics is that they enable the representation of complex, intricate, or infinite domains \emph{intensively} (i.e. implicitly) rather than explicitly---e.g. via multiple recursive clauses.
+%
+So, if a domain involves an infinite amount of entites, these do not necessarily require an infinite amount of memory to be represented.
+%
+For instance, the set of natural integers can be represented in logic using just two FOL clauses---of which, one is recursive.
+
+Software agents devoted to automated reasoning via LP are commonly referred to as logic \emph{solvers}.
+%
+They rely on pre-existing KB to derive inferences via some inference procedure and resolution strategy.
+%
+They may do so either \emph{reactively}, -- i.e. in response to some external stimulus, e.g. some user's \emph{query} --, or \emph{pro-actively}---i.e. spontaneously, in order to reach some goal, e.g. computing the optimal path before moving. 
+%
+Prolog-based solvers \cite{ColmerauerR93,colmerauer1986-theoreticalProlog}, for instance, exploit a \emph{deductive} procedure rooted into the SLDNF resolution principle \cite{Kowalski1974, Clark77}, and a depth-first strategy.
+%
+They commonly do so in response to users' queries, provided via a textual interface.
+%
+Yet, a number of Prolog solvers exists supporting the same inference procedure via different strategies (e.g. tabled-resolution\missingref) or as well as entirely different principles (e.g. Constraint Logic Programming). 
+%
+Of course, other options exist targetting other logics as well, like, e.g., abductive \cite{FungIff97}, inductive \cite{Muggleton94}, probabilistic \cite{RaedtK15} inference.
 %
 Each of them represents a particular reification of a logic solver.
 
-A common mechanisms in LP is the \emph{unification} algorithm \cite{MartelliMontanari1982} for constructing a \emph{most general unifier} (MGU) for any two suitable terms.
-%
-Provided that an MGU exists, its subsequent \emph{application} to the terms, makes them syntactically equal.
-%
-This is a basic brick in virtually all LP algorithms, regardless of the particular inference rule.
+\paragraph{Limits of CL.}
 
-Summarising, LP leverages several mechanisms -- terms and clauses representation, knowledge base storage, unification, resolution, etc. --, which constitute the basis of any logic solver.
+Despite the many possibilities, however, there are a number of issues which are not tied to any particular choice of logic, inference procedure, or resolution strategy, but they are rather inherent to CL itself.
 %
-Subsets of these mechanisms may be useful \textit{per se}.
+Such issues involve
+%
+\begin{inlinelist}
+    \item decidability,
+    \item tractability,
+    \item knowledge acquisition, and
+    \item symbols grounding.
+\end{inlinelist}
 
-%-------------------------------------------------------------------------------
-\subsection{Knowledge Representation}
-%-------------------------------------------------------------------------------
+Decidability and tractability deal with the theoretical questions: ``can a logic solver provide an answer to any logic query it receives? can it do so in reasonable time?''.
+%
+Such aspects are deeply entangled with the particular logic the solver is leveraging upon.
+%
+Depending on which and how many features a logic includes, it may be more or less \emph{expressive}.
+%
+The higher the expressiveness, the more the complexity of the problems which may be represented via logic and processed via inference increases.
+%
+This opens to the possibility, for the solver, to meet queries which cannot be answered in useful time, or relying upon a limited amount of memory, or at all.
+%
+Roughly speaking, more expressive logic languages make it easier for human beings to describe a particular domain -- usually, requiring them to write less and more concise clauses --, at the expense of an higher difficulty for software agents to draw inferences autonomously---because of computational \emph{tractability}.
+%
+This is a well-understood phenomenon in both CS and CL \cite{LevesqueB87, BrachmanL2004}, often referred to as the \emph{expressiveness--tractability} trade-off.
+%
+In practice, however, a good trade-off is represented by FOL and its subsets (e.g. Horn logic\missingref), or modal variants (e.g. linear temporal logic\missingref).
+%
+Despite consisting of Turing-equivalent formalisms -- for which the existence of undecidable or intractable situations cannot be excluded in the general case --, they come with sufficiently wide representational capabilities and effective inference procedures, making them exploitable in practice---provided that human developers avoid writing undecidable/intractable algorithms.
+
+% A common mechanisms in LP is the \emph{unification} algorithm \cite{MartelliMontanari1982} for constructing a \emph{most general unifier} (MGU) for any two suitable terms.
+% %
+% Provided that an MGU exists, its subsequent \emph{application} to the terms, makes them syntactically equal.
+% %
+% This is a basic brick in virtually all LP algorithms, regardless of the particular inference rule.
+
+% Summarising, LP leverages several mechanisms -- terms and clauses representation, knowledge base storage, unification, resolution, etc. --, which constitute the basis of any logic solver.
+% %
+% Subsets of these mechanisms may be useful \textit{per se}.
+
+Knowledge acquisition deals with the question ``where does the knowledge solvers reason upon come from'', or alternatively: ``who is in charge of constructing knowledge bases''?
+%
+Recalling that logic clauses may become arbitrarily complex and represent possibly infinite domains in a very concise way, it is unsurprising that the burden of knowledge production is mostly on humans.
+%
+Unfortunately, this implies the degree of automatism in knowledge production is pretty low, as well as the scalability of the approach.
+%
+Many attempts have been performed over the years to distil human knowledge into symbolic form to formalise common-sense for software agents.
+%
+To date, there exist a number of common-sense knowledge bases and ontologies, supporting practical textual-reasoning tasks on real-world documents including analogy-making, and other context oriented inferences---see for instance \missingref[lieberman2004, trinh2018, liu2004conceptnet, liu2002goose, shapiro1999sneps from information-2020]).
+%
+Yet, most of these solutions are either semi-automatically constructed, or community driven -- when not both --, therefore exhaustiveness, consistency, or coherence may be lacking.
+%
+There have also been a number of attempts to construct very large knowledge bases of commonsense knowledge by hand, one of the largest being the CYC program by Douglas Lenat at CyCorp \missingref[lenat1995-cyc from information-2020]---which is, however, only usable behind payment.
+
+Finally, symbols grounding deals with the problem of letting software agents provide semantics for the symbols they manipulate.
+%
+Put it simply, we may tell a logic solver that Abraham is the father of Isaac -- $father(isaac, abraham)$ --, and also that, for all possible $X$ and $Y$, if $X$ is the father of $Y$, then $Y$ must be the child of $X$ -- $father(X, Y) \rightarrow child(Y, X)$ --, and the solver may also be able to infer that Isaac is thus the child of Abraham, while still having no idea of how to recognise Isaac, Abraham, nor the fatherhood relation, were it written in another form. 
+%
+In other words, the bindings between the symbols processed by software agents and the corresponding entities from the real world are hard to establish and maintain for a bare logic solver---unless other mechanisms are in place.
+%
+This issue will hardly be solved within the symbolic world alone, as it is deeply entangled with the problem of letting a software agent perceive the external world via sensors, and recognising the objects therein contained.
+%
+The latter problem is inherently sub-symbolic as it requires acquiring, processing, and fusing raw data coming from the sensors.
+
+\section{Data Science and Machine Learning}
+%
+\mypapers[section]{xailp-woa2019,xaisurvey-ia14,agentbasedxai-extraamas2020}
+
+\subsection{Machine Learning}
+
+Since several practical AI problems -- such as image recognition, financial and medical decision support systems -- can be reduced to \emph{supervised} ML -- which can be further grouped in terms of either  \emph{classification} or \emph{regression} problems \cite{twala2010,smlreview-faia160} --, in the reminder of this paper we focus on this set of ML problems. 
+
+In those cases, a \emph{learning algorithm} is commonly exploited to estimate the specific nature and shape of an unknown \emph{prediction} function (or \emph{predictor}) $p^*: \mathcal{X} \rightarrow \mathcal{Y}$, mapping each input vector $\mathbf{x}$ from a given input space $\mathcal{X}$ into a prediction from a given output space $\mathcal{Y}$.
+%
+To do so, the learning algorithm takes into account a number $N$ of examples in the form $(\mathbf{x}_i,\mathbf{y}_i)$ such that $\mathbf{x}_i \in X \subset \mathcal{X}$, $\mathbf{y}_i \in Y \subset \mathcal{Y}$, and $|X| \equiv |Y| \equiv N$.
+%
+There, each $\mathbf{x}_i$ represents an instance of the input data for which the expected output value $\mathbf{y}_i$ is known or has already been estimated.
+%
+Such sorts of ML problems are said to be ``supervised'' because the expected targets $Y$ are available, whereas they are said to be ``regression'' problems if $Y$ consists of continuous or numerable values, or ``classification'' problems if $Y$ consists of categorical values. 
+
+The learning algorithm usually assumes $p^* \in \mathcal{P}$, for a given \emph{family} $\mathcal{P}$ of predictors---meaning that the unknown prediction function exists, and it is from $\mathcal{P}$.
+%
+The algorithm then \emph{trains} a predictor $\hat{p} \in \mathcal{P}$ such that the value of a given loss function $\lambda : \mathcal{Y} \times \mathcal{Y} \rightarrow \mathbb{R}$ -- computing the discrepancy among predicted and expected outputs -- is minimal or reasonably low---i.e.: $\hat{p} = \underset{p \in \mathcal{P}}{\text{argmin}} \left\{ \sum_{i=1}^{N} \lambda(\mathbf{y}_i,\ p(\mathbf{x}_i)) \right\}$.
+
+Depending on the predictor family $\mathcal{P}$ of choice, the nature of the learning algorithm and the admissible shapes of $\hat{p}$ may vary dramatically, as well as the their \emph{interpretability}.
+%
+Even if the interpretability of predictor families is not a well-defined feature, most authors agree on the fact that some predictor families are \emph{more interpretable than others} \cite{Lipton18}---in the sense that it is easier for humans to understand the functioning and the predictions of the former ones.
+%
+For instance, it is widely acknowledged that \emph{generalized linear models} (GLM) are more interpretable than neural networks (NN), whereas \emph{decision trees} (DT) \cite{breiman1984classification} are among the most interpretable families \cite{GuidottiMRTGP19}.
+
+\chapter{Representing Data and Knowledge}
 
 \emph{Knowledge representation} has always been regarded as a key issue since the early days of AI, since no reasoning can exist without knowledge.
 %
@@ -414,9 +482,21 @@ At the same time, it should be understood that the general concepts and relation
 
 A number of systems based on DL have been developed -- e.g. \cite{cohen1994,moller2003} -- in diverse application domains, such as natural language processing, configuration of technical systems, software information systems, optimising queries to databases, planning.
 
-%-------------------------------------------------------------------------------
-\subsection{Reasoning Approaches \& Techniques}\label{ssec:reasoning}
-%-------------------------------------------------------------------------------
+\section{Distributed vs. Symbolic}
+
+\section{Intensional vs. Extensional}
+
+\section{Relational vs. Functional}
+
+\chapter{Learning Knowledge from Data}
+
+\section{Machine Learning}
+
+\section{Logic Induction}
+
+\chapter{Generating Data by Reasoning over Knowledge}
+
+\section{Symbolic Reasoning}
 
 Logic-based reasoning approaches root back to John McCarthy's work of 1958 \cite{Mccarthy1958}, aimed at developing the idea of formalising the so-called \emph{commonsense reasoning} to build \emph{intelligent artifacts}. 
 %
@@ -489,48 +569,6 @@ By suitably capturing the revision of beliefs, and supporting the concurrent exe
 Overall, BDI architecture leads to a clear and intuitive design, where the underlying BDI logic provides for the formal background.
 %
 Among the frameworks rooted on a BDI approach, let us mention the AgentSpeak(L) \cite{Rao96} abstract language and its major implementation, namely Jason, Structured Circuit Semantics \cite{lee1994}, Act Plan Interlingua \cite{huber1999-jam}, JACK \cite{howden2001}, and dMARS---a platform for building complex, distributed, time-critical systems in C++ \cite{dmars}.
-
-\section{Data Science and Machine Learning}
-%
-\mypapers[section]{xailp-woa2019,xaisurvey-ia14,agentbasedxai-extraamas2020}
-
-Since several practical AI problems -- such as image recognition, financial and medical decision support systems -- can be reduced to \emph{supervised} ML -- which can be further grouped in terms of either  \emph{classification} or \emph{regression} problems \cite{twala2010,smlreview-faia160} --, in the reminder of this paper we focus on this set of ML problems. 
-
-In those cases, a \emph{learning algorithm} is commonly exploited to estimate the specific nature and shape of an unknown \emph{prediction} function (or \emph{predictor}) $p^*: \mathcal{X} \rightarrow \mathcal{Y}$, mapping each input vector $\mathbf{x}$ from a given input space $\mathcal{X}$ into a prediction from a given output space $\mathcal{Y}$.
-%
-To do so, the learning algorithm takes into account a number $N$ of examples in the form $(\mathbf{x}_i,\mathbf{y}_i)$ such that $\mathbf{x}_i \in X \subset \mathcal{X}$, $\mathbf{y}_i \in Y \subset \mathcal{Y}$, and $|X| \equiv |Y| \equiv N$.
-%
-There, each $\mathbf{x}_i$ represents an instance of the input data for which the expected output value $\mathbf{y}_i$ is known or has already been estimated.
-%
-Such sorts of ML problems are said to be ``supervised'' because the expected targets $Y$ are available, whereas they are said to be ``regression'' problems if $Y$ consists of continuous or numerable values, or ``classification'' problems if $Y$ consists of categorical values. 
-
-The learning algorithm usually assumes $p^* \in \mathcal{P}$, for a given \emph{family} $\mathcal{P}$ of predictors---meaning that the unknown prediction function exists, and it is from $\mathcal{P}$.
-%
-The algorithm then \emph{trains} a predictor $\hat{p} \in \mathcal{P}$ such that the value of a given loss function $\lambda : \mathcal{Y} \times \mathcal{Y} \rightarrow \mathbb{R}$ -- computing the discrepancy among predicted and expected outputs -- is minimal or reasonably low---i.e.: $\hat{p} = \underset{p \in \mathcal{P}}{\text{argmin}} \left\{ \sum_{i=1}^{N} \lambda(\mathbf{y}_i,\ p(\mathbf{x}_i)) \right\}$.
-
-Depending on the predictor family $\mathcal{P}$ of choice, the nature of the learning algorithm and the admissible shapes of $\hat{p}$ may vary dramatically, as well as the their \emph{interpretability}.
-%
-Even if the interpretability of predictor families is not a well-defined feature, most authors agree on the fact that some predictor families are \emph{more interpretable than others} \cite{Lipton18}---in the sense that it is easier for humans to understand the functioning and the predictions of the former ones.
-%
-For instance, it is widely acknowledged that \emph{generalized linear models} (GLM) are more interpretable than neural networks (NN), whereas \emph{decision trees} (DT) \cite{breiman1984classification} are among the most interpretable families \cite{GuidottiMRTGP19}.
-
-\chapter{Representing Data and Knowledge}
-
-\section{Distributed vs. Symbolic}
-
-\section{Intensional vs. Extensional}
-
-\section{Relational vs. Functional}
-
-\chapter{Learning Knowledge from Data}
-
-\section{Machine Learning}
-
-\section{Logic Induction}
-
-\chapter{Generating Data by Reasoning over Knowledge}
-
-\section{Symbolic Reasoning}
 
 \subsection{Inference}
 
