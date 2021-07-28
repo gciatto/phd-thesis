@@ -434,7 +434,7 @@ This issue will hardly be solved within the symbolic world alone, as it is deepl
 %
 The latter problem is inherently sub-symbolic as it requires acquiring, processing, and fusing raw data coming from the sensors.
 
-\section{Data Science and Machine Learning}
+\section{Data Science}
 %
 \mypapers[section]{xailp-woa2019,xaisurvey-ia14,agentbasedxai-extraamas2020}
 
@@ -445,6 +445,16 @@ It essentially deals with the extraction of relevant information out of data, an
 Thanks to its focus on predictive models, DS is applied to virtually all statistical sciences, ranging from physics to law, stepping through biology, healthcare, or finance.
 %
 In all such scenarios, the reliance on real-world data is quintessential to tune such predictive models in such a way to make them adhere to reality.
+
+Data science can be described w.r.t. two major perspectives, here referred to as the \emph{scientific} and the \emph{engineering} perspectives on DS.
+%
+The scientific perspective focuses on the central aspect of DS -- namely, data -- and on \emph{what} algorithms, workflows, and practices can be exploited to process data to serve specific analytic purposes, in a sound way.
+%
+The engineering perspective focuses on \emph{how} to make such processing efficient and effective, in spite of the large volumes, and the wide variety of data required to this purpose.
+%
+Within this scope, another relevant concern is the velocity at which data is produced, and processed information is consumed.
+
+\paragraph{The Scientific Perspective.}
 
 As a science, DS studies the many means one can exploit to % whenever in need to
 %
@@ -479,47 +489,105 @@ Most common tasks in DS are for instance:
 Most of these tasks may be implemented in several ways and by several algorithms.
 %
 For instance, function fitting alone may be realised using neural networks, (generalised) linear models, support vector machines, decision trees, and many others.
+%
+Notably, the same algorithm could be used to implement several tasks---e.g. neural networks can be exploited to perform both classification and regression tasks, as well as anomaly detection.
 
-For all such tasks, two major phases are commonly identified by DS, namely \emph{training} (a.k.a. learning, or fitting) and inference (a.k.a. usage).
+For all such tasks, two major phases are commonly identified in DS, namely \emph{training} (a.k.a. learning, or fitting) and \emph{usage} (a.k.a. inference).
 %
-The first phase (training) commonly occurs behind the scenes, and it is conducted by \emph{data scientists} -- i.e. human being --, despite involving some semi-automatic tasks.
+The first phase (training) commonly occurs behind the scenes, and it is led by \emph{data scientists} -- i.e. human beings --, despite involving semi-automated workflows.
 %
-The second phase (inference) is commonly what AI consumers use and deal with.
+The second phase (usage) is commonly what AI consumers use and deal with.
 %
-During training, the most adequate algorithm is selected for the data and the task at hand, and it is then tranined on data, producing a predictive \emph{model} which, hopefully, is predictive enough to be later used on novel data.
+During training, the most adequate algorithm is selected for the data and the task at hand, and it is then trained on data, producing a predictive \emph{model} which, hopefully, is predictive enough to be later used on novel data.
 %
 Users may then exploit the model by feeding it with novel data, to draw predictions.
-
-Notably, regardless of their technical details, all the data-analytics tasks above may leverage on a number of lower level activities which are orthogonal w.r.t. the choice of the particular implementing algorithm, as they involve routine operations, assessment procedures, or best practices which are commonly executed either before or after the data-analytics task itself.
 %
-Examples of these kind of activities are, for instance:
+Predictions, in turn, may be presented to the users as recommendations, decisions, or outcomes.
+
+Notably, regardless of their technical details, all the data-analytics tasks above may leverage on a number of lower-level ancillary activities which are orthogonal w.r.t. the choice of the particular implementing algorithm, as they involve routine operations, assessment procedures, or best practices which are commonly executed either before or after the data-analytics task itself.
+%
+Examples of such kinds of activities are, for instance:
 %
 \begin{description}
     \item[feature engineering] | i.e. a whole class of pre-processing techniques -- such normalising numeric data into predefined intervals, changing the way data is encoded, or creating new data from the available one -- which may be used to improve or transform the available data, in order to improve the performance of the data analytics task;
     \item[dimensionality reduction] | i.e. a whole class of data manipulation techniques aimed at selecting the most relevant attributes of data for a given data-analytics task (before running the task)---such as principal component analysis;
     \item[model assessment] i.e. a whole class of statistical methods, algorithms, and practices to assess the performance of the data-analytic task in a principle way---such as for instance supervised learning metrics (e.g. accuracy, or mean-squared error) or procedures such as cross-validation or test set separation;
-    \item[model selection] i.e. a number of strategies, approaches, and practices to let data scientiest select the best predictive model when multiple options fit the data and the situation at hand---e.g. by leveraging on \emph{cross-validation}, possibly in combination with a grid search strategy to identify the most adequate type of pre 
+    \item[model selection] i.e. a number of strategies, approaches, and practices to let data scientists select the best predictive model when multiple options fit the data and the situation at hand---e.g. by leveraging on \emph{cross-validation}, possibly in combination with a grid search strategy to identify the most adequate type of predictor.
 \end{description}
 %
-Despite being really important for the practice of data science, such aspects are quite marginal within the scope of this thesis.
+% Despite being really important for the practice of data science, such aspects are quite marginal within the scope of this thesis.
 %
-Accordingly, in the following chapters we focus data-analytics tasks, and in particular supervised learning ones. 
+% Accordingly, in the following chapters we focus data-analytics tasks, and in particular supervised learning ones. 
 
-\paragraph{}
+\paragraph{The Engineering Perspective.}
 
-% Data analytics
-%     - general goals: learning otherwise hard-to-formalise tasks, recognise patterns, detect patterns in data, predicting the future knowing the past, creating predictive models from data + plus all collateral activities
-%     - tasks: supervised learning, unsurpervised learning, feature engineering, bayesian modelling, reinforcement learning
-%     - practices: function fitting, clustering, dimensionality reduction, feature selection, filtering, smoothing, forecasting, data fusion
-%     - inference vs. fitting
+As a field of engineering, DS deals with the design and implementation of robust software and hardware architectures, which support the \emph{scalable} execution of the aforementioned data-analytic tasks over the so-called \emph{big data}.
+%
+For this reason, the engineering perspective of DS is also known as the field of \emph{big data processing}.
 
-% Big data processing:
-%     - general goals: online processing of large or unlimited streams of data, offline processing of large amounts of data, storage and querying of large amounts of data,
+The exploitation of parallel or distributed solutions to speed up the data processing workflows is the most relevant object of study under the engineering perspective of DS.
+%
+Along this line, there are two broad sorts of situations which is worth mentioning, namely: \emph{on-line} or \emph{off-line} data processing.
+%
+They correspond to as many major approaches to big data processing, namely \emph{stream} processing and \emph{parallel}/\emph{distributed} computing.
 
+On-line data processing deals with the need of processing data as soon as it is produced, without any intermediate accumulation phase.
+%
+The outcomes of on-line data processing must be consumed in useful time---hence the need to process it quickly, on the fly.
+%
+Along this line, the notion of data \emph{stream} -- that is, a possibly \emph{unlimited} sequence of data to be \emph{lazily} and reactively processed -- is fundamental as it supports the processing of large amounts of data without requiring them to be simultaneously stored in memory---therefore enabling great scalability.
 
+Off-line data processing deals with the need of analysing data statistically, therefore requiring as much data as possible.
+%
+A data accumulation phase is commonly the underlying implicit assumption for off-line data processing.
+%
+Accordingly, the focus here is on speeding up -- through parallelisation -- the data processing workflows which would otherwise require too much computational time or power.
+%
+There, parallelisation may occur on either on multiple cores of the same machine, or multiple \emph{distributed} machines.
 
+\chapter{Representing Data and Knowledge}
 
-\subsection{Machine Learning}
+\note{General introduction on KR as the lingua franca among humans and machines}
+
+\section{Symbolic Knowledge Representation}
+
+\note{Intensional vs. Extensional}
+\note{Relational as bidirectional}
+
+\emph{Knowledge representation} has always been regarded as a key issue since the early days of AI, since no reasoning can exist without knowledge.
+%
+Its instances spread from \emph{deductive databases} \cite{green1968} to \emph{description logics} \cite{baader2002} and \emph{ontologies} \cite{cimiano2006-ontologies}, to name just a few. 
+%
+Many kinds of logic-based knowledge representation systems have been proposed over the years, mostly relying on description logics and modal logics to represent, respectively, terminological knowledge and time-dependent or subjective knowledge.
+
+Early KR formalisms, such as \emph{semantic networks} and \emph{frames} \cite{sowa2014}, also aimed at providing a structured representation of information.
+%
+Description logics are based on the same ideas, but without the formal weaknesses that made the use of their precursors problematic. 
+%
+In DL, complex concepts are built from simpler ones with an emphasis on the decidability of the reasoning tasks and on the provision of sound, complete and empirically-tractable reasoning services. 
+%
+Applications range from reasoning with database schemas and queries \cite{artale2002} to \emph{ontology languages} such as OIL, DAML+OIL and OWL \cite{horrocks2005}---always keeping in mind that not only the key inference problems should be decidable, but also that the decision procedures should be implemented \emph{efficiently}.
+
+Ontology-based approaches are popular because of their basic goal---a common understanding of some domain that can be shared between people and application systems.
+%
+At the same time, it should be understood that the general concepts and relations of a top-level ontology can rarely accommodate all of the systems peculiarities \cite{van2008,valente2005}.
+
+A number of systems based on DL have been developed -- e.g. \cite{cohen1994,moller2003} -- in diverse application domains, such as natural language processing, configuration of technical systems, software information systems, optimising queries to databases, planning.
+
+\section{Sub-symbolic Data Representation}
+
+\note{Distributed as opposed to symbolic}
+\note{Functional as one-way}
+
+\chapter{Learning Knowledge from Data}
+
+\note{Introduction on learning: general perspective + logic perspective + data-driven perspective }
+
+\section{Machine Learning}
+
+\note{Introduction on learning: supervised, vs. unsupervised, vs. reinforcement}
+
+\subsection{Supervised Learning}
 
 Since several practical AI problems -- such as image recognition, financial and medical decision support systems -- can be reduced to \emph{supervised} ML -- which can be further grouped in terms of either  \emph{classification} or \emph{regression} problems \cite{twala2010,smlreview-faia160} --, in the reminder of this paper we focus on this set of ML problems. 
 
@@ -541,41 +609,9 @@ Even if the interpretability of predictor families is not a well-defined feature
 %
 For instance, it is widely acknowledged that \emph{generalized linear models} (GLM) are more interpretable than neural networks (NN), whereas \emph{decision trees} (DT) \cite{breiman1984classification} are among the most interpretable families \cite{GuidottiMRTGP19}.
 
-\chapter{Representing Data and Knowledge}
-
-\emph{Knowledge representation} has always been regarded as a key issue since the early days of AI, since no reasoning can exist without knowledge.
-%
-Its instances spread from \emph{deductive data bases} \cite{green1968} to \emph{description logics} \cite{baader2002} and \emph{ontologies} \cite{cimiano2006-ontologies}, to name just a few. 
-%
-Many kinds of logic-based knowledge representation systems have been proposed over the years, mostly relying on description logics and modal logics to represent, respectively, terminological knowledge and time-dependent or subjective knowledge.
-
-Early KR formalisms, such as \emph{semantic networks} and \emph{frames} \cite{sowa2014}, also aimed at providing a structured representation of information.
-%
-Description logics are based on the same ideas, but without the formal weaknesses that made the use of their precursors problematic. 
-%
-In DL, complex concepts are built from simpler ones with an emphasis on the decidability of the reasoning tasks and on the provision of sound, complete and empirically-tractable reasoning services. 
-%
-Applications range from reasoning with database schemas and queries \cite{artale2002} to \emph{ontology languages} such as OIL, DAML+OIL and OWL \cite{horrocks2005}---always keeping in mind that not only the key inference problems should be decidable, but also that the decision procedures should be implemented \emph{efficiently}.
-
-Ontology-based approaches are popular because of their basic goal---a common understanding of some domain that can be shared between people and application systems.
-%
-At the same time, it should be understood that the general concepts and relations of a top-level ontology can rarely accommodate all of the systems peculiarities \cite{van2008,valente2005}.
-
-A number of systems based on DL have been developed -- e.g. \cite{cohen1994,moller2003} -- in diverse application domains, such as natural language processing, configuration of technical systems, software information systems, optimising queries to databases, planning.
-
-\section{Distributed vs. Symbolic}
-
-\section{Intensional vs. Extensional}
-
-\section{Relational vs. Functional}
-
-\chapter{Learning Knowledge from Data}
-
-\section{Machine Learning}
-
 \section{Logic Induction}
 
-\chapter{Generating Data by Reasoning over Knowledge}
+\chapter{Reasoning over Knowledge}
 
 \section{Symbolic Reasoning}
 
