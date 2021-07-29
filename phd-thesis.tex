@@ -583,31 +583,116 @@ A number of systems based on DL have been developed -- e.g. \cite{cohen1994,moll
 
 \note{Introduction on learning: general perspective + logic perspective + data-driven perspective }
 
-\section{Machine Learning}
+A famous definition of machine learning from \cite{Mitchell1997} states:
+%
+\begin{displayquote}
+	A computer program is said to learn from experience $E$ with respect to some class of tasks $T$ and performance measure $P$ if its performance at tasks in $T$, as measured by $P$, improves with experience $E$
+\end{displayquote}
+%
+This definition is very wide, as it does not specify 
+%
+\begin{inlinelist}
+	\item what are the possible tasks,
+    % \item whether they are subject to some constraint,
+	\item how performance measured is in practice,
+	\item how / when experience should be provided to tasks,
+	\item how exactly the program is supposed learn, and
+    \item under which form learnt information is represented.
+\end{inlinelist}
+%
+Accordingly, depending on the particular ways these aspects are tackled, a categorisation of the approaches and techniques for letting software agents learn may be drawn.
 
-\note{Introduction on learning: supervised, vs. unsupervised, vs. reinforcement}
+\begin{figure}
+    \centering
+    \includegraphics[width=.8\linewidth]{figures/ml-taxonomy.pdf}
+    \caption{Taxonomy of ML. The second column enumerates the three major families of ML approaches, the third one enumerates the main sorts of tasks affiliated with each family, whereas the fourth one enumerates possible applications for each task.}
+    \label{fig:ml-taxonomy}
+\end{figure}
+%
+\sidenote{Make figure adherent to caption (add $4^{th}$ column)}
+%
+As depicted in \cref{fig:ml-taxonomy}, there exist three major approaches to ML, each one characterised by a well-defined pool of tasks, which may, in turn, be applied in wide range of use case scenarios.
+%
+The three major approaches to learning are: \emph{supervised}, \emph{unsupervised}, and \emph{reinforcement}.
+%
+They essentially deal with the kind of task $T$ to be learned -- commonly consisting in the estimation of an unknown relation --, and how expericence $E$ is provided to the learning algorithm.
+%
+In supervised learning, the learning task consists of finding a way to approximate an unknown relation, given a sampling of it---which constitutes the experience.
+%
+In unsupervised learning, the learning task consists of finding the best relation for a sample of data -- which constitute the experience --, following a given optimality criterion intensionally describing the relation.
+%
+In reinforcement learning, the learning task consists of letting an agent estimate optimal plans given the reward it receives whenever it reaches particular goals---constituting the experience.
+%
+There, a plan can be described as a relation among the possible states of the world, the actions to be performed in those states, and the reward the agents expects to receive from that action.
 
-\subsection{Supervised Learning}
+Such categorization of learning approaches can be applied to both symbolic and sub-symbolic techniques.
+%
+Indeed, in this chapter, we provide an overview of learning on a per repesentation basis.
+%
+In particular, in the following sections we summarise the state of the art for what concerns both symbolic and sub-symbolic forms of \emph{supervised} learning.
+
+\section{Sub-Symbolic Supervised Machine Learning}
 
 Since several practical AI problems -- such as image recognition, financial and medical decision support systems -- can be reduced to \emph{supervised} ML -- which can be further grouped in terms of either  \emph{classification} or \emph{regression} problems \cite{twala2010,smlreview-faia160} --, in the reminder of this paper we focus on this set of ML problems. 
 
-In those cases, a \emph{learning algorithm} is commonly exploited to estimate the specific nature and shape of an unknown \emph{prediction} function (or \emph{predictor}) $p^*: \mathcal{X} \rightarrow \mathcal{Y}$, mapping each input vector $\mathbf{x}$ from a given input space $\mathcal{X}$ into a prediction from a given output space $\mathcal{Y}$.
+Within the scope of sub-symbolic supervised ML, a \emph{learning algorithm} is commonly exploited to approximate the specific nature and shape of an unknown \emph{prediction} function (or \emph{predictor}) $\pi^*: \mathcal{X} \rightarrow \mathcal{Y}$, mapping data from an input space $\mathcal{X}$ into an output space $\mathcal{Y}$.
 %
-To do so, the learning algorithm takes into account a number $N$ of examples in the form $(\mathbf{x}_i,\mathbf{y}_i)$ such that $\mathbf{x}_i \in X \subset \mathcal{X}$, $\mathbf{y}_i \in Y \subset \mathcal{Y}$, and $|X| \equiv |Y| \equiv N$.
+There, common choices for both $\mathcal{X}$ and $\mathcal{Y}$ are, for instance, the set of vectors, matrices, or tensors of numbers of a given size---hence the sub-symbolic nature of the approach.
 %
-There, each $\mathbf{x}_i$ represents an instance of the input data for which the expected output value $\mathbf{y}_i$ is known or has already been estimated.
+An important trait which significantly affects both the theory and the practice of sub-symbolic supervised learning is that it relies on the assumption that vectors, matrices, or tensors in $\mathcal{X}$ and $\mathcal{Y}$ are of \emph{fixed} size---despite items in $\mathcal{X}$ may have a different size than items in $\mathcal{Y}$.
 %
-Such sorts of ML problems are said to be ``supervised'' because the expected targets $Y$ are available, whereas they are said to be ``regression'' problems if $Y$ consists of continuous or numerable values, or ``classification'' problems if $Y$ consists of categorical values. 
+Without lack of generality, in what follows we refer to items in $\mathcal{X}$ as $n$-dimensional vectors denoted as $\mathbf{x}$, whereas items in $\mathcal{Y}$ are $m$-dimensional vectors denoted as $\mathbf{y}$---despite matrices or tensors may be suitable choices as well.
 
-The learning algorithm usually assumes $p^* \in \mathcal{P}$, for a given \emph{family} $\mathcal{P}$ of predictors---meaning that the unknown prediction function exists, and it is from $\mathcal{P}$.
+To approximate function $\pi^*$, supervised learning leverages upon a learning \emph{algorithm}, which performs approximation by taking into account a number $N$ of \emph{examples} of the form $(\mathbf{x}_i,\mathbf{y}_i)$ such that $\mathbf{x}_i \in X \subset \mathcal{X}$, $\mathbf{y}_i \in Y \subset \mathcal{Y}$, and $|X| \equiv |Y| \equiv N$.
 %
-The algorithm then \emph{trains} a predictor $\hat{p} \in \mathcal{P}$ such that the value of a given loss function $\lambda : \mathcal{Y} \times \mathcal{Y} \rightarrow \mathbb{R}$ -- computing the discrepancy among predicted and expected outputs -- is minimal or reasonably low---i.e.: $\hat{p} = \underset{p \in \mathcal{P}}{\text{argmin}} \left\{ \sum_{i=1}^{N} \lambda(\mathbf{y}_i,\ p(\mathbf{x}_i)) \right\}$.
+There, the set $D = \{ (\mathbf{x}_i,\mathbf{y}_i) \mid \mathbf{x}_i \in X, \mathbf{y}_i \in Y \}$ is called \emph{training} set, and it consists of $(n+m)$-dimensional vectors.
+%
+The dataset can be considered as the concatenation of two matrices, namely the $N \times n$ matrix of \emph{input} data ($X$) and the $N \times m$ matrix of \emph{expected output} data ($Y$).
+%
+There, each $\mathbf{x}_i$ represents an instance of the input data for which the expected output value $\mathbf{y}_i \equiv \pi^*(\mathbf{x}_i)$ is known or has already been estimated.
+%
+Notably, such sorts of ML problems are said to be ``supervised'' \emph{because} the expected outputs $Y$ are available.
+%
+Furthermore, the function approximation task is called ``regression'' if the components of $Y$ consist of continuous or numerable -- i.e. \emph{infinite} -- values, or ``classification'' problems they consist of categorical -- i.e. \emph{finite} -- values.
 
-Depending on the predictor family $\mathcal{P}$ of choice, the nature of the learning algorithm and the admissible shapes of $\hat{p}$ may vary dramatically, as well as the their \emph{interpretability}.
+Many learning algorithms exist, and they work in quite different ways.
 %
-Even if the interpretability of predictor families is not a well-defined feature, most authors agree on the fact that some predictor families are \emph{more interpretable than others} \cite{Lipton18}---in the sense that it is easier for humans to understand the functioning and the predictions of the former ones.
+However, the general layout of sub-symbolic supervised learning is the same in all cases.
 %
-For instance, it is widely acknowledged that \emph{generalized linear models} (GLM) are more interpretable than neural networks (NN), whereas \emph{decision trees} (DT) \cite{breiman1984classification} are among the most interpretable families \cite{GuidottiMRTGP19}.
+The learning algorithm assumes $\pi^*$ to be a function from a given set of functions $\mathcal{H}$ called \emph{hypotheses} space---i.e. $\pi^* \in \mathcal{H}$.
+%
+In other words, the underlying assumption is that the unknown prediction function $\pi^*$ exists, and it is of from charactirising all functions in $\mathcal{H}$.
+%
+The algorithm performs an exploration of the \emph{hypotheses} space $\mathcal{H}$ looking for the hypothesis function $\hat{\pi} \in \mathcal{H}$ that better fits the data in $D$---and that, therefore, better approximates $\pi^*$.
+
+The goodness of the fitting among a hypothesis function $\hat{\pi}$ and the data can be assessed via either 
+%
+\begin{inlinelist}
+    \item an error function $\varepsilon : \mathcal{Y} \times \mathcal{Y} \rightarrow \mathbb{R}_{\geq 0}$ measuring the discrepancy among the expected outputs in $Y$ and the values attained by applying $\hat{\pi}$ to $X$ -- to be minimised --, or dually,
+    \item an adherence function $\rho : \mathcal{Y} \times \mathcal{Y} \rightarrow \mathbb{R}_{\leq 1}$, measuring the similarities among the same values---to be maximised.
+\end{inlinelist}
+%
+Therefore, in theory, any sub-symbolic supervised learning process can be abstractly described via any of the following fomul\ae{}:
+%
+$$
+\hat{\pi} = \argmin{\pi \in \mathcal{H}}{ \sum_{i=1}^{N} \varepsilon(\mathbf{y}_i,\ \pi(\mathbf{x}_i)) }
+\quad \text{or} \quad
+\hat{\pi} = \argmax{\pi \in \mathcal{H}}{ \sum_{i=1}^{N} \rho(\mathbf{y}_i,\ \pi(\mathbf{x}_i)) }
+$$
+
+\paragraph{Parameters and hyper-parameters.}
+
+Exploration of the hypothesis space is what is commonly referred to as ``learning'' or ``training''.
+%
+Learning algorithms mostly differ for the strategy they follow to perform such exploration, other than the particular hypotheses spaces they support.
+
+\paragraph{About generalisation: the bias-variance trade-off.}
+
+% Depending on the predictor family $\mathcal{P}$ of choice, the nature of the learning algorithm and the admissible shapes of $\hat{p}$ may vary dramatically, as well as the their \emph{interpretability}.
+% %
+% Even if the interpretability of predictor families is not a well-defined feature, most authors agree on the fact that some predictor families are \emph{more interpretable than others} \cite{Lipton18}---in the sense that it is easier for humans to understand the functioning and the predictions of the former ones.
+% %
+% For instance, it is widely acknowledged that \emph{generalized linear models} (GLM) are more interpretable than neural networks (NN), whereas \emph{decision trees} (DT) \cite{breiman1984classification} are among the most interpretable families \cite{GuidottiMRTGP19}.
 
 \section{Logic Induction}
 
