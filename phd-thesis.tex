@@ -648,15 +648,60 @@ We choose FOL as it is quite general, and the other approaches can be described 
         \\
         \meta{Structure} & := & \meta{Functor} \terminal{(} \meta{Arguments} \terminal{)}
         \\
-        \meta{Functor} & := & \mathtt{f}_1 \mid \mathtt{f}_2 \mid \mathtt{f}_3 \mid \ldots
+        \meta{Functor} & := & \functor{f}_1 \mid \functor{f}_2 \mid \functor{f}_3 \mid \ldots
         \\
         \meta{Constant} & := & \meta{Functor} \mid \meta{Number}\mid \meta{Boolean}
         \\
         \meta{Number} & := & \mathbb{R}
         \\
-        \meta{Boolean} & := & \top \mid \bot
+        \meta{Boolean} & := & \terminal{\top} \mid \terminal{\bot}
     \end{array}$$
+    \caption{Context-free grammar for FOL. Sans-serif words among angular brackets denote non-terminal symbols, whereas symbols among single apices denote terminal symbols.}
+    \label{tab:fol-grammar}
 \end{table}
+
+First order logic (FOL) is a general-purpose logic which can be used to represent knowledge symbolically, in a very flexible way.
+%
+More precisely, it allows both human and computational agents to express (i.e. write) the properties of -- and the relations among -- a set of entities constituting the \emph{domain of the discourse}, via one or more \emph{formul\ae}---and, possibly, to reason over such formul\ae{} by drawing inferences.
+
+In \cref{tab:fol-grammar} the syntax of FOL is formally defined via a context-free grammar.
+%
+Informally, the syntax for the general FOL formula is defined over the assumption that there exist:
+%
+\begin{itemize}
+    \item a number of constant symbols, including:
+    %
+    \begin{itemize}
+        \item a number of \emph{functors}, denoted by monospaced symbols such as $\functor{f}_1, \functor{f}_2, \ldots$,
+        \item all real numbers and all possible Boolean values (denoted by $\top$ and $\bot$);
+    \end{itemize}  
+    \item a number of \emph{predicate symbols} (a.k.a. predications), denoted by italic symbols starting with a lower case letter, such as $p_1, p_2, \ldots$;
+    \item a number of \emph{variables}, denoted by italic symbols starting with a capital letter, such as $X_1, X_2, \ldots$.
+\end{itemize}
+%
+Under such assumption a FOL formula is any expression composed by a list of quantified variables, followed by a number of \emph{literals}, i.e. \emph{predicates} which may or may not be prefixed by the negation operator ($\lnot$)---in which case would be called nagated.
+%
+Each predicate consists of a predicate symbol, possibly applied to one or more \emph{terms}.
+%
+More precisely, each predicate may carry $N \geq 0$ terms.
+%
+When this is the case, the predicate is said $N$-ary (meaning that its arity, or amount of arguments, is $N$).
+%
+Terms may be of three sorts, namely \emph{constants}, \emph{structures}, or \emph{variables}.
+%
+Constants represent the many entities from the domain of the discourse.
+%
+In particular, each constant references a different entity.
+%
+Structures are combinations of one or more entities via one \emph{functor}.
+%
+Similarly to predicates, structures may carry $N \geq 0$ terms.
+%
+When this is the case, the structure is said $N$-ary as well.
+%
+Being containers of terms, structures enable the creations of arbitrarily complex data structures combining several entities from the domain of the discourse, and treating them as a whole.
+%
+Finally, variables are placeholders for unknown terms---i.e. for entities or groups of entities.
 
 \subsection{More stuff}
 
