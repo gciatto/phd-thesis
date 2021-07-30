@@ -157,6 +157,7 @@ Under such a mindset, human agents are intelligent by definition, whereas softwa
 %
 Accordingly, what we have so far called ``machines'' are indeed ``software agents'', and the overall role of the agent-oriented mindset is about focussing on \emph{who} is charge of manipulating knowledge and \emph{when}, other than \emph{where} should knowledge be located in the meanwhile.
 
+\note{Discuss the goal of the thesis.}
 
 \paragraph{Structure of the thesis}
 
@@ -547,24 +548,125 @@ There, parallelisation may occur on either on multiple cores of the same machine
 
 \chapter{Representing Data and Knowledge}
 
-\note{General introduction on KR as the lingua franca among humans and machines}
+% \note{General introduction on KR as the lingua franca among humans and machines}
+Representation deals with the expression of information to make it understandable and manipulable by agents---be they computational or humans.
+%
+From a philosophical perspective, there are two major premises to any well-funded discussion on representation.
+
+First, both computational and human agents operate (i.e. compute or think) upon \emph{representations} of relevant aspects of the reality---and representations are everything an agent may hope to manipulate.
+%
+\emph{Noumena} -- i.e. what things actually are -- are not accessible directly, but rather via \emph{perception}.
+%
+Perception implies processing, and processing implies representing the information being processed, somehow.
+%
+So, agents always deal with \emph{phenomena} -- i.e. how things appear --, hoping that the corresponding \emph{noumena} are reflected with sufficient precision.
+%
+(Of course, to reach a true understading about a particular noumenon, several related phenomena should be observed, but this particular aspect is addressed in the following chapters.)
+%
+% In other words, whenever an agent is dealing with some information, it is actually dealing with a particular representation of some underlying concept which can only be grasped by its observable properties.
+
+Second, representations are manifold and of different sorts, and they may focus on particular aspects of the phenomenon being represented.
+% 
+In other words, whenever an agent is dealing with some information, it is actually dealing with a particular representation of some underlying concept, despite many others could be available.
+%
+Furthermore, representations are never good or bad per se, but rather more or less adequate to the agent exploiting them and to the task it is performing.
+%
+So, by whom information must be consumed, and to serve what purpose, is a relevant concern in deciding which representations are more adequate.
+
+
+% Representations are subtle because they focus on a particular aspect of the information being represented.
+%
+
+Despite being rooted into deep and long-standing philosophical discussions, such premises are here reported serving a practical purpose.
+%
+Indeed, they synthesise the underlying mindset tying this chapter and the following ones together: the particular choice of a particular representation means simultanously enables and constrains the kinds of possible processing information may be subject to---and this in turns conditions any subsequent design choice. 
+
+Accordingly, within the scope of this chapter we discuss the representation of particular sorts of information, namely either \emph{data} or \emph{knowledge}.
+%
+We consider as data any \emph{raw} information attained by \emph{sampling} some phenomenon or situation from reality.
+%
+Data by itself simply describes the phenomenon / situation, yet it is hard to exploit and transfer directly, because of its granularity and volume.
+%
+Conversely, we consider as knowledge any coarse-grained piece of information describing entire classes of phenomena or situations, in a concise and reusable (i.e. predictive) way.
+%
+Differently from data, knowledge can be applied to unseen phenomena or situations, or transferred to agents which have not experienced any such phenomena / situations explicitly.  
+
+Be it devoted to data or knowledge, each representation comes with pros and cons, simplifying the expression of some aspects of the information being represented, while complicating the expression of others.
+%
+Indeed, a lot of effort in DS is devoted to the engineering of the best representation for the data at hand, to maximise the effectiveness of any subsequent data-processing task.
+
+The means to represent data and knowledge are manifold and too many to count.
+%
+However, at the meta-level, we can categorise representations means as either \emph{symbolic} or \emph{sub-symbolic}.
+%
+While the two means are essentially interchangeable -- other than mutually convertible -- when they represent data, they lead to profoundly different ways of representing knowledge.
+%
+Indeed, while symbolic knowledge is both machine- and human-interpretable, sub-symbolic is mostly machine-interpretable, and is therefore treated by human beings as a black box in the general case. 
+
+Along this line, in the reminder of this chapter we focus on logic -- as the most prominent approach to \emph{symbolic} representation --, and vectors, matrices, or tensors of real numbers---as the most prominent approach to \emph{sub-symbolic} representation.
+%
+We show analogies and differences among such approaches to representation, eliciting the pros and cons of both, and, in particular, their differences among the interpretability perspective. 
 
 \section{Symbolic Knowledge Representation}
 
 \note{Intensional vs. Extensional}
 \note{Relational as bidirectional}
 
-\emph{Knowledge representation} has always been regarded as a key issue since the early days of AI, since no reasoning can exist without knowledge.
+(Symbolic) Knowledge representation (KR) has always been regarded as a key issue since the early days of AI, as no intelligence can exist without knowledge, and no computation can occur in lack of representation.
+
+Historically, most KR formalisms and technologies have been designed around either sub-sets or applications of the \emph{first order logic} (FOL).
 %
-Its instances spread from \emph{deductive databases} \cite{green1968} to \emph{description logics} \cite{baader2002} and \emph{ontologies} \cite{cimiano2006-ontologies}, to name just a few. 
+Consider for instance, \emph{deductive databases} \cite{green1968}, \emph{description logics} \cite{baader2002}, \emph{ontologies} \cite{cimiano2006-ontologies}, \emph{Horn} logic \missingref, \emph{higher-order} logic \missingref, just to name a few.
+
+Here we discuss the language of FOL as a means for representing symbolic information.
 %
+We choose FOL as it is quite general, and the other approaches can be described by either constraining or loosing the definition of FOL.
+
+\subsection{First Order Logic (FOL)}
+
+\begin{table}
+    $$\begin{array}{rcl}
+        \meta{Formula} & := & \meta{Clause} \mid \meta{Quantifier} \meta{Formula}
+        \\
+        \meta{Quantifier} & := & \terminal{\forall} \meta{Variable} \mid \terminal{\exists} \meta{Variable}
+        \\
+        \meta{Clause} & := & \meta{Literal} \mid \terminal{(} \meta{Formula} \meta{Connective} \meta{Formula} \terminal{)}
+        \\
+        \meta{Connective} & := & \terminal{\wedge} \mid \terminal{\vee} \mid \terminal{\rightarrow} \mid \terminal{\leftrightarrow} \mid \terminal{=} 
+        \\ 
+        \meta{Literal}  & := & \meta{Predicate} \mid \terminal{\lnot} \meta{Predicate} 
+        \\
+        \meta{Predicate} & := & \meta{Predication} \mid \meta{Predication} \terminal{(} \meta{Arguments} \terminal{)}
+        \\
+        \meta{Predication} & := & p_1 \mid p_2 \mid p_3 \mid \ldots
+        \\
+        \meta{Arguments} & := & \meta{Term} \mid \meta{Term} \terminal{,} \meta{Arguments}
+        \\
+        \meta{Term} & := & \meta{Variable} \mid \meta{Structure} \mid \meta{Constant}
+        \\
+        \meta{Variable} & := & X_1 \mid X_2 \mid X_3 \mid \ldots
+        \\
+        \meta{Structure} & := & \meta{Functor} \terminal{(} \meta{Arguments} \terminal{)}
+        \\
+        \meta{Functor} & := & \mathtt{f}_1 \mid \mathtt{f}_2 \mid \mathtt{f}_3 \mid \ldots
+        \\
+        \meta{Constant} & := & \meta{Functor} \mid \meta{Number}\mid \meta{Boolean}
+        \\
+        \meta{Number} & := & \mathbb{R}
+        \\
+        \meta{Boolean} & := & \top \mid \bot
+    \end{array}$$
+\end{table}
+
+\subsection{More stuff}
+
 Many kinds of logic-based knowledge representation systems have been proposed over the years, mostly relying on description logics and modal logics to represent, respectively, terminological knowledge and time-dependent or subjective knowledge.
 
 Early KR formalisms, such as \emph{semantic networks} and \emph{frames} \cite{sowa2014}, also aimed at providing a structured representation of information.
 %
 Description logics are based on the same ideas, but without the formal weaknesses that made the use of their precursors problematic. 
 %
-In DL, complex concepts are built from simpler ones with an emphasis on the decidability of the reasoning tasks and on the provision of sound, complete and empirically-tractable reasoning services. 
+In description logics, complex concepts are built from simpler ones with an emphasis on the decidability of the reasoning tasks and on the provision of sound, complete and empirically-tractable reasoning services. 
 %
 Applications range from reasoning with database schemas and queries \cite{artale2002} to \emph{ontology languages} such as OIL, DAML+OIL and OWL \cite{horrocks2005}---always keeping in mind that not only the key inference problems should be decidable, but also that the decision procedures should be implemented \emph{efficiently}.
 
@@ -616,10 +718,10 @@ As depicted in \cref{fig:ml-taxonomy}, there exist three major approaches to ML,
 The three major approaches to learning are: \emph{supervised}, \emph{unsupervised}, and \emph{reinforcement}.
 %
 They essentially deal with the kind of task $T$ to be learned -- commonly consisting in the estimation of an unknown relation --, and how expericence $E$ is provided to the learning algorithm.
+
+In supervised learning, the learning task consists of finding a way to approximate an unknown relation, given a sampling of its items---which constitutes the experience.
 %
-In supervised learning, the learning task consists of finding a way to approximate an unknown relation, given a sampling of it---which constitutes the experience.
-%
-In unsupervised learning, the learning task consists of finding the best relation for a sample of data -- which constitute the experience --, following a given optimality criterion intensionally describing the relation.
+In unsupervised learning, the learning task consists of finding the best relation for a sample of items -- which constitute the experience --, following a given optimality criterion intensionally describing the target relation.
 %
 In reinforcement learning, the learning task consists of letting an agent estimate optimal plans given the reward it receives whenever it reaches particular goals---constituting the experience.
 %
@@ -633,17 +735,19 @@ In particular, in the following sections we summarise the state of the art for w
 
 \section{Sub-Symbolic Supervised Machine Learning}
 
-Since several practical AI problems -- such as image recognition, financial and medical decision support systems -- can be reduced to \emph{supervised} ML -- which can be further grouped in terms of either  \emph{classification} or \emph{regression} problems \cite{twala2010,smlreview-faia160} --, in the reminder of this paper we focus on this set of ML problems. 
+Since several practical AI problems -- such as image recognition, financial and medical decision support systems -- can be reduced to \emph{supervised} ML -- which can be further grouped in terms of either  \emph{classification} or \emph{regression} problems \cite{twala2010,smlreview-faia160} --, in the reminder of this section we focus on this set of ML problems. 
 
 Within the scope of sub-symbolic supervised ML, a \emph{learning algorithm} is commonly exploited to approximate the specific nature and shape of an unknown \emph{prediction} function (or \emph{predictor}) $\pi^*: \mathcal{X} \rightarrow \mathcal{Y}$, mapping data from an input space $\mathcal{X}$ into an output space $\mathcal{Y}$.
 %
 There, common choices for both $\mathcal{X}$ and $\mathcal{Y}$ are, for instance, the set of vectors, matrices, or tensors of numbers of a given size---hence the sub-symbolic nature of the approach.
-%
-An important trait which significantly affects both the theory and the practice of sub-symbolic supervised learning is that it relies on the assumption that vectors, matrices, or tensors in $\mathcal{X}$ and $\mathcal{Y}$ are of \emph{fixed} size---despite items in $\mathcal{X}$ may have a different size than items in $\mathcal{Y}$.
+
+An important assumption significantly affecting both the theory and the practice of sub-symbolic supervised learning is that vectors, matrices, or tensors in $\mathcal{X}$ and $\mathcal{Y}$ are of \emph{fixed} size---despite items in $\mathcal{X}$ may have a different sizes than the items in $\mathcal{Y}$.
 %
 Without lack of generality, in what follows we refer to items in $\mathcal{X}$ as $n$-dimensional vectors denoted as $\mathbf{x}$, whereas items in $\mathcal{Y}$ are $m$-dimensional vectors denoted as $\mathbf{y}$---despite matrices or tensors may be suitable choices as well.
 
-To approximate function $\pi^*$, supervised learning leverages upon a learning \emph{algorithm}, which performs approximation by taking into account a number $N$ of \emph{examples} of the form $(\mathbf{x}_i,\mathbf{y}_i)$ such that $\mathbf{x}_i \in X \subset \mathcal{X}$, $\mathbf{y}_i \in Y \subset \mathcal{Y}$, and $|X| \equiv |Y| \equiv N$.
+To approximate function $\pi^*$, supervised learning assumes a learning \emph{algorithm} is in place.
+%
+This algorithm computes the approximation by taking into account a number $N$ of \emph{examples} of the form $(\mathbf{x}_i,\mathbf{y}_i)$ such that $\mathbf{x}_i \in X \subset \mathcal{X}$, $\mathbf{y}_i \in Y \subset \mathcal{Y}$, and $|X| \equiv |Y| \equiv N$.
 %
 There, the set $D = \{ (\mathbf{x}_i,\mathbf{y}_i) \mid \mathbf{x}_i \in X, \mathbf{y}_i \in Y \}$ is called \emph{training} set, and it consists of $(n+m)$-dimensional vectors.
 %
@@ -668,9 +772,11 @@ The algorithm performs an exploration of the \emph{hypotheses} space $\mathcal{H
 The goodness of the fitting among a hypothesis function $\hat{\pi}$ and the data can be assessed via either 
 %
 \begin{inlinelist}
-    \item an error function $\varepsilon : \mathcal{Y} \times \mathcal{Y} \rightarrow \mathbb{R}_{\geq 0}$ measuring the discrepancy among the expected outputs in $Y$ and the values attained by applying $\hat{\pi}$ to $X$ -- to be minimised --, or dually,
-    \item an adherence function $\rho : \mathcal{Y} \times \mathcal{Y} \rightarrow \mathbb{R}_{\leq 1}$, measuring the similarities among the same values---to be maximised.
+    \item an error function $\varepsilon : \mathcal{Y} \times \mathcal{Y} \rightarrow \mathbb{R}_{\geq 0}$ measuring the discrepancy among the expected outputs in $Y$ and the values attained by applying $\hat{\pi}$ to $X$, or dually,
+    \item an adherence function $\rho : \mathcal{Y} \times \mathcal{Y} \rightarrow \mathbb{R}_{\leq 1}$, measuring the similarities among the same values.
 \end{inlinelist}
+%
+For the sake of simplicity, we here consider the best hypothesis $\hat{\pi}$ the one item of $\mathcal{H}$ for which the total error is minimal -- or the total adherence is maximal --, w.r.t. the data in $D$. 
 %
 Therefore, in theory, any sub-symbolic supervised learning process can be abstractly described via any of the following fomul\ae{}:
 %
@@ -686,7 +792,47 @@ Exploration of the hypothesis space is what is commonly referred to as ``learnin
 %
 Learning algorithms mostly differ for the strategy they follow to perform such exploration, other than the particular hypotheses spaces they support.
 
-\paragraph{About generalisation: the bias-variance trade-off.}
+A common strategy followed by most learning algorithms leverages on the assumption that the hypothesis space is the set of all functions having the same shape, regulated by a given amount $p$ of \emph{parameters}---namely $\mathcal{H}_\Theta$ where $\Theta \subseteq \mathbb{R}^p$ is space of parameters, enumerated by $\theta$.
+%.
+Under such assumption, the formulation of supervised learning can be rewritten as the optimisation task of finding an optimal assignment $\theta^*$ for the parters in $\theta$:
+%
+$$
+\theta^* = \argmin{\theta \in \Theta}{ \sum_{i=1}^{N} \varepsilon(\mathbf{y}_i,\ \pi_\theta(\mathbf{x}_i)) }
+\quad \text{or} \quad
+\theta^* = \argmax{\theta \in \Theta}{ \sum_{i=1}^{N} \rho(\mathbf{y}_i,\ \pi_\theta(\mathbf{x}_i)) }
+$$
+%
+where $\pi_\theta \in \mathcal{H}_\Theta$ is the particular function using the parameters in $\theta$.
+
+If all functions in $\mathcal{H}_\Theta$, as well as the error (resp. adherence) function $\varepsilon$ (resp. $\rho$), are differentiable w.r.t. $\theta$, then the optimisation task can be tackled via gradient descent (resp. climbing) in the general case---despite better options may exist for particular shapes of the functions in $\mathcal{H}_\Theta$.
+%
+Such need to rely on differentiable functions of vectors of real numbers is what forces many ML techniques into the sub-symbolic realm.
+
+Notably, a hypothesis space is commonly generated by a particular assignment of a number $q$ of \emph{hyper-parameters} $\omega \in \mathbb{R}^q$.
+%
+Each particular value of $\omega$ corresponds to a particular parameters space $\Theta$, and therefore to a particular hypothesis space $\mathcal{H}_\Theta^\omega$.
+%
+The hypothesis space may consist for instance of the set of all polynomials of $a$ variables whose degree is $b$.
+%
+That would imply the corresponding parameters space to comprehend all possible vectors having $\binom{b}{a}$ components.
+%
+So, if $a = b = 1$, then $\mathcal{H}_\Theta^\omega$ is the set of all possible straight lines on a plane, i.e. polynomials parametrised by $\theta_1$ and $\theta_2$.
+%
+For $a = 1$ and $b = 2$, $\mathcal{H}_\Theta^\omega$ corresponds to the set of all possible parabolas on a plane, i.e. polynomials parametrised by $\theta_1$ and $\theta_2$ and $\theta_3$.
+%
+A similar example may be built upon polynomials of 2 variables, and so on.
+
+The difference among parameters and \emph{hyper-}parameters is very important in practice.
+%
+In fact, while parameters are \emph{automatically} computed by the learning algorithm, hyper-parameters are not.
+%
+They may either guessed or estimated by trial-and-error by data scientists---hence representing a bottleneck in the automatisation of learning. 
+
+\note{About generalisation: the bias-variance trade-off?}
+
+\note{Comments on existing algorithms and their relevant aspects?}
+
+\note{Comments on the role of feature engineering}
 
 % Depending on the predictor family $\mathcal{P}$ of choice, the nature of the learning algorithm and the admissible shapes of $\hat{p}$ may vary dramatically, as well as the their \emph{interpretability}.
 % %
@@ -695,6 +841,16 @@ Learning algorithms mostly differ for the strategy they follow to perform such e
 % For instance, it is widely acknowledged that \emph{generalized linear models} (GLM) are more interpretable than neural networks (NN), whereas \emph{decision trees} (DT) \cite{breiman1984classification} are among the most interpretable families \cite{GuidottiMRTGP19}.
 
 \section{Logic Induction}
+
+\note{Formalisation of the problem}
+
+\note{Main notions: positive examples, negative examples, background knowledge, constraints/suggestions}
+
+\note{Details on the representation of input and output data}
+
+\note{Intuition behind the functioning of the algorithms}
+
+\note{What's automatic and what is not}
 
 \chapter{Reasoning over Knowledge}
 
