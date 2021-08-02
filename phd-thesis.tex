@@ -427,7 +427,7 @@ There have also been a number of attempts to construct very large knowledge base
 
 Finally, symbols grounding deals with the problem of letting software agents provide semantics for the symbols they manipulate.
 %
-Put it simply, we may tell a logic solver that Abraham is the father of Isaac -- $father(isaac, abraham)$ --, and also that, for all possible $X$ and $Y$, if $X$ is the father of $Y$, then $Y$ must be the child of $X$ -- $father(X, Y) \rightarrow child(Y, X)$ --, and the solver may also be able to infer that Isaac is thus the child of Abraham, while still having no idea of how to recognise Isaac, Abraham, nor the fatherhood relation, were it written in another form. 
+Put it simply, we may tell a logic solver that Abraham is the father of Isaac -- $father(\functor{isaac}, \functor{abraham})$ --, and also that, for all possible $X$ and $Y$, if $X$ is the father of $Y$, then $Y$ must be the child of $X$ -- $father(X, Y) \rightarrow child(Y, X)$ --, and the solver may also be able to infer that Isaac is thus the child of Abraham, while still having no idea of how to recognise Isaac, Abraham, nor the fatherhood relation, were it written in another form. 
 %
 In other words, the bindings between the symbols processed by software agents and the corresponding entities from the real world are hard to establish and maintain for a bare logic solver---unless other mechanisms are in place.
 %
@@ -609,9 +609,6 @@ We show analogies and differences among such approaches to representation, elici
 
 \section{Symbolic Knowledge Representation}
 
-\note{Intensional vs. Extensional}
-\note{Relational as bidirectional}
-
 (Symbolic) Knowledge representation (KR) has always been regarded as a key issue since the early days of AI, as no intelligence can exist without knowledge, and no computation can occur in lack of representation.
 
 Historically, most KR formalisms and technologies have been designed around either sub-sets or applications of the \emph{first order logic} (FOL).
@@ -656,7 +653,7 @@ We choose FOL as it is quite general, and the other approaches can be described 
         \\
         \meta{Boolean} & := & \terminal{\top} \mid \terminal{\bot}
     \end{array}$$
-    \caption{Context-free grammar for FOL. Sans-serif words among angular brackets denote non-terminal symbols, whereas symbols among single apices denote terminal symbols.}
+    \caption[Context-free grammar for FOL]{Context-free grammar for FOL. Sans-serif words among angular brackets denote non-terminal symbols, whereas symbols among single apices denote terminal symbols.}
     \label{tab:fol-grammar}
 \end{table}
 
@@ -695,13 +692,153 @@ In particular, each constant references a different entity.
 %
 Structures are combinations of one or more entities via one \emph{functor}.
 %
-Similarly to predicates, structures may carry $N \geq 0$ terms.
+Similarly to predicates, structures may carry $M \geq 0$ terms.
 %
-When this is the case, the structure is said $N$-ary as well.
+When this is the case, the structure is said $M$-ary as well.
 %
 Being containers of terms, structures enable the creations of arbitrarily complex data structures combining several entities from the domain of the discourse, and treating them as a whole.
 %
 Finally, variables are placeholders for unknown terms---i.e. for entities or groups of entities.
+
+Predicates and terms are very flexible tools to represent knowledge.
+%
+While terms can be used to represent or reference either entities or groups of entities from the domain of the discourse, predicates can be used to represent relations among those entities, or the properties of each single entity.
+%
+There, the domain of the discourse $\mathbb{D}$
+\sidenote{George Boole, The Laws of Thought. 1854/2003. p. 42}
+is the set of all relevant entities which should be represented in FOL to amenable of formal treatment, in a particular scenario.
+%
+Should we use FOL to treat arithmetics, $\mathbb{D}$ would include the set of \emph{natural} numbers---i.e. a symbol for each natural number.
+%
+Should we treat calculus, $\mathbb{D}$ would include the set of \emph{real} numbers.
+%
+Should we treat kinship relationships, $\mathbb{D}$ would include a symbol for each person taken into account.
+
+Concerning predicates, let us denote by $p/N$ the $N$-ary predicate whose predicate symbol is $p$ and whose arity is $N$.
+%
+% Let us also assume that the $N$ arguments of the predicate are entities drawn from the sets of entities $\mathcal{D}_1, \ldots, \mathcal{D}_N$, where $\mathcal{D}_i \subseteq \mathbb{D}$, for all $i = 1, \ldots, N.$ 
+%
+When $N \geq 2$, the predicate represents one or more items from the relation $p \subseteq \mathbb{D} \times \ldots \times \mathbb{D}$.
+%
+So, for instance, the expression $p(t_1, \ldots, t_N)$, where all $t_i$ are non-variable terms, denotes that the $N$-uple $(t_1, \ldots, t_N)$ is part of the $N$-ary relation subtended by $p$---or that, in other words, the relation $N$-ary relation $p$ ties the entities $t_1, \ldots, t_N$ together.
+%
+Similarly, the expression $\forall X_i\ p(t_1, \ldots, X_i, \ldots, t_N)$, where $X_i$ is a variable, denotes a situation where, for each entity $X_i$ in $\mathbb{D}$, the relation $N$-ary relation $p$ ties the entities $t_1, \ldots, X_i, \ldots, t_N$ together.
+%
+Dually, the expression $\exists X_i\ p(t_1, \ldots, X_i, \ldots, t_N)$ denotes an item of the $N$-ary relation $p$ whose $i^{th}$ item is unknown, or, in other words, an item where the first argument is $t_1$, the second argument is $t_2$, \ldots, and the last argument is $t_N$, while the $i^{th}$ argument is arbitrary.
+%
+Conversely, when $N = 1$, the predicate represents one or more items from the set $p \subseteq \mathbb{D}$.
+%
+So, for instance, the expression $p(t)$, where $t$ is a non-variable term, denotes a situation where $t$ is an item of the set subtended by $p$---or that, in other words, the property $p$ holds for the entity $t$.
+%
+Similarly, the expression $\forall X\ p(X)$, denotes a situation where all items in $\mathbb{D}$ are items of the set $p$ as well---or that, in other words, the property $p$ holds for all entities in $\mathbb{D}$.
+%
+Dually, the expression $\exists X\ p(X)$, denotes a situation where some item in $\mathbb{D}$ is in $p$ as well.
+%
+Finally, when $N = 0$, the predicate $p$ represents a Boolean proposition which may or may not be true.
+
+Concerning non-variable terms, let us denote by $\functor{f}/M$ the $M$-ary term whose functor is $\functor{f}$ and whose arity is $M$.
+%
+When $M \geq 0$, the term is a constant and it represent some entity from $\mathbb{D}$.
+%
+When $M \geq 1$, the term is a structure -- i.e. a named and ordered group of terms -- and it represents a complex or composite entity from $\mathbb{D}$.
+%
+The actual interpretation of a structure really depends on the scenario at hand.
+%
+So, for instance, in the arithmetic domain, it is possible to represent natural numbers in Peano notation
+\sidenote{\url{https://en.wikipedia.org/wiki/Peano_axioms}}
+using a unary structure -- e.g. $\functor{s}$, for \emph{successor} -- and a constant -- e.g. $\functor{z}$, for \emph{zero} -- as follows: 
+$\functor{z}$ represents $0$, 
+$\functor{s}(\functor{z})$ represents $1$, 
+$\functor{s}(\functor{s}(\functor{z}))$ represents $2$, etc. 
+%
+Under this representation, each natural number (except $\functor{z}$) is composed by its precedessor, and the successor functor $\functor{s}/1$.
+
+\paragraph{Knowledge Bases.}
+
+From a knowledge representation perspective, knowledge bases (KB) (a.k.a. \emph{theories}) are sets of related FOL formul\ae{} concerning the same domain of the discourse.
+%
+We denote theories as lists of dot-terminated formul\ae.
+
+For instance, a simple KB describing natural numbers may be defined as follows:
+%
+\begin{equation}\label{eq:kb-peano-naturals}
+    \begin{array}{c}
+        natural(\functor{z}).
+        \\
+        \forall X\ natural(X) \rightarrow natural(\functor{s}(X)).
+    \end{array}
+\end{equation}
+%
+There, the KB is composed by two formul\ae, and it aims to define the set of natural numbers by means of the unary predicate $natural/1$, the unary structure $\functor{s}/1$, and the constant $\functor{z}$.
+%
+More precisely, the first formula states that the constant $\functor{z}$ is included into the set of natural numbers, by construction, whereas the second one states that, whenever some object $X$ is in the set of natural numbers, then object $\functor{s}(X)$ is in the same set as well.
+%
+By recursively applying that formula, one may express any natural number in Peano notation.
+
+\paragraph{Intensional vs. Extensional.}
+
+The recursive definition of natural numbers above is also interesting because it exemplifies the difference among \emph{extensional} and \emph{intensional} definitions.
+
+In logic, one may define concepts -- i.e. describe data -- either extensionally or intensionally.
+%
+Extensional definitions are \emph{direct} representation of data.
+%
+In the particular case of FOL, this implies defining a relation or set by explicitly mentioning the entities it involves.
+%
+The $natural(\functor{z})$ formula from \cref{eq:kb-peano-naturals} is a particular case of \emph{extensional} definition of the symbol $\functor{z}$ as a natural number.
+%
+In other words, it partially defines the $natural$ set by specifying some of its items.
+%
+Conversely, intensional definitions are \emph{indirect} representations of data.
+%
+In the particular case of FOL, this implies defining a relation or set by describing its elements via other relations or sets.
+%
+The $X\ natural(X) \rightarrow natural(\functor{s}(X))$ formula from \cref{eq:kb-peano-naturals} is a particular case of \emph{intensional} definition of the any symbol of the form $\functor{s}(X)$ as a natural number, provided that $X$ is a natural number as well.
+
+Notice that the focus here is \emph{not} on recursion.
+%
+Intentional definitions must not necessarily be recursive.
+%
+For instance, one may intensionally define the $child/2$ relation via the $parent/2$ relation as follows:
+%
+\begin{equation*}
+    \forall X ~ \forall Y\ parent(X, Y) \rightarrow child(Y, X).
+\end{equation*}
+%
+Yet, recursive intensional are very expressive and powerful, as they enable the descrition of infinite sets via a finite (and commonly small) amount of formul\ae{}.
+
+\subsection{Data Representation Engineering}
+
+When handling knowledge in practice, the particular way knowledge is modelled is quintessential for computational systems to be effective.
+%
+Of course, any particular modelling is better suited to support some sorts of algorithms while it may make the exploitation of other algorithms cumbersome.
+%
+On other words, the particular shape predicates and structures may be chosen in manifold ways, depending on the nature of the data at hand, and on the computations that designers are expecting for that data.
+
+Here we briefly examinate the two extremes a spectrum of possibilities, with the purpose of discussing how each choice in KR may come with both pros and cons, which must therefore be engineered.
+
+We rely on two running examples, namely the ``ties of kinship'' example -- mimicking a simple scenario where the ties of kinship among a number of people must be represented --, and the ``Iris'' example, where data about a number of Iris flowers are collected.
+%
+For both of them, we discuss possibilities in KR strategies.
+
+\paragraph{Representing heterogeneous data.}
+
+We here consider a simple scenario where the ties of kinship among a number of people must be represented via FOL.
+%
+We take Abraham's family tree from the Genesis as an example.
+
+A natural way to represent a family tree is by using constants to represent people, while extensively representing a minimal pool of relations, and intensively representing any other relation---in both cases, via predicates.
+%
+For instance, we may choose to extensively represent parenthood relations among couples of people, other than the gender of each person.
+%
+Then we may choose to define each    
+
+\paragraph{Representing tabular data.}
+
+\note{Relational as bidirectional}
+\note{Other kinds of logic: description logic, Horn logic}.
+
+\subsection{Relevant Subsets of FOL}
 
 \subsection{More stuff}
 
@@ -752,7 +889,7 @@ Accordingly, depending on the particular ways these aspects are tackled, a categ
 \begin{figure}
     \centering
     \includegraphics[width=.8\linewidth]{figures/ml-taxonomy.pdf}
-    \caption{Taxonomy of ML. The second column enumerates the three major families of ML approaches, the third one enumerates the main sorts of tasks affiliated with each family, whereas the fourth one enumerates possible applications for each task.}
+    \caption[Taxonomy of ML]{Taxonomy of ML. The second column enumerates the three major families of ML approaches, the third one enumerates the main sorts of tasks affiliated with each family, whereas the fourth one enumerates possible applications for each task.}
     \label{fig:ml-taxonomy}
 \end{figure}
 %
@@ -1125,7 +1262,7 @@ In fact, understanding IS is essential to guarantee algorithmic fairness, to ide
 \begin{figure}
 	\centering
 	\includegraphics[width=.5\linewidth]{figures/interpretability-performance-tradeoff}
-	\caption{Interpretability/performance trade-off for some common sorts of black-box predictors}
+	\caption[Interpretability/performance trade-off]{Interpretability/performance trade-off for some common sorts of black-box predictors}
 	\label{fig:tradeoff}
 \end{figure}
 %%%%
@@ -1363,7 +1500,7 @@ There, $\Delta f : 2^\mathcal{Y} \times 2^\mathcal{Y} \rightarrow \mathbb{R}_{\g
 \begin{figure}
     \centering
     \includegraphics[width=.5\linewidth]{figures/local.pdf}
-    \caption{Local explanation and interpretation of model $M$}
+    \caption{Local explanation and interpretation of a model}
     \label{fig:local}
 \end{figure}
 %%%%
@@ -1420,7 +1557,7 @@ Thus, providing an explanation for a given model behaviour w.r.t.\ a particular 
 \begin{figure}
     \centering
     \includegraphics[width=.5\linewidth]{figures/global.pdf}
-    \caption{Global explanation and interpretation of model}
+    \caption{Global explanation and interpretation of a model}
     \label{fig:global}
 \end{figure}
 %%%%
