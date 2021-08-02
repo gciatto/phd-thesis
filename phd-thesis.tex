@@ -696,7 +696,7 @@ Similarly to predicates, structures may carry $M \geq 0$ terms.
 %
 When this is the case, the structure is said $M$-ary as well.
 %
-Being containers of terms, structures enable the creations of arbitrarily complex data structures combining several entities from the domain of the discourse, and treating them as a whole.
+Being containers of terms, structures enable the creation of arbitrarily complex data structures combining several entities from the domain of the discourse, and treating them as a whole.
 %
 Finally, variables are placeholders for unknown terms---i.e. for entities or groups of entities.
 
@@ -753,6 +753,80 @@ $\functor{s}(\functor{s}(\functor{z}))$ represents $2$, etc.
 %
 Under this representation, each natural number (except $\functor{z}$) is composed by its precedessor, and the successor functor $\functor{s}/1$.
 
+\paragraph{Structures as composite entities.}
+
+Structures may be used in logic to represent composite entities.
+%
+Such composite entities may either be of fixed size or of variable size.
+
+A fixed-size composite entity made up of $M$ sub-entities may be represented in FOL via a $M$-ary structure.
+%
+For instance, one may represent a person in terms of first name, last name, and birthdate.
+%
+In that case $M = 3$, and an adequate functor is `$\functor{person}$':
+%
+$$
+\functor{person}(\functor{adam},\ \functor{smith},\ \functor{date}(1723,\ \functor{june},\ 5))
+$$ 
+%
+The underlying assumption here is that dates are represented as ternary structures as well.
+
+A variable-size composite entity, in turn, may be made up of an unknown amount of sub-entities.
+%
+Furthermore, two different composite entities of the same sort may be of different sizes.
+%
+Consider for instances two different journeys on a map: one may involve 3 cities, and the other may involve 4 cities, yet both can be represented by \emph{lists} of cities to be visited in a row.
+
+Lists -- and, more generally, data structures -- can be represented in FOL via ad-hoc fixed-size structures, to be used recursively.
+%
+In particular, a common convention is to represent \emph{singly linked} lists of entities using:
+%
+\begin{itemize}
+    \item a binary structure, denoting element--successor couples, e.g. $\functor{cons}/2$ or $\functor{.}/2$, 
+    \item a constant, denoting the termination of the list, e.g. $\functor{nil}$ or $\functor{[]}$.
+\end{itemize}
+%
+So, for instance, a journey from Rome to Milan, stepping through Florence and Bologna may be represented as follows:
+%
+\begin{equation}\label{eq:path-rome-milan}
+    \functor{cons}(\functor{rome},\ 
+        \functor{cons}(\functor{florence},\ 
+            \functor{cons}(\functor{bologna},\ 
+                \functor{cons}(\functor{milan},\ 
+                    \functor{nil}
+                )
+            )
+        )
+    )
+\end{equation}
+%
+whereas a journey from Rome to Naples would be as simple as:
+%
+\begin{equation*}
+    \functor{cons}(\functor{rome},\ 
+        \functor{cons}(\functor{naples},\ 
+            \functor{nil}
+        )
+    )
+\end{equation*}
+%
+In both cases, cities are represented by constants, whereas lists of cities are attained by combining cities into data structures---i.e. by \emph{recursively} wrapping cities via the $\functor{cons}/2$ functor, and by exploiting the constant $\functor{nil}$ to conclude the list.
+
+It is worth to be mentioned that, a more practical and common notation involves the exploitation of $\functor{.}/2$ and $\functor{[]}$ instead of $\functor{cons}/2$ and $\functor{nil}$, respectively, where $\functor{.}/2$ is usually written as an \emph{infix} symbol.
+%
+With this notation, the path from \cref{eq:path-rome-milan}, could be written as:
+%
+\begin{equation*}
+    \functor{rome \consdot florence \consdot bologna \consdot milan \consdot []}
+\end{equation*}
+%
+or, equivalently:
+%
+\begin{equation*}
+    \functor{[rome,\ florence,\ bologna,\ milan]}
+\end{equation*}
+
+
 \paragraph{Knowledge Bases.}
 
 From a knowledge representation perspective, knowledge bases (KB) (a.k.a. \emph{theories}) are sets of related FOL formul\ae{} concerning the same domain of the discourse.
@@ -805,7 +879,7 @@ For instance, one may intensionally define the $child/2$ relation via the $paren
     \forall X ~ \forall Y\ parent(X, Y) \rightarrow child(Y, X).
 \end{equation*}
 %
-Yet, recursive intensional are very expressive and powerful, as they enable the descrition of infinite sets via a finite (and commonly small) amount of formul\ae{}.
+Yet, recursive intensional predicates are very expressive and powerful, as they enable the description of infinite sets via a finite (and commonly small) amount of formul\ae{}.
 
 \subsection{Data Representation Engineering}
 
@@ -813,9 +887,9 @@ When handling knowledge in practice, the particular way knowledge is modelled is
 %
 Of course, any particular modelling is better suited to support some sorts of algorithms while it may make the exploitation of other algorithms cumbersome.
 %
-On other words, the particular shape predicates and structures may be chosen in manifold ways, depending on the nature of the data at hand, and on the computations that designers are expecting for that data.
+In other words, the particular shape of predicates and structures may be chosen in manifold ways, depending on the nature of the data at hand, and on the computations that designers are expecting for that data.
 
-Here we briefly examinate the two extremes a spectrum of possibilities, with the purpose of discussing how each choice in KR may come with both pros and cons, which must therefore be engineered.
+Here we briefly examinate the two extremes in a spectrum of possibilities, with the purpose of discussing how each choice in KR may come with both pros and cons---which must therefore be engineered.
 
 We rely on two running examples, namely the ``ties of kinship'' example -- mimicking a simple scenario where the ties of kinship among a number of people must be represented --, and the ``Iris'' example, where data about a number of Iris flowers are collected.
 %
@@ -831,14 +905,109 @@ A natural way to represent a family tree is by using constants to represent peop
 %
 For instance, we may choose to extensively represent parenthood relations among couples of people, other than the gender of each person.
 %
-Then we may choose to define each    
+Other kinds of relations could be represented intensively.
+%
+For example:
+%
+\begin{equation}
+    \begin{array}{rcl}
+        parent(\functor{abraham}, \functor{isaac}). & {} & male(\functor{abraham}).
+        \\
+        parent(\functor{sarah}, \functor{isaac}). & {} & female(\functor{sarah}).
+        \\
+        parent(\functor{isaac}, \functor{jacob}). & {} & male(\functor{isaac}).
+        \\
+        parent(\functor{rebekah}, \functor{jacob}). & {} & female(\functor{rebekah}).
+        \\
+        \ldots & {} & male(\functor{jacob}).
+        \\
+        \forall X ~ \forall Y\ parent(X, Y) & \rightarrow & child(Y, X).  
+        \\
+        \forall X ~ \forall Y\ parent(X, Y) \wedge male(X) & \rightarrow & father(X, Y).  
+        \\
+        \forall X ~ \forall Y\ parent(X, Y) \wedge female(X) & \rightarrow & mother(X, Y).  
+        \\
+        \forall X ~ \forall Y ~ \forall Z \ parent(X, Y) \wedge parent(Y, Z) & \rightarrow & grandparent(X, Z).  
+    \end{array}
+\end{equation}
 
-\paragraph{Representing tabular data.}
+This approach to KR is particularly adequate to describe situations involving several entities and many relations or properties, but where, however, each predicate spans through only a few entities, and most entity are not involved in all relations or properties. 
+%
+In other words, this approach is well suited to represent \emph{heterogeneous} data.
 
-\note{Relational as bidirectional}
-\note{Other kinds of logic: description logic, Horn logic}.
+\paragraph{Representing homogeneous data.}
+
+We here consider a simple scenario where the well-known Iris dataset\footnote{\url{https://archive.ics.uci.edu/ml/datasets/iris}} is represented via FOL.
+%
+Notably, the Iris dataset is a collection of 150 individuals of the Iris flower.
+%
+For each exemplary, 4 numeric input features -- petal and sepal width and length -- are recorded, other than a class label---i.e. which particular sort of Iris plant the exemplary has been classified as.
+%
+There are three particular sub-sorts of Iris in this data set -- namely, Iris-Setosa, -Virginica, and -Versicolor --, and the 150 examples are evenly distributed among them---i.e. there are 50 instances for each class.
+
+The Iris dataset essentially consists of a bi-dimensional $150 \times 5$ table, where each row corresponds to an exemplary, each column corresponds to a relevant \emph{feature}, and each cell carries the value of a particular feature for a particular exemplary.
+%
+A natural way to represent $N$ -- e.g. 150 -- records of equals size $M$ -- e.g. 5 -- is by leveraging on $N$ predicates, all having the same arity $M$, and the same functor---e.g. $iris$.
+%
+There, each predicate \emph{extensionally} represents an instance of the same $M$-ary relation -- e.g. $iris$ --, and the $j^{th}$ argument of each predicate carries the value of the $j^{th}$ feature for that instance---according to some predefined ordering of features.
+%
+Thus, the values corresponding numeric features can be represented in FOL by numeric constants, while the values corresponding to the class feature could be represented by ad-hoc constants.
+%
+So, a KB describing the Iris dataset in FOL according to this may look as follows:
+%
+\begin{equation}
+    \begin{array}{c}
+        iris(5.1,\ 3.5,\ 1.4,\ 0.2,\ \functor{setosa}).
+        \\\vdots\\
+        iris(7.0,\ 3.2,\ 4.7,\ 1.4,\ \functor{versicolor}).
+        \\\vdots\\
+        iris(6.3,\ 3.3,\ 6.0,\ 2.5,\ \functor{virginica}).
+    \end{array}
+\end{equation} 
+%
+where the predefined ordering of features is: 
+%
+\begin{inlinelist}
+    \item sepal length,
+    \item sepal width,
+    \item petal length,
+    \item petal width, and
+    \item class.
+\end{inlinelist}
+
+This approach to KR is particularly adequate to describe situations where the same amount and sorts of fields are available for each datum, this making the whole dataset suitably described by an $N \times M$ table---and, therefore, therefore extensively represented as an $M$-ary relation having with $N$ instances.
+%
+In other words, this approach is well suited to represent \emph{homogeneous} data.
+
+\paragraph{Comparison.}
+
+Both approaches to KR come with both pros and cons, and they are, at least in principle, interchangeable---meaning that, conversions may be performed from data represented via any of the two approaches into the other.
+%
+Here, we simply highlight how the effectiveness of KR heavily depends on the particular computation to be performed.
+
+There are two kinds of activities one may use as benchmarks to assess the limits of each approach to KR, namely:
+%
+\begin{inlinelist}
+    \item\label{item:enumerate-features} enumerating all the individuals involved into a KB and all the features describing them, and
+    \item\label{item:add-features} adding one new feature to the KB, updating all involved individuals accordingly. 
+\end{inlinelist}  
+
+On the one side, in the homogeneous approach, the amount of individual is equal to the amount on predicates, whereas the amount of features is equal to the arity of all predicates.
+%
+So enumeration of both individuals and features is straightforward.
+%
+Conversely, in the heterogeneous approach, individuals should be enumerated by stepping through all predicates, and removing duplicates; whereas the enumeration of all features may require a lot of computations---as the intensionally represented features should be made explicit. 
+
+On the other side, adding a new feature to a KB represented via heterogeneous approach is straightforward.
+%
+It just requires the novel predicates to be added to the KB.
+%
+Conversely, in the homogeneous approach, the same operation would require the \emph{whole} KB to be rewritten---to let each predicate carry one more feature.
 
 \subsection{Relevant Subsets of FOL}
+
+\note{Other kinds of logic: description logic, Horn logic}.
+
 
 \subsection{More stuff}
 
@@ -947,7 +1116,7 @@ However, the general layout of sub-symbolic supervised learning is the same in a
 %
 The learning algorithm assumes $\pi^*$ to be a function from a given set of functions $\mathcal{H}$ called \emph{hypotheses} space---i.e. $\pi^* \in \mathcal{H}$.
 %
-In other words, the underlying assumption is that the unknown prediction function $\pi^*$ exists, and it is of from charactirising all functions in $\mathcal{H}$.
+In other words, the underlying assumption is that the unknown prediction function $\pi^*$ exists, and it is of the form characterising all functions in $\mathcal{H}$.
 %
 The algorithm performs an exploration of the \emph{hypotheses} space $\mathcal{H}$ looking for the hypothesis function $\hat{\pi} \in \mathcal{H}$ that better fits the data in $D$---and that, therefore, better approximates $\pi^*$.
 
@@ -960,7 +1129,7 @@ The goodness of the fitting among a hypothesis function $\hat{\pi}$ and the data
 %
 For the sake of simplicity, we here consider the best hypothesis $\hat{\pi}$ the one item of $\mathcal{H}$ for which the total error is minimal -- or the total adherence is maximal --, w.r.t. the data in $D$. 
 %
-Therefore, in theory, any sub-symbolic supervised learning process can be abstractly described via any of the following fomul\ae{}:
+Therefore, in theory, any sub-symbolic supervised learning process can be abstractly described via any of the following formul\ae{}:
 %
 $$
 \hat{\pi} = \argmin{\pi \in \mathcal{H}}{ \sum_{i=1}^{N} \varepsilon(\mathbf{y}_i,\ \pi(\mathbf{x}_i)) }
@@ -1232,7 +1401,7 @@ The reason for such a wide adoption is easy to understand.
 %
 We live in an era where the availability of data is unprecedented, and ML algorithms make it possible to semi-automatically detect useful statistical information hidden into such data.
 %
-Information, in turn, supports decision making, monitoring, planning, and forecasting in virtually any human activity where data is available.
+Information, in turn, supports decision-making, monitoring, planning, and forecasting in virtually any human activity where data is available.
 
 However, ML is not the silver bullet.
 %
@@ -1385,13 +1554,13 @@ In fact, according to the authors, ``interpretation'' is a function mapping data
 %
 Other notions are formally defined into the paper, such as for instance, 
 %
-\begin{enumerate*}[label=\emph{(\roman{*})}]
-	\item explicitness, 
+\begin{inlinelist}
+    \item explicitness, 
 	\item fairness, 
 	\item faithfullness,
 	\item justification, and
 	\item transparency.
-\end{enumerate*}
+\end{inlinelist}
 %
 Such concepts are formally defined in terms of the aforementioned interpretation and explanation functions.
 %
