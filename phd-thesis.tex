@@ -1104,7 +1104,7 @@ Along this line, when Horn clauses are exploited in practice, they are commonly 
     \end{array}$$ 
     stating that predicates $b_1, \ldots, b_n$ should be all proven,
 
-    \item[rules] otherwise, i.e. when both the head and the body involve arbitrary preticates.
+    \item[rules] otherwise, i.e. when both the head and the body involve arbitrary predicates.
 \end{description}
 
 \section{Sub-symbolic Data Representation}
@@ -1112,9 +1112,54 @@ Along this line, when Horn clauses are exploited in practice, they are commonly 
 \note{Distributed as opposed to symbolic}
 \note{Functional as one-way}
 
-\chapter{Learning Knowledge from Data}
+Symbolic KR approaches, such as FOL and its subsets, represent both data and knowledge uniformly---meaning that they provide a common language capable of representing both.
+%
+The same statement does not hold for sub-symbolic approaches, which commonly represent data as (possibly multi-dimensional) \emph{arrays} (e.g. vectors, matrices, or tensors) of real numbers, and knowledge as functions over such data.
 
-\note{Introduction on learning: general perspective + logic perspective + data-driven perspective }
+Despite numbers are technically symbols as well, we cannot consider arrays and their functions of as symbolic KR means.
+%
+Indeed, according to \cite{Gelder90}, to be considered as symbolic, KR approaches should:
+%
+\begin{inlinelist}
+    \item involve a set of symbols, 
+    \item\label{item:combination} which can be combined (e.g. concatenated) in possibly infinite ways, following precise grammatical rules, and
+    \item\label{item:meaning} where both elementary symbols and any admissible combination of them can be assigned with meaning---i.e. each symbol can be mapped into some entity from the domain of the discourse. 
+\end{inlinelist}
+%
+In this section we discuss how sub-symbolic approaches are characterised by the frequent violation of items \ref{item:combination} and \ref{item:meaning}.
+
+Multi-dimensional arrays are the basic brick of sub-symbolic data representation.
+%
+More formally, a $D$-order array consists of an ordered container of real numbers, where $D$ denotes the amount of indices required to locate each single item of the array.
+%
+The $i^{th}$ index of the array is assumed to range through the interval $1, \ldots, d_i$, so that the whole dimension of the array -- i.e. the total amount of numbers therein contained -- is $d_1 \times \ldots \times d_D$.
+%
+In what follows, we may abuse the notation by referring to 1-order arrays as \emph{vectors}, 2-order array as \emph{matrices}, and higher-order arrays as \emph{tensors}.
+%
+Along this line, we may also denote by $\mathbb{R}^{n}$ the set of $n$-dimensional vectors, by $\mathbb{R}^{n \times m}$ the set of $(n \times m)$-dimensional matrices, and by $\mathbb{R}^{d_1 \times \ldots \times d_D}$ the set of $(d_1 \times \ldots \times d_D)$-dimensional tensors.
+
+\note{
+- in symbolic representations data and knowledge are represented uniformly
+    + in sub-symbolic representations numbers, and vectors carry information about data, while knowledge is captured by functions
+%
+- exploitation of rigid vectors, matrices, or tensors of real numbers to extensively represent data
+    + may be either local or distributed
+%
+- despite numbers are technically symbols, we cannot consider tensors or functions of tensors as symbolic
+    + to be symbolic, a KR approach should i) involve a set of symbols, ii) which can be combined following grammatical rules, iii) where both elementary symbols and any admissible combination of symbols are endowed with meaning---i.e. can be mapped into some entity from the domain of the discourse. 
+%
+- feature engineering to handles cases where data is not numeric or not rigid
+    + non-numeric to numeric
+        * ordinal vs. categorical
+        * one-hot encoding
+    + flexible to rigid (tackling distribution)
+        * embedding
+        * drawing statistics
+        * sliding window
+        * feature engineering
+}
+
+\chapter{Learning Knowledge from Data}
 
 A famous definition of machine learning from \cite{Mitchell1997} states:
 %
@@ -1287,7 +1332,7 @@ They may either guessed or estimated by trial-and-error by data scientists---hen
 
 \section{Symbolic Reasoning}
 
-Logic-based reasoning approaches root back to John McCarthy's work of 1958 \cite{Mccarthy1958}, aimed at developing the idea of formalising the so-called \emph{commonsense reasoning} to build \emph{intelligent artifacts}. 
+Logic-based reasoning approaches root back to John McCarthy's work of 1958 \cite{Mccarthy1958}, aimed at developing the idea of formalising the so-called \emph{commonsense reasoning} to build \emph{intelligent artefacts}. 
 %
 This also means to consider non-trivial involved issues, such as the need of formalising the situation, actions and causal laws, etc.
 %
