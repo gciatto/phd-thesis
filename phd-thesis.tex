@@ -330,7 +330,7 @@ In LP, programs are typically \emph{theories} (a.k.a.\ \emph{knowledge bases}, K
 % \[ \mathit{Head} \impliedBy \mathit{Body_1},\ ...,\ \mathit{Body_n} \]%,
 % where both $\mathit{Head}$ and $\mathit{Body_i}$ are \emph{atomic} formul\ae{}, and the whole sentence is read declaratively as logical implication (right-to-left).
 % %
-% If $n = 0$, the clause is called \emph{fact}, \emph{rule} otherwiese.
+% If $n = 0$, the clause is called \emph{fact}, \emph{rule} otherwise.
 % %
 % An atomic formula is an expression in the form $P(t_1,...,t_m)$ where $P$ is a $m$-ary predicate ($m \geq 0$), and $t_j$ are \emph{terms}.
 % %
@@ -611,13 +611,9 @@ We show analogies and differences among such approaches to representation, elici
 
 (Symbolic) Knowledge representation (KR) has always been regarded as a key issue since the early days of AI, as no intelligence can exist without knowledge, and no computation can occur in lack of representation.
 
-Historically, most KR formalisms and technologies have been designed around either sub-sets or applications of the \emph{first order logic} (FOL).
-%
-Consider for instance, \emph{deductive databases} \cite{green1968}, \emph{description logics} \cite{baader2002}, \emph{ontologies} \cite{cimiano2006-ontologies}, \emph{Horn} logic \missingref, \emph{higher-order} logic \missingref, just to name a few.
-
 Here we discuss the language of FOL as a means for representing symbolic information.
 %
-We choose FOL as it is quite general, and the other approaches can be described by either constraining or loosing the definition of FOL.
+We choose FOL as it is quite general, and the other approaches can be described by either constraining or loosening the definition of FOL.
 
 \subsection{First Order Logic (FOL)}
 
@@ -633,7 +629,7 @@ We choose FOL as it is quite general, and the other approaches can be described 
         \\ 
         \meta{Literal}  & := & \meta{Predicate} \mid \terminal{\lnot} \meta{Predicate} 
         \\
-        \meta{Predicate} & := & \meta{Predication} \mid \meta{Predication} \terminal{(} \meta{Arguments} \terminal{)}
+        \meta{Predicate} & := & \terminal{\top} \mid \terminal{\bot} \mid \meta{Predication} \mid \meta{Predication} \terminal{(} \meta{Arguments} \terminal{)}
         \\
         \meta{Predication} & := & p_1 \mid p_2 \mid p_3 \mid \ldots
         \\
@@ -650,8 +646,6 @@ We choose FOL as it is quite general, and the other approaches can be described 
         \meta{Constant} & := & \meta{Functor} \mid \meta{Number}\mid \meta{Boolean}
         \\
         \meta{Number} & := & \mathbb{R}
-        \\
-        \meta{Boolean} & := & \terminal{\top} \mid \terminal{\bot}
     \end{array}$$
     \caption[Context-free grammar for FOL]{Context-free grammar for FOL. Sans-serif words among angular brackets denote non-terminal symbols, whereas symbols among single apices denote terminal symbols.}
     \label{tab:fol-grammar}
@@ -666,13 +660,10 @@ In \cref{tab:fol-grammar} the syntax of FOL is formally defined via a context-fr
 Informally, the syntax for the general FOL formula is defined over the assumption that there exist:
 %
 \begin{itemize}
-    \item a number of constant symbols, including:
-    %
-    \begin{itemize}
-        \item a number of \emph{functors}, denoted by monospaced symbols such as $\functor{f}_1, \functor{f}_2, \ldots$,
-        \item all real numbers and all possible Boolean values (denoted by $\top$ and $\bot$);
-    \end{itemize}  
+    \item a number of constant symbols, including: a number of \emph{functors}, denoted by monospaced symbols such as $\functor{f}_1, \functor{f}_2, \ldots$, and all real numbers;
+    
     \item a number of \emph{predicate symbols} (a.k.a. predications), denoted by italic symbols starting with a lower case letter, such as $p_1, p_2, \ldots$;
+    
     \item a number of \emph{variables}, denoted by italic symbols starting with a capital letter, such as $X_1, X_2, \ldots$.
 \end{itemize}
 %
@@ -735,6 +726,8 @@ Similarly, the expression $\forall X\ p(X)$, denotes a situation where all items
 Dually, the expression $\exists X\ p(X)$, denotes a situation where some item in $\mathbb{D}$ is in $p$ as well.
 %
 Finally, when $N = 0$, the predicate $p$ represents a Boolean proposition which may or may not be true.
+%
+Notably, the predicate $\top$ is always true, by construction, whereas the predicate $\bot$ is always false.
 
 Concerning non-variable terms, let us denote by $\functor{f}/M$ the $M$-ary term whose functor is $\functor{f}$ and whose arity is $M$.
 %
@@ -1006,18 +999,21 @@ Conversely, in the homogeneous approach, the same operation would require the \e
 
 \subsection{Relevant Subsets of FOL}
 
-\note{Other kinds of logic: description logic, Horn logic}.
+Historically, most KR formalisms and technologies have been designed around either sub-sets or applications of the \emph{first order logic} (FOL).
+%
+Consider for instance, \emph{deductive databases} \cite{green1968}, \emph{description logics} \cite{baader2002}, \emph{ontologies} \cite{cimiano2006-ontologies}, \emph{Horn} logic \missingref, \emph{higher-order} logic \missingref, just to name a few.
 
+Many kinds of logic-based knowledge representation systems have been proposed over the years, mostly relying on FOL -- either by restricting or extending it --, e.g. on description logics and modal logics, which have been used to represent, for instance, terminological knowledge and time-dependent or subjective knowledge.
 
-\subsection{More stuff}
+\paragraph{Ontologies and Description Logics.}
 
-Many kinds of logic-based knowledge representation systems have been proposed over the years, mostly relying on description logics and modal logics to represent, respectively, terminological knowledge and time-dependent or subjective knowledge.
-
-Early KR formalisms, such as \emph{semantic networks} and \emph{frames} \cite{sowa2014}, also aimed at providing a structured representation of information.
+Early KR formalisms, such as \emph{semantic networks} and \emph{frames} \cite{sowa2014}, mostly aimed at providing a structured representation of information.
 %
 Description logics are based on the same ideas, but without the formal weaknesses that made the use of their precursors problematic. 
 %
 In description logics, complex concepts are built from simpler ones with an emphasis on the decidability of the reasoning tasks and on the provision of sound, complete and empirically-tractable reasoning services. 
+%
+For this reason, description logics are characterised by several restrictions w.r.t. to FOL
 %
 Applications range from reasoning with database schemas and queries \cite{artale2002} to \emph{ontology languages} such as OIL, DAML+OIL and OWL \cite{horrocks2005}---always keeping in mind that not only the key inference problems should be decidable, but also that the decision procedures should be implemented \emph{efficiently}.
 
@@ -1025,7 +1021,91 @@ Ontology-based approaches are popular because of their basic goal---a common und
 %
 At the same time, it should be understood that the general concepts and relations of a top-level ontology can rarely accommodate all of the systems peculiarities \cite{van2008,valente2005}.
 
-A number of systems based on DL have been developed -- e.g. \cite{cohen1994,moller2003} -- in diverse application domains, such as natural language processing, configuration of technical systems, software information systems, optimising queries to databases, planning.
+A number of systems based on description logics have been developed -- e.g. \cite{cohen1994,moller2003} -- in diverse application domains, such as natural language processing, configuration of technical systems, software information systems, optimising queries to databases, planning.
+
+\paragraph{Horn Logic.}
+
+Horn logic is a notable subset of FOL, characterised by a good trade-off among theoretical expressiveness, and practical tractability.
+
+Horn logic is designed around the notion of \emph{Horn clause}.
+%
+Horn clauses are FOL formul\ae{} having no quantifiers, and consisting of:
+%
+\begin{itemize}
+    \item a disjunction of predicates, where only at most one literal is non-negated:
+    %
+    \begin{equation*}
+        \lnot b_1 \vee \ldots \vee \lnot b_n \vee h
+    \end{equation*}
+
+    \item or, equivalently (applying De Morgan rules), a disjunction among a predicate and a negated conjunction of predicates:
+    %
+    \begin{equation*}
+        \lnot (b_1 \wedge \ldots \wedge b_n) \vee h
+    \end{equation*}
+
+    \item or, equivalently (applying the equivalence $\lnot X \vee Y \equiv X \rightarrow Y$), an implication having a single predicate as post-condition and a conjunction of predicates as pre-condition:
+    %
+    \begin{equation*}
+        b_1 \wedge \ldots \wedge b_n \rightarrow h
+    \end{equation*}
+
+    \item often conveniently written as:
+    %
+    \begin{equation}\label{eq:horn-clause-form}
+        h \leftarrow b_1,\ \ldots,\ b_n
+    \end{equation}
+
+\end{itemize}
+%
+where $\leftarrow$ denotes logic implication from right to left, commas denote logic conjunction, and all $b_i$, as well as $h$, are predicates of arbitrary arity, possibly carrying FOL terms of any sort---i.e. variables, constants, or structures.
+%
+By looking at \cref{eq:horn-clause-form}, it should be evident why $h$ is often called \emph{head} (of the clause), while the conjunction $(b_1, \ldots, b_n)$ is often called \emph{body} (of the clause).
+%
+Quantification of variables is omitted, as all variables possibly occurring in the head are assumed to be \emph{universally} quantified, whereas all other variables possibly occurring in the body (and not in the head) are assumed to be \emph{existentially} quantified.
+
+So, essentially, Horn logic is a very restricted subset of FOL where:
+%
+\begin{itemize}
+    \item formul\ae{} are reduced to clauses, as they can only contain predicates, conjunctions, and a single implication operator, therefore
+    \item operators such as $\vee$, $\leftrightarrow$, or $\lnot$ cannot be used,
+    \item variables are implicitly quantified, and
+    \item terms work as in FOL.
+\end{itemize}
+%
+Similarly to FOL, Horn logic KB consist of sets of Horn clauses.
+
+Despite being very restrictive in theory, the lack of basic operators such as $\vee$, $=$, or $\lnot$ can be circumvented in practice, via \emph{meta-predicates}---i.e. predicates accepting other predicates as arguments.
+%
+Circumvention in these cases steps through a smart trick: by letting the set of admissible functors \emph{include} the set of possible predicate symbols, one may enable the representation of predicates via terms.
+%
+So, a meta-predicate can be described as an ordinary predicate, accepting terms as arguments, and considering its arguments as predicates. 
+%
+However, these aspects are covered in \cref{chap:reasoning}.
+
+It is worth to be noted that Horn clauses can be read under both a \emph{logic} and a \emph{procedural} perspective.
+%
+Under a logic perspective, Horn clauses are bare implications, which can be used to define relations or sets, as in FOL.
+%
+Under a procedural perspective, any Horn clause states that ``to prove $h$, one should prove all $b_1$, \ldots, $b_n$ first''.
+%
+Along this line, when Horn clauses are exploited in practice, they are commonly referred to as
+%
+\begin{description}
+    \item[facts] when their body consist of just the $\top$ predicate: 
+    $$ h \leftarrow \top $$
+    stating that $h$ is known to be true (as it requires nothing to be proven first),
+
+    \item[directives] (a.k.a.\textbf{goals}) when their head consist of just the $\bot$ predicate (or, equivalently, when the head is missing): 
+    $$\begin{array}{c}
+        \bot \leftarrow b_1,\ \ldots,\ b_n
+        \\\text{or}\\
+        \leftarrow b_1,\ \ldots,\ b_n
+    \end{array}$$ 
+    stating that predicates $b_1, \ldots, b_n$ should be all proven,
+
+    \item[rules] otherwise, i.e. when both the head and the body involve arbitrary preticates.
+\end{description}
 
 \section{Sub-symbolic Data Representation}
 
@@ -1203,7 +1283,7 @@ They may either guessed or estimated by trial-and-error by data scientists---hen
 
 \note{What's automatic and what is not}
 
-\chapter{Reasoning over Knowledge}
+\chapter{Reasoning over Knowledge}\label{chap:reasoning}
 
 \section{Symbolic Reasoning}
 
