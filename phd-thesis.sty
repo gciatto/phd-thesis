@@ -71,6 +71,14 @@
 	\end{flushright}
 }
 
+\let\oldparagraph\paragraph
+\renewcommand{\paragraph}[1]{\oldparagraph{#1.}}
+
+\let\oldsubparagraph\subparagraph
+\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1.}}
+
+\setlist[description]{leftmargin=2\parindent,labelindent=\parindent}
+
 \newcommand{\frontispiece}{
 	\newgeometry{margin=0.8in}
 	\begin{titlepage}

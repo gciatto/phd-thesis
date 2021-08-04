@@ -157,7 +157,7 @@ Under such a mindset, human agents are intelligent by definition, whereas softwa
 %
 Accordingly, what we have so far called ``machines'' are indeed ``software agents'', and the overall role of the agent-oriented mindset is about focussing on \emph{who} is charge of manipulating knowledge and \emph{when}, other than \emph{where} should knowledge be located in the meanwhile.
 
-\note{Discuss the goal of the thesis.}
+\note{Discuss the goal of the thesis}
 
 \paragraph{Structure of the thesis}
 
@@ -370,7 +370,7 @@ Of course, other options exist targetting other logics as well, like, e.g., abdu
 %
 Each of them represents a particular reification of a logic solver.
 
-\paragraph{Limits of CL.}
+\paragraph{Limits of CL}
 
 Despite the many possibilities, however, there are a number of issues which are not tied to any particular choice of logic, inference procedure, or resolution strategy, but they are rather inherent to CL itself.
 %
@@ -455,7 +455,7 @@ The engineering perspective focuses on \emph{how} to make such processing effici
 %
 Within this scope, another relevant concern is the velocity at which data is produced, and processed information is consumed.
 
-\paragraph{The Scientific Perspective.}
+\paragraph{The Scientific Perspective}
 
 As a science, DS studies the many means one can exploit to % whenever in need to
 %
@@ -520,7 +520,7 @@ Examples of such kinds of activities are, for instance:
 %
 % Accordingly, in the following chapters we focus data-analytics tasks, and in particular supervised learning ones. 
 
-\paragraph{The Engineering Perspective.}
+\paragraph{The Engineering Perspective}
 
 As a field of engineering, DS deals with the design and implementation of robust software and hardware architectures, which support the \emph{scalable} execution of the aforementioned data-analytic tasks over the so-called \emph{big data}.
 %
@@ -820,7 +820,7 @@ or, equivalently:
 \end{equation*}
 
 
-\paragraph{Knowledge Bases.}
+\paragraph{Knowledge Bases}
 
 From a knowledge representation perspective, knowledge bases (KB) (a.k.a. \emph{theories}) are sets of related FOL formul\ae{} concerning the same domain of the discourse.
 %
@@ -842,7 +842,7 @@ More precisely, the first formula states that the constant $\functor{z}$ is incl
 %
 By recursively applying that formula, one may express any natural number in Peano notation.
 
-\paragraph{Intensional vs. Extensional.}
+\paragraph{Intensional vs. Extensional}
 
 The recursive definition of natural numbers above is also interesting because it exemplifies the difference among \emph{extensional} and \emph{intensional} definitions.
 
@@ -888,7 +888,7 @@ We rely on two running examples, namely the ``ties of kinship'' example -- mimic
 %
 For both of them, we discuss possibilities in KR strategies.
 
-\paragraph{Representing heterogeneous data.}
+\paragraph{Representing heterogeneous data}
 
 We here consider a simple scenario where the ties of kinship among a number of people must be represented via FOL.
 %
@@ -928,7 +928,7 @@ This approach to KR is particularly adequate to describe situations involving se
 %
 In other words, this approach is well suited to represent \emph{heterogeneous} data.
 
-\paragraph{Representing homogeneous data.}
+\paragraph{Representing homogeneous data}\label{sec:kr-tabular-data}
 
 We here consider a simple scenario where the well-known Iris dataset\footnote{\url{https://archive.ics.uci.edu/ml/datasets/iris}} is represented via FOL.
 %
@@ -972,7 +972,7 @@ This approach to KR is particularly adequate to describe situations where the sa
 %
 In other words, this approach is well suited to represent \emph{homogeneous} data.
 
-\paragraph{Comparison.}
+\paragraph{Comparison}
 
 Both approaches to KR come with both pros and cons, and they are, at least in principle, interchangeable---meaning that, conversions may be performed from data represented via any of the two approaches into the other.
 %
@@ -1005,7 +1005,7 @@ Consider for instance, \emph{deductive databases} \cite{green1968}, \emph{descri
 
 Many kinds of logic-based knowledge representation systems have been proposed over the years, mostly relying on FOL -- either by restricting or extending it --, e.g. on description logics and modal logics, which have been used to represent, for instance, terminological knowledge and time-dependent or subjective knowledge.
 
-\paragraph{Ontologies and Description Logics.}
+\paragraph{Ontologies and Description Logics}
 
 Early KR formalisms, such as \emph{semantic networks} and \emph{frames} \cite{sowa2014}, mostly aimed at providing a structured representation of information.
 %
@@ -1023,7 +1023,7 @@ At the same time, it should be understood that the general concepts and relation
 
 A number of systems based on description logics have been developed -- e.g. \cite{cohen1994,moller2003} -- in diverse application domains, such as natural language processing, configuration of technical systems, software information systems, optimising queries to databases, planning.
 
-\paragraph{Horn Logic.}
+\paragraph{Horn Logic}
 
 Horn logic is a notable subset of FOL, characterised by a good trade-off among theoretical expressiveness, and practical tractability.
 
@@ -1128,9 +1128,11 @@ Indeed, according to \cite{Gelder90}, to be considered as symbolic, KR approache
 %
 In this section we discuss how sub-symbolic approaches are characterised by the frequent violation of items \ref{item:combination} and \ref{item:meaning}.
 
+\paragraph{Vectors, matrices, tensors}
+
 Multi-dimensional arrays are the basic brick of sub-symbolic data representation.
 %
-More formally, a $D$-order array consists of an ordered container of real numbers, where $D$ denotes the amount of indices required to locate each single item of the array.
+More formally, a $D$-order array consists of an ordered container of real numbers, where $D$ denotes the amount of indices required to locate each single item into the array.
 %
 The $i^{th}$ index of the array is assumed to range through the interval $1, \ldots, d_i$, so that the whole dimension of the array -- i.e. the total amount of numbers therein contained -- is $d_1 \times \ldots \times d_D$.
 %
@@ -1138,26 +1140,112 @@ In what follows, we may abuse the notation by referring to 1-order arrays as \em
 %
 Along this line, we may also denote by $\mathbb{R}^{n}$ the set of $n$-dimensional vectors, by $\mathbb{R}^{n \times m}$ the set of $(n \times m)$-dimensional matrices, and by $\mathbb{R}^{d_1 \times \ldots \times d_D}$ the set of $(d_1 \times \ldots \times d_D)$-dimensional tensors.
 
-\note{
-- in symbolic representations data and knowledge are represented uniformly
-    + in sub-symbolic representations numbers, and vectors carry information about data, while knowledge is captured by functions
+In any given sub-symbolic data-representation task leveraging upon arrays, information may be carried by both:
 %
-- exploitation of rigid vectors, matrices, or tensors of real numbers to extensively represent data
-    + may be either local or distributed
+\begin{itemize}
+    \item the actual numbers contained into the array, and
+    \item their location into the array itself.
+\end{itemize}  
 %
-- despite numbers are technically symbols, we cannot consider tensors or functions of tensors as symbolic
-    + to be symbolic, a KR approach should i) involve a set of symbols, ii) which can be combined following grammatical rules, iii) where both elementary symbols and any admissible combination of symbols are endowed with meaning---i.e. can be mapped into some entity from the domain of the discourse. 
+In practice, the actual dimensions $(d_1 \times \ldots \times d_D)$ of the array play a central role as well.
 %
-- feature engineering to handles cases where data is not numeric or not rigid
-    + non-numeric to numeric
-        * ordinal vs. categorical
-        * one-hot encoding
-    + flexible to rigid (tackling distribution)
-        * embedding
-        * drawing statistics
-        * sliding window
-        * feature engineering
-}
+Indeed, as further discussed in \cref{chap:reasoning}, sub-symbolic data processing is commonly tailored on arrays of \emph{fixed} sizes---meaning that the actual values of $d_1, \ldots, d_D$ are chosen at design time and never changed after that.
+%
+For this reason, we define sub-symbolic data representation as the task of expressing data in the form of \emph{rigid} arrays of \emph{numbers}.
+%
+Notably, such a task is \emph{extensional} by construction, as information can only be explicitly represented.
+
+\paragraph{Local vs. Distributed}
+
+An important distinction, when data is represented in the form of numeric arrays, is about whether the representation is \emph{local} or \emph{distributed}.
+%
+In local representations, each single number into the array is characterised by a well-delimited meaning---i.e. it is measuring or describing a clearly identifiable concept from the domain of the discourse.
+%
+Conversely, in distributed representations, each single item of the array is nearly meaningless, unless it is considered along with its neighbourhood---i.e. any other item which is ``close'' in the indexing space of the array, according to some given notion of closeness.
+%
+So, while in local representations the location of each number in the array is quite negligible, in distributed representations it is of paramount importance. 
+%
+Consider for instance the Iris dataset from \cref{sec:kr-tabular-data}: it is a tabular dataset where each datum can be considered as a 5-dimensional vector.
+%
+There, each component of the vector is informative \emph{per se}: it may describe e.g. the petal/sepal length/width.
+%
+Conversely, consider a dataset of black/white images whose resolution is $w \times h$.
+%
+There, each image can be represented as a $h \times w$ matrix of numbers in the range $[0, 1]$, where each location represents a pixel and the corresponding brightness.
+%
+The single pixel carries very small information when considered alone, whereas groups of contiguous pixel may describe datails which are relevant for image processing. 
+
+\paragraph{Feature Engineering}
+
+Of course, not all data is both rigid and numeric in nature.
+%
+So, to fit this paradigm, data scientists designed a plethora of conversions methods to transform data from various forms (e.g. possibly non-rigid or non-numeric, when not both) into rigid arrays of numbers.
+%
+In particular, when raw data is very flexible (i.e. variable in size) and very distributed, a common method consists of computing the so-called \emph{embeddings}, i.e. fixed-size arrays synthesising the information contained into the raw data.
+%
+All such methods lay under the \emph{feature engineering} umbrella.
+
+The ideal situation, under a data representation perspective, is when data is in \emph{tabular} form, i.e. $N$ instances and $M$ features, and all features only involve numeric values. 
+%
+There, each instance is naturally described by a $M$-dimentional vector, while the whole dataset is described by an $N \times M$ matrix.
+%
+However, in practice, only rarely raw data fits the rigid and numeric paradigm since the very beginning.
+%
+More commonly, raw data may diverge from the paradigm in several ways---possibly, simultaneously.
+%
+When this is the case, a number of transformations can be applied to the data to make it converge to the paradigm.
+
+\subparagraph{Non-numeric features}
+
+A dataset may involve non-numeric features, even when of tabular form.
+%
+When this is the case, each single non-numeric feature may be transformed into numeric by applying a transformation to each value.
+%
+The most adequate transformation heavily depends on the domain of the feature itself:
+%
+\begin{description}
+    \item[boolean] features may be trivially converted into numbers via the $\{ \functor{false} \mapsto 0, \functor{true} \mapsto 1 \}$ encoding;
+    
+    \item[ordinal] features may be trivially converted into natural numbers reflecting the same ordering;
+    
+    \item[categorical] features may be converted into boolean features via the one-hot encoding;
+    
+    \item[structured] features having a \textbf{fixed} structure (e.g. dates or timestamps) can be decomposed into their components;
+\end{description}
+%
+while other situations may fit the cases below.
+
+\subparagraph{Variable-size data}
+
+A dataset may involve data of variable size.
+%
+Consider for instance time series (e.g. samples of some phenomenon over time), or free text, or graph-like information (e.g. friendships on social networks, citations in papers).
+%
+There, despite each single instance of the dataset can be trivially translated into an array of numbers of some size, any two different instances from the same dataset may have different sizes and internal structures.
+
+For instance, time series can be easily modelled as $T$-dimensional vectors -- where $T$ is the total amount of available samples --, and the $t^{th}$ component of the vector represents the sample at time $t$; 
+%
+free text can be represented as $W$-dimensional vectors -- where $W$ is the total amount of words/bigram/trigram/\ldots in the text --, and  
+the $w^{th}$ component of the vector represents the frequency of the $w^{th}$ word in the text (according to some ordering of words in the text);
+%
+graphs can described by $N \times N$ adjacency matrices---where $N$ is the total amount of nodes into the graph.
+%
+These data representation approaches are inherently distributed and non-rigid.
+%
+In fact, for any two different time series (possibly sampling the similar phenomena), the amount of available samples may be different.
+%
+Similarly, two different text may involve different sets of words, resulting in vectors of different sizes.
+%
+Finally, two different graphs (possibly describing similar situations), may involve a different amount of nodes.
+
+Depending on the nature of the data itself, and on the particular data-analytic goal data representation is serving, datasets of such sorts can be translated into rigid form by following one of the strategies below:
+%
+\begin{description}
+    \item[draw a number of statistics] on each datum (e.g. mean, standard deviation, min, max, etc), attempting to aggregate the information therein contained: if the same amount and sorts of statistics are drawn for each datum, the dataset will then become tabular;
+    \item[apply a domain-chancing transformation] such as the Fourier transform or the wavelet transform;
+    \item[sub-sample each variable-size datum] using a fixed-size sampling step; e.g. a sliding window for time series, or neighbourhoods of fixed sizes for graphs;
+    \item[exploit \emph{ad-hoc} embeddings] targetting particular sorts of data, such as GNN, Word2Vec, etc.
+\end{description}
 
 \chapter{Learning Knowledge from Data}
 
@@ -1262,7 +1350,7 @@ $$
 \hat{\pi} = \argmax{\pi \in \mathcal{H}}{ \sum_{i=1}^{N} \rho(\mathbf{y}_i,\ \pi(\mathbf{x}_i)) }
 $$
 
-\paragraph{Parameters and hyper-parameters.}
+\paragraph{Parameters and hyper-parameters}
 
 Exploration of the hypothesis space is what is commonly referred to as ``learning'' or ``training''.
 %
@@ -1702,7 +1790,7 @@ Accordingly, we provide an intuition for the property of ``being interpretable''
 Analogously to what we did with \emph{interpretation}, we then provide intuitions for terms such as \emph{explanation} and its derivatives.
 
 %---
-\paragraph{About interpretation.}
+\paragraph{About interpretation}
 %---
 
 Taking inspiration from the field of Logics, we define the \emph{act} of ``interpreting'' some object $X$ as the activity performed by an agent $A$ -- either human or software -- assigning a \emph{subjective} meaning to $X$.
@@ -1739,7 +1827,7 @@ Summarising, we stress the subjective nature of interpretations, as agents assig
 %%%%
 
 %---
-\paragraph{About explanation.}
+\paragraph{About explanation}
 %---
 We define ``explaining'' as the activity of producing a more interpretable object $X'$ out of a less interpretable one, namely $X$, performed by agent $A$.
 %
@@ -1800,7 +1888,7 @@ There, $\Delta f : 2^\mathcal{Y} \times 2^\mathcal{Y} \rightarrow \mathbb{R}_{\g
 %%%%
 
 %---
-\paragraph{Local interpretations.}
+\paragraph{Local interpretations}
 %---
 
 When an observer agent $A$ is \emph{interpreting} a model $M$ behaviour w.r.t.\ some input data $Z \subseteq X$, it is actually trying to assign a subjective interpretability value $I_A(R)$ to some representation $R = r(M, Z)$ of choice, aimed at highlighting the behaviour of $M$ w.r.t.\ the data in $Z$.
@@ -1822,7 +1910,7 @@ Similarly, saliency maps are an interpretable way to \emph{locally} represent th
 So, a way for easing interpretation for a given model behaviour w.r.t.\ a particular sort of inputs is about looking for the right representation in the eyes of the observer.
 
 %---
-\paragraph{Local explanations.}    
+\paragraph{Local explanations}    
 %---
 
 Conversely, when an observer $A$ is \emph{explaining} a model $M$ w.r.t.\ some input data $Z \subseteq X$, it is actually trying to produce a model $M' = E(M, Z)$ through some function $E: \mathcal{M} \times 2^\mathcal{X} \rightarrow \mathcal{M}$.
@@ -1857,7 +1945,7 @@ Thus, providing an explanation for a given model behaviour w.r.t.\ a particular 
 %%%%
 
 %---
-\paragraph{Global / local explanations.}
+\paragraph{Global / local explanations}
 %---
 
 The theoretical framework described so far -- which is graphically synthesised in \cref{fig:local} -- is aimed at modelling \emph{local} interpretations and explanations, that are, the two means an explanator agent may exploit in order to make AI tasks' \emph{outcomes} more understandable in the eyes of some explanee. 
