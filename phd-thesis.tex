@@ -553,11 +553,11 @@ Representation deals with the expression of information to make it understandabl
 %
 From a philosophical perspective, there are two major premises to any well-funded discussion on representation.
 
-First, both computational and human agents operate (i.e. compute or think) upon \emph{representations} of relevant aspects of the reality---and representations are everything an agent may hope to manipulate.
+First, both computational and human agents operate (i.e. compute or think) upon \emph{representations} of relevant aspects of the reality---and representations are everything an agent may ever hope to manipulate.
 %
 \emph{Noumena} -- i.e. what things actually are -- are not accessible directly, but rather via \emph{perception}.
 %
-Perception implies processing, and processing implies representing the information being processed, somehow.
+Perception implies consuming some input data, which must in turn be represented, to enable further processing.
 %
 So, agents always deal with \emph{phenomena} -- i.e. how things appear --, hoping that the corresponding \emph{noumena} are reflected with sufficient precision.
 %
@@ -579,7 +579,7 @@ So, by whom information must be consumed, and to serve what purpose, is a releva
 
 Despite being rooted into deep and long-standing philosophical discussions, such premises are here reported serving a practical purpose.
 %
-Indeed, they synthesise the underlying mindset tying this chapter and the following ones together: the particular choice of a particular representation means simultanously enables and constrains the kinds of possible processing information may be subject to---and this in turns conditions any subsequent design choice. 
+Indeed, they synthesise the underlying mindset tying this chapter and the following ones together: the particular choice of a particular means to representation simultaneously enables and constrains the kinds of possible processing information may be subject to---and this in turns conditions any subsequent design choice. 
 
 Accordingly, within the scope of this chapter we discuss the representation of particular sorts of information, namely either \emph{data} or \emph{knowledge}.
 %
@@ -651,7 +651,7 @@ We choose FOL as it is quite general, and the other approaches can be described 
     \label{tab:fol-grammar}
 \end{table}
 
-First order logic (FOL) is a general-purpose logic which can be used to represent knowledge symbolically, in a very flexible way.
+First order logic (FOL) \cite{Smullyan1968} is a general-purpose logic which can be used to represent knowledge symbolically, in a very flexible way.
 %
 More precisely, it allows both human and computational agents to express (i.e. write) the properties of -- and the relations among -- a set of entities constituting the \emph{domain of the discourse}, via one or more \emph{formul\ae}---and, possibly, to reason over such formul\ae{} by drawing inferences.
 
@@ -695,11 +695,9 @@ Predicates and terms are very flexible tools to represent knowledge.
 %
 While terms can be used to represent or reference either entities or groups of entities from the domain of the discourse, predicates can be used to represent relations among those entities, or the properties of each single entity.
 %
-There, the domain of the discourse $\mathbb{D}$
-\sidenote{George Boole, The Laws of Thought. 1854/2003. p. 42}
-is the set of all relevant entities which should be represented in FOL to amenable of formal treatment, in a particular scenario.
+There, the domain of the discourse $\mathbb{D}$ \cite{blackburn2008oxford} is the set of all relevant entities which should be represented in FOL to amenable of formal treatment, in a particular scenario.
 %
-Should we use FOL to treat arithmetics, $\mathbb{D}$ would include the set of \emph{natural} numbers---i.e. a symbol for each natural number.
+Should we use FOL to treat arithmetic, $\mathbb{D}$ would include the set of \emph{natural} numbers---i.e. a symbol for each natural number.
 %
 Should we treat calculus, $\mathbb{D}$ would include the set of \emph{real} numbers.
 %
@@ -731,20 +729,20 @@ Notably, the predicate $\top$ is always true, by construction, whereas the predi
 
 Concerning non-variable terms, let us denote by $\functor{f}/M$ the $M$-ary term whose functor is $\functor{f}$ and whose arity is $M$.
 %
-When $M \geq 0$, the term is a constant and it represent some entity from $\mathbb{D}$.
+When $M \geq 0$, the term is a constant and it represents some entity from $\mathbb{D}$.
 %
 When $M \geq 1$, the term is a structure -- i.e. a named and ordered group of terms -- and it represents a complex or composite entity from $\mathbb{D}$.
 %
 The actual interpretation of a structure really depends on the scenario at hand.
 %
-So, for instance, in the arithmetic domain, it is possible to represent natural numbers in Peano notation
-\sidenote{\url{https://en.wikipedia.org/wiki/Peano_axioms}}
-using a unary structure -- e.g. $\functor{s}$, for \emph{successor} -- and a constant -- e.g. $\functor{z}$, for \emph{zero} -- as follows: 
+So, for instance, in the arithmetic domain, it is possible to represent natural numbers by mimicking the Peano axioms\footnotemark{} via a unary structure -- e.g. $\functor{s}$, for \emph{successor} -- and a constant -- e.g. $\functor{z}$, for \emph{zero} -- as follows: 
 $\functor{z}$ represents $0$, 
 $\functor{s}(\functor{z})$ represents $1$, 
 $\functor{s}(\functor{s}(\functor{z}))$ represents $2$, etc. 
 %
-Under this representation, each natural number (except $\functor{z}$) is composed by its precedessor, and the successor functor $\functor{s}/1$.
+Under this representation, each natural number (except $\functor{z}$) is composed by its predecessor, and the successor functor $\functor{s}/1$.
+
+\footnotetext{\url{https://www.britannica.com/science/Peano-axioms}}
 
 \paragraph{Structures as composite entities.}
 
@@ -920,11 +918,11 @@ For example:
         \\
         \forall X ~ \forall Y\ parent(X, Y) \wedge female(X) & \rightarrow & mother(X, Y).  
         \\
-        \forall X ~ \forall Y ~ \forall Z \ parent(X, Y) \wedge parent(Y, Z) & \rightarrow & grandparent(X, Z).  
+        \forall X ~ \forall Y ~ \exists Z \ parent(X, Z) \wedge parent(Z, Y) & \rightarrow & grandparent(X, Y).  
     \end{array}
 \end{equation}
 
-This approach to KR is particularly adequate to describe situations involving several entities and many relations or properties, but where, however, each predicate spans through only a few entities, and most entity are not involved in all relations or properties. 
+This approach to KR is particularly adequate to describe situations involving several entities and many relations or properties, but where, however, each predicate only spans through a few entities, and most entities are not involved in all relations or properties. 
 %
 In other words, this approach is well suited to represent \emph{heterogeneous} data.
 
@@ -944,7 +942,7 @@ A natural way to represent $N$ -- e.g. 150 -- records of equals size $M$ -- e.g.
 %
 There, each predicate \emph{extensionally} represents an instance of the same $M$-ary relation -- e.g. $iris$ --, and the $j^{th}$ argument of each predicate carries the value of the $j^{th}$ feature for that instance---according to some predefined ordering of features.
 %
-Thus, the values corresponding numeric features can be represented in FOL by numeric constants, while the values corresponding to the class feature could be represented by ad-hoc constants.
+Thus, the values corresponding to numeric features can be represented in FOL by numeric constants, while the values corresponding to the class feature could be represented by ad-hoc constants.
 %
 So, a KB describing the Iris dataset in FOL according to this may look as follows:
 %
@@ -968,7 +966,7 @@ where the predefined ordering of features is:
     \item class.
 \end{inlinelist}
 
-This approach to KR is particularly adequate to describe situations where the same amount and sorts of fields are available for each datum, this making the whole dataset suitably described by an $N \times M$ table---and, therefore, therefore extensively represented as an $M$-ary relation having with $N$ instances.
+This approach to KR is particularly adequate to describe situations where the same amount and sorts of fields are available for each datum, thus making the whole dataset suitably described by an $N \times M$ table---and, therefore, therefore extensively represented as an $M$-ary relation having with $N$ instances.
 %
 In other words, this approach is well suited to represent \emph{homogeneous} data.
 
@@ -1001,17 +999,13 @@ Conversely, in the homogeneous approach, the same operation would require the \e
 
 Historically, most KR formalisms and technologies have been designed around either sub-sets or applications of the \emph{first order logic} (FOL).
 %
-Consider for instance, \emph{deductive databases} \cite{green1968}, \emph{description logics} \cite{baader2002}, \emph{ontologies} \cite{cimiano2006-ontologies}, \emph{Horn} logic \missingref, \emph{higher-order} logic \missingref, just to name a few.
+Consider for instance, \emph{deductive databases} \cite{green1968}, \emph{description logics} \cite{baader2002}, \emph{ontologies} \cite{cimiano2006-ontologies}, \emph{Horn} logic \cite{Mcnulty1977}, \emph{higher-order} logic \cite{VanBenthem2001}, just to name a few.
 
 Many kinds of logic-based knowledge representation systems have been proposed over the years, mostly relying on FOL -- either by restricting or extending it --, e.g. on description logics and modal logics, which have been used to represent, for instance, terminological knowledge and time-dependent or subjective knowledge.
 
 \paragraph{Ontologies and Description Logics}
 
 Early KR formalisms, such as \emph{semantic networks} and \emph{frames} \cite{sowa2014}, mostly aimed at providing a structured representation of information.
-%
-Description logics are based on the same ideas, but without the formal weaknesses that made the use of their precursors problematic. 
-%
-In description logics, complex concepts are built from simpler ones with an emphasis on the decidability of the reasoning tasks and on the provision of sound, complete and empirically-tractable reasoning services. 
 %
 For this reason, description logics are characterised by several restrictions w.r.t. to FOL
 %
@@ -1025,9 +1019,9 @@ A number of systems based on description logics have been developed -- e.g. \cit
 
 \paragraph{Horn Logic}
 
-Horn logic is a notable subset of FOL, characterised by a good trade-off among theoretical expressiveness, and practical tractability.
+Horn logic is a notable subset of FOL, characterised by a good trade-off among theoretical expressiveness, and practical tractability \cite{Makowsky1987}.
 
-Horn logic is designed around the notion of \emph{Horn clause}.
+Horn logic is designed around the notion of \emph{Horn clause} \cite{Horn1951}.
 %
 Horn clauses are FOL formul\ae{} having no quantifiers, and consisting of:
 %
@@ -1083,7 +1077,7 @@ So, a meta-predicate can be described as an ordinary predicate, accepting terms 
 %
 However, these aspects are covered in \cref{chap:reasoning}.
 
-It is worth to be noted that Horn clauses can be read under both a \emph{logic} and a \emph{procedural} perspective.
+It is worth to be noted that Horn clauses can be read under both a \emph{logic} and a \emph{procedural} perspective \cite{Kowalski1976}.
 %
 Under a logic perspective, Horn clauses are bare implications, which can be used to define relations or sets, as in FOL.
 %
@@ -1093,24 +1087,23 @@ Along this line, when Horn clauses are exploited in practice, they are commonly 
 %
 \begin{description}
     \item[facts] when their body consist of just the $\top$ predicate: 
-    $$ h \leftarrow \top $$
+    $$ h \leftarrow \top \quad \text{or simply} \quad h$$
     stating that $h$ is known to be true (as it requires nothing to be proven first),
 
     \item[directives] (a.k.a.\textbf{goals}) when their head consist of just the $\bot$ predicate (or, equivalently, when the head is missing): 
-    $$\begin{array}{c}
-        \bot \leftarrow b_1,\ \ldots,\ b_n
-        \\\text{or}\\
-        \leftarrow b_1,\ \ldots,\ b_n
-    \end{array}$$ 
+    $$
+    \bot \leftarrow b_1,\ \ldots,\ b_n
+    \quad
+    \text{or simply}
+    \quad
+    \leftarrow b_1,\ \ldots,\ b_n
+    $$ 
     stating that predicates $b_1, \ldots, b_n$ should be all proven,
 
     \item[rules] otherwise, i.e. when both the head and the body involve arbitrary predicates.
 \end{description}
 
 \section{Sub-symbolic Data Representation}
-
-\note{Distributed as opposed to symbolic}
-\note{Functional as one-way}
 
 Symbolic KR approaches, such as FOL and its subsets, represent both data and knowledge uniformly---meaning that they provide a common language capable of representing both.
 %
@@ -1149,7 +1142,7 @@ In any given sub-symbolic data-representation task leveraging upon arrays, infor
 %
 In practice, the actual dimensions $(d_1 \times \ldots \times d_D)$ of the array play a central role as well.
 %
-Indeed, as further discussed in \cref{chap:reasoning}, sub-symbolic data processing is commonly tailored on arrays of \emph{fixed} sizes---meaning that the actual values of $d_1, \ldots, d_D$ are chosen at design time and never changed after that.
+Indeed, as further discussed in \cref{chap:learning}, sub-symbolic data processing is commonly tailored on arrays of \emph{fixed} sizes---meaning that the actual values of $d_1, \ldots, d_D$ are chosen at design time and never changed after that.
 %
 For this reason, we define sub-symbolic data representation as the task of expressing data in the form of \emph{rigid} arrays of \emph{numbers}.
 %
@@ -1157,14 +1150,14 @@ Notably, such a task is \emph{extensional} by construction, as information can o
 
 \paragraph{Local vs. Distributed}
 
-An important distinction, when data is represented in the form of numeric arrays, is about whether the representation is \emph{local} or \emph{distributed}.
+An important distinction, when data is represented in the form of numeric arrays, is about whether the representation is \emph{local} or \emph{distributed} \cite{Gelder90}.
 %
 In local representations, each single number into the array is characterised by a well-delimited meaning---i.e. it is measuring or describing a clearly identifiable concept from the domain of the discourse.
 %
 Conversely, in distributed representations, each single item of the array is nearly meaningless, unless it is considered along with its neighbourhood---i.e. any other item which is ``close'' in the indexing space of the array, according to some given notion of closeness.
 %
 So, while in local representations the location of each number in the array is quite negligible, in distributed representations it is of paramount importance. 
-%
+
 Consider for instance the Iris dataset from \cref{sec:kr-tabular-data}: it is a tabular dataset where each datum can be considered as a 5-dimensional vector.
 %
 There, each component of the vector is informative \emph{per se}: it may describe e.g. the petal/sepal length/width.
@@ -1173,13 +1166,13 @@ Conversely, consider a dataset of black/white images whose resolution is $w \tim
 %
 There, each image can be represented as a $h \times w$ matrix of numbers in the range $[0, 1]$, where each location represents a pixel and the corresponding brightness.
 %
-The single pixel carries very small information when considered alone, whereas groups of contiguous pixel may describe datails which are relevant for image processing. 
+The single pixel carries very small information when considered alone, whereas groups of contiguous pixel may describe details which are relevant for image processing. 
 
 \paragraph{Feature Engineering}
 
 Of course, not all data is both rigid and numeric in nature.
 %
-So, to fit this paradigm, data scientists designed a plethora of conversions methods to transform data from various forms (e.g. possibly non-rigid or non-numeric, when not both) into rigid arrays of numbers.
+So, to fit this paradigm, data scientists designed a plethora of conversion methods to transform data from various forms (e.g. possibly non-rigid or non-numeric, when not both) into rigid arrays of numbers.
 %
 In particular, when raw data is very flexible (i.e. variable in size) and very distributed, a common method consists of computing the so-called \emph{embeddings}, i.e. fixed-size arrays synthesising the information contained into the raw data.
 %
@@ -1208,12 +1201,16 @@ The most adequate transformation heavily depends on the domain of the feature it
     
     \item[ordinal] features may be trivially converted into natural numbers reflecting the same ordering;
     
-    \item[categorical] features may be converted into boolean features via the one-hot encoding;
+    \item[categorical] features may be converted into boolean features via the one-hot encoding\footnotemark;
     
     \item[structured] features having a \textbf{fixed} structure (e.g. dates or timestamps) can be decomposed into their components;
 \end{description}
 %
 while other situations may fit the cases below.
+
+\footnotetext{
+    An $n$-dimensional vector $\mathbf{x}$ of categorical values $x_1, \ldots, x_n$ where each $x_i \in \mathcal{C} = \{ c_1, \ldots, c_m \}$ can always be \emph{one-hot encoded} into a $m \times n$ matrix where the item in position $i, j$ is 1 iff $x_i = c_j$, or 0 otherwise.
+}
 
 \subparagraph{Variable-size data}
 
@@ -1242,12 +1239,14 @@ Depending on the nature of the data itself, and on the particular data-analytic 
 %
 \begin{description}
     \item[draw a number of statistics] on each datum (e.g. mean, standard deviation, min, max, etc), attempting to aggregate the information therein contained: if the same amount and sorts of statistics are drawn for each datum, the dataset will then become tabular;
-    \item[apply a domain-chancing transformation] such as the Fourier transform or the wavelet transform;
-    \item[sub-sample each variable-size datum] using a fixed-size sampling step; e.g. a sliding window for time series, or neighbourhoods of fixed sizes for graphs;
-    \item[exploit \emph{ad-hoc} embeddings] targetting particular sorts of data, such as GNN, Word2Vec, etc.
+    \item[apply a domain-chancing transformation] such as the Fourier transform \cite{CooleyLW1969} or the wavelet transform \cite{Zhang2019};
+    \item[sub-sample each variable-size datum] using a fixed-size sampling step; e.g. a sliding window for time series \cite{FrankDH01}, or neighbourhoods of fixed sizes for graphs;
+    \item[exploit \emph{ad-hoc} embeddings] targetting particular sorts of data, such as GNN \cite{WuPCLZY2021}, Word2Vec \cite{Church2017}, etc.
 \end{description}
 
-\chapter{Learning Knowledge from Data}
+\note{Functional as one-way}
+
+\chapter{Learning Knowledge from Data}\label{chap:learning}
 
 A famous definition of machine learning from \cite{Mitchell1997} states:
 %
