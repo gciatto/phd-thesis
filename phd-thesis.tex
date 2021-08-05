@@ -744,7 +744,7 @@ Under this representation, each natural number (except $\functor{z}$) is compose
 
 \footnotetext{\url{https://www.britannica.com/science/Peano-axioms}}
 
-\paragraph{Structures as composite entities.}
+\paragraph{Structures as composite entities}
 
 Structures may be used in logic to represent composite entities.
 %
@@ -817,7 +817,6 @@ or, equivalently:
     \functor{[rome,\ florence,\ bologna,\ milan]}
 \end{equation*}
 
-
 \paragraph{Knowledge Bases}
 
 From a knowledge representation perspective, knowledge bases (KB) (a.k.a. \emph{theories}) are sets of related FOL formul\ae{} concerning the same domain of the discourse.
@@ -842,7 +841,7 @@ By recursively applying that formula, one may express any natural number in Pean
 
 \paragraph{Intensional vs. Extensional}
 
-The recursive definition of natural numbers above is also interesting because it exemplifies the difference among \emph{extensional} and \emph{intensional} definitions.
+The recursive definition of natural numbers from \cref{eq:kb-peano-naturals} is also interesting because it exemplifies the difference among \emph{extensional} and \emph{intensional} definitions.
 
 In logic, one may define concepts -- i.e. describe data -- either extensionally or intensionally.
 %
@@ -872,7 +871,43 @@ For instance, one may intensionally define the $child/2$ relation via the $paren
 %
 Yet, recursive intensional predicates are very expressive and powerful, as they enable the description of infinite sets via a finite (and commonly small) amount of formul\ae{}.
 
-\subsection{Data Representation Engineering}
+\paragraph{Herbrand and its ground}
+
+Variables play a fundamental role in intensional KR, as they allow referencing unknown entities and tie them together via either predicates or structures.
+%
+However, there exists situations -- described later in this thesis -- where the presence of variables may be troublesome.
+%
+Accordingly, here we provide a number of definitions related to variable-free FOL formul\ae{} and KB.
+
+A term is considered \emph{ground} if and only if 
+%
+\begin{inlinelist}
+    \item it is a constant, or
+    \item it is a structure ant it is only composed by constant or ground arguments.
+\end{inlinelist}
+%
+In other words, a term if it contains no variable, not even recursively.
+%
+A predicate is ground it any term therein contained is ground as well.
+%
+A formula is ground if it only contains ground predicates, and a KB is ground if it only contains ground formul\ae{}.
+
+We call \emph{Herbrand universe} the set of all possible ground terms, denoted by $\mathcal{H}$.
+%
+In other words, $\mathcal{H}$ is the set of all possible representations of all entities in the domain of the discourse.
+%
+Given a set of constants and functor symbols, $\mathcal{H}$ can be recursively defined as the set containing:
+%
+\begin{inlinelist}
+    \item all possible constants, and
+    \item all structures attained by applying all possible $M$-ary functors to each possible $M$-uple of items in $\mathcal{H}$.
+\end{inlinelist}
+
+The Herbrand universe may easily become infinite.
+%
+A single functor of arity greater than 0 -- say, $\functor{f}$ -- plus a single constant -- say, $\functor{x}$ -- are sufficient to create an infinite Herbrand universe, as the functor may be recurively applied to the constant, infinitely many times---i.e. $\mathcal{H} = \{ \functor{x}, \functor{f}(\functor{x}), \functor{f}(\functor{f}(\functor{x})), \ldots \}$.
+
+\subsection{Representation Engineering}
 
 When handling knowledge in practice, the particular way knowledge is modelled is quintessential for computational systems to be effective.
 %
@@ -1064,7 +1099,7 @@ So, essentially, Horn logic is a very restricted subset of FOL where:
     \item formul\ae{} are reduced to clauses, as they can only contain predicates, conjunctions, and a single implication operator, therefore
     \item operators such as $\vee$, $\leftrightarrow$, or $\lnot$ cannot be used,
     \item variables are implicitly quantified, and
-    \item terms work as in FOL.
+    \item terms work as in FOL (there including the definition of ``ground term'' and ``Herbrand universe'').
 \end{itemize}
 %
 Similarly to FOL, Horn logic KB consist of sets of Horn clauses.
@@ -1244,7 +1279,65 @@ Depending on the nature of the data itself, and on the particular data-analytic 
     \item[exploit \emph{ad-hoc} embeddings] targetting particular sorts of data, such as GNN \cite{WuPCLZY2021}, Word2Vec \cite{Church2017}, etc.
 \end{description}
 
-\note{Functional as one-way}
+\section{Comparison: Symbolic vs. Sub-Symbolic KR}
+
+Symbolic and sub-symbolic approaches to KR can be compared along several dimensions, along which their duality seems clear.
+
+\paragraph{Cripsness vs. Fuzziness}
+
+At the syntactical level we describe symbolic KR as ``flexible'' -- mostly because it can represent knowledge intensionally, via variables, and concisely, via recursive structures -- and sub-symbol KR as ``rigid''---because of its prominent reliance on fixed-size arrays.
+%
+However, it is well understood how, in practice, symbolic KR leads to \emph{crisp} representations, whereas sub-symbolic KR leads to \emph{fuzzy} representations.
+%
+The distinction is well-established within the AI literature.
+%
+For instance, in the early 90s, Minsky described symbolic approaches as neat, and sub-symbolic ones as scruffy \cite{Minsky1991}.
+
+Regardless of the particular terminological choices, the statement stems from the exact nature of symbolic KR as opposed to the approximate nature of its sub-symbolic counterpart.
+%
+Indeed, while the interpretation of logic formul\ae{} is often discrete and finite-valued -- and more commonly Boolean (i.e. two-valued) --, arrays of real numbers may span through an infinity of values, and continous notions of similarity or distance may be defined among them.
+%
+So, for instance, while symbolically represented objects can only be either equals or not, vectors, matrices, or tensors may be more or less similar, according to a continuum of possibilities.
+
+Accordingly, logic-based representation are most adequate to represent exact situations, where the world can be modelled according to precise rules.
+%
+Conversely, array-based representation are most adequate to represent approximate situations, where similarity or slight differences among entities are interesting and should be explicitly captured. 
+
+\paragraph{Extensional vs. Intensional}
+
+Another relevant distinction concerns the capability of representing knowledge intensionally.
+%
+While symbolic approaches support both intensional and extensional representations, sub-symbolic approaches only support extensional representations.
+%
+This implies that, when represented sub-symbolically, all data should be represented explicitly.
+
+The explicit representation of \emph{all} the available information is at the same time a blessing and a curse.
+%
+In fact, while it costs far more space -- thus complicating both storage and processing --, it simplifies the design of sub-symbolic algorithms, which can rely on the assumption that all relevant data is immediately available.
+
+\paragraph{About Conversions}
+
+Conversions among the symbolic and sub-symbol realm (or vice versa) are where discrepancies become more evident.
+%
+In particular, while the conversion in symbolic form of some sub-symbolic array of number is always possible -- as extensive tabular information can be suitably represented via logic formul\ae{} as well --, the conversion of logic knowledge into sub-symbolic form is cumbersome.
+%
+Despite many conversion strategies (or embeddings) have been proposed into the literature, they commonly require:
+%
+\begin{enumerate}
+    \item\label{item:finite-symbols} all the constants, functor symbols, and predicate symbols to be explicitly encoded \cite[sec. 6.2]{CropperDM20},
+    \item\label{item:gound-kbs} variables to be missing, as they would imply some intensional representation \cite{SerafiniG16},
+    \item\label{item:tensor-products} $N$-ary structures to be encoded into tensors having at least $N$ dimensions, possibly recursively combined via the tensor product \cite{Smolensky1990}.
+\end{enumerate}
+%
+Unfortunately, all such requirements come with quite strong limitations.
+%
+In particular, item \ref{item:finite-symbols} implies that constants, functors, and predicate symbols must be of finite quantity and all \emph{a-priori} known---both conditions which rarely hold in practice.
+%
+Item \ref{item:gound-kbs} implies logic formul\ae{} should be \emph{grounded}, if not already ground---which would obliterate the advantages coming from intensional representations.
+%
+Finally, item \ref{item:tensor-products} implies that the maximum level of recursion should be \emph{a-priori} defined, as each tensor product increases the dimensionality of the tensors at hand---which in turn cannot increase indefinitely, as it would violate the rigidity required by sub-symbolic KR.
+%
+All such issues arise because sub-symbolic KR is inherently extensional, and it involves no simple way to express data intensionally -- and therefore concisely -- as in logic.
 
 \chapter{Learning Knowledge from Data}\label{chap:learning}
 
@@ -1391,6 +1484,8 @@ In fact, while parameters are \emph{automatically} computed by the learning algo
 %
 They may either guessed or estimated by trial-and-error by data scientists---hence representing a bottleneck in the automatisation of learning. 
 
+\subsection{Overview on learning algorithms}
+
 \note{About generalisation: the bias-variance trade-off?}
 
 \note{Comments on existing algorithms and their relevant aspects?}
@@ -1403,9 +1498,10 @@ They may either guessed or estimated by trial-and-error by data scientists---hen
 % %
 % For instance, it is widely acknowledged that \emph{generalized linear models} (GLM) are more interpretable than neural networks (NN), whereas \emph{decision trees} (DT) \cite{breiman1984classification} are among the most interpretable families \cite{GuidottiMRTGP19}.
 
-\section{Logic Induction}
+\section{Symbolic Supervised Learning}
 
 \note{Formalisation of the problem}
+Supervised learning 
 
 \note{Main notions: positive examples, negative examples, background knowledge, constraints/suggestions}
 
