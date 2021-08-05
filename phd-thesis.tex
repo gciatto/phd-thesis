@@ -1500,8 +1500,32 @@ They may either guessed or estimated by trial-and-error by data scientists---hen
 
 \section{Symbolic Supervised Learning}
 
+Within the realm of symbolic AI, supervised ML commonly refers to either \emph{inductive logic programming} (ILP) \cite{Muggleton91} or \emph{statistical relational learning} (SRL) \cite{DeRaedt2010}, despite the overlap among the two disciplines is wide.
+
+In both cases, learning consists of searching an \emph{intensional} logic representation $H$ for a number of positive examples $E^+$, possibly leveraging on some prior KB $B$ -- carrying the so-called \emph{background knowledge} about the domain at hand --, on a number of \emph{negative} examples $E^-$, or set of \emph{hints} $C$, biasing and constraining the admissible shapes for the representation to-be-learned.
+%
+In the general case, $H$, $E^+$, $E^-$, and $B$ are knowledge bases, possibly involving several definite clauses (i.e. either rules or facts), while the shape of $C$ really depends on the particular approach at hand. 
+%
+Of course, there may be cases where $E^-$, $B$ or $C$ are not required, and therefore considered as empty sets.
+
+The main difference among ILP and SLR lays in the particular language used for knowledge representation.
+%
+While in ILP knowledge bases simply consist of bare definite clauses, SRL leverages on a superset of Horn Logic called ProbLog \cite{RaedtKT07}, where definite clauses are enriched with probability values.
+
+According to the SLR nomenclature of \cite{DeRaedt2010} -- where a unifying model generalising ILP and SLR is proposed --, there are two relevant problems which lay under the symbolic supervised learning umbrella, namely:
+%
+\begin{description}
+    \item[parameters learning] where $H$ consists of a given ProbLog KB, where the structure of facts and rules is known, while their probabilities are not, and learning aims at simply estimating those probabilities
+     
+    \item[structure learning] where $H$ is completely unknown, and the whole structure of facts and rules therein contained must be computed, possibly along with their corresponding probabilities 
+\end{description}
+
+In both cases, learning can be defined as an optimisation problem aimed at selecting the best KB $H^*$ into an hypothesis space $\mathcal{H}_{B,C}$, delimited and defined by both $B$, $C$.
+%
+There, each KB $H \in \mathcal{H}_{B,C}$ consists of a number of definite clauses defining the $n$-ary relation $h/n$, possibly leveraging on the relations defined in $B$, and satisfying the suggestions/constraints expressed by $C$.
+
+
 \note{Formalisation of the problem}
-Supervised learning 
 
 \note{Main notions: positive examples, negative examples, background knowledge, constraints/suggestions}
 
