@@ -1486,13 +1486,18 @@ In fact, while parameters are \emph{automatically} computed by the learning algo
 %
 They may be either guessed or estimated by trial-and-error by data scientists---hence representing a bottleneck in the automatisation of learning. 
 
+\note{About generalisation: the bias-variance trade-off?} % maybe out of topic
+
+\note{Comments on the role of feature engineering} % already discussed in chap on KR
+
 \subsection{Overview on learning algorithms}
 
-\note{About generalisation: the bias-variance trade-off?}
-
-\note{Comments on existing algorithms and their relevant aspects?}
-
-\note{Comments on the role of feature engineering}
+\note{
+    Comments on existing algorithms and their relevant aspects?
+    Let's distinguish among parametric and non-parametric algorithms.
+    Let's distriguish among regression and classification algorithms, with a focus on regression as classification can be reduced to regression.
+    Focus on gradient descent, backpropagation and deep learning.
+}
 
 % Depending on the predictor family $\mathcal{P}$ of choice, the nature of the learning algorithm and the admissible shapes of $\hat{p}$ may vary dramatically, as well as the their \emph{interpretability}.
 % %
@@ -1626,9 +1631,25 @@ In fact, similarly to sub-symbolic approaches, some mechanism is needed to let h
 %
 In the particular case of symbolic supervised learning, that mechanism is the language bias.
 
-\note{What's automatic and what is not}
+\subsection{Overview on learning algorithms}
 
-\note{Intuition behind the functioning of the algorithms}
+\note{
+    Intuition behind the functioning of the algorithms.
+    ProbLog as the main approach to SRL.
+    Bottom up or top down approaces in ILP.
+    Mention main approaches: relatively least general generalisation, reverse entailment, bottom clause generalisation, meta-interpretative learning.
+    Mention major algorithms developed in this field.    
+}
+
+\section{Symbolic vs. Sub-Symbolic Supervised Learning}
+
+\note{Similar formulation, similar issue: no silver bullet, i.e. not everthing is handled automatically}
+
+\note{Higher flexibility of symbolic learning which learns intensional representations, yet higher maturity of sub-symbolic approaches.}
+
+\note{Data efficiency: sub-symbolic approaches usually require more data. Computational efficiency: sub-symbolic approaches can be parallelised, especially GD, eg. via GPUs. Symbolic approaches cannot}.
+
+\note{Sub-symbolic approaches care a lot about model validation as a means to assess the generalisation capabilities of a trained model. ILP model care less. Speculating on the motivation: the outcome of ILP is symbolic, therefore the human being can understand if it is correct or not. Or maybe it's simply because it has not been applied on a large scale, yet?}
 
 \chapter{Reasoning over Knowledge}\label{chap:reasoning}
 
