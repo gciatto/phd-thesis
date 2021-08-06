@@ -935,7 +935,7 @@ Other kinds of relations could be represented intensively.
 %
 For example:
 %
-\begin{equation}
+\begin{equation}\label{eq:abraham-family-tree}
     \begin{array}{rcl}
         parent(\functor{abraham}, \functor{isaac}). & {} & male(\functor{abraham}).
         \\
@@ -1369,13 +1369,15 @@ Accordingly, depending on the particular ways these aspects are tackled, a categ
 %
 \sidenote{Make figure adherent to caption (add $4^{th}$ column)}
 %
-As depicted in \cref{fig:ml-taxonomy}, there exist three major approaches to ML, each one characterised by a well-defined pool of tasks, which may, in turn, be applied in wide range of use case scenarios.
+As depicted in \cref{fig:ml-taxonomy}, three major approaches to ML exist.
+%
+Each approach is characterised by a well-defined pool of tasks, which may, in turn, be applied in wide range of use case scenarios.
 %
 The three major approaches to learning are: \emph{supervised}, \emph{unsupervised}, and \emph{reinforcement}.
 %
 They essentially deal with the kind of task $T$ to be learned -- commonly consisting in the estimation of an unknown relation --, and how expericence $E$ is provided to the learning algorithm.
 
-In supervised learning, the learning task consists of finding a way to approximate an unknown relation, given a sampling of its items---which constitutes the experience.
+In supervised learning, the learning task consists of finding a way to approximate an unknown relation, given a sampling of its items---which constitute the experience.
 %
 In unsupervised learning, the learning task consists of finding the best relation for a sample of items -- which constitute the experience --, following a given optimality criterion intensionally describing the target relation.
 %
@@ -1482,7 +1484,7 @@ The difference among parameters and \emph{hyper-}parameters is very important in
 %
 In fact, while parameters are \emph{automatically} computed by the learning algorithm, hyper-parameters are not.
 %
-They may either guessed or estimated by trial-and-error by data scientists---hence representing a bottleneck in the automatisation of learning. 
+They may be either guessed or estimated by trial-and-error by data scientists---hence representing a bottleneck in the automatisation of learning. 
 
 \subsection{Overview on learning algorithms}
 
@@ -1502,9 +1504,15 @@ They may either guessed or estimated by trial-and-error by data scientists---hen
 
 Within the realm of symbolic AI, supervised ML commonly refers to either \emph{inductive logic programming} (ILP) \cite{Muggleton91} or \emph{statistical relational learning} (SRL) \cite{DeRaedt2010}, despite the overlap among the two disciplines is wide.
 
-In both cases, learning consists of searching an \emph{intensional} logic representation $H$ for a number of positive examples $E^+$, possibly leveraging on some prior KB $B$ -- carrying the so-called \emph{background knowledge} about the domain at hand --, on a number of \emph{negative} examples $E^-$, or set of \emph{hints} $C$, biasing and constraining the admissible shapes for the representation to-be-learned.
+In both cases, learning consists of approximating an unknown \emph{intensional} representation $H^*$ for a number of positive examples $E^+$, possibly leveraging on 
 %
-In the general case, $H$, $E^+$, $E^-$, and $B$ are knowledge bases, possibly involving several definite clauses (i.e. either rules or facts), while the shape of $C$ really depends on the particular approach at hand. 
+\begin{itemize}
+    \item some prior KB $B$, carrying the so-called \emph{background knowledge} about the domain at hand;
+    \item a number of \emph{negative} examples $E^-$;
+    \item a \emph{language bias} $C$, constraining the admissible shapes for the representation to-be-learned.
+\end{itemize}
+%
+In the general case, $H^*$, $E^+$, $E^-$, and $B$ are knowledge bases, possibly involving several definite clauses (i.e. either rules or facts), while the shape of $C$ really depends on the particular learning approach at hand. 
 %
 Of course, there may be cases where $E^-$, $B$ or $C$ are not required, and therefore considered as empty sets.
 
@@ -1515,25 +1523,112 @@ While in ILP knowledge bases simply consist of bare definite clauses, SRL levera
 According to the SLR nomenclature of \cite{DeRaedt2010} -- where a unifying model generalising ILP and SLR is proposed --, there are two relevant problems which lay under the symbolic supervised learning umbrella, namely:
 %
 \begin{description}
-    \item[parameters learning] where $H$ consists of a given ProbLog KB, where the structure of facts and rules is known, while their probabilities are not, and learning aims at simply estimating those probabilities
+    \item[parameters learning] where $H$ consists of a given ProbLog KB, where the shape of facts and rules is known, while their probabilities are not, and learning aims at simply estimating those probabilities
      
-    \item[structure learning] where $H$ is completely unknown, and the whole structure of facts and rules therein contained must be computed, possibly along with their corresponding probabilities 
+    \item[structure learning] where $H$ is completely unknown, and the whole shape of facts and rules therein contained must be computed, possibly along with their corresponding probabilities 
 \end{description}
 
-In both cases, learning can be defined as an optimisation problem aimed at selecting the best KB $H^*$ into an hypothesis space $\mathcal{H}_{B,C}$, delimited and defined by both $B$, $C$.
+In both cases, learning can be defined as an optimisation problem aimed at approximating $H^*$ by search for the best KB $\hat{H}$ into an hypothesis space $\mathcal{H}_{B,C}$, defined by applying all possible combinations of clauses in $B$, as dictated by $C$.
 %
-There, each KB $H \in \mathcal{H}_{B,C}$ consists of a number of definite clauses defining the $n$-ary relation $h/n$, possibly leveraging on the relations defined in $B$, and satisfying the suggestions/constraints expressed by $C$.
+There, each KB $H \in \mathcal{H}_{B,C}$ consists of a number of definite clauses defining the $n$-ary relation $h$, possibly leveraging on the relations defined in $B$, and satisfying the suggestions/constraints expressed by $C$.
+%
+In other words, they consist of KB intensionally defining $h$ via rules of the form:
+%
+\begin{equation*}
+    \psi :: h(X_1,\ \ldots,\ X_n) \leftarrow f(\bar{X}),\ f'(\bar{X}'),\ f''(\bar{X}''),\ \ldots
+\end{equation*} 
+%
+where $\psi$ denotes an optional probability value,  while $\bar{X}, \bar{X}', \bar{X}'', \ldots$ are tuples involving one or more head variables (i.e., $X_1, \ldots, X_n$), and $f, f', f'', \ldots$ are either predicates defined in $B$ or combinations of those predicates, attained by following the suggestions/constraints contained in $C$.
+%
+Similarly, $E^+$ (resp. $E^-$) consists of facts of the form $h/n$, extensionally defining known (resp. invalid) items of the $n$-aray relation $h$, and possibly labelled with probabilities.
 
+Analogously to the sub-symbolic case, symbolic supervised learning leverages upon some adherence function $\rho$, aimed at measuring the adherence of some hypothesis KB $H \in \mathcal{H}_{B,C}$ w.r.t. either $E^+$ or $E^-$.
+%
+For instance, in SRL, $\rho$ is commonly modelled probabilistically:
+%
+\begin{equation*}
+    \rho(H, E, B) = \sum_{e \in E} \mathbb{P}(e \mid H, B)
+\end{equation*}
+%
+where $\mathbb{P}(\cdot \mid \cdot)$ denotes the conditional probability operator.
+%
+Conversely, in ILP, $\rho$ is modelled in terms of logic inference\footnotemark:
+%
+\begin{equation*}
+    \rho(H, E, B) = \sum_{e \in E} \rho(H, e, B)
+    \quad \text{and} \quad
+    \rho(H, e, B) = \begin{cases}
+        1 & \text{if} ~ H, B \models e 
+        \\
+        0 & \text{otherwise} 
+    \end{cases} 
+\end{equation*}
+%
+\footnotetext{
+    This aspect is better discussed in \cref{chap:reasoning}. 
+    %
+    Within the scope of this chapter, the notation $K \models \phi$, where $K$ is a knowledge base and $\phi$ is a logic formula, can simply be read as ``$\phi$ can be inferred from $K$ via some inference procedure''.
+}
+%
+Under such hypothesis, symbolic supervised learning can be defined as \cite{DeRaedt2010} the optimisation task aimed at finding the hypothesis which adheres to as much positive examples as possible, while adhering to no negative example at all:
+%
+\begin{equation}
+    \hat{H} = \argmax{H \in \mathcal{H}_{B,C} ~ \text{s.t.} ~ \rho(H, E^-, B) = 0}{\rho(H, E^+, B)}
+\end{equation}
 
-\note{Formalisation of the problem}
+Parameter and structure learning differ for the actual way the search is performed, other than for the actual object of search.
+%
+In parameter learning, algorithms can assume the shape of (facts and rules in) $\hat{H}$ to be given (and fixed), and therefore focus on the mere esitmation of probabilities.
+%
+Conversely, in structure learning, algorithms must also consider the many possible shapes $\hat{H}$ may have.
+%
+This includes all possible combinations of all relations possibly defined in $B$.
+%
+Assuming, for instance, that $B$ intensionally defines $r$ relations $f_1, \ldots, f_r$, whose arity is at least $a$, and that the target relation is $h$, whose arity is $n$.
+%
+Under such hypothesis, rules in $H$ should be of the form:
+%
+\begin{equation*}
+    h(X_1,\ \ldots,\ X_n) \leftarrow \ldots
+\end{equation*} 
+%
+where the body of the rule may contain as many predicates as in any possible permutation of any possible subset of $\{ f_1, \ldots, f_r \}$.
+%
+There, each possible $a$-ary relation could be written as a predicate involving some disposition of $a$ variables from the set $\{ X_1, \ldots, X_n \}$.
+%
+In other words, the search space for structure learning is \emph{huge} and definitely impossible to explore in useful time, unless in trivial cases.
+%
+To complicate the matter, differently from the sub-symbolic case, the search space is not even continuous---meaning that gradient based approaches cannot be applied.
 
-\note{Main notions: positive examples, negative examples, background knowledge, constraints/suggestions}
+To mitigate such issues -- and to reduce the search space --, the ILP community leverages on smart choices of the linguistic bias $C$.
+%
+The general purpose of the linguistic bias is to constrain the particular way relations from $B$ can be combined in $H$.
+%
+For instance, in the meta-interpretative learning approach \cite{MuggletonLPT14}, $C$ consists of a library of higher-order rules (a.k.a. meta-rules), which define the admissible sorts of combinations.
+%
+There, a meta-rule is a rule involving higher-order variables enumerating over predicate symbols, such as:
+%
+\begin{equation}\label{eq:meta-rule-example}
+    \textsf{P}(A,\ B) \leftarrow \textsf{Q}(A,\ C),\ \textsf{R}(C,\ B) 
+\end{equation}
+%
+where uppercase, sans-serif letters $\textsf{P}, \textsf{Q}, \textsf{R}$ denote higher-order variables, while $A, B, C$ are ordinary variables; and the whole formula allows an induction algorithm to \emph{invent} \cite{MuggletonB88} some binary predicate $\textsf{P}$ by combinations of two binary predicates $\textsf{Q}$ and $\textsf{R}$.
 
-\note{Details on the representation of input and output data}
+Consider for instance the case of an ILP problem aimed at learning the positive example $grandparent(\functor{abraham}, \functor{jacob})$, given the background knowledge containing a number of facts expressing parenthood facts of the form $parent(\functor{p}, \functor{p}')$, describing Abraham's family tree---as in \cref{eq:abraham-family-tree}.
+%
+There, the meta-rule \ref{eq:meta-rule-example} may suggest the correct identification of the target rule -- namely, $grandparent(X, Y) \leftarrow parent(X, Z), parent(Z, Y)$ -- via the variable assignment $\{ \textsf{P} \mapsto \functor{grandparent}, \textsf{Q} \mapsto \functor{parent}, \textsf{R} \mapsto \functor{parent} \}$.
 
-\note{Intuition behind the functioning of the algorithms}
+It is worth to be noted how the language bias $C$ plays, in symbolic supervised learning, the same role played by hyper-parameters in sub-symbolic supervised learning.
+%
+In both cases, \emph{automated} learning relies on some prior knowledge, which must be handcrafted by data scientists.
+%
+In fact, similarly to sub-symbolic approaches, some mechanism is needed to let humans control either the complexity or learning or the dimension of the search space.
+%
+In the particular case of symbolic supervised learning, that mechanism is the language bias.
 
 \note{What's automatic and what is not}
+
+\note{Intuition behind the functioning of the algorithms}
 
 \chapter{Reasoning over Knowledge}\label{chap:reasoning}
 
