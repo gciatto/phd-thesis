@@ -1621,7 +1621,7 @@ where uppercase, sans-serif letters $\textsf{P}, \textsf{Q}, \textsf{R}$ denote 
 
 Consider for instance the case of an ILP problem aimed at learning the positive example $grandparent(\functor{abraham}, \functor{jacob})$, given the background knowledge containing a number of facts expressing parenthood facts of the form $parent(\functor{p}, \functor{p}')$, describing Abraham's family tree---as in \cref{eq:abraham-family-tree}.
 %
-There, the meta-rule \ref{eq:meta-rule-example} may suggest the correct identification of the target rule -- namely, $grandparent(X, Y) \leftarrow parent(X, Z), parent(Z, Y)$ -- via the variable assignment $\{ \textsf{P} \mapsto \functor{grandparent}, \textsf{Q} \mapsto \functor{parent}, \textsf{R} \mapsto \functor{parent} \}$.
+There, the meta-rule \ref{eq:meta-rule-example} may suggest the correct identification of the target rule -- namely, $grandparent(X, Y) \leftarrow parent(X, Z), parent(Z, Y)$ -- via the variable assignment $\{ \textsf{P} \mapsto grandparent, \textsf{Q} \mapsto parent, \textsf{R} \mapsto parent \}$.
 
 It is worth to be noted how the language bias $C$ plays, in symbolic supervised learning, the same role played by hyper-parameters in sub-symbolic supervised learning.
 %
@@ -1641,13 +1641,118 @@ In the particular case of symbolic supervised learning, that mechanism is the la
     Mention major algorithms developed in this field.    
 }
 
-\section{Symbolic vs. Sub-Symbolic Supervised Learning}
+\section{Symbolic vs. Sub-Symbolic Learning}
 
-\note{Similar formulation, similar issue: no silver bullet, i.e. not everthing is handled automatically}
+Symbolic and sub-symbolic approaches to supervised learning share similar formulations, despite the corresponding methods and algorithms operate in quite different ways.
+%
+Both formulations deal with optimisation problems aimed at iteratively construting an algorithm mimicking an unknown relation/function in the best possible way, leveraging on a number of examples.
+%
+However, because of their nature and the inherent way they represent knowledge, both approaches come with pros and cons.
+%
+Here we focus, on their flexibility, data and computational efficiency, degree of automation, maturity, and validation.
 
-\note{Higher flexibility of symbolic learning which learns intensional representations, yet higher maturity of sub-symbolic approaches.}
+\paragraph{Flexibility}
 
-\note{Data efficiency: sub-symbolic approaches usually require more data. Computational efficiency: sub-symbolic approaches can be parallelised, especially GD, eg. via GPUs. Symbolic approaches cannot}.
+For what concerns flexibility, symbolic approaches produce more flexible outcomes, whereas sub-symbolic approaches are characterised by more flexible learning processes.
+
+\subparagraph{Outcomes}
+
+Focussing on symbolic approaches, flexibility lays in the shape of the expected outcomes, which is a direct effect of the particular choice of symbols for KR.
+%
+``Symbolic'' here implies that knowledge is represented via logic clauses, which in turn pave the way towards learning intensional \emph{relations}---possibly taking some prior (background) knowledge into account.
+%
+Indeed, representing the target of knowledge in the form of relations expressed by logic formul\ae{} comes with two major advantages---namely bi-directionality and re-usability.
+
+First, relations are \emph{bi-directional}, meaning that any argument of the relation can be considered either an input or an output, depending on the situation at hand.
+%
+So, for instance, if an agent is capable of learning the clauses expressing the $grandparent/2$ relation -- cf. \cref{eq:abraham-family-tree} --, then it acquires a lot of relevant information, namely:
+%
+\begin{inlinelist}
+    \item an explicit, generic representation of \emph{how} the relation can be tested among any two entities $X$ and $Y$,
+    \item a way to compute all the grand-children of any given grand-parent $\functor{p}$ -- i.e. $grandparent(\functor{p}, Y)$ --, and
+    \item a way to compute all the grand-parents of any given grand-child $\functor{c}$---i.e. $grandparent(X, \functor{c})$.
+\end{inlinelist}
+
+Second, relations are \emph{re-usable} (w.r.t. a learning process), meaning that learned relations can be used as prior knowledge in any sub-sequent learning process, as both the inputs and outputs of any symbolic learning process are represented in the same form---namely, logic clauses.
+%
+This in turn paves the way towards the definition of learning \emph{cycles} where a learning algorithm is executed several times and the knowledge acquired after each round is included in the background knowledge of successive rounds.
+
+Conversely, sub-symbolic approaches are aimed at learning \emph{functions}, rather than relations.
+%
+The learned functions are generally \emph{mono-directional} -- in the sense that they are not (easily) invertible -- and extensional.
+%
+Consider for instance the case of a neural network aimed at classifying images of animals.
+%
+It may easily discriminate among dogs and cats (i.e. compute the classification, given an input), yet it may hardly generate admissible images of neither dogs or cats (i.e. compute an input, given a class)\footnotemark.
+
+\footnotetext{Generative Adversarial Neural Networks \cite{GoodfellowPMXWOCB14} may be used whenever bi-directionality is needed, yet that essentially implies traning two networks: one \emph{classifier} and one \emph{generator} of data, where the former can only classify, and the latter can only generate data.}
+
+\subparagraph{Processes}
+
+Focussing on sub-symbolic approaches, flexibility lays in the variety of methods to approximate the target function.
+%
+Such variety is once again the result of the particular choice of arrays of numbers for KR.
+%
+In fact, this choice enables the pervasive exploitation of mathematical operations as the basic bricks of sub-subolic processing. %learning and computing.
+%
+These include basic algebraic operators (sum, product, etc.), as well as statistical (mean, variance, standard deviation, etc.), information-theoretical (cross-entropy, mutual information, etc.), signal-processing (Fourier- or Laplace-transform, etc.), binary (bitwise-and, -or, etc.), or differential (differentiation, integration, etc.) operators.
+%
+All such operators, in turn, come with two major advantages in terms of \emph{malleability} and \emph{parallelisation}.
+
+Malleability refers to the capability of learning in spite of how the many elementary operators are combined.
+%
+Within the scope of sub-symbolic approaches, malleability is commonly guaranteed by the pervasive exploitation of \emph{differentiable} operators, which supports learning via numeric optimisation algorithms---e.g. stochastic gradient descent (SGD) and its variants \cite{enwiki:SGD}.
+%
+Conversely, within the scope of symbolic approaches, the presence (resp. lack) of any given operator may greatly affect the \emph{expressiveness} of the underlying logic, therefore making learning more (resp. less) complex from a computational perspective.
+
+Parallelisation refers to the capability of speeding up learning algorithms by executing as much sub-tasks as possible in parallel, provided that the adequate hardware is in place.
+%
+Within the scope of sub-symbolic approaches, most basic methematical operators -- such as matrix- or tensor-products --, as well as whole learning steps -- such as \emph{batches} in SGD --, can be executed in parallel to some extent, possible via ad-hoc hardware facilities
+%
+Conversely, within the scope of symbolic learning, futher research on concurrent / parallel solutions is still needed.
+
+Consider, for instance, neural networks as opposed to ILP.
+%
+NN are characterised by a great flexibility because of their reliance on differentiable operators (mostly sums, multiplications and activation functions \cite{enwiki:ActivationFunctions}), and malleable way of combining them into arbitrarly complex structures.
+%
+Therefore, regardless of the complexity of the overall structrure, a NN is composed by the recursive composition of differentiable operators---which makes the whole network trainable via SGD.
+%
+To further speed up NN training, a plethora of software frameworks have been designed and implemented, with the purpose of exploiting ad-hoc hardware, such as GPUs---cf. Tensorflow, Theano, Caffe, etc. \missingref.
+%
+Conversely, despite the many algorithms designed for ILP, the avilability of software frameworks reifying them is quite scarce, and the support for parallelisation is even scarcer.
+%
+Should we speculate on the motivations behind this situation, we would argue that symbolic and sub-symbolic approaches to learning have so far reached different levels of \emph{maturity}---expecially, for what concerns technological readiness.
+
+% \note{Higher flexibility of symbolic learning which learns intensional representations, yet higher maturity of sub-symbolic approaches.}
+
+\paragraph{Efficiency}
+
+Efficiency in learning can be measured against two major aspects, namely time and space.
+%
+Data efficiency deals with space, and it is related to the amount of data required by learning to be effective.
+%
+Computational efficiency deals with time, and it is related the amount of time required by learning to be effective.
+%
+In both cases, effectivess refers to the adherence of the learned relation/function w.r.t. the available examples.
+
+Concerning data efficiency, sub-symbolic approaches are notably data-hungry \cite{Adadi21}, requiring tons of examples to learn tasks for which a human would require just a handful.
+%
+Conversely, symbolic approaches are considered far more data-efficient \cite{EvansG18}.
+
+Concerning computational efficiency, while in theory both symbolic and sub-symbolic approaches must explore \emph{infinite} search spaces, in practice, efficiency can be improved by 
+%
+\begin{inlinelist}
+    \item sacrificying effectivess, e.g. by leveraging on greedy algorithms, strong biases, or aggressive stopping criteria,
+    \item parallelising the learning algorithm, as discussed above.
+\end{inlinelist}
+
+% \note{Data efficiency: sub-symbolic approaches usually require more data. Computational efficiency: sub-symbolic approaches can be parallelised, especially GD, eg. via GPUs. Symbolic approaches cannot}.
+
+\paragraph{Automation}
+
+% \note{Similar formulation, similar issue: no silver bullet, i.e. not everthing is handled automatically}
+
+\paragraph{Validation}
 
 \note{Sub-symbolic approaches care a lot about model validation as a means to assess the generalisation capabilities of a trained model. ILP model care less. Speculating on the motivation: the outcome of ILP is symbolic, therefore the human being can understand if it is correct or not. Or maybe it's simply because it has not been applied on a large scale, yet?}
 
