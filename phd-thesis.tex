@@ -1367,8 +1367,6 @@ Accordingly, depending on the particular ways these aspects are tackled, a categ
     \label{fig:ml-taxonomy}
 \end{figure}
 %
-\sidenote{Make figure adherent to caption (add $4^{th}$ column)}
-%
 As depicted in \cref{fig:ml-taxonomy}, three major approaches to ML exist.
 %
 Each approach is characterised by a well-defined pool of tasks, which may, in turn, be applied in wide range of use case scenarios.
@@ -1452,7 +1450,7 @@ Learning algorithms mostly differ for the strategy they follow to perform such e
 
 A common strategy followed by most learning algorithms leverages on the assumption that the hypothesis space is the set of all functions having the same shape, regulated by a given amount $p$ of \emph{parameters}---namely $\mathcal{H}_\Theta$ where $\Theta \subseteq \mathbb{R}^p$ is space of parameters, enumerated by $\theta$.
 %.
-Under such assumption, the formulation of supervised learning can be rewritten as the optimisation task of finding an optimal assignment $\theta^*$ for the parters in $\theta$:
+Under such assumption, the formulation of supervised learning can be rewritten as the optimisation task of finding the optimal parameters $\theta^*$ among the ones in $\Theta$:
 %
 $$
 \theta^* = \argmin{\theta \in \Theta}{ \sum_{i=1}^{N} \varepsilon(\mathbf{y}_i,\ \pi_\theta(\mathbf{x}_i)) }
@@ -1649,9 +1647,9 @@ Both formulations deal with optimisation problems aimed at iteratively construti
 %
 However, because of their nature and the inherent way they represent knowledge, both approaches come with pros and cons.
 %
-Here we focus, on their flexibility, data and computational efficiency, degree of automation, maturity, and validation.
+Here we focus, on their flexibility, maturity, data and computational efficiency, degree of automation, and validation.
 
-\paragraph{Flexibility}
+\paragraph{Flexibility and maturity}
 
 For what concerns flexibility, symbolic approaches produce more flexible outcomes, whereas sub-symbolic approaches are characterised by more flexible learning processes.
 
@@ -1677,7 +1675,7 @@ Second, relations are \emph{re-usable} (w.r.t. a learning process), meaning that
 %
 This in turn paves the way towards the definition of learning \emph{cycles} where a learning algorithm is executed several times and the knowledge acquired after each round is included in the background knowledge of successive rounds.
 
-Conversely, sub-symbolic approaches are aimed at learning \emph{functions}, rather than relations.
+Conversely, sub-symbolic approaches aim to learn \emph{functions}, rather than relations.
 %
 The learned functions are generally \emph{mono-directional} -- in the sense that they are not (easily) invertible -- and extensional.
 %
@@ -1713,7 +1711,7 @@ Conversely, within the scope of symbolic learning, futher research on concurrent
 
 Consider, for instance, neural networks as opposed to ILP.
 %
-NN are characterised by a great flexibility because of their reliance on differentiable operators (mostly sums, multiplications and activation functions \cite{enwiki:ActivationFunctions}), and malleable way of combining them into arbitrarly complex structures.
+They are characterised by a great flexibility because of their reliance on differentiable operators (mostly sums, multiplications and activation functions \cite{enwiki:ActivationFunctions}), and malleable way of combining them into arbitrarly complex structures.
 %
 Therefore, regardless of the complexity of the overall structrure, a NN is composed by the recursive composition of differentiable operators---which makes the whole network trainable via SGD.
 %
@@ -1729,15 +1727,18 @@ Should we speculate on the motivations behind this situation, we would argue tha
 
 Efficiency in learning can be measured against two major aspects, namely time and space.
 %
-Data efficiency deals with space, and it is related to the amount of data required by learning to be effective.
+Data (resp. computational) efficiency deals with space (resp. time), and it is related to the amount of data (resp. time) required by learning to be effective.
 %
-Computational efficiency deals with time, and it is related the amount of time required by learning to be effective.
+% Computational efficiency deals with time, and it is related the amount of time required by learning to be effective.
 %
-In both cases, effectivess refers to the adherence of the learned relation/function w.r.t. the available examples.
+% In both cases, 
+Here, effectivess refers to the adherence of the learned relation/function w.r.t. the available examples.
 
-Concerning data efficiency, sub-symbolic approaches are notably data-hungry \cite{Adadi21}, requiring tons of examples to learn tasks for which a human would require just a handful.
+Concerning data efficiency, sub-symbolic approaches are notably data-hungry \cite{Adadi21}, as they require tons of examples to learn tasks for which a human would require just a handful.
 %
-Conversely, symbolic approaches are considered far more data-efficient \cite{EvansG18}.
+Conversely, symbolic approaches are considered far more data-efficient.
+%
+In \cite{EvansG18}, the authors discuss this notable difference, arguing that a motivation may lay in the strong language bias imposed by choice of logic formul\ae{} as the preferred means for KR.
 
 Concerning computational efficiency, while in theory both symbolic and sub-symbolic approaches must explore \emph{infinite} search spaces, in practice, efficiency can be improved by 
 %
@@ -1748,13 +1749,41 @@ Concerning computational efficiency, while in theory both symbolic and sub-symbo
 
 % \note{Data efficiency: sub-symbolic approaches usually require more data. Computational efficiency: sub-symbolic approaches can be parallelised, especially GD, eg. via GPUs. Symbolic approaches cannot}.
 
-\paragraph{Automation}
+\paragraph{Automation and autonomy}
 
 % \note{Similar formulation, similar issue: no silver bullet, i.e. not everthing is handled automatically}
 
-\paragraph{Validation}
+A commond trait shared by both symbolic and sub-symbolic approaches to supervised learning is their reliance on semi-automatic workflows.
+%
+In other words, despite the name, both apporaches require a ``human in the loop'' -- namely, the data scientist -- to take care of those aspects which learning algorithms cannot autonomously deal with.
+%
+In the case of sub-symbolic approaches, these aspects involve the choice of hyper-parameters.
+%
+In the case of symbolic approaches, these aspects involve the choice of the language bias and background knowledge.
+%
+In both cases, these aspects involve the choice of the most adequate learning algorithm(s), other than the engineering of the representation of available data, in maximise the effectiveness the learning algorithm(s).
 
-\note{Sub-symbolic approaches care a lot about model validation as a means to assess the generalisation capabilities of a trained model. ILP model care less. Speculating on the motivation: the outcome of ILP is symbolic, therefore the human being can understand if it is correct or not. Or maybe it's simply because it has not been applied on a large scale, yet?}
+Within the scope of sub-symbolic learning, the problem of hyper-parameters tuning is currently addressed via a number of practices aimed at automating and speeding up their selection.
+%
+A summary of such practices can be found in \cite{ClaesenM15}.
+%
+The recent advances in the field of \emph{Automated ML} \cite{HeZC21} are building on such practices in order to further increase the degree of automation in sub-symbolic ML.
+%
+However, current efforts are focussing on supporing data-scientists in an end-to-end fashion, rather than letting software agents learn autonomously.
+
+To the best of our knowledge, automating the definition of background knowledges and language biases in symbolic learning is not a major concern.
+%
+Should we speculate on the reasons behind this phenomenon, we would argue that both background knowledges and language biases are the preferred way to let human beings tranfer their commonsense and winsdowm to the learning algorithms.
+%
+In this sense, the creation of background knowledges and language biases is inherently poorly automatable.
+%
+However, background knowledges can be incrementally constructed by an agent (be it human or software) and then shared or transferred to other agents.
+%
+A similar argument may hold for language bias, since it may be consideres as meta-level background knowledge---i.e. knowledge about how further knowledge may be constructed.
+
+% \paragraph{Validation}
+
+% \note{Sub-symbolic approaches care a lot about model validation as a means to assess the generalisation capabilities of a trained model. ILP model care less. Speculating on the motivation: the outcome of ILP is symbolic, therefore the human being can understand if it is correct or not. Or maybe it's simply because it has not been applied on a large scale, yet?}
 
 \chapter{Reasoning over Knowledge}\label{chap:reasoning}
 
