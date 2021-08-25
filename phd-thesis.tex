@@ -20,11 +20,11 @@
 \mainlinespacing{1.241} % line spacing in mainmatter, comment to default (1)
 
 \begin{document}
-	
+    
 \frontmatter
 \frontispiece
 
-\begin{abstract}	
+\begin{abstract}    
 Max 2000 characters, strict.
 \end{abstract}
 
@@ -1344,17 +1344,17 @@ All such issues arise because sub-symbolic KR is inherently extensional, and it 
 A famous definition of machine learning from \cite{Mitchell1997} states:
 %
 \begin{displayquote}
-	A computer program is said to learn from experience $E$ with respect to some class of tasks $T$ and performance measure $P$ if its performance at tasks in $T$, as measured by $P$, improves with experience $E$
+    A computer program is said to learn from experience $E$ with respect to some class of tasks $T$ and performance measure $P$ if its performance at tasks in $T$, as measured by $P$, improves with experience $E$
 \end{displayquote}
 %
 This definition is very wide, as it does not specify 
 %
 \begin{inlinelist}
-	\item what are the possible tasks,
+    \item what are the possible tasks,
     % \item whether they are subject to some constraint,
-	\item how performance measured is in practice,
-	\item how / when experience should be provided to tasks,
-	\item how exactly the program is supposed learn, and
+    \item how performance measured is in practice,
+    \item how / when experience should be provided to tasks,
+    \item how exactly the program is supposed learn, and
     \item under which form learnt information is represented.
 \end{inlinelist}
 %
@@ -1787,17 +1787,67 @@ A similar argument may hold for language bias, since it may be consideres as met
 
 \chapter{Reasoning over Knowledge}\label{chap:reasoning}
 
+The Cambridge dictionary\footnote{\url{https://dictionary.cambridge.org/it/dizionario/inglese/reasoning}} defines \emph{reasoning} as 
+%
+``the process of thinking about something in order to make a decision''.
+%
+Conversely, the Oxford dictionary\footnote{\url{https://www.oxfordlearnersdictionaries.com/definition/english/reasoning?q=reasoning}} states that reasoning is 
+%
+``the process of thinking about things in a logical way''.
+%
+Notably, while both definitions agree that reasoning essentially consists in the \emph{process of thinking}, none of them actually constrains the nature of the entity enacting this process, despite thinking -- and, in particular, reasoning -- is the most characterising capability of \emph{humans}' mind.
+%
+This welcomes the idea that software agents may be capable of \emph{automated} reasoning as well.
+
+Indeed, within the scope of this thesis, we consider reasoning as the activity performed by an agent (either human, or computational) whenever it draws new knowledge out of prior knowledge.
+%
+Of course, as for learning, the particular way knowledge is drawn heavily depends on how it is represented.
+
+When knowledge is symbolically represented, reasoning leverages on one or more \emph{inference rules}, i.e. logic formul\ae{} dictating under which conditions conclusions may be draw out of premises.
+%
+This reflects the Oxford definition, where the \emph{logic} nature of reasoning is stressed.
+%
+Inference rules may be used, for instance, to deduce a particular case from a general rule, to induce the general rule justifying a number of observations, or to speculate on the possible causes for some phenomena, given the particular rules governing the underlying noumena.
+%
+Therefore, within the symbolic realm, the terms ``inference'' and ``reasoning'' are used almost interchangeably.
+%
+% Under such setting, when it comes 
+Research in this field is aimted at letting computational agents draw logic inferences automatically.
+%
+For this reason, the focus of computer scientists is on finding effective and efficient algorithms to let agents reason autonomosly---i.e. with minimal human intervention.
+
+Conversely, when knowledge is sub-symbolically represented, ``inference'' and ``reasoning'' are \emph{reduced} to the data-analytic activity of applying the models learned from previous data to novel data, in order to mine useful information.
+%
+Such activity is far from trivial, as it may used to perform tasks which would be prohibitively complex to express otherwise---e.g. image recognition.
+%
+Accordigly, the Cambridge definition is more adequate in this case: reasoning is not necessarily logic in nature, but for sure it is aimed at driving decisions---e.g. deciding whether handwritten characted is more likely a 1 or a 7, or whether an histological image should or should not raise an alarm for cancer.
+%
+Research in this field is aimted at letting sub-symbolic algorithms attain better predictive performances.
+%
+As such, data scientists' efforts are mostly devoted to the improvement of \emph{learning} algorithms, as inference is straightworard.
+%
+However, recent research efforts are being devoted to the exploitation of sub-symbolic algorithms as means for performing symbolic computations---therefore mimicking logic reasoning.
+
+In the reminder of this chapter we delve into the details of reasoning from both a symbolic and sub-symbolic perspective.
+%
+In particular, we present the classic approaches and algorithms to automate logical reasoning and we introduce the theory behind the mimicking of symbolic reasoning via sub-symbolic facilities.
+
 \section{Symbolic Reasoning}
+\mypapers{logictech-information11}
 
-Logic-based reasoning approaches root back to John McCarthy's work of 1958 \cite{Mccarthy1958}, aimed at developing the idea of formalising the so-called \emph{commonsense reasoning} to build \emph{intelligent artefacts}. 
+Symbolic (i.e., logic-based) reasoning approaches root back to John McCarthy's work of 1958 \cite{Mccarthy1958}, aimed at developing the idea of formalising the so-called \emph{commonsense reasoning} to build intelligent artefacts---i.e. cmputational or cyber-physical agents endowed with human-like intelligence.
 %
-This also means to consider non-trivial involved issues, such as the need of formalising the situation, actions and causal laws, etc.
+There, commonsense intuitively refers to the basic understanding of the physical world, its cause-effect rules, and the effects of one's actions on it, etc \cite{Mccarthy1989}.
 %
-% Many tools have been developed over the years for commonsense reasoning formalisation: there are freely available commonsense knowledge bases and natural language processing toolkits, supporting practical textual-reasoning tasks on real-world documents including analogy-making, and other context oriented inferences---see for instance \cite{lieberman2004,trinh2018,liu2004conceptnet,liu2002goose,shapiro1999sneps}). 
-% %
-% There have been also a number of attempts to construct very large knowledge bases of commonsense knowledge by hand, one of the largest being the CYC program by Douglas Lenat at CyCorp \cite{lenat1995-cyc}. 
+It is such an obvious capability for human beings that most of it is not even explicitly taught in schools, yet it is incredibly hard to formalise and represent for computational agents, which are therefore inherently lacking such kind of basic knowledge.
 
-The modern approach to automated theorem proving starts with Robinson's resolution principle \cite{robinson1965}: since then, several technologies have exploited \emph{deduction} on first-order logic knowledge base to provide reasoning capabilities in diverse areas---logic programming, deductive data bases, and constraint logic programming (CLP) possibly being the major ones.
+Despite the formalisation of commonsense soon proved to be very challenging -- mostly because of the many non-trivial involved issues, such as the need of formalising the situation the agent is immersed into, actions it may perform of be subject to, and physical and legal laws govering its environment and context, etc. --, many frameworks and tools have been developed over the years while pursuing such goal.
+%
+There are freely available commonsense knowledge bases and natural language processing toolkits, supporting practical textual-reasoning tasks on real-world documents including analogy-making, and other context oriented inferences---see for instance \cite{lieberman2004,trinh2018,liu2004conceptnet,liu2002goose,shapiro1999sneps}). 
+%
+There have been also a number of attempts to construct very large knowledge bases of commonsense knowledge by hand, one of the largest being the CYC program by Douglas Lenat at CyCorp \cite{lenat1995-cyc}. 
+
+The modern approach to automated reasoning starts with Robinson's resolution principle \cite{robinson1965}: since then, several technologies have exploited \emph{deduction} on FOL knowledge bases to provide reasoning capabilities in diverse areas---logic programming, deductive data bases, and constraint logic programming (CLP) possibly being the major ones.
 %
 Other approaches and techniques, however, built upon the \emph{induction} and \emph{abduction} principles.
 
@@ -1809,7 +1859,7 @@ As its name suggests, \emph{deduction} operates top-down, deriving a true conclu
 %
 Such technologies are exploited, in particular, for the verification of compliance of specific properties \cite{montali2010}. 
 
-\emph{Logic programming} (LP) is likely the most widely-adopted technology based on deduction. 
+\emph{Logic programming} (LP) is likely the most widely-adopted paradigm based on deduction. 
 %
 From Colmerauer and Kowalsky's seminal work \cite{Kowalski1974,colmerauer1986-theoreticalProlog}, the Prolog language has been since then one of the most exploited language in AI applications \cite{Dawson1996}. 
 %
@@ -1846,10 +1896,13 @@ Abstract argumentation theory, in its turn, is concerned with the formalisation 
 Belief-desire-intention (BDI) logic is a kind of modal logic used for formalising, validating, and designing cognitive \emph{agents}---typically, in the \emph{multi-agent systems} (MAS) context.
 %
 A cognitive agent is an entity consisting of 
-\emph{(i)} a belief base storing the agent's \emph{beliefs}, i.e. what the agent knows about the world, itself, and other agents;
-\emph{(ii)} a set of \emph{desires} (or goals), i.e. the proprieties of the world the agent wants to eventually become true;
-\emph{(iii)} a \emph{plan} library, encapsulating the agent's procedural knowledge (in the form of plans) aimed at making some goals become true; and
-\emph{(iv)} a set of \emph{intentions}, storing the states of the plans the agent is currently enacting as an attempt to satisfy some desires.
+%
+\begin{inlinelist}
+    \item a belief base storing the agent's \emph{beliefs}, i.e. what the agent knows about the world, itself, and other agents;
+    \item a set of \emph{desires} (or goals), i.e. the proprieties of the world the agent wants to eventually become true;
+    \item a \emph{plan} library, encapsulating the agent's procedural knowledge (in the form of plans) aimed at making some goals become true; and
+    \item a set of \emph{intentions}, storing the states of the plans the agent is currently enacting as an attempt to satisfy some desires.
+\end{inlinelist}
 %
 All such data usually consist of first-order formulas.
 %
@@ -1861,9 +1914,37 @@ Overall, BDI architecture leads to a clear and intuitive design, where the under
 %
 Among the frameworks rooted on a BDI approach, let us mention the AgentSpeak(L) \cite{Rao96} abstract language and its major implementation, namely Jason, Structured Circuit Semantics \cite{lee1994}, Act Plan Interlingua \cite{huber1999-jam}, JACK \cite{howden2001}, and dMARS---a platform for building complex, distributed, time-critical systems in C++ \cite{dmars}.
 
+In the reminder of this section we focus on logic programming as the most common means to endow computational agent with reasoning capabilities.
+%
+Before doing so, however, we recall major definitions and notations concerning logic inference as a means for manipulating knowledge.
+
 \subsection{Inference}
 
 Deduction, Abduction, Induction, Probabilistic, etc.
+
+Inference as the operation of producing new knowledge by applying rules to knowledge base.
+
+Unification as the basic mechanism enabling the formalization of inference.
+
+Rules as precondition-effect fractions: how to read them.
+
+Examples of inference rules: modus ponens, modus tollens, subsumption, abduction
+
+Classification of rules: modus ponens/tollens as deductive, subsumption as inductive, abduction is abductive.
+
+Notice that only deductive rules lead to absolutely correct conclusions.
+
+Discussion on how bayesian inference may be better suited to represent inductive or abductive inferece, yet it requires trepassing the sub-symbolic domain as probabilities must be explicitly represented.
+
+Argue that inteference rules alone are able to express reasoning, but they are not enough to let machines reason efficiently and effectively.
+%
+When dealing with inference, computational agents need an inference procedure, i.e. an algorithm applying one or more inference rules to a knowledge base, in such a way that counclusions are reached upon termination.
+%
+For such sorts of procedures, ``efficiently'' means in useful time, whereas ``effectively'' usually means sound or complete, when not both.
+%
+Sound means that all conclusions computed by the algorithm are correct, whereas complete means that the algorithm is capable of computing all correct conclusions.
+%
+These properties can -- and usually are -- satisfied by algorithms supporting deductive inference procedures, whereas they are out of reach for inductive or abductive algorithms (because of uncertainty).
 
 \subsection{Logic Programming}
 
@@ -1871,6 +1952,12 @@ Deduction, Abduction, Induction, Probabilistic, etc.
 \cite{lptech4mas-aamas2021}
 \cite{lptech4mas-jaamas35}
 \cite{Korner2020HistoryFuturePrologTPLP}
+
+Robinson's procedure for reasoning over FOL (informal presentation).
+
+Kowalsky's SLD resolution for reasoning over HL.
+
+Prolog.
 
 \section{Sub-symbolic Reasoning}
 
@@ -2011,10 +2098,10 @@ In fact, understanding IS is essential to guarantee algorithmic fairness, to ide
 
 %%%%
 \begin{figure}
-	\centering
-	\includegraphics[width=.5\linewidth]{figures/interpretability-performance-tradeoff}
-	\caption[Interpretability/performance trade-off]{Interpretability/performance trade-off for some common sorts of black-box predictors}
-	\label{fig:tradeoff}
+    \centering
+    \includegraphics[width=.5\linewidth]{figures/interpretability-performance-tradeoff}
+    \caption[Interpretability/performance trade-off]{Interpretability/performance trade-off for some common sorts of black-box predictors}
+    \label{fig:tradeoff}
 \end{figure}
 %%%%
 
@@ -2059,11 +2146,11 @@ In his clarification effort, Lipton essentially maps interpretability on the not
 Then, he enumerates and describes the several possible variants of transparency, that are 
 %
 \begin{enumerate*}[label=\emph{(\roman{*})}]
-	\item simulatability -- i.e., the \emph{practical} possibility, for a human being, to ``contemplate the entire model at once'' and simulate its functioning on some data  -- which characterises, for instance, generalised linear models;
-	
-	\item decomposability -- i.e., the possibility, for the model to be decomposed in elementary parts whose functioning is intuitively understandable for humans and helpful in understanding the whole model -- which characterises, for instance, decision trees; and
-	
-	\item algorithmic transparency -- i.e., the possibility, for a human being, to intuitively understand how a given learning algorithm, or the predictors it produces, operate -- which characterises, for instance, k-nearest-neighbours techniques.
+    \item simulatability -- i.e., the \emph{practical} possibility, for a human being, to ``contemplate the entire model at once'' and simulate its functioning on some data  -- which characterises, for instance, generalised linear models;
+    
+    \item decomposability -- i.e., the possibility, for the model to be decomposed in elementary parts whose functioning is intuitively understandable for humans and helpful in understanding the whole model -- which characterises, for instance, decision trees; and
+    
+    \item algorithmic transparency -- i.e., the possibility, for a human being, to intuitively understand how a given learning algorithm, or the predictors it produces, operate -- which characterises, for instance, k-nearest-neighbours techniques.
 \end{enumerate*}
 %
 Similarly, \emph{post-hoc} interpretability is defined as an approach where some information is extracted from a black box in order to ease its understanding.
@@ -2081,11 +2168,11 @@ Then they discuss the topic of explanation in AI from an historical perspective.
 In particular, when focussing on ML, they introduce the following classification of IS systems:
 %
 \begin{enumerate*}[label=\emph{(\roman{*})}]
-	\item opaque systems -- i.e., black boxes acting as oracles where the logic behind predictions is not observable or understandable --,
-	
-	\item interpretable systems -- i.e., white boxes whose functioning is understandable to humans, also thanks to expertise, resources, or tools --, and
-	
-	\item comprehensible systems---i.e., ``systems which emit \emph{symbols} along with their outputs, allowing the user to relate properties of the input to the output''.
+    \item opaque systems -- i.e., black boxes acting as oracles where the logic behind predictions is not observable or understandable --,
+    
+    \item interpretable systems -- i.e., white boxes whose functioning is understandable to humans, also thanks to expertise, resources, or tools --, and
+    
+    \item comprehensible systems---i.e., ``systems which emit \emph{symbols} along with their outputs, allowing the user to relate properties of the input to the output''.
 \end{enumerate*}
 %
 According to this classification, while interpretable systems can be inspected to be understood -- thus letting observer draw their explanations by themselves--, comprehensible systems must explicitly provide a symbolic explanation of their functioning.
@@ -2098,8 +2185,8 @@ Interpretations and explanations are therefore collapsed in this work, as confir
 %
 The reminder of that paper focuses 
 \begin{enumerate*}[label=\emph{(\roman{*})}]
-	\item on identifying under which circumstances interpretability is needed in ML, and
-	\item how to assess the quality of some explanation.
+    \item on identifying under which circumstances interpretability is needed in ML, and
+    \item how to assess the quality of some explanation.
 \end{enumerate*}
 
 The survey by Guidotti et al. \cite{GuidottiMRTGP19} is a nice entry point to explainable ML.
@@ -2138,10 +2225,10 @@ Other notions are formally defined into the paper, such as for instance,
 %
 \begin{inlinelist}
     \item explicitness, 
-	\item fairness, 
-	\item faithfullness,
-	\item justification, and
-	\item transparency.
+    \item fairness, 
+    \item faithfullness,
+    \item justification, and
+    \item transparency.
 \end{inlinelist}
 %
 Such concepts are formally defined in terms of the aforementioned interpretation and explanation functions.
