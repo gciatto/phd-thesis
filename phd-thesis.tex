@@ -1843,9 +1843,9 @@ It is such an obvious capability for human beings that most of it is not even ex
 
 Despite the formalisation of commonsense soon proved to be very challenging -- mostly because of the many non-trivial involved issues, such as the need of formalising the situation the agent is immersed into, actions it may perform of be subject to, and physical and legal laws govering its environment and context, etc. --, many frameworks and tools have been developed over the years while pursuing such goal.
 %
-There are freely available commonsense knowledge bases and natural language processing toolkits, supporting practical textual-reasoning tasks on real-world documents including analogy-making, and other context oriented inferences---see for instance \cite{lieberman2004,trinh2018,liu2004conceptnet,liu2002goose,shapiro1999sneps}). 
+There are freely available commonsense knowledge bases and natural language processing toolkits, supporting practical textual-reasoning tasks on real-world documents including analogy-making, and other context oriented inferences---see for instance \cite{lieberman2004,trinh2018,liu2004conceptnet,liu2002goose,shapiro1999sneps}). \missingref
 %
-There have been also a number of attempts to construct very large knowledge bases of commonsense knowledge by hand, one of the largest being the CYC program by Douglas Lenat at CyCorp \cite{lenat1995-cyc}. 
+There have been also a number of attempts to construct very large knowledge bases of commonsense knowledge by hand, one of the largest being the CYC program by Douglas Lenat at CyCorp \cite{lenat1995-cyc}. \missingref
 
 The modern approach to automated reasoning starts with Robinson's resolution principle \cite{robinson1965}: since then, several technologies have exploited \emph{deduction} on FOL knowledge bases to provide reasoning capabilities in diverse areas---logic programming, deductive data bases, and constraint logic programming (CLP) possibly being the major ones.
 %
@@ -1918,23 +1918,125 @@ In the reminder of this section we focus on logic programming as the most common
 %
 Before doing so, however, we recall major definitions and notations concerning logic inference as a means for manipulating knowledge.
 
-\subsection{Inference}
+\subsection{Symbolic Inference} % Deduction, Abduction, Induction, Probabilistic, etc.
 
-Deduction, Abduction, Induction, Probabilistic, etc.
+% Inference as the operation of producing new knowledge by applying rules to knowledge base.
+Within the realm of symbolic AI and, in particular, computational logic, inference is the process of mechanically producing new knowledge by applying rules to some knowledge base.
+%
+Such rules are commonly expressed via a particular notation, heavily leveraging on the notion of \emph{unification}.
 
-Inference as the operation of producing new knowledge by applying rules to knowledge base.
+\paragraph{Substitutions and Unification}
 
-Unification as the basic mechanism enabling the formalization of inference.
+Unification \cite{MartelliMontanari1982} is among the most fundamental mechanism in CL: it enables the formalisation of inference, as well virtually any other symbolic manipulation of logic formul\ae{}.
 
-Rules as precondition-effect fractions: how to read them.
+Informally speaking, unification aims at computing a \emph{unifier} among any two FOL formul\ae{}, i.e. a substitution (a.k.a. assignments of variables) making the two formul\ae{} syntatically equal, by properly assigning the variables therein contained.
+%
+So, in other words, unification computes substitutions out of logic formul\ae{}, checking whether they can be made equal, or failing otherwise.
 
-Examples of inference rules: modus ponens, modus tollens, subsumption, abduction
+We denote substitutions as sets of mappings of the form $\sigma = \{ X \mapsto \phi, X' \mapsto \phi', X'' \mapsto \phi'', \ldots \}$, where $X, X', X''$ are variables, and $\phi, \phi', \phi''$ are FOL formul\ae{}.
+%
+Furthermore, we enumerate substitutions by $\sigma$ or $\omega$.
+%
+Finally, we let the binary operator $\cdot$ denote the application of a substitution to either a formula or another substitution.
+%
+So, for instance $\phi \cdot \sigma$ denotes the formula attained by applying all variable assignments carried by $\sigma$ to $\phi$.
+%
+Similarly, $\sigma \cdot \omega$ denotes the substitution attained by applying $\omega$ to the right-hand-side of all variable assignments in $\sigma$.
 
-Classification of rules: modus ponens/tollens as deductive, subsumption as inductive, abduction is abductive.
+Consider for instance the case of the general clause $\phi$ and its particular case $\psi$
+%
+\begin{equation*}
+    \begin{array}{c}
+        \phi = (grandparent(X, Y) \leftarrow parent(X, Z), parent(Z, Y))
+        \\
+        \psi = (grandparent(\functor{abraham}, \functor{jacob}) \leftarrow parent(\functor{abraham}, \functor{isaac}), parent(\functor{isaac}, \functor{jacob}))
+    \end{array}
+\end{equation*}
+%
+The two clauses can be made syntactically equal via the substitution $\sigma = \{ X \mapsto \functor{abraham}, Y \mapsto \functor{jacob}, Z \mapsto \functor{isaac} \}$, because $\psi = \phi \cdot \sigma$.
 
-Notice that only deductive rules lead to absolutely correct conclusions.
+Accordingly, a unifier among any two non-ground FOL formul\ae{} $\phi$ and $\psi$, is defined as a substitution $\sigma$ such that $\phi = \psi \cdot \sigma$.
+%
+A trivial way to recursively compute a unifier among $\phi$ and $\psi$ is as follows:
+%
+\begin{equation}
+    unifier(\phi, \psi) = \begin{cases}
+        \varnothing & \text{if} ~ \phi = \psi = \functor{x}
+        \\
+        \{ X \mapsto Y \} & \text{if} ~ \phi = X \wedge \psi = Y
+        \\
+        \bigcup_{i}^{N} unifier(\alpha_i, \alpha'_i) & \text{if} ~ \phi = f(\alpha_1, \ldots, \alpha_N) \wedge \psi = f(\alpha'_1, \ldots, \alpha'_N)
+        \\
+        unifier(\alpha_1, \alpha'_1) \cup unifier(\alpha_2, \alpha'_2)  & \text{if} ~ \phi = \alpha_1 \odot \alpha_2 \wedge \psi = \alpha'_1 \odot \alpha'_2
+        \\
+        \bot & \text{otherwise}
+    \end{cases}
+\end{equation}
+%
+where $\bot$ denotes the lack of any unifier -- capturing the situation where two formul\ae{} cannot be unified -- and $\varnothing$ denotes the emptu substitution -- characterising the situation where two formul\ae{} are identical.
+%
+There, $f$ is either a predicate or functor symbol ($N$-ary, in both cases), $\alpha_i, \alpha'_i$ are arbitrary formul\ae{}, and $\odot$ denotes any binary logical connective.
 
-Discussion on how bayesian inference may be better suited to represent inductive or abductive inferece, yet it requires trepassing the sub-symbolic domain as probabilities must be explicitly represented.
+More precisely, unification aims at computing the \emph{most general} unifier (MGU), i.e. the unifier $\sigma^*$ such that, for each subsitution $\sigma$ making $\phi$ and $\psi$ syntactically equal (i.e., $\phi = \psi \cdot \sigma$) there exists a substitution $\omega$ making it possible to write $\sigma$ as a particular case of $\sigma^*$ (i.e., $\sigma = \sigma^* \cdot \omega$).
+%
+Despite computing the MGU among any two formul\ae{} is a non-trivial problem in general, an efficient algorithm is describen in \cite{MartelliMontanari1982}.
+
+\paragraph{Inference Rules}
+
+Inference rules are functions mapping premises (logic formul\ae{}) into conclusions (other logic formul\ae{}).
+% 
+They can be denoted both as $\phi_1, \ldots, \phi_N \vdash \psi_1, \ldots, \psi_M$ or as 
+%
+\begin{equation*}
+    \frac{\phi_1, \ldots, \phi_N}{\psi_1, \ldots, \psi_M} ~ [\text{Rule name}]
+\end{equation*}
+%
+where $\phi_1, \ldots, \phi_N$ are premises and $\psi_1, \ldots, \psi_M$ are conclusions.
+%
+Both expressions can be read as ``when all $\phi_1, \ldots, \phi_N$ are known to hold, then all $\psi_1, \ldots, \psi_M$ can be inferred''.
+
+The notation if often abused by only including among the premises those formul\ae{} which are strictly needed to draw conclusions.
+%
+When this is the case, a knowledge base $\mathbf{K}$ is then assumed, behind the scenes.
+%
+Thus, rules of the form $\phi \vdash \psi$ are usually written as concise notation for $\exists \sigma$ s.t. $\phi \cdot \sigma \in \mathbf{K} \vdash \psi \cdot \sigma$.
+
+A plethora of inference rules have been defined in the history of logic.
+%
+Here we focus on three major examples, correspoding to as many inference principles, namely: 
+%
+\begin{equation*}
+    \frac{\alpha \rightarrow \beta, \alpha}{\beta} ~ [\text{Modus Ponens}]
+    \qquad
+    \frac{\phi\cdot\sigma_1, \ldots, \phi\cdot\sigma_n}{\phi} ~ [\text{Subsumption}]
+\end{equation*}
+\begin{equation*}   
+    \frac{\alpha \rightarrow \beta, \beta}{\alpha} ~ [\text{Abduction}]
+\end{equation*}
+
+Modus ponens is a \emph{deductive} inference rule, stating that whenever one knows that $\alpha$ implies $\beta$ and $\alpha$ is true, then they can infer $\beta$.
+%
+As a deductive rule, it simply elicits particular consequences which are implicit into the general premises, and therefore certain.
+%
+It is for instance by modus ponens that one can infer $grand\-pa\-rent(\functor{abraham}, \functor{jacob})$ from a knowledge base containing the clauses $grand\-pa\-rent(X, Y) \leftarrow parent(X, Z), parent(Z, Y)$, $parent(\functor{abraham}, \functor{isaac})$, and $pa\-rent(\functor{isa\-ac}, \functor{ja\-cob})$.
+
+Subsumption is an \emph{inductive} inference rule, stating that if a number of particular expressions share the same form, than that form can be raised to general knowledge.
+%
+As an inductive rule, it attempts to derive novel hypotheses out of prior experience, therefore producing uncertain conclusions that may be eventually contradicted by some later experience.
+%
+It is for instance by subsumption that one can hypothesise how a general rule for grandparenthood works (i.e. $grand\-pa\-rent(X, Y) \leftarrow parent(X, Z), parent(Z, Y)$) if they only know about a number of parenthood and grandparenthood relations---namely $parent(\functor{abraham}, \functor{isaac})$, $parent(\functor{isaac}, \functor{jacob})$, and $grandparent(\functor{abraham}, \functor{jacob})$.
+
+Finally, abduction is an \emph{abductive} inference rule, stating that if one knows how a particular cause--effect phenomenon works, and they observe the effect, then they can infer the cause.
+%
+Similarly to induction, abduction produces uncertain -- yet likely -- conclusions out of prior experience and some basic knowledge about the world.
+%
+It is for instance by abduction that one can hypothesise that it is raining ($rain$) after observing that the floor is wet ($wet\_floor$) knowing that the flow may be wet because of either the rain or a broken glass ($\{ wet\_floor \leftarrow rain, wet\_floor \leftarrow broken\_glass \}$).
+
+Notice that only deductive rules lead to certainly correct conclusions, whereas inductive and deductive rules do not.
+%
+Accordingly, Bayesian inference may be better suited to represent inductive or abductive inferece -- as it let us infer not only hypotheses but their likelyhood as well --, yet it requires trepassing the sub-symbolic realm---as probabilities must be explicitly represented.
+
+\note{Riprendi da qui}
 
 Argue that inteference rules alone are able to express reasoning, but they are not enough to let machines reason efficiently and effectively.
 %
@@ -1961,7 +2063,20 @@ Prolog.
 
 \section{Sub-symbolic Reasoning}
 
-\subsection{Neuro-Symbolic Computation}
+Inference in ML = application of learned models to novel data.
+
+A number of recent proposals are however pushing relevant aspects of logic and inference into the sub-symbolic realm.
+%
+We classify such efforts according to 3 categories, namely:
+%
+\begin{itemize}
+    \item approaches where symbolic information is used to structure or constrain the behaviour of a sub-symbolic system
+    \item approaches where symbolic information is sub-symbolically processed
+\end{itemize}
+
+\subsection{Neuro-Symbolic Integration}
+
+
 
 \subsection{Knowledge Graph Embedding}
 
