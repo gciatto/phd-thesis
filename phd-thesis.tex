@@ -1965,7 +1965,9 @@ A trivial way to recursively compute a unifier among $\phi$ and $\psi$ is as fol
         \\
         \{ X \mapsto Y \} & \text{if} ~ \phi = X \wedge \psi = Y
         \\
-        \bigcup_{i}^{N} unifier(\alpha_i, \alpha'_i) & \text{if} ~ \phi = f(\alpha_1, \ldots, \alpha_N) \wedge \psi = f(\alpha'_1, \ldots, \alpha'_N)
+        \bigcup_{i}^{N} unifier(\alpha_i, \alpha'_i) & \text{if} ~ \phi = f(\alpha_1, \ldots, \alpha_N) 
+        \\
+        & \qquad \wedge\ \psi = f(\alpha'_1, \ldots, \alpha'_N)
         \\
         unifier(\alpha_1, \alpha'_1) \cup unifier(\alpha_2, \alpha'_2)  & \text{if} ~ \phi = \alpha_1 \odot \alpha_2 \wedge \psi = \alpha'_1 \odot \alpha'_2
         \\
@@ -2036,17 +2038,37 @@ Notice that only deductive rules lead to certainly correct conclusions, whereas 
 %
 Accordingly, Bayesian inference may be better suited to represent inductive or abductive inferece -- as it let us infer not only hypotheses but their likelyhood as well --, yet it requires trepassing the sub-symbolic realm---as probabilities must be explicitly represented.
 
-\note{Riprendi da qui}
+\paragraph{Inference Procedures}
 
-Argue that inteference rules alone are able to express reasoning, but they are not enough to let machines reason efficiently and effectively.
+Inteference rules alone are able to express reasoning, but they are not enough to let computational draw inferences autonomosly.
 %
-When dealing with inference, computational agents need an inference procedure, i.e. an algorithm applying one or more inference rules to a knowledge base, in such a way that counclusions are reached upon termination.
+When dealing with inference, computational agents need an inference \emph{procedure}, i.e. an algorithm applying one or more inference rules to a knowledge base, in such a way that counclusions are eventually reached when the algorithim terminates.
+
+In practice, inference procedures should support the efficient and effective computation of correct conclusions.
 %
-For such sorts of procedures, ``efficiently'' means in useful time, whereas ``effectively'' usually means sound or complete, when not both.
+Within this scope, ``efficiently'' means ``in useful time'', whereas ``effectively'' refers to notable properties such \emph{soundness} and \emph{completeness}.
 %
-Sound means that all conclusions computed by the algorithm are correct, whereas complete means that the algorithm is capable of computing all correct conclusions.
+There, a \emph{sound} procedure ensures that all output conclusions are correct, whereas a \emph{complete} procedure ensures that (at least) all correct conclusions are drawn.
 %
-These properties can -- and usually are -- satisfied by algorithms supporting deductive inference procedures, whereas they are out of reach for inductive or abductive algorithms (because of uncertainty).
+Notably, these properties can -- and usually are -- satisfied by algorithms supporting \emph{deductive} inference procedures, whereas they are out of reach for inductive or abductive algorithms (because of uncertainty).
+
+Another common way of categorising inference procedures is w.r.t. the \emph{verse} they follow in applying inference rules.
+%
+Two strategies may be followed by inference procedures, namely either \emph{forward} or \emph{backward}-chaining.
+
+In forward-chaining, inference rules are naturally applied from premises to conclusions, in top-down fashion.
+%
+The starting point is commonly a knowledge base, and, as a result, many possible conclusions are drawn---possibly even more than needed.
+
+Conversely, in backward-chaining, inference rules are reversely applied from conclusion to premises in order to prove a particular \emph{goal}.
+%
+So, inference proceeds in a bottom-up fashion, attempting to reach the knowledge base from the goal.
+%
+Under such setting, inference rules should be read in the opposite way.
+%
+For instance, modus ponens should be read as ``to infer $\beta$, knowing that $\alpha \rightarrow \beta$, one should prove $\alpha$ first''.
+
+In the reminder of this section, we briefly overview the field of logic programming, where logic and computational aspects are deeply intertwined to endow computational agents with actual automated reasoning capabilities.
 
 \subsection{Logic Programming}
 
