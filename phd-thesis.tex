@@ -1937,7 +1937,7 @@ We denote substitutions as sets of mappings of the form $\sigma = \{ X \mapsto \
 %
 Furthermore, we enumerate substitutions by $\sigma$ or $\omega$.
 %
-Finally, we let the binary operator $\cdot$ denote the application of a substitution to either a formula or another substitution.
+Finally, we let the binary operator $(\cdot)$ denote the application of a substitution to either a formula or another substitution.
 %
 So, for instance $\phi \cdot \sigma$ denotes the formula attained by applying all variable assignments carried by $\sigma$ to $\phi$.
 %
@@ -2100,21 +2100,23 @@ These are
     \item Colmerauer's proposal of Prolog \cite{ColmerauerR93}.
 \end{inlinelist}
 
+\paragraph{Robinson's proposal of the selective linear resolution principle}
+
 The SL resolution principle \cite{robinson1965} is a general procedure for proving a set of FOL formul\ae{} in Skolemized form\footnotemark{} true, by \emph{refutation}.
 %
 More precisely, the SL procedure aims at proving a set of clauses as contraddictory, by attemping to derive the empty clause $\bot$ (denoting contradiction) out of it via a number of reduction steps.
 %
 Thus, in pratice, proving a formula $\phi$ true is achieved by proving $\lnot\phi$ as false---i.e. by refutating it.
 %
-The basic inference rule operating in this context is that, in a set of Skolemized formul\ae{} $\mathbf{K}$ including $\phi$ and $\phi$, those formul\ae{} may be reduced $\phi'$ and $\psi'$, under the following condition:
+The basic inference rule operating in this context is that, in a set of Skolemized formul\ae{} $\mathbf{K}$ including $\phi$ and $\psi$, those formul\ae{} may be reduced $\phi'$ and $\psi'$, under the following condition:
 %
 \begin{equation*}
-    \frac{x \in \phi \quad \lnot y in \psi \quad \sigma = mgu(x, y)}{\phi' = (\phi - x)\cdot\sigma \quad (\psi - \lnot y)\cdot\sigma}[\text{SL}]
+    \frac{x \in \phi \quad \lnot y \in \psi \quad \sigma = mgu(x, y)}{\phi' = (\phi - x)\cdot\sigma \quad \psi' = (\psi - \lnot y)\cdot\sigma}[\text{SL}]
 \end{equation*}
 %
-where $x$ and $y$ are literals possibly contained into $\phi$ and $\psi$, and operator $-$ denotes the eviciton of a literal from a formula.
+where $x$ and $y$ are literals possibly contained into $\phi$ and $\psi$, and operator $(-)$ denotes the eviciton of a literal from a formula.
 %
-In other words, if any two formul\ae{} in $\mathbf{K}$ respectively include two literals, $x$ and $y$, which can be unified by $\sigma$ and such that \emph{only} one is negated, then the two literals are eviction from the corresponding formul\ae{}, and the substitution $\sigma$ is be applied to the reminder of those formul\ae{}.
+In other words, if any two formul\ae{} in $\mathbf{K}$ respectively include two literals, $x$ and $y$, which can be unified by $\sigma$ and such that \emph{only} one is negated, then the two literals are evicted from the corresponding formul\ae{}, and the substitution $\sigma$ is be applied to the reminder of those formul\ae{}.
 %
 If the repeated application of this rule leads to a situation where a formula has no more literals, the original set of formul\ae{} $\mathbf{K}$ is proved to be false, as it contains an unsatisfiable (i.e. contraddictory) formula---namely, the one that has been emptied by the SL procedure.
 %
@@ -2137,6 +2139,12 @@ The whole process subtend the so-called \emph{proof-tree}: at each step of the p
 In other words, the SL resolution is a \emph{non-deterministic} algorithm.
 %
 Details and examples are provided for instance in \cite{CureRdf2015}.
+
+\paragraph{Kowalsky's proposal of the selective linear definite resolution principle}
+
+The SLD resolution principle \cite{Kowalski1976} is a refinement of the SL principle, tailored on Horn clauses.
+%
+
 
 \note{Talk about SLD}
 
