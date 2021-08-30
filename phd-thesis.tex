@@ -1125,7 +1125,7 @@ Along this line, when Horn clauses are exploited in practice, they are commonly 
     $$ h \leftarrow \top \quad \text{or simply} \quad h$$
     stating that $h$ is known to be true (as it requires nothing to be proven first),
 
-    \item[directives] (a.k.a.\textbf{goals}) when their head consist of just the $\bot$ predicate (or, equivalently, when the head is missing): 
+    \item[goals] (a.k.a.\textbf{directives}) when their head consist of just the $\bot$ predicate (or, equivalently, when the head is missing): 
     $$
     \bot \leftarrow b_1,\ \ldots,\ b_n
     \quad
@@ -1137,6 +1137,10 @@ Along this line, when Horn clauses are exploited in practice, they are commonly 
 
     \item[rules] otherwise, i.e. when both the head and the body involve arbitrary predicates.
 \end{description}
+%
+It is worth to be mentioned that facts are particular case of rules.
+%
+Indeed, both facts and rules are also known as \emph{definite} clauses.
 
 \section{Sub-symbolic Data Representation}
 
@@ -1812,7 +1816,7 @@ Inference rules may be used, for instance, to deduce a particular case from a ge
 Therefore, within the symbolic realm, the terms ``inference'' and ``reasoning'' are used almost interchangeably.
 %
 % Under such setting, when it comes 
-Research in this field is aimted at letting computational agents draw logic inferences automatically.
+Research in this field aims at letting computational agents draw logic inferences automatically.
 %
 For this reason, the focus of computer scientists is on finding effective and efficient algorithms to let agents reason autonomosly---i.e. with minimal human intervention.
 
@@ -1822,7 +1826,7 @@ Such activity is far from trivial, as it may used to perform tasks which would b
 %
 Accordigly, the Cambridge definition is more adequate in this case: reasoning is not necessarily logic in nature, but for sure it is aimed at driving decisions---e.g. deciding whether handwritten characted is more likely a 1 or a 7, or whether an histological image should or should not raise an alarm for cancer.
 %
-Research in this field is aimted at letting sub-symbolic algorithms attain better predictive performances.
+Research in this field aims at letting sub-symbolic algorithms attain better predictive performances.
 %
 As such, data scientists' efforts are mostly devoted to the improvement of \emph{learning} algorithms, as inference is straightworard.
 %
@@ -1835,7 +1839,7 @@ In particular, we present the classic approaches and algorithms to automate logi
 \section{Symbolic Reasoning}
 \mypapers{logictech-information11}
 
-Symbolic (i.e., logic-based) reasoning approaches root back to John McCarthy's work of 1958 \cite{Mccarthy1958}, aimed at developing the idea of formalising the so-called \emph{commonsense reasoning} to build intelligent artefacts---i.e. cmputational or cyber-physical agents endowed with human-like intelligence.
+Symbolic (i.e., logic-based) reasoning approaches root back to John McCarthy's work of 1958 \cite{Mccarthy1958}, aimed at developing the idea of formalising the so-called \emph{commonsense reasoning} to build intelligent artefacts---i.e. computational or cyber-physical agents endowed with human-like intelligence.
 %
 There, commonsense intuitively refers to the basic understanding of the physical world, its cause-effect rules, and the effects of one's actions on it, etc \cite{Mccarthy1989}.
 %
@@ -1947,35 +1951,35 @@ Consider for instance the case of the general clause $\phi$ and its particular c
 %
 \begin{equation*}
     \begin{array}{c}
-        \phi = (grandparent(X, Y) \leftarrow parent(X, Z), parent(Z, Y))
+        \phi \equiv (g(X, Y) \leftarrow f(X, Z), f(Z, Y))
         \\
-        \psi = (grandparent(\functor{abraham}, \functor{jacob}) \leftarrow parent(\functor{abraham}, \functor{isaac}), parent(\functor{isaac}, \functor{jacob}))
+        \psi \equiv (g(\functor{a}, \functor{b}) \leftarrow f(\functor{a}, \functor{c}), f(\functor{c}, \functor{b}))
     \end{array}
 \end{equation*}
 %
-The two clauses can be made syntactically equal via the substitution $\sigma = \{ X \mapsto \functor{abraham}, Y \mapsto \functor{jacob}, Z \mapsto \functor{isaac} \}$, because $\psi = \phi \cdot \sigma$.
+The two clauses can be made syntactically equal via the substitution $\sigma = \{ X \mapsto \functor{a}, Y \mapsto \functor{b}, Z \mapsto \functor{c} \}$, because $\psi = \phi \cdot \sigma$.
 
 Accordingly, a unifier among any two non-ground FOL formul\ae{} $\phi$ and $\psi$, is defined as a substitution $\sigma$ such that $\phi = \psi \cdot \sigma$.
 %
 A trivial way to recursively compute a unifier among $\phi$ and $\psi$ is as follows:
 %
 \begin{equation}
-    unifier(\phi, \psi) = \begin{cases}
+    \unify{\phi}{\psi} = \begin{cases}
         \varnothing & \text{if} ~ \phi = \psi = \functor{x}
         \\
         \{ X \mapsto Y \} & \text{if} ~ \phi = X \wedge \psi = Y
         \\
-        \bigcup_{i}^{N} unifier(\alpha_i, \alpha'_i) & \text{if} ~ \phi = f(\alpha_1, \ldots, \alpha_N) 
+        \bigcup_{i}^{N} \unify{\alpha_i}{\alpha'_i} & \text{if} ~ \phi = f(\alpha_1, \ldots, \alpha_N) 
         \\
         & \qquad \wedge\ \psi = f(\alpha'_1, \ldots, \alpha'_N)
         \\
-        unifier(\alpha_1, \alpha'_1) \cup unifier(\alpha_2, \alpha'_2)  & \text{if} ~ \phi = \alpha_1 \odot \alpha_2 \wedge \psi = \alpha'_1 \odot \alpha'_2
+        \unify{\alpha_1}{\alpha'_1} \cup \unify{\alpha_2}{\alpha'_2}  & \text{if} ~ \phi = \alpha_1 \odot \alpha_2 \wedge \psi = \alpha'_1 \odot \alpha'_2
         \\
-        \bot & \text{otherwise}
+        \square & \text{otherwise}
     \end{cases}
 \end{equation}
 %
-where $\bot$ denotes the lack of any unifier -- capturing the situation where two formul\ae{} cannot be unified -- and $\varnothing$ denotes the emptu substitution -- characterising the situation where two formul\ae{} are identical.
+where $\square$ denotes the lack of any unifier -- capturing the situation where two formul\ae{} cannot be unified -- and $\varnothing$ denotes the empty substitution -- characterising the situation where two formul\ae{} are identical.
 %
 There, $f$ is either a predicate or functor symbol ($N$-ary, in both cases), $\alpha_i, \alpha'_i$ are arbitrary formul\ae{}, and $\odot$ denotes any binary logical connective.
 
@@ -1985,7 +1989,7 @@ Despite computing the MGU among any two formul\ae{} is a non-trivial problem in 
 %
 A formal description of this algorithm lays outside this chapter.
 %
-However, in what follows we denote by $mgu(\phi, \psi)$ the function computing the MGU among any two FOl formul\ae{}-
+However, in what follows we denote by $\mgu{\phi}{\psi}$ the function computing the MGU among any two FOL formul\ae{}.
 
 \paragraph{Inference Rules}
 
@@ -2046,9 +2050,9 @@ Accordingly, Bayesian inference may be better suited to represent inductive or a
 
 \paragraph{Inference Procedures}
 
-Inteference rules alone are able to express reasoning, but they are not enough to let computational draw inferences autonomosly.
+Inference rules alone are able to express reasoning, but they are not enough to let computational draw inferences autonomosly.
 %
-When dealing with inference, computational agents need an inference \emph{procedure}, i.e. an algorithm applying one or more inference rules to a knowledge base, in such a way that counclusions are eventually reached when the algorithim terminates.
+When dealing with inference, computational agents need an inference \emph{procedure}, i.e. an algorithm applying one or more inference rules to a knowledge base, in such a way that counclusions are eventually reached when the algorithm terminates.
 
 In practice, inference procedures should support the efficient and effective computation of correct conclusions.
 %
@@ -2096,11 +2100,11 @@ These are
 \begin{inlinelist}
     \item Robinson's proposal of the selective linear (SL) resolution principle \cite{robinson1965} for FOL,
     \item Kowalsky's proposal of the selective linear \emph{definite} (SLD) resolution principle \cite{Kowalski1976} for Horn clauses,
-    \item Clark's proposal of negation as failure \cite{Clark77} as an extension to the SLD  principle,
-    \item Colmerauer's proposal of Prolog \cite{ColmerauerR93}.
+    \item Colmerauer's proposal of Prolog \cite{ColmerauerR93},
+    \item Clark's proposal of negation as failure (NaF) \cite{Clark77} as an extension to the SLD  principle.
 \end{inlinelist}
 
-\paragraph{Robinson's proposal of the selective linear resolution principle}
+\paragraph{Robinson's selective linear resolution principle}
 
 The SL resolution principle \cite{robinson1965} is a general procedure for proving a set of FOL formul\ae{} in Skolemized form\footnotemark{} true, by \emph{refutation}.
 %
@@ -2108,10 +2112,10 @@ More precisely, the SL procedure aims at proving a set of clauses as contraddict
 %
 Thus, in pratice, proving a formula $\phi$ true is achieved by proving $\lnot\phi$ as false---i.e. by refutating it.
 %
-The basic inference rule operating in this context is that, in a set of Skolemized formul\ae{} $\mathbf{K}$ including $\phi$ and $\psi$, those formul\ae{} may be reduced $\phi'$ and $\psi'$, under the following condition:
+The basic inference rule operating in this context states that, in a set of Skolemized formul\ae{} $\mathbf{K}$ including $\phi$ and $\psi$, those formul\ae{} may be reduced $\phi'$ and $\psi'$, under the following condition:
 %
 \begin{equation*}
-    \frac{x \in \phi \quad \lnot y \in \psi \quad \sigma = mgu(x, y)}{\phi' = (\phi - x)\cdot\sigma \quad \psi' = (\psi - \lnot y)\cdot\sigma}[\text{SL}]
+    \frac{x \in \phi \quad \lnot y \in \psi \quad \sigma = \mgu{x}{y}}{\phi' = (\phi - x)\cdot\sigma \quad \psi' = (\psi - \lnot y)\cdot\sigma}[\text{SL}]
 \end{equation*}
 %
 where $x$ and $y$ are literals possibly contained into $\phi$ and $\psi$, and operator $(-)$ denotes the eviciton of a literal from a formula.
@@ -2128,25 +2132,117 @@ Backward-chaining can be performed via SL.
 %
 This implies a goal $\gamma$ can be proved against a knowledge base $\mathbf{K}$ .
 %
-When this is the case, proof by refutation if applied to the set $\gamma \cup \mathbf{K}$: at each step, some literal of $\gamma$ is reduced, along with some other formula in $\textbf{K}$.
+When this is the case, proof by refutation if applied to the set $\lnot\gamma \cup \mathbf{K}$: at each step, some literal of $\lnot\gamma$ is reduced, along with some other formula in $\textbf{K}$.
 %
-Upon termination, if all literals of $\gamma$ have been evicted, then $\gamma$ is considered unsatisfiable.
-%
-Otherwise, the formula $\gamma \cdot \sigma_1 \cdot \sigma_2 \cdots$ -- attained by appling all the MGU computed at each reduction step to the original goal $\gamma$ -- represents a \emph{solution} for $\gamma$, according to $\mathbf{K}$.
-%
-The whole process subtend the so-called \emph{proof-tree}: at each step of the procedure, several formual\ae{} may be selected from $\mathbf{K}$, therefore the algorithm may follow as many different paths.
+Upon termination, if all literals of $\lnot\gamma$ have been evicted, then $\lnot\gamma$ is considered unsatisfiable, therefore $\gamma$ is provable, and the formula $\gamma \cdot \sigma_1 \cdot \sigma_2 \cdots$ -- attained by appling all the MGU computed at each reduction step -- represents a \emph{solution} for $\gamma$, according to $\mathbf{K}$.
+
+The whole process subtends the so-called \emph{proof tree}: at each step of the procedure, several formual\ae{} may be selected from $\mathbf{K}$, therefore the algorithm may follow as many different paths.
 %
 In other words, the SL resolution is a \emph{non-deterministic} algorithm.
 %
 Details and examples are provided for instance in \cite{CureRdf2015}.
 
-\paragraph{Kowalsky's proposal of the selective linear definite resolution principle}
+\paragraph{Kowalsky's selective linear definite resolution principle}
 
 The SLD resolution principle \cite{Kowalski1976} is a refinement of the SL principle, tailored on Horn clauses.
 %
+By restricting the scope of resolution to Horn logic, Kowalsky shows how logic resolution can be described via a \emph{procedural} interpretation, mimicking programs execution.
+%
+The result is a non-deterministic algorithm describing how the proof tree of any given query -- expressed as a goal -- agaist any given knowledge base -- expressed as a set of definite clauses -- can be \emph{lazily} constructed, while attempting to refute the query.
 
+The basic inference rule operating in this contexts states that any goal $\gamma$ can be rewritten as $\gamma'$, provided that some definite clause $\phi$ exists in the knowledge base whose head unifies with some literal in $\gamma$.
+%
+When this is the case, the matching literal of $\gamma$ is replaced by the body of $\phi$---or simply removed in case $\phi$ is a fact.
+%
+More formally:
+%
+\begin{equation*}
+    \frac{
+        \gamma \equiv (\leftarrow g_1, \ldots, g_i, \ldots, g_n)
+        \qquad
+        \phi \equiv (h \leftarrow b_1, \ldots, b_m)
+        \qquad
+        \sigma = \mgu{g_i}{h}
+    }{
+        \gamma' \equiv (\leftarrow g_1, \ldots, g_{i-1}, b_1, \ldots, b_m, g_{i+1}, \ldots, g_n) \cdot \sigma
+    }[\text{SLD}]
+\end{equation*}
+%
+The recursive application of this rule is what enables automated reasoning.
+%
+Similarly to the SL case, if $\gamma$ can be emptied via a number of successive applications of the inference rule, then it is considered proven by refutation.
 
-\note{Talk about SLD}
+The relation among SL and SLD becomes quite evident if one writes clauses in disjunctive form.
+%
+Under such perspective, $\gamma$ is written as a disjunctive of negated literals $\lnot g_1 \vee \ldots \vee \lnot g_n$, as well as each rule $\phi \equiv (h \vee \lnot b_1 \vee \ldots \vee \lnot b_m)$.
+%
+Therefore, whenever applying the SL inference rule to any literal in $\gamma$, one can only choose amongs the heads of each rule, as all literals in $\gamma$ are negated and all heads of all rules are positive.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\linewidth]{figures/proof-tree.png}
+    \caption{An example of proof tree generated by the SLD resolution principle while attempting to prove the goal $son(S, \functor{jacob})$ against the depicted knowledge base. }
+    \label{fig:proof-tree}
+\end{figure}
+
+\Cref{fig:proof-tree} exemplifies the proof tree generated by the recursive application of SLD inference rule to the goal $son(S, \functor{jacob})$.
+%
+The resolution attemps to prove the goal against a knowledge base describing Abraham's family tree, represented in the same image.
+%
+Each node in the tree represents a rewritten form of the original goal, whereas each arc subtends the selection of a rule from the knowledge base and a literal from the source node: the label of each edge describes their MGU.
+
+Of course, at each step of the SLD resolution, several choices may be taken.
+%
+For instance, several literals may be selected, and each literal may unify with potentially many rules in the knowledge base.
+%
+The theorerical formulation of the SLD principle addresses such choices via \emph{non-determinism}.
+%
+However, whenever an actual computational agent needs to perform automated reasoning, it must leverage upon some smart strategy to explore the proof tree sequentially, and in useful time.
+
+\paragraph{Colmerauer's Prolog}
+
+Prolog \cite{ColmerauerR93} is the most successful expression of the LP paradigm.
+%
+It is at the same time a particular way of expressing logic resolution, and a very powerful technology to perform automated reasoning in practice.
+%
+Here we focus on the theoretical aspects of Prolog, whereas technological aspects are treated later in this thesis.
+
+Prolog is essentially a particular way to make the exploratioon of the proof tree subtended by the SLD resolution principle \emph{sequential}.
+%
+In other words, Prolog makes the SLD resolution a sequential algorithm.
+%
+More precisely, Prolog assumes goals to be \emph{ordered} disjunctions of literals (left to right), and knowledge bases to be \emph{ordered} sets of definite clauses (top to bottom).
+%
+Under such assumption, it adopts the following stategy while dealing with the non-determinism of SLD resolution:
+%
+\begin{itemize}
+    \item literals in the current goal are reduced from left to right,
+    \item rules are selected from top to bottom.
+\end{itemize}
+%
+This strategy subtends a \emph{depth-first} exploration of the proof tree.
+
+Another relevant modelling choice in Prolog concerns the syntax for predicates and terms.
+%
+In fact, Prolog represents predicates and structured terms in the same way, collapsing their syntaxes and making the two notions interchangeable.
+%
+This simplifies the definition of meta-predicates -- i.e. predicates accepting other predicates as arguments --, as terms can be used to represent predicates.
+%
+Meta-predicates, in turn, make Prolog's semantics very flexible, as disjunctions, implications, negations, and many other features of FOL which are not supported by Horn clauses can be re-introduced in Prolog in this way.
+
+\paragraph{Clark's Negation as Failure}
+
+NaF \cite{Clark77} is the last relevant extension of SLD we discuss in this section.
+%
+It essentially aims at supporting negation in Horn clauses.
+%
+SLD resolution extended with NaF is often concisely referred to as SLDNF.
+
+SLDNF supports negation by defining the meta-predicate $not(g)$ which is proven true if and only if the argument goal $g$ is proven unsatisfiable.
+%
+So, in procedural terms, the goal $not(g)$ can be read as ``attempt to prove $g$, and, if no solution exists, then $not(g)$ is true, false otherwise''.
+
+Notably, NaF subtends a \emph{closed} world assumption, where everthing that is not know -- nor deducible from what is known -- is false.
 
 \section{Sub-symbolic Reasoning}
 
