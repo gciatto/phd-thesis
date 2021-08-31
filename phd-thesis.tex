@@ -921,7 +921,7 @@ We rely on two running examples, namely the ``ties of kinship'' example -- mimic
 %
 For both of them, we discuss possibilities in KR strategies.
 
-\paragraph{Representing heterogeneous data}
+\paragraph{Representing relational data}
 
 We here consider a simple scenario where the ties of kinship among a number of people must be represented via FOL.
 %
@@ -961,7 +961,7 @@ This approach to KR is particularly adequate to describe situations involving se
 %
 In other words, this approach is well suited to represent \emph{heterogeneous} data.
 
-\paragraph{Representing homogeneous data}\label{sec:kr-tabular-data}
+\paragraph{Representing propositional data}\label{sec:kr-tabular-data}
 
 We here consider a simple scenario where the well-known Iris dataset\footnote{\url{https://archive.ics.uci.edu/ml/datasets/iris}} is represented via FOL.
 %
@@ -1018,17 +1018,17 @@ There are two kinds of activities one may use as benchmarks to assess the limits
     \item\label{item:add-features} adding one new feature to the KB, updating all involved individuals accordingly. 
 \end{inlinelist}  
 
-On the one side, in the homogeneous approach, the amount of individual is equal to the amount on predicates, whereas the amount of features is equal to the arity of all predicates.
+On the one side, in the propositional approach, the amount of individual is equal to the amount on predicates, whereas the amount of features is equal to the arity of all predicates.
 %
 So enumeration of both individuals and features is straightforward.
 %
-Conversely, in the heterogeneous approach, individuals should be enumerated by stepping through all predicates, and removing duplicates; whereas the enumeration of all features may require a lot of computations---as the intensionally represented features should be made explicit. 
+Conversely, in the relational approach, individuals should be enumerated by stepping through all predicates, and removing duplicates; whereas the enumeration of all features may require a lot of computations---as the intensionally represented features should be made explicit. 
 
 On the other side, adding a new feature to a KB represented via heterogeneous approach is straightforward.
 %
 It just requires the novel predicates to be added to the KB.
 %
-Conversely, in the homogeneous approach, the same operation would require the \emph{whole} KB to be rewritten---to let each predicate carry one more feature.
+Conversely, in the propositional approach, the same operation would require the \emph{whole} KB to be rewritten---to let each predicate carry one more feature.
 
 \subsection{Relevant Subsets of FOL}
 
@@ -2245,20 +2245,179 @@ So, in procedural terms, the goal $not(g)$ can be read as ``attempt to prove $g$
 Notably, NaF subtends a \emph{closed} world assumption, where everthing that is not know -- nor deducible from what is known -- is false.
 
 \section{Sub-symbolic Reasoning}
-
-Inference in ML = application of learned models to novel data.
-
-A number of recent proposals are however pushing relevant aspects of logic and inference into the sub-symbolic realm.
 %
-We classify such efforts according to 3 categories, namely:
+\mypapers{xaisurvey-ia14}
+
+Within the sub-symbolic realm, the term `inference' is often abused.
+%
+There, `inference' refers to the application phase of any data-driven solution which has been previously trained on data.
+%
+Therefore, inference in simply a phase in the life-cycle of a data-driven model, as opposed to training.
+
+In the inference phase of any sub-symbolic system, novel information is actually drawn, and that information strongly depends on what the systems has learned from data (prior knowledge) during training.
+%
+For instance, classifiers enable the labelling of arbitrarly complex unknown data according to some predefined set of labels.
+%
+Similarly, regressors enable predictions on unknown data, out of prior experience.
+%
+So, in a broad sense, sub-symbolic systems support the inference of novel, useful information.
+%
+By definition, however, no symbolic manipulation of data occurs in sub-symbolic systems, regardless of whether training or inference are considered.
+%
+Hence, it is cumbersome speaking of reasoning.
+
+Nevertheless, a number of recent proposals are pushing relevant aspects of logic inference into the sub-symbolic realm.
+%
+As a result, methods for building \emph{hybrid} systems -- i.e. systems mixing symbolic and sub-symbolic means to represent, learn, or infer -- are flourishing.
+
+Generally speaking, hybridation may occur in two ways, namely by \emph{model integration} or by \emph{symbolic knowledge embedding}.
+%
+In the former case, symbolic information is used to \emph{structure} or \emph{constrain} the behaviour of a sub-symbolic system---in most cases, a neural network, because of its malleability.
+%
+In the latter case, symbolic information is \emph{embedded} into a sub-symbolic representation to enable its sub-symbolic processing.
+
+\subsection{Model Integration}\label{ssec:model-integration}
+
+In this category we review the main attempts to \emph{integrate} symbolic models (such as the logic ones) with sub-symbolic ones (such as statistical and numerical).
+%
+The main research lines here are those related to the neural-symbolic computing \cite{Hammer2007-neuralsymbolic}  -- the study of logics and connectionism as well as statistical approaches working on the integration of computational learning and symbolic reasoning -- and relational learning \cite{deRaedt2008-logicalRL}---focused on learning expressive logic / relational representations. 
+
+Approaches in this category integrate logic and symbolic knowledge with sub-symbolic predictors such as (deep) neural networks.
+%
+Integration exploits logic rules expressed via FOL -- or some subset of it -- which are used to either constrain or structure the behaviour of one or more predictors.
+
+On the one hand, constraining is commonly performed by extending the loss function used by most numeric learning algorithms -- there including the back-propagation algorithm used for neural networks -- with an additive, regularisation term constructed from the logic constraints. 
+%
+The numeric predictor is then trained ``as usual'', via optimisation---i.e. minimising some loss function.
+%
+However, thanks to a \emph{regularisation} term attained by encoding the logic rules accordingly, the training process is more likely to select a set of parameters for the numeric predictor, which are consistent with those logic rules.
+%
+Generally speaking, the key advantage of these approaches lies in the blended integration of different models, where the logic one -- where expressing crisp information is trivial -- can be used to inject prior knowledge or commonsense into the sub-symbolic one, even in lack of data.
+
+On the other hand, structuring is commonly performed by building the sub-symbolic predictors in such a way that their internal structure mirrors the provided symbolic knowledge.
+%
+For this reason, malleable models such as neural networks are often preferred to serve this purpose.
+%
+There, the internal topology of neurons, as well as their activation functions, are structured in such a way to mimic some relevant property of given logic rules---such as their interpretation.
+%
+Computation is then shifted into the sub-symbolic realm, since the so-constructed predictors act ordinarily.
+%
+Generally speaking, the key advantage of these approaches sub-symbolic emulation of symbolic facilities, thus allowing efficiency of reasoning in particular cases -- at the price of constraining it scope of application --, and robustness w.r.t. missing or contraddictory data.
+
+\paragraph{Logic as constraints}
+
+Paradigmatic works in this category are for instance: DNN with Logic Rules \cite{hu2016}, Logic Tensor Networks (LTN) \cite{serafini2016,Serafini2017}, Semantic Loss Function (SLF) \cite{xu2018}, and Lyrics \cite{marra2019lyrics}.
+
+DNN with Logic Rules (no concise name is given) \cite{hu2016}, proposes a method for constraining a (deep) neural network behaviour via FOL rules. 
+%
+The proposed framework enables neural networks to be simultaneously trained on labelled data or logic rules, via an iterative distillation procedure aimed at transferring the symbolic knowledge encoded in the logic rules into the network parameters.
+%
+To do so, the authors propose the exploitation of two networks: a \emph{teacher} and a \emph{student} one.
+%
+The teacher network is rule-regularised via an \emph{ad-hoc} term added to the loss function, meaning that it is trained by keeping into account the user-provided logic rules.
+%
+In particular, logic constraints are encoded into the loss function via soft logic \cite{BachBHG17}.
+%
+Conversely, the student network is trained to balance between emulating the teacher network output and predicting the expected outcomes of the dataset.
+
+LTN \cite{serafini2016,Serafini2017} integrate learning based on tensor networks \cite{socher2013} with reasoning based first-order many-valued logic \cite{bergmann2008}. 
+%
+They enable a range of knowledge-based tasks using rich knowledge representation in FOL to be combined with efficient data-driven machine learning based on the manipulation of real-valued vectors.
+%
+% Given data available in the form of real-valued vectors, logic soft and hard constraints, and relations that apply to certain subsets of the vectors can be specified in a compact way using FOL. 
+% %
+% Reasoning about the constraints can help improve learning, and, viceversa, learning from new data can revise the constraints thus affecting the reasoning task. 
+%
+Notably, integration is defined upon the Real Logic \cite{Serafini2017}. 
+%
+FOL formul\ae{} are used to build a loss function that aims at training a network capable of approximating the truth value (in the $[0,1]$ interval) of the formul\ae{} given as input. 
+%
+This is done by searching for the best possible representation for symbolic constructs in a vector space (grounding of atoms, functions, predicates), so that the satisfiability of the network is as close as possible to 1 on the test dataset. 
+%
+The resulting network is able to learning from the rightly-labelled real examples, but keeps the logic imprint given in the training phase. 
+
+SLF \cite{xu2018} is another attempt of bridging neural networks and symbolic constraints via loss-function manipulation, similarly to LTN.
+%
+In the intentions of its authors, it aims to 
 %
 \begin{itemize}
-    \item approaches where symbolic information is used to structure or constrain the behaviour of a sub-symbolic system
-    \item approaches where symbolic information is sub-symbolically processed
+    \item improve the predictive performance of neural networks -- by allowing the training process to take background knowledge into account --, and 
+    \item support semi-supervised learning. 
 \end{itemize}
+%
+To do so, SLF constrains the training process of a neural network via some \emph{propositional} logic formul\ae{} which are then encoded as part the loss function exploited by the training algorithm.
+%
+Such formul\ae{} consist of boolean variables representing input and output neurons of the networks to be constrained, possibly combined via classical logic connectors.
 
-\subsection{Neuro-Symbolic Integration}
+Finally, Lyrics \cite{marra2019lyrics} is an extension of LTN, improving the way symbolic knowledge is declaratively enforced while training the sub-symbolic part of an intelligent system.
+%
+According to the authors, the major applications of Lyrics are related to predictive model verification, semi-supervised learning with background knowledge, collective classification \cite{SenNBGGE08}, and text chunking.
+%
+Similarly to LTN, Lyrics can combine one or more neural networks into a single computational graph.
+%
+Each neural network is mapped onto a logic predicate, when necessary, while (possibly global) constrains over the outcomes of the networks are mapped into logic formul\ae{}.
+%
+The resulting computational graph is then optimised against the available data via state-of-the-art gradient-descent technologies---e.g. TensorFlow.
 
+\paragraph{Logic as structure}
+
+Paradigmatic works in this category are for instance: Knowledge-Based Artificial Neural Networks (KBANN) \cite{Towell1990}, CILP++ \cite{Franca2014}, Neural Theorem Prover (NTP) \cite{rocktaschel2017}, Differentiable Inductive Logic Programming ($\partial$ILP) \cite{Evans2017}, DeepProbLog \cite{Manhaeve2018}, and Lifted Relational Neural Networks (LRNN) \cite{SourekAZSK18}.
+
+KBANN \cite{Towell1990} is one of the earliest attempts of exploiting symbolic AI to govern the structure and the behaviour of neural networks.
+%
+It is capable of devising the structure of a neural network from a symbolic knowledge base containing the user-defined, symbolic background knowledge.
+%
+More precisely, KBANN assumes a stratified, Prolog-like, logic theory is available, encoding the background knowledge. 
+%
+Under this assumption, the KBANN algorithm aims at creating a neural network semantically reflecting the symbolic knowledge from which it was created.
+%
+This step essentially sets the network structure and weights in order to reflect the rules contained into the logic theory.
+%
+The resulting neural network can then be trained over data via back-propagation, in order to refine or generalise its functioning over (possibly novel) data.
+%
+% According to the authors, the KBANN algorithm has proven to be useful in the area of molecular biology.
+%
+% In particular, neural networks attained via KBANN has been used to detect promoters in strings of nucleotides, with superior performance w.r.t. randomly initialised neural networks or other sorts of numeric predictors.
+
+CILP++ \cite{Franca2014} is a model aimed at performing inductive logic programming (ILP) via bottom clause propositionalisation and neural networks.
+%
+CILP++ leverages on 
+%
+\begin{inlinelist}
+    \item neural networks to make ILP faster, and on 
+    \item propositionalisation to make the construction of neural networks out of arbitrary logic theories possible.
+\end{inlinelist}
+%
+More precisely, propositionalisation is a preliminary step, which is necessary to convert the example clauses into real vectors and the background knowledge into a multi-layered neural network to be fed with those vectors.
+%
+Of course, the structure of this network reflects the rules contained in the background knowledge, and the input layer contains a neuron for each possible atom used in the background knowledge.
+
+NTP \cite{rocktaschel2017} are neural networks acting as logic reasoners (a.k.a. theorem provers).
+%
+They are built by taking inspiration from backward-chaining-based reasoning algorithms, as in Prolog.
+%
+In particular, the neural network is recursively constructed to encapsulate the knowledge encoded in some logic theory, and trained to correctly answer to all possible queries on such theory.
+%
+Of course, the structure of the resulting network reflects the structure of the clauses contained into the source logic theory.
+%
+However, differently from the other techniques presented in this sub-category, both theories and queries supported by NTP can contain logic variables, as NTP is able to calculate, at the neural network level -- i.e., in the sub-symbolic model --, the logic unification.
+%
+In other words, NTP perform symbolic reasoning on top of sub-symbolic and distributed representations of knowledge.
+
+$\partial$ILP \cite{Evans2017} is another means for ILP  leveraging on neural networks.
+%
+It works by mimicking logic deduction on definite clauses via a neural network, similarly to NTP.
+%
+However, differently from NTP, $\partial$ILP perform deduction using forward chaining, instead of backward chaining.
+%
+Briefly speaking, the authors re-interpret ILP as a binary-classification problem.
+%
+As for other similar approaches discussed in this category, a neural network is constructed in such a way that its structure reflects a grounded version of the background knowledge.
+%
+The resulting network is then trained to minimise the cross-entropy with respect to positive and negative examples.
+
+DeepProbLog \cite{Manhaeve2018} is another attempt of blending neural networks with logic programming, and in particular \emph{probabilistic} logic programming.
+%
 
 
 \subsection{Knowledge Graph Embedding}
