@@ -2388,7 +2388,7 @@ CILP++ leverages on
     \item propositionalisation to make the construction of neural networks out of arbitrary logic theories possible.
 \end{inlinelist}
 %
-More precisely, propositionalisation is a preliminary step, which is necessary to convert the example clauses into real vectors and the background knowledge into a multi-layered neural network to be fed with those vectors.
+More precisely, propositionalisation \cite{Lachiche2010} is a preliminary step, which is necessary to convert the example clauses into real vectors and the background knowledge into a multi-layered neural network to be fed with those vectors.
 %
 Of course, the structure of this network reflects the rules contained in the background knowledge, and the input layer contains a neuron for each possible atom used in the background knowledge.
 
@@ -2416,11 +2416,103 @@ As for other similar approaches discussed in this category, a neural network is 
 %
 The resulting network is then trained to minimise the cross-entropy with respect to positive and negative examples.
 
-DeepProbLog \cite{Manhaeve2018} is another attempt of blending neural networks with logic programming, and in particular \emph{probabilistic} logic programming.
+DeepProbLog \cite{Manhaeve2018} is another attempt of blending neural networks with logic programming, and in particular \emph{probabilistic} logic programming (PLP).
 %
+It is an extension of ProbLog exploiting neural networks for
+%
+\begin{inlinelist}
+    \item computing the probabilities of facts, and
+    \item letting neural classifiers be used as logic predicates---defined as ``neural predicates'' by the authors.
+\end{inlinelist}
+%
+In particular, each DeepProbLog program is translated into a tensorial computational graph -- possibly including one ore more neural classifiers as sub-graphs -- to be optimised via gradient descend.
+%
+The structure of the computational graph reflects the structure of the rules contained into the DeepProbLog program.
+%
+The optimisation step is aimed at simultaneously setting all the possible parameters regulating the behaviour of the computational graph, including the probabilities of facts and the internal weights of neural predicates.
+%
+The resulting sub-symbolic system is then exploited to draw probabilistic inferences.
+%
+In other words, hybrid systems based on DeepProbLog fruitfully combine probabilistic reasoning and sub-symbolic classification in a single, unified, coherent framework.
+
+Finally, LRNN \cite{SourekAZSK18} aim at performing relational learning from data via neural networks.
+%
+Similarly to DeepProbLog, LRNN exploit sets of weighted first-order formul\ae{} as structural templates for building a neural network to be trained over the available data.
+%
+The resulting network is exploited to infer latent rules buried in data and to estimate the weights of the existing clauses.
+
+\subsection{Symbolic Knowledge Embedding}
+
+In this category we review the main attempts to \emph{embed} symbolic (and, in particular, logic) knowledge into arrays of numbers, to make them amenable of sub-symbolic processing.
+
+Most techniques developed so far are tailored on \emph{description logics}, that are particular sub-sets of FOL generally aimed at describing categories of entities and their possible relations, along with instances of both.
+%
+The key idea is to translate components of an ontology (a.k.a.\ knowledge graph, or simply KG) into continuous vector spaces, to allow neural networks to accept such a type of structured information as input and take advantage of its background knowledge to perform ordinary machine learning tasks.
+
+Most of the currently-available techniques perform the embedding task only on the basis of observed facts. 
+%
+Given a KG, knowledge graph injection techniques first represent entities and relations in a continuous vector space, and then measure facts plausibility exploiting some scoring function. 
+%
+Entity and relation embeddings can be obtained by maximising the total plausibility of observed facts. 
+
+During this whole procedure, the learned embeddings are only required to be compatible within each individual fact, and hence might not be predictive enough for downstream tasks \cite{wang2015,wei2015}. 
+%
+As a result, more and more researchers have started to add other types of information, including logic rules \cite{wang2015,rocktaschel2015,guo2016}, in order to learn more predictive embeddings.
+
+The noteworthy approaches that we deem significant for the purpose of this survey -- as they combine symbolic and sub-symbolic models -- are:
+%
+\begin{itemize}
+	\item \textsc{Rescal} + \textsc{Trescal} (2015) \cite{wang2015}
+	\item \textsc{Ins} (2015) \cite{wei2015}
+	\item Low-rank Logic Embeddings, LLE (2015) \cite{rocktaschel2015}
+	\item \textsc{Kale} (2016) \cite{guo2016}
+	\item \textsc{Oscar} (2019) \cite{goodwin2019}
+\end{itemize}
+%
+In particular, \cite{wang2015,wei2015} exploit rules to refine embedding models aimed at KG completion. 
+%
+KG completion is formulated as an integer linear programming problem, where the objective function is generated from embedding models and constraints are generated from rules. 
+%
+Facts inferred in this way are the most preferred by the embedding models and comply with all the rules. 
+%
+By incorporating rules, these approaches can greatly reduce the solution space and significantly improve the inference accuracy of embedding models.
+%
+\textsc{Trescal} \cite{wang2015} is an extension of \textsc{Rescal}, requiring the arguments of a relation to be entities of certain specified types.
+
+Along this line, other works -- e.g., \cite{rocktaschel2015,guo2016} -- propose approaches that embed KG facts and logic rules simultaneously in a unified framework. 
+%
+In particular, in \textsc{Ins}, formul\ae{} are injected into the embeddings of relations and entity-pairs, i.e., the embeddings are estimated such that predictions based on them conform to given logic formul\ae. 
+%
+\textsc{Kale}, on the other side, represents rules as complex formul\ae{} modelled by t-norm fuzzy logics. 
+%
+Embedding then amounts to minimising a global loss over both atomic and complex formulae. 
+%
+Thus embeddings are learnt as compatible with rules.
+
+In \cite{goodwin2019} the authors propose a method, \textsc{Oscar}, for injecting task-agnostic knowledge from a KG into a neural network during the training. 
+%
+\textsc{Oscar} is a pre-training regularisation technique capable of injecting world knowledge and ontological relationships into a deep neural network: the expert knowledge is exploited as a regulariser for the network.
+
+It is worth noting that in all these approaches rules are modelled separately from embedding models, serving as post-processing steps: this is why we classify these work as combination and not integration.
+%
+Furthermore, all these works share a common drawback, in that they have to instantiate universally-quantified rules into ground rules before learning their models. 
+%
+This is called grounding procedure, and can be time- and space-inefficient---especially when dealing with big data scenarios or in case of rules complexity.
+
+\subsection{Hybrid Systems: Final Remarks}
+
+Hybrid systems are still in their infancy.
+%
+Hybridation usually comes at the cost of a reduced expressivity of the logic formalism adopted.
+%
+Empirically, we observe that full fledged FOL is too complex to handle for sub-symbolic systems.
+%
+Once again, issues concern KR.
+%
+In particular, \emph{intensional} logic representations as well as the flexibility of logic -- which is open to the addition of novel symbols --, are what make hybridation difficult.
 
 
-\subsection{Knowledge Graph Embedding}
+
 
 \chapter{Explaining AI via Symbolic Knowledge}
 
