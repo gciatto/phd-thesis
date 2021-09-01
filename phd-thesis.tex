@@ -20,11 +20,11 @@
 \mainlinespacing{1.241} % line spacing in mainmatter, comment to default (1)
 
 \begin{document}
-    
+
 \frontmatter
 \frontispiece
 
-\begin{abstract}    
+\begin{abstract}
 Max 2000 characters, strict.
 \end{abstract}
 
@@ -37,7 +37,7 @@ Optional. Max 1 page.
 \end{acknowledgements}
 
 %----------------------------------------------------------------------------------------
-\tableofcontents   
+\tableofcontents
 \listoffigures     % (optional) comment if empty
 \lstlistoflistings % (optional) comment if empty
 %----------------------------------------------------------------------------------------
@@ -79,7 +79,7 @@ Following this purpose, it relies on \emph{symbolically} represented knowledge, 
 %
 Dually, DS focuses on \emph{intuitive} intelligence, and it aims at endowing humans with statistical tools for mining significant and predictive information from data, in a principled way.
 %
-When applied to machines, DS provides them with powerful pattern matching, recognition, or stimulus-response capabilities. 
+When applied to machines, DS provides them with powerful pattern matching, recognition, or stimulus-response capabilities.
 %
 For this reason, it relies on sub-symbolically (e.g. \emph{numerically}) represented knowledge, commonly acquired from data via ML, manipulated via algebraic or differential operations, and transferred in disparate, purpose-specific ways.
 
@@ -121,23 +121,23 @@ Along this line, we aim to \emph{elicit} and \emph{enable} the many possible bri
 %
 In doing so, we follow the ultimate purpose of increasing the degree of intelligence and autonomy of modern computational systems.
 %
-Therefore, our focus is on computational entities and on the ways they can combine and integrate CL and DS to either act more intelligently or more autonomosly---or both. 
+Therefore, our focus is on computational entities and on the ways they can combine and integrate CL and DS to either act more intelligently or more autonomosly---or both.
 
 On the one side, we \emph{elicit} analogies, dichotomies, and possible synergies among CL and DS by analysing them along four orthogonal dimensions, corresponding to as many knowledge-related activities, namely:
 %
 \begin{description}
-    \item[representation] | i.e. the way knowledge is expressed and made interpretable by either machines or human beings, or both; e.g. via symbols, formul\ae, or tensors of real numbers 
+    \item[representation] | i.e. the way knowledge is expressed and made interpretable by either machines or human beings, or both; e.g. via symbols, formul\ae, or tensors of real numbers
 
-    \item[acquisition] | i.e. the way novel knowledge is learned from prior information, mined from data, or attained from external sources; e.g. via data mining, via induction, or via interaction 
-    
+    \item[acquisition] | i.e. the way novel knowledge is learned from prior information, mined from data, or attained from external sources; e.g. via data mining, via induction, or via interaction
+
     \item[inference] |  i.e. the way decisions, suggestions, recommendations, or predictions can be automatically computed out of prior knowledge; e.g. via automated deduction/abduction, or via classification/regression
-    
+
     \item[explanation] | i.e. the way knowledge can be transferred to another entity---be it computational or human
 \end{description}
 
 On the other side, we acknowledge that both CL and DS have a prominent overlap with computer science (CS) and software engineering (SE).
 %
-Regardless of how they manipulate knowledge, both approaches subtend a mathematical modelling of many computational aspects, which must then be reified into well-engineered software technologies to let practitioners actually exploit them. 
+Regardless of how they manipulate knowledge, both approaches subtend a mathematical modelling of many computational aspects, which must then be reified into well-engineered software technologies to let practitioners actually exploit them.
 %
 Accordingly, we further analyse CL and DS from both a computational and technological perspective.
 %
@@ -179,7 +179,7 @@ In the second part (\emph{How}), we focus on the technological perspective.
 %
 There, we survey the current state of technologies.
 %
-In particular, we focus on logic-based technologies laying at the intersection with DS, identifying the current lacks w.r.t. current theoretical advances. 
+In particular, we focus on logic-based technologies laying at the intersection with DS, identifying the current lacks w.r.t. current theoretical advances.
 %
 We then propose the notion of AI ecosystem, and \twopkt{} as its main reification in software.
 %
@@ -214,7 +214,7 @@ However, at the time -- likely, because of computational limits of the hardware 
 
 Even if it is currently not as popular as NN, the history of symbolic AI is extremely important as well---mostly because of the prominent influence it has on the many fields converging in AI.
 %
-Despite their original ambition of reproducing human reasoning \emph{in toto} has been was inevitably rejected by facts, symbolic approaches gave birth to several research lines which are nowadays considered autonomous fields, such as computational logic \cite{lloyd1990computational}, logic programming \cite{apt1990logic}, planning \cite[Chap. 10-11]{russell2016artificial}, multi agent systems \cite{ferber1999multi}, etc. 
+Despite their original ambition of reproducing human reasoning \emph{in toto} has been was inevitably rejected by facts, symbolic approaches gave birth to several research lines which are nowadays considered autonomous fields, such as computational logic \cite{lloyd1990computational}, logic programming \cite{apt1990logic}, planning \cite[Chap. 10-11]{russell2016artificial}, multi agent systems \cite{ferber1999multi}, etc.
 
 A few decades later, many things has changed.
 %
@@ -358,13 +358,13 @@ Software agents devoted to automated reasoning via LP are commonly referred to a
 %
 They rely on pre-existing KB to derive inferences via some inference procedure and resolution strategy.
 %
-They may do so either \emph{reactively}, -- i.e. in response to some external stimulus, e.g. some user's \emph{query} --, or \emph{pro-actively}---i.e. spontaneously, in order to reach some goal, e.g. computing the optimal path before moving. 
+They may do so either \emph{reactively}, -- i.e. in response to some external stimulus, e.g. some user's \emph{query} --, or \emph{pro-actively}---i.e. spontaneously, in order to reach some goal, e.g. computing the optimal path before moving.
 %
 Prolog-based solvers \cite{ColmerauerR93,colmerauer1986-theoreticalProlog}, for instance, exploit a \emph{deductive} procedure rooted into the SLDNF resolution principle \cite{Kowalski1974, Clark77}, and a depth-first strategy.
 %
 They commonly do so in response to users' queries, provided via a textual interface.
 %
-Yet, a number of Prolog solvers exists supporting the same inference procedure via different strategies (e.g. tabled-resolution\missingref) or as well as entirely different principles (e.g. Constraint Logic Programming). 
+Yet, a number of Prolog solvers exists supporting the same inference procedure via different strategies (e.g. tabled-resolution\missingref) or as well as entirely different principles (e.g. Constraint Logic Programming).
 %
 Of course, other options exist targetting other logics as well, like, e.g., abductive \cite{FungIff97}, inductive \cite{Muggleton94}, probabilistic \cite{RaedtK15} inference.
 %
@@ -427,7 +427,7 @@ There have also been a number of attempts to construct very large knowledge base
 
 Finally, symbols grounding deals with the problem of letting software agents provide semantics for the symbols they manipulate.
 %
-Put it simply, we may tell a logic solver that Abraham is the father of Isaac -- $father(\functor{isaac}, \functor{abraham})$ --, and also that, for all possible $X$ and $Y$, if $X$ is the father of $Y$, then $Y$ must be the child of $X$ -- $father(X, Y) \rightarrow child(Y, X)$ --, and the solver may also be able to infer that Isaac is thus the child of Abraham, while still having no idea of how to recognise Isaac, Abraham, nor the fatherhood relation, were it written in another form. 
+Put it simply, we may tell a logic solver that Abraham is the father of Isaac -- $father(\functor{isaac}, \functor{abraham})$ --, and also that, for all possible $X$ and $Y$, if $X$ is the father of $Y$, then $Y$ must be the child of $X$ -- $father(X, Y) \rightarrow child(Y, X)$ --, and the solver may also be able to infer that Isaac is thus the child of Abraham, while still having no idea of how to recognise Isaac, Abraham, nor the fatherhood relation, were it written in another form.
 %
 In other words, the bindings between the symbols processed by software agents and the corresponding entities from the real world are hard to establish and maintain for a bare logic solver---unless other mechanisms are in place.
 %
@@ -483,7 +483,7 @@ Most common tasks in DS are for instance:
     \item[function fitting] (a.k.a. classification or regression) | i.e. the \emph{supervised} learning task of inferring the input-output relation among a number samples, to be later able to estimate likely outputs for novel, unseen inputs;
     \item[clustering] | i.e. the \emph{unsupervised} learning task of finding similar groups of instances in a dataset -- according to a given notion of \emph{similarity} or distance --, to be later able to classify novel instances according to some group;
     \item[anomaly detection] | i.e. the \emph{unsupervised} learning task of tuning an algorithm to discern ``normal'' situations from exceptional ones, provided that some historical data is available, to later be able to detect the latter;
-    \item[filtering] (resp. \textbf{smoothing} or \textbf{forecasting}) | i.e. the Bayesian task of estimating the unknown \emph{current} (resp. \emph{past} or \emph{future}) state of a system given a sample of observations capturing the evolution of a number of variables which should depend of that state;  
+    \item[filtering] (resp. \textbf{smoothing} or \textbf{forecasting}) | i.e. the Bayesian task of estimating the unknown \emph{current} (resp. \emph{past} or \emph{future}) state of a system given a sample of observations capturing the evolution of a number of variables which should depend of that state;
     \item[most likely explanation] | like the above, but focussing on the most likely \emph{sequence} of states a system has traversed.
 \end{description}
 %
@@ -518,7 +518,7 @@ Examples of such kinds of activities are, for instance:
 %
 % Despite being really important for the practice of data science, such aspects are quite marginal within the scope of this thesis.
 %
-% Accordingly, in the following chapters we focus data-analytics tasks, and in particular supervised learning ones. 
+% Accordingly, in the following chapters we focus data-analytics tasks, and in particular supervised learning ones.
 
 \paragraph{The Engineering Perspective}
 
@@ -566,7 +566,7 @@ So, agents always deal with \emph{phenomena} -- i.e. how things appear --, hopin
 % In other words, whenever an agent is dealing with some information, it is actually dealing with a particular representation of some underlying concept which can only be grasped by its observable properties.
 
 Second, representations are manifold and of different sorts, and they may focus on particular aspects of the phenomenon being represented.
-% 
+%
 In other words, whenever an agent is dealing with some information, it is actually dealing with a particular representation of some underlying concept, despite many others could be available.
 %
 Furthermore, representations are never good or bad per se, but rather more or less adequate to the agent exploiting them and to the task it is performing.
@@ -579,7 +579,7 @@ So, by whom information must be consumed, and to serve what purpose, is a releva
 
 Despite being rooted into deep and long-standing philosophical discussions, such premises are here reported serving a practical purpose.
 %
-Indeed, they synthesise the underlying mindset tying this chapter and the following ones together: the particular choice of a particular means to representation simultaneously enables and constrains the kinds of possible processing information may be subject to---and this in turns conditions any subsequent design choice. 
+Indeed, they synthesise the underlying mindset tying this chapter and the following ones together: the particular choice of a particular means to representation simultaneously enables and constrains the kinds of possible processing information may be subject to---and this in turns conditions any subsequent design choice.
 
 Accordingly, within the scope of this chapter we discuss the representation of particular sorts of information, namely either \emph{data} or \emph{knowledge}.
 %
@@ -589,7 +589,7 @@ Data by itself simply describes the phenomenon / situation, yet it is hard to ex
 %
 Conversely, we consider as knowledge any coarse-grained piece of information describing entire classes of phenomena or situations, in a concise and reusable (i.e. predictive) way.
 %
-Differently from data, knowledge can be applied to unseen phenomena or situations, or transferred to agents which have not experienced any such phenomena / situations explicitly.  
+Differently from data, knowledge can be applied to unseen phenomena or situations, or transferred to agents which have not experienced any such phenomena / situations explicitly.
 
 Be it devoted to data or knowledge, each representation comes with pros and cons, simplifying the expression of some aspects of the information being represented, while complicating the expression of others.
 %
@@ -601,11 +601,11 @@ However, at the meta-level, we can categorise representations means as either \e
 %
 While the two means are essentially interchangeable -- other than mutually convertible -- when they represent data, they lead to profoundly different ways of representing knowledge.
 %
-Indeed, while symbolic knowledge is both machine- and human-interpretable, sub-symbolic is mostly machine-interpretable, and is therefore treated by human beings as a black box in the general case. 
+Indeed, while symbolic knowledge is both machine- and human-interpretable, sub-symbolic is mostly machine-interpretable, and is therefore treated by human beings as a black box in the general case.
 
 Along this line, in the reminder of this chapter we focus on logic -- as the most prominent approach to \emph{symbolic} representation --, and vectors, matrices, or tensors of real numbers---as the most prominent approach to \emph{sub-symbolic} representation.
 %
-We show analogies and differences among such approaches to representation, eliciting the pros and cons of both, and, in particular, their differences among the interpretability perspective. 
+We show analogies and differences among such approaches to representation, eliciting the pros and cons of both, and, in particular, their differences among the interpretability perspective.
 
 \section{Symbolic Knowledge Representation}
 
@@ -625,9 +625,9 @@ We choose FOL as it is quite general, and the other approaches can be described 
         \\
         \meta{Clause} & := & \meta{Literal} \mid \terminal{(} \meta{Formula} \meta{Connective} \meta{Formula} \terminal{)}
         \\
-        \meta{Connective} & := & \terminal{\wedge} \mid \terminal{\vee} \mid \terminal{\rightarrow} \mid \terminal{\leftrightarrow} \mid \terminal{=} 
-        \\ 
-        \meta{Literal}  & := & \meta{Predicate} \mid \terminal{\lnot} \meta{Predicate} 
+        \meta{Connective} & := & \terminal{\wedge} \mid \terminal{\vee} \mid \terminal{\rightarrow} \mid \terminal{\leftrightarrow} \mid \terminal{=}
+        \\
+        \meta{Literal}  & := & \meta{Predicate} \mid \terminal{\lnot} \meta{Predicate}
         \\
         \meta{Predicate} & := & \terminal{\top} \mid \terminal{\bot} \mid \meta{Predication} \mid \meta{Predication} \terminal{(} \meta{Arguments} \terminal{)}
         \\
@@ -661,9 +661,9 @@ Informally, the syntax for the general FOL formula is defined over the assumptio
 %
 \begin{itemize}
     \item a number of constant symbols, including: a number of \emph{functors}, denoted by monospaced symbols such as $\functor{f}_1, \functor{f}_2, \ldots$, and all real numbers;
-    
+
     \item a number of \emph{predicate symbols} (a.k.a. predications), denoted by italic symbols starting with a lower case letter, such as $p_1, p_2, \ldots$;
-    
+
     \item a number of \emph{variables}, denoted by italic symbols starting with a capital letter, such as $X_1, X_2, \ldots$.
 \end{itemize}
 %
@@ -705,7 +705,7 @@ Should we treat kinship relationships, $\mathbb{D}$ would include a symbol for e
 
 Concerning predicates, let us denote by $p/N$ the $N$-ary predicate whose predicate symbol is $p$ and whose arity is $N$.
 %
-% Let us also assume that the $N$ arguments of the predicate are entities drawn from the sets of entities $\mathcal{D}_1, \ldots, \mathcal{D}_N$, where $\mathcal{D}_i \subseteq \mathbb{D}$, for all $i = 1, \ldots, N.$ 
+% Let us also assume that the $N$ arguments of the predicate are entities drawn from the sets of entities $\mathcal{D}_1, \ldots, \mathcal{D}_N$, where $\mathcal{D}_i \subseteq \mathbb{D}$, for all $i = 1, \ldots, N.$
 %
 When $N \geq 2$, the predicate represents one or more items from the relation $p \subseteq \mathbb{D} \times \ldots \times \mathbb{D}$.
 %
@@ -735,10 +735,10 @@ When $M \geq 1$, the term is a structure -- i.e. a named and ordered group of te
 %
 The actual interpretation of a structure really depends on the scenario at hand.
 %
-So, for instance, in the arithmetic domain, it is possible to represent natural numbers by mimicking the Peano axioms\footnotemark{} via a unary structure -- e.g. $\functor{s}$, for \emph{successor} -- and a constant -- e.g. $\functor{z}$, for \emph{zero} -- as follows: 
-$\functor{z}$ represents $0$, 
-$\functor{s}(\functor{z})$ represents $1$, 
-$\functor{s}(\functor{s}(\functor{z}))$ represents $2$, etc. 
+So, for instance, in the arithmetic domain, it is possible to represent natural numbers by mimicking the Peano axioms\footnotemark{} via a unary structure -- e.g. $\functor{s}$, for \emph{successor} -- and a constant -- e.g. $\functor{z}$, for \emph{zero} -- as follows:
+$\functor{z}$ represents $0$,
+$\functor{s}(\functor{z})$ represents $1$,
+$\functor{s}(\functor{s}(\functor{z}))$ represents $2$, etc.
 %
 Under this representation, each natural number (except $\functor{z}$) is composed by its predecessor, and the successor functor $\functor{s}/1$.
 
@@ -758,7 +758,7 @@ In that case $M = 3$, and an adequate functor is `$\functor{person}$':
 %
 $$
 \functor{person}(\functor{adam},\ \functor{smith},\ \functor{date}(1723,\ \functor{june},\ 5))
-$$ 
+$$
 %
 The underlying assumption here is that dates are represented as ternary structures as well.
 
@@ -773,17 +773,17 @@ Lists -- and, more generally, data structures -- can be represented in FOL via a
 In particular, a common convention is to represent \emph{singly linked} lists of entities using:
 %
 \begin{itemize}
-    \item a binary structure, denoting element--successor couples, e.g. $\functor{cons}/2$ or $\functor{.}/2$, 
+    \item a binary structure, denoting element--successor couples, e.g. $\functor{cons}/2$ or $\functor{.}/2$,
     \item a constant, denoting the termination of the list, e.g. $\functor{nil}$ or $\functor{[]}$.
 \end{itemize}
 %
 So, for instance, a journey from Rome to Milan, stepping through Florence and Bologna may be represented as follows:
 %
 \begin{equation}\label{eq:path-rome-milan}
-    \functor{cons}(\functor{rome},\ 
-        \functor{cons}(\functor{florence},\ 
-            \functor{cons}(\functor{bologna},\ 
-                \functor{cons}(\functor{milan},\ 
+    \functor{cons}(\functor{rome},\
+        \functor{cons}(\functor{florence},\
+            \functor{cons}(\functor{bologna},\
+                \functor{cons}(\functor{milan},\
                     \functor{nil}
                 )
             )
@@ -794,8 +794,8 @@ So, for instance, a journey from Rome to Milan, stepping through Florence and Bo
 whereas a journey from Rome to Naples would be as simple as:
 %
 \begin{equation*}
-    \functor{cons}(\functor{rome},\ 
-        \functor{cons}(\functor{naples},\ 
+    \functor{cons}(\functor{rome},\
+        \functor{cons}(\functor{naples},\
             \functor{nil}
         )
     )
@@ -871,7 +871,7 @@ For instance, one may intensionally define the $child/2$ relation via the $paren
 %
 Yet, recursive intensional predicates are very expressive and powerful, as they enable the description of infinite sets via a finite (and commonly small) amount of formul\ae{}.
 
-\paragraph{Herbrand and its ground}
+\paragraph{Herbrand and its ground}\label{par:herbrand}
 
 Variables play a fundamental role in intensional KR, as they allow referencing unknown entities and tie them together via either predicates or structures.
 %
@@ -879,7 +879,7 @@ However, there exists situations -- described later in this thesis -- where the 
 %
 Accordingly, here we provide a number of definitions related to variable-free FOL formul\ae{} and KB.
 
-A term is considered \emph{ground} if and only if 
+A term is considered \emph{ground} if and only if
 %
 \begin{inlinelist}
     \item it is a constant, or
@@ -947,17 +947,17 @@ For example:
         \\
         \ldots & {} & male(\functor{jacob}).
         \\
-        \forall X ~ \forall Y\ parent(X, Y) & \rightarrow & child(Y, X).  
+        \forall X ~ \forall Y\ parent(X, Y) & \rightarrow & child(Y, X).
         \\
-        \forall X ~ \forall Y\ parent(X, Y) \wedge male(X) & \rightarrow & father(X, Y).  
+        \forall X ~ \forall Y\ parent(X, Y) \wedge male(X) & \rightarrow & father(X, Y).
         \\
-        \forall X ~ \forall Y\ parent(X, Y) \wedge female(X) & \rightarrow & mother(X, Y).  
+        \forall X ~ \forall Y\ parent(X, Y) \wedge female(X) & \rightarrow & mother(X, Y).
         \\
-        \forall X ~ \forall Y ~ \exists Z \ parent(X, Z) \wedge parent(Z, Y) & \rightarrow & grandparent(X, Y).  
+        \forall X ~ \forall Y ~ \exists Z \ parent(X, Z) \wedge parent(Z, Y) & \rightarrow & grandparent(X, Y).
     \end{array}
 \end{equation}
 
-This approach to KR is particularly adequate to describe situations involving several entities and many relations or properties, but where, however, each predicate only spans through a few entities, and most entities are not involved in all relations or properties. 
+This approach to KR is particularly adequate to describe situations involving several entities and many relations or properties, but where, however, each predicate only spans through a few entities, and most entities are not involved in all relations or properties.
 %
 In other words, this approach is well suited to represent \emph{heterogeneous} data.
 
@@ -989,9 +989,9 @@ So, a KB describing the Iris dataset in FOL according to this may look as follow
         \\\vdots\\
         iris(6.3,\ 3.3,\ 6.0,\ 2.5,\ \functor{virginica}).
     \end{array}
-\end{equation} 
+\end{equation}
 %
-where the predefined ordering of features is: 
+where the predefined ordering of features is:
 %
 \begin{inlinelist}
     \item sepal length,
@@ -1015,14 +1015,14 @@ There are two kinds of activities one may use as benchmarks to assess the limits
 %
 \begin{inlinelist}
     \item\label{item:enumerate-features} enumerating all the individuals involved into a KB and all the features describing them, and
-    \item\label{item:add-features} adding one new feature to the KB, updating all involved individuals accordingly. 
-\end{inlinelist}  
+    \item\label{item:add-features} adding one new feature to the KB, updating all involved individuals accordingly.
+\end{inlinelist}
 
 On the one side, in the propositional approach, the amount of individual is equal to the amount on predicates, whereas the amount of features is equal to the arity of all predicates.
 %
 So enumeration of both individuals and features is straightforward.
 %
-Conversely, in the relational approach, individuals should be enumerated by stepping through all predicates, and removing duplicates; whereas the enumeration of all features may require a lot of computations---as the intensionally represented features should be made explicit. 
+Conversely, in the relational approach, individuals should be enumerated by stepping through all predicates, and removing duplicates; whereas the enumeration of all features may require a lot of computations---as the intensionally represented features should be made explicit.
 
 On the other side, adding a new feature to a KB represented via heterogeneous approach is straightforward.
 %
@@ -1108,7 +1108,7 @@ Despite being very restrictive in theory, the lack of basic operators such as $\
 %
 Circumvention in these cases steps through a smart trick: by letting the set of admissible functors \emph{include} the set of possible predicate symbols, one may enable the representation of predicates via terms.
 %
-So, a meta-predicate can be described as an ordinary predicate, accepting terms as arguments, and considering its arguments as predicates. 
+So, a meta-predicate can be described as an ordinary predicate, accepting terms as arguments, and considering its arguments as predicates.
 %
 However, these aspects are covered in \cref{chap:reasoning}.
 
@@ -1121,18 +1121,18 @@ Under a procedural perspective, any Horn clause states that ``to prove $h$, one 
 Along this line, when Horn clauses are exploited in practice, they are commonly referred to as
 %
 \begin{description}
-    \item[facts] when their body consist of just the $\top$ predicate: 
+    \item[facts] when their body consist of just the $\top$ predicate:
     $$ h \leftarrow \top \quad \text{or simply} \quad h$$
     stating that $h$ is known to be true (as it requires nothing to be proven first),
 
-    \item[goals] (a.k.a.\textbf{directives}) when their head consist of just the $\bot$ predicate (or, equivalently, when the head is missing): 
+    \item[goals] (a.k.a.\textbf{directives}) when their head consist of just the $\bot$ predicate (or, equivalently, when the head is missing):
     $$
     \bot \leftarrow b_1,\ \ldots,\ b_n
     \quad
     \text{or simply}
     \quad
     \leftarrow b_1,\ \ldots,\ b_n
-    $$ 
+    $$
     stating that predicates $b_1, \ldots, b_n$ should be all proven,
 
     \item[rules] otherwise, i.e. when both the head and the body involve arbitrary predicates.
@@ -1153,9 +1153,9 @@ Despite numbers are technically symbols as well, we cannot consider arrays and t
 Indeed, according to \cite{Gelder90}, to be considered as symbolic, KR approaches should:
 %
 \begin{inlinelist}
-    \item involve a set of symbols, 
+    \item involve a set of symbols,
     \item\label{item:combination} which can be combined (e.g. concatenated) in possibly infinite ways, following precise grammatical rules, and
-    \item\label{item:meaning} where both elementary symbols and any admissible combination of them can be assigned with meaning---i.e. each symbol can be mapped into some entity from the domain of the discourse. 
+    \item\label{item:meaning} where both elementary symbols and any admissible combination of them can be assigned with meaning---i.e. each symbol can be mapped into some entity from the domain of the discourse.
 \end{inlinelist}
 %
 In this section we discuss how sub-symbolic approaches are characterised by the frequent violation of items \ref{item:combination} and \ref{item:meaning}.
@@ -1177,7 +1177,7 @@ In any given sub-symbolic data-representation task leveraging upon arrays, infor
 \begin{itemize}
     \item the actual numbers contained into the array, and
     \item their location into the array itself.
-\end{itemize}  
+\end{itemize}
 %
 In practice, the actual dimensions $(d_1 \times \ldots \times d_D)$ of the array play a central role as well.
 %
@@ -1195,7 +1195,7 @@ In local representations, each single number into the array is characterised by 
 %
 Conversely, in distributed representations, each single item of the array is nearly meaningless, unless it is considered along with its neighbourhood---i.e. any other item which is ``close'' in the indexing space of the array, according to some given notion of closeness.
 %
-So, while in local representations the location of each number in the array is quite negligible, in distributed representations it is of paramount importance. 
+So, while in local representations the location of each number in the array is quite negligible, in distributed representations it is of paramount importance.
 
 Consider for instance the Iris dataset from \cref{sec:kr-tabular-data}: it is a tabular dataset where each datum can be considered as a 5-dimensional vector.
 %
@@ -1205,7 +1205,7 @@ Conversely, consider a dataset of black/white images whose resolution is $w \tim
 %
 There, each image can be represented as a $h \times w$ matrix of numbers in the range $[0, 1]$, where each location represents a pixel and the corresponding brightness.
 %
-The single pixel carries very small information when considered alone, whereas groups of contiguous pixel may describe details which are relevant for image processing. 
+The single pixel carries very small information when considered alone, whereas groups of contiguous pixel may describe details which are relevant for image processing.
 
 \paragraph{Feature Engineering}
 
@@ -1217,7 +1217,7 @@ In particular, when raw data is very flexible (i.e. variable in size) and very d
 %
 All such methods lay under the \emph{feature engineering} umbrella.
 
-The ideal situation, under a data representation perspective, is when data is in \emph{tabular} form, i.e. $N$ instances and $M$ features, and all features only involve numeric values. 
+The ideal situation, under a data representation perspective, is when data is in \emph{tabular} form, i.e. $N$ instances and $M$ features, and all features only involve numeric values.
 %
 There, each instance is naturally described by a $M$-dimentional vector, while the whole dataset is described by an $N \times M$ matrix.
 %
@@ -1237,11 +1237,11 @@ The most adequate transformation heavily depends on the domain of the feature it
 %
 \begin{description}
     \item[boolean] features may be trivially converted into numbers via the $\{ \functor{false} \mapsto 0, \functor{true} \mapsto 1 \}$ encoding;
-    
+
     \item[ordinal] features may be trivially converted into natural numbers reflecting the same ordering;
-    
+
     \item[categorical] features may be converted into boolean features via the one-hot encoding\footnotemark;
-    
+
     \item[structured] features having a \textbf{fixed} structure (e.g. dates or timestamps) can be decomposed into their components;
 \end{description}
 %
@@ -1259,9 +1259,9 @@ Consider for instance time series (e.g. samples of some phenomenon over time), o
 %
 There, despite each single instance of the dataset can be trivially translated into an array of numbers of some size, any two different instances from the same dataset may have different sizes and internal structures.
 
-For instance, time series can be easily modelled as $T$-dimensional vectors -- where $T$ is the total amount of available samples --, and the $t^{th}$ component of the vector represents the sample at time $t$; 
+For instance, time series can be easily modelled as $T$-dimensional vectors -- where $T$ is the total amount of available samples --, and the $t^{th}$ component of the vector represents the sample at time $t$;
 %
-free text can be represented as $W$-dimensional vectors -- where $W$ is the total amount of words/bigram/trigram/\ldots in the text --, and  
+free text can be represented as $W$-dimensional vectors -- where $W$ is the total amount of words/bigram/trigram/\ldots in the text --, and
 the $w^{th}$ component of the vector represents the frequency of the $w^{th}$ word in the text (according to some ordering of words in the text);
 %
 graphs can described by $N \times N$ adjacency matrices---where $N$ is the total amount of nodes into the graph.
@@ -1305,7 +1305,7 @@ So, for instance, while symbolically represented objects can only be either equa
 
 Accordingly, logic-based representation are most adequate to represent exact situations, where the world can be modelled according to precise rules.
 %
-Conversely, array-based representation are most adequate to represent approximate situations, where similarity or slight differences among entities are interesting and should be explicitly captured. 
+Conversely, array-based representation are most adequate to represent approximate situations, where similarity or slight differences among entities are interesting and should be explicitly captured.
 
 \paragraph{Extensional vs. Intensional}
 
@@ -1351,7 +1351,7 @@ A famous definition of machine learning from \cite{Mitchell1997} states:
     A computer program is said to learn from experience $E$ with respect to some class of tasks $T$ and performance measure $P$ if its performance at tasks in $T$, as measured by $P$, improves with experience $E$
 \end{displayquote}
 %
-This definition is very wide, as it does not specify 
+This definition is very wide, as it does not specify
 %
 \begin{inlinelist}
     \item what are the possible tasks,
@@ -1395,7 +1395,7 @@ In particular, in the following sections we summarise the state of the art for w
 
 \section{Sub-Symbolic Supervised Machine Learning}
 
-Since several practical AI problems -- such as image recognition, financial and medical decision support systems -- can be reduced to \emph{supervised} ML -- which can be further grouped in terms of either  \emph{classification} or \emph{regression} problems \cite{twala2010,smlreview-faia160} --, in the reminder of this section we focus on this set of ML problems. 
+Since several practical AI problems -- such as image recognition, financial and medical decision support systems -- can be reduced to \emph{supervised} ML -- which can be further grouped in terms of either  \emph{classification} or \emph{regression} problems \cite{twala2010,smlreview-faia160} --, in the reminder of this section we focus on this set of ML problems.
 
 Within the scope of sub-symbolic supervised ML, a \emph{learning algorithm} is commonly exploited to approximate the specific nature and shape of an unknown \emph{prediction} function (or \emph{predictor}) $\pi^*: \mathcal{X} \rightarrow \mathcal{Y}$, mapping data from an input space $\mathcal{X}$ into an output space $\mathcal{Y}$.
 %
@@ -1429,14 +1429,14 @@ In other words, the underlying assumption is that the unknown prediction functio
 %
 The algorithm performs an exploration of the \emph{hypotheses} space $\mathcal{H}$ looking for the hypothesis function $\hat{\pi} \in \mathcal{H}$ that better fits the data in $D$---and that, therefore, better approximates $\pi^*$.
 
-The goodness of the fitting among a hypothesis function $\hat{\pi}$ and the data can be assessed via either 
+The goodness of the fitting among a hypothesis function $\hat{\pi}$ and the data can be assessed via either
 %
 \begin{inlinelist}
     \item an error function $\varepsilon : \mathcal{Y} \times \mathcal{Y} \rightarrow \mathbb{R}_{\geq 0}$ measuring the discrepancy among the expected outputs in $Y$ and the values attained by applying $\hat{\pi}$ to $X$, or dually,
     \item an adherence function $\rho : \mathcal{Y} \times \mathcal{Y} \rightarrow \mathbb{R}_{\leq 1}$, measuring the similarities among the same values.
 \end{inlinelist}
 %
-For the sake of simplicity, we here consider the best hypothesis $\hat{\pi}$ the one item of $\mathcal{H}$ for which the total error is minimal -- or the total adherence is maximal --, w.r.t. the data in $D$. 
+For the sake of simplicity, we here consider the best hypothesis $\hat{\pi}$ the one item of $\mathcal{H}$ for which the total error is minimal -- or the total adherence is maximal --, w.r.t. the data in $D$.
 %
 Therefore, in theory, any sub-symbolic supervised learning process can be abstractly described via any of the following formul\ae{}:
 %
@@ -1486,7 +1486,7 @@ The difference among parameters and \emph{hyper-}parameters is very important in
 %
 In fact, while parameters are \emph{automatically} computed by the learning algorithm, hyper-parameters are not.
 %
-They may be either guessed or estimated by trial-and-error by data scientists---hence representing a bottleneck in the automatisation of learning. 
+They may be either guessed or estimated by trial-and-error by data scientists---hence representing a bottleneck in the automatisation of learning.
 
 \note{About generalisation: the bias-variance trade-off?} % maybe out of topic
 
@@ -1498,7 +1498,7 @@ They may be either guessed or estimated by trial-and-error by data scientists---
     Comments on existing algorithms and their relevant aspects?
     Let's distinguish among parametric and non-parametric algorithms.
     Let's distriguish among regression and classification algorithms, with a focus on regression as classification can be reduced to regression.
-    Focus on gradient descent, backpropagation and deep learning.
+    Focus on gradient descent, back-propagation and deep learning.
 }
 
 % Depending on the predictor family $\mathcal{P}$ of choice, the nature of the learning algorithm and the admissible shapes of $\hat{p}$ may vary dramatically, as well as the their \emph{interpretability}.
@@ -1511,7 +1511,7 @@ They may be either guessed or estimated by trial-and-error by data scientists---
 
 Within the realm of symbolic AI, supervised ML commonly refers to either \emph{inductive logic programming} (ILP) \cite{Muggleton91} or \emph{statistical relational learning} (SRL) \cite{DeRaedt2010}, despite the overlap among the two disciplines is wide.
 
-In both cases, learning consists of approximating an unknown \emph{intensional} representation $H^*$ for a number of positive examples $E^+$, possibly leveraging on 
+In both cases, learning consists of approximating an unknown \emph{intensional} representation $H^*$ for a number of positive examples $E^+$, possibly leveraging on
 %
 \begin{itemize}
     \item some prior KB $B$, carrying the so-called \emph{background knowledge} about the domain at hand;
@@ -1519,7 +1519,7 @@ In both cases, learning consists of approximating an unknown \emph{intensional} 
     \item a \emph{language bias} $C$, constraining the admissible shapes for the representation to-be-learned.
 \end{itemize}
 %
-In the general case, $H^*$, $E^+$, $E^-$, and $B$ are knowledge bases, possibly involving several definite clauses (i.e. either rules or facts), while the shape of $C$ really depends on the particular learning approach at hand. 
+In the general case, $H^*$, $E^+$, $E^-$, and $B$ are knowledge bases, possibly involving several definite clauses (i.e. either rules or facts), while the shape of $C$ really depends on the particular learning approach at hand.
 %
 Of course, there may be cases where $E^-$, $B$ or $C$ are not required, and therefore considered as empty sets.
 
@@ -1531,8 +1531,8 @@ According to the SLR nomenclature of \cite{DeRaedt2010} -- where a unifying mode
 %
 \begin{description}
     \item[parameters learning] where $H$ consists of a given ProbLog KB, where the shape of facts and rules is known, while their probabilities are not, and learning aims at simply estimating those probabilities
-     
-    \item[structure learning] where $H$ is completely unknown, and the whole shape of facts and rules therein contained must be computed, possibly along with their corresponding probabilities 
+
+    \item[structure learning] where $H$ is completely unknown, and the whole shape of facts and rules therein contained must be computed, possibly along with their corresponding probabilities
 \end{description}
 
 In both cases, learning can be defined as an optimisation problem aimed at approximating $H^*$ by search for the best KB $\hat{H}$ into an hypothesis space $\mathcal{H}_{B,C}$, defined by applying all possible combinations of clauses in $B$, as dictated by $C$.
@@ -1543,7 +1543,7 @@ In other words, they consist of KB intensionally defining $h$ via rules of the f
 %
 \begin{equation*}
     \psi :: h(X_1,\ \ldots,\ X_n) \leftarrow f(\bar{X}),\ f'(\bar{X}'),\ f''(\bar{X}''),\ \ldots
-\end{equation*} 
+\end{equation*}
 %
 where $\psi$ denotes an optional probability value,  while $\bar{X}, \bar{X}', \bar{X}'', \ldots$ are tuples involving one or more head variables (i.e., $X_1, \ldots, X_n$), and $f, f', f'', \ldots$ are either predicates defined in $B$ or combinations of those predicates, attained by following the suggestions/constraints contained in $C$.
 %
@@ -1565,14 +1565,14 @@ Conversely, in ILP, $\rho$ is modelled in terms of logic inference\footnotemark:
     \rho(H, E, B) = \sum_{e \in E} \rho(H, e, B)
     \quad \text{and} \quad
     \rho(H, e, B) = \begin{cases}
-        1 & \text{if} ~ H, B \models e 
+        1 & \text{if} ~ H, B \models e
         \\
-        0 & \text{otherwise} 
-    \end{cases} 
+        0 & \text{otherwise}
+    \end{cases}
 \end{equation*}
 %
 \footnotetext{
-    This aspect is better discussed in \cref{chap:reasoning}. 
+    This aspect is better discussed in \cref{chap:reasoning}.
     %
     Within the scope of this chapter, the notation $K \models \phi$, where $K$ is a knowledge base and $\phi$ is a logic formula, can simply be read as ``$\phi$ can be inferred from $K$ via some inference procedure''.
 }
@@ -1585,7 +1585,7 @@ Under such hypothesis, symbolic supervised learning can be defined as \cite{DeRa
 
 Parameter and structure learning differ for the actual way the search is performed, other than for the actual object of search.
 %
-In parameter learning, algorithms can assume the shape of (facts and rules in) $\hat{H}$ to be given (and fixed), and therefore focus on the mere esitmation of probabilities.
+In parameter learning, algorithms can assume the shape of (facts and rules in) $\hat{H}$ to be given (and fixed), and therefore focus on the mere estimation of probabilities.
 %
 Conversely, in structure learning, algorithms must also consider the many possible shapes $\hat{H}$ may have.
 %
@@ -1597,7 +1597,7 @@ Under such hypothesis, rules in $H$ should be of the form:
 %
 \begin{equation*}
     h(X_1,\ \ldots,\ X_n) \leftarrow \ldots
-\end{equation*} 
+\end{equation*}
 %
 where the body of the rule may contain as many predicates as in any possible permutation of any possible subset of $\{ f_1, \ldots, f_r \}$.
 %
@@ -1616,7 +1616,7 @@ For instance, in the meta-interpretative learning approach \cite{MuggletonLPT14}
 There, a meta-rule is a rule involving higher-order variables enumerating over predicate symbols, such as:
 %
 \begin{equation}\label{eq:meta-rule-example}
-    \textsf{P}(A,\ B) \leftarrow \textsf{Q}(A,\ C),\ \textsf{R}(C,\ B) 
+    \textsf{P}(A,\ B) \leftarrow \textsf{Q}(A,\ C),\ \textsf{R}(C,\ B)
 \end{equation}
 %
 where uppercase, sans-serif letters $\textsf{P}, \textsf{Q}, \textsf{R}$ denote higher-order variables, while $A, B, C$ are ordinary variables; and the whole formula allows an induction algorithm to \emph{invent} \cite{MuggletonB88} some binary predicate $\textsf{P}$ by combinations of two binary predicates $\textsf{Q}$ and $\textsf{R}$.
@@ -1640,7 +1640,7 @@ In the particular case of symbolic supervised learning, that mechanism is the la
     ProbLog as the main approach to SRL.
     Bottom up or top down approaces in ILP.
     Mention main approaches: relatively least general generalisation, reverse entailment, bottom clause generalisation, meta-interpretative learning.
-    Mention major algorithms developed in this field.    
+    Mention major algorithms developed in this field.
 }
 
 \section{Symbolic vs. Sub-Symbolic Learning}
@@ -1687,7 +1687,7 @@ Consider for instance the case of a neural network aimed at classifying images o
 %
 It may easily discriminate among dogs and cats (i.e. compute the classification, given an input), yet it may hardly generate admissible images of neither dogs or cats (i.e. compute an input, given a class)\footnotemark.
 
-\footnotetext{Generative Adversarial Neural Networks \cite{GoodfellowPMXWOCB14} may be used whenever bi-directionality is needed, yet that essentially implies traning two networks: one \emph{classifier} and one \emph{generator} of data, where the former can only classify, and the latter can only generate data.}
+\footnotetext{Generative Adversarial Neural Networks \cite{GoodfellowPMXWOCB14} may be used whenever bi-directionality is needed, yet that essentially implies training two networks: one \emph{classifier} and one \emph{generator} of data, where the former can only classify, and the latter can only generate data.}
 
 \subparagraph{Processes}
 
@@ -1709,21 +1709,21 @@ Conversely, within the scope of symbolic approaches, the presence (resp. lack) o
 
 Parallelisation refers to the capability of speeding up learning algorithms by executing as much sub-tasks as possible in parallel, provided that the adequate hardware is in place.
 %
-Within the scope of sub-symbolic approaches, most basic methematical operators -- such as matrix- or tensor-products --, as well as whole learning steps -- such as \emph{batches} in SGD --, can be executed in parallel to some extent, possible via ad-hoc hardware facilities
+Within the scope of sub-symbolic approaches, most basic mathematical operators -- such as matrix- or tensor-products --, as well as whole learning steps -- such as \emph{batches} in SGD --, can be executed in parallel to some extent, possible via ad-hoc hardware facilities
 %
-Conversely, within the scope of symbolic learning, futher research on concurrent / parallel solutions is still needed.
+Conversely, within the scope of symbolic learning, further research on concurrent / parallel solutions is still needed.
 
 Consider, for instance, neural networks as opposed to ILP.
 %
-They are characterised by a great flexibility because of their reliance on differentiable operators (mostly sums, multiplications and activation functions \cite{enwiki:ActivationFunctions}), and malleable way of combining them into arbitrarly complex structures.
+They are characterised by a great flexibility because of their reliance on differentiable operators (mostly sums, multiplications and activation functions \cite{enwiki:ActivationFunctions}), and malleable way of combining them into arbitrarily complex structures.
 %
-Therefore, regardless of the complexity of the overall structrure, a NN is composed by the recursive composition of differentiable operators---which makes the whole network trainable via SGD.
+Therefore, regardless of the complexity of the overall structure, a NN is composed by the recursive composition of differentiable operators---which makes the whole network trainable via SGD.
 %
 To further speed up NN training, a plethora of software frameworks have been designed and implemented, with the purpose of exploiting ad-hoc hardware, such as GPUs---cf. Tensorflow, Theano, Caffe, etc. \missingref.
 %
-Conversely, despite the many algorithms designed for ILP, the avilability of software frameworks reifying them is quite scarce, and the support for parallelisation is even scarcer.
+Conversely, despite the many algorithms designed for ILP, the availability of software frameworks reifying them is quite scarce, and the support for parallelisation is even scarcer.
 %
-Should we speculate on the motivations behind this situation, we would argue that symbolic and sub-symbolic approaches to learning have so far reached different levels of \emph{maturity}---expecially, for what concerns technological readiness.
+Should we speculate on the motivations behind this situation, we would argue that symbolic and sub-symbolic approaches to learning have so far reached different levels of \emph{maturity}---especially, for what concerns technological readiness.
 
 % \note{Higher flexibility of symbolic learning which learns intensional representations, yet higher maturity of sub-symbolic approaches.}
 
@@ -1735,8 +1735,8 @@ Data (resp. computational) efficiency deals with space (resp. time), and it is r
 %
 % Computational efficiency deals with time, and it is related the amount of time required by learning to be effective.
 %
-% In both cases, 
-Here, effectivess refers to the adherence of the learned relation/function w.r.t. the available examples.
+% In both cases,
+Here, effectiveness refers to the adherence of the learned relation/function w.r.t. the available examples.
 
 Concerning data efficiency, sub-symbolic approaches are notably data-hungry \cite{Adadi21}, as they require tons of examples to learn tasks for which a human would require just a handful.
 %
@@ -1744,10 +1744,10 @@ Conversely, symbolic approaches are considered far more data-efficient.
 %
 In \cite{EvansG18}, the authors discuss this notable difference, arguing that a motivation may lay in the strong language bias imposed by choice of logic formul\ae{} as the preferred means for KR.
 
-Concerning computational efficiency, while in theory both symbolic and sub-symbolic approaches must explore \emph{infinite} search spaces, in practice, efficiency can be improved by 
+Concerning computational efficiency, while in theory both symbolic and sub-symbolic approaches must explore \emph{infinite} search spaces, in practice, efficiency can be improved by
 %
 \begin{inlinelist}
-    \item sacrificying effectivess, e.g. by leveraging on greedy algorithms, strong biases, or aggressive stopping criteria,
+    \item sacrificing effectiveness, e.g. by leveraging on greedy algorithms, strong biases, or aggressive stopping criteria,
     \item parallelising the learning algorithm, as discussed above.
 \end{inlinelist}
 
@@ -1757,9 +1757,9 @@ Concerning computational efficiency, while in theory both symbolic and sub-symbo
 
 % \note{Similar formulation, similar issue: no silver bullet, i.e. not everthing is handled automatically}
 
-A commond trait shared by both symbolic and sub-symbolic approaches to supervised learning is their reliance on semi-automatic workflows.
+A common trait shared by both symbolic and sub-symbolic approaches to supervised learning is their reliance on semi-automatic workflows.
 %
-In other words, despite the name, both apporaches require a ``human in the loop'' -- namely, the data scientist -- to take care of those aspects which learning algorithms cannot autonomously deal with.
+In other words, despite the name, both approaches require a ``human in the loop'' -- namely, the data scientist -- to take care of those aspects which learning algorithms cannot autonomously deal with.
 %
 In the case of sub-symbolic approaches, these aspects involve the choice of hyper-parameters.
 %
@@ -1773,17 +1773,17 @@ A summary of such practices can be found in \cite{ClaesenM15}.
 %
 The recent advances in the field of \emph{Automated ML} \cite{HeZC21} are building on such practices in order to further increase the degree of automation in sub-symbolic ML.
 %
-However, current efforts are focussing on supporing data-scientists in an end-to-end fashion, rather than letting software agents learn autonomously.
+However, current efforts are focussing on supporting data-scientists in an end-to-end fashion, rather than letting software agents learn autonomously.
 
 To the best of our knowledge, automating the definition of background knowledges and language biases in symbolic learning is not a major concern.
 %
-Should we speculate on the reasons behind this phenomenon, we would argue that both background knowledges and language biases are the preferred way to let human beings tranfer their commonsense and winsdowm to the learning algorithms.
+Should we speculate on the reasons behind this phenomenon, we would argue that both background knowledges and language biases are the preferred way to let human beings transfer their commonsense and wisdom to the learning algorithms.
 %
 In this sense, the creation of background knowledges and language biases is inherently poorly automatable.
 %
 However, background knowledges can be incrementally constructed by an agent (be it human or software) and then shared or transferred to other agents.
 %
-A similar argument may hold for language bias, since it may be consideres as meta-level background knowledge---i.e. knowledge about how further knowledge may be constructed.
+A similar argument may hold for language bias, since it may be considers as meta-level background knowledge---i.e. knowledge about how further knowledge may be constructed.
 
 % \paragraph{Validation}
 
@@ -1791,11 +1791,11 @@ A similar argument may hold for language bias, since it may be consideres as met
 
 \chapter{Reasoning over Knowledge}\label{chap:reasoning}
 
-The Cambridge dictionary\footnote{\url{https://dictionary.cambridge.org/it/dizionario/inglese/reasoning}} defines \emph{reasoning} as 
+The Cambridge dictionary\footnote{\url{https://dictionary.cambridge.org/it/dizionario/inglese/reasoning}} defines \emph{reasoning} as
 %
 ``the process of thinking about something in order to make a decision''.
 %
-Conversely, the Oxford dictionary\footnote{\url{https://www.oxfordlearnersdictionaries.com/definition/english/reasoning?q=reasoning}} states that reasoning is 
+Conversely, the Oxford dictionary\footnote{\url{https://www.oxfordlearnersdictionaries.com/definition/english/reasoning?q=reasoning}} states that reasoning is
 %
 ``the process of thinking about things in a logical way''.
 %
@@ -1815,20 +1815,20 @@ Inference rules may be used, for instance, to deduce a particular case from a ge
 %
 Therefore, within the symbolic realm, the terms ``inference'' and ``reasoning'' are used almost interchangeably.
 %
-% Under such setting, when it comes 
+% Under such setting, when it comes
 Research in this field aims at letting computational agents draw logic inferences automatically.
 %
-For this reason, the focus of computer scientists is on finding effective and efficient algorithms to let agents reason autonomosly---i.e. with minimal human intervention.
+For this reason, the focus of computer scientists is on finding effective and efficient algorithms to let agents reason autonomously---i.e. with minimal human intervention.
 
 Conversely, when knowledge is sub-symbolically represented, ``inference'' and ``reasoning'' are \emph{reduced} to the data-analytic activity of applying the models learned from previous data to novel data, in order to mine useful information.
 %
 Such activity is far from trivial, as it may used to perform tasks which would be prohibitively complex to express otherwise---e.g. image recognition.
 %
-Accordigly, the Cambridge definition is more adequate in this case: reasoning is not necessarily logic in nature, but for sure it is aimed at driving decisions---e.g. deciding whether handwritten characted is more likely a 1 or a 7, or whether an histological image should or should not raise an alarm for cancer.
+Accordingly, the Cambridge definition is more adequate in this case: reasoning is not necessarily logic in nature, but for sure it is aimed at driving decisions---e.g. deciding whether handwritten characters is more likely a 1 or a 7, or whether an histological image should or should not raise an alarm for cancer.
 %
 Research in this field aims at letting sub-symbolic algorithms attain better predictive performances.
 %
-As such, data scientists' efforts are mostly devoted to the improvement of \emph{learning} algorithms, as inference is straightworard.
+As such, data scientists' efforts are mostly devoted to the improvement of \emph{learning} algorithms, as inference is straightforward.
 %
 However, recent research efforts are being devoted to the exploitation of sub-symbolic algorithms as means for performing symbolic computations---therefore mimicking logic reasoning.
 
@@ -1841,11 +1841,11 @@ In particular, we present the classic approaches and algorithms to automate logi
 
 Symbolic (i.e., logic-based) reasoning approaches root back to John McCarthy's work of 1958 \cite{Mccarthy1958}, aimed at developing the idea of formalising the so-called \emph{commonsense reasoning} to build intelligent artefacts---i.e. computational or cyber-physical agents endowed with human-like intelligence.
 %
-There, commonsense intuitively refers to the basic understanding of the physical world, its cause-effect rules, and the effects of one's actions on it, etc \cite{Mccarthy1989}.
+There, commonsense intuitively refers to the basic understanding of the physical world, its cause-effect rules, and the effects of one's actions on it, etc. \cite{Mccarthy1989}.
 %
 It is such an obvious capability for human beings that most of it is not even explicitly taught in schools, yet it is incredibly hard to formalise and represent for computational agents, which are therefore inherently lacking such kind of basic knowledge.
 
-Despite the formalisation of commonsense soon proved to be very challenging -- mostly because of the many non-trivial involved issues, such as the need of formalising the situation the agent is immersed into, actions it may perform of be subject to, and physical and legal laws govering its environment and context, etc. --, many frameworks and tools have been developed over the years while pursuing such goal.
+Despite the formalisation of commonsense soon proved to be very challenging -- mostly because of the many non-trivial involved issues, such as the need of formalising the situation the agent is immersed into, actions it may perform of be subject to, and physical and legal laws governing its environment and context, etc. --, many frameworks and tools have been developed over the years while pursuing such goal.
 %
 There are freely available commonsense knowledge bases and natural language processing toolkits, supporting practical textual-reasoning tasks on real-world documents including analogy-making, and other context oriented inferences---see for instance \cite{lieberman2004,trinh2018,liu2004conceptnet,liu2002goose,shapiro1999sneps}). \missingref
 %
@@ -1859,25 +1859,25 @@ As its name suggests, \emph{deduction} operates top-down, deriving a true conclu
 %
 \emph{Induction}, instead, operates bottom-up, basically making a guess -- a generalization -- from specific known facts: so, the reasoning involves an element of probability, as the conclusion is not based on universal premises.
 %
-\emph{Abduction} is somehow similar, but seeks for cause-effect relationships---i.e., the goal is to find out under which hypotheses (or premises) a certain goal is provable. 
+\emph{Abduction} is somehow similar, but seeks for cause-effect relationships---i.e., the goal is to find out under which hypotheses (or premises) a certain goal is provable.
 %
-Such technologies are exploited, in particular, for the verification of compliance of specific properties \cite{montali2010}. 
+Such technologies are exploited, in particular, for the verification of compliance of specific properties \cite{montali2010}.
 
-\emph{Logic programming} (LP) is likely the most widely-adopted paradigm based on deduction. 
+\emph{Logic programming} (LP) is likely the most widely-adopted paradigm based on deduction.
 %
-From Colmerauer and Kowalsky's seminal work \cite{Kowalski1974,colmerauer1986-theoreticalProlog}, the Prolog language has been since then one of the most exploited language in AI applications \cite{Dawson1996}. 
+From Colmerauer and Kowalsky's seminal work \cite{Kowalski1974,colmerauer1986-theoreticalProlog}, the Prolog language has been since then one of the most exploited language in AI applications \cite{Dawson1996}.
 %
 Other valuable approaches include \emph{fuzzy logic}, \emph{answer-set programming} (ASP), \emph{constraint logic programming} (CLP), \emph{non-monotonic reasoning}, and \emph{belief-desire-intention} (BDI).
 
 Fuzzy logic \cite{yen1999} aims at dealing with lack of precision or uncertainty.
 %
-In this sense, it is perhaps closer in spirit to the human thinking than traditional logic systems. 
+In this sense, it is perhaps closer in spirit to the human thinking than traditional logic systems.
 %
 Not surprisingly, fuzzy approaches are exploited as a key technology in specific application areas, e.g., the selection of manufacturing technologies \cite{goyal2012}, and industrial processes where the control via conventional methods suffers from the lack of quantitative data about I/O relations.
 %
-There, a fuzzy logic controller effectively synthesises an automatic control strategy from a linguistic control strategy based on an expert's knowledge. 
+There, a fuzzy logic controller effectively synthesises an automatic control strategy from a linguistic control strategy based on an expert's knowledge.
 
-\emph{Answer set programming} (ASP) and \emph{constraint logic programming} (CLP) are the two main logical paradigms for dealing with various classes of NP-complete combinatorial problems. 
+\emph{Answer set programming} (ASP) and \emph{constraint logic programming} (CLP) are the two main logical paradigms for dealing with various classes of NP-complete combinatorial problems.
 %
 ASP solvers are aimed at computing the answer sets of standard logic programs; these tools can be seen as theorem provers, or model builders, enhanced with several built-in heuristics to guide the exploration of the solution space.
 %
@@ -1891,7 +1891,7 @@ CLP technologies can be seen as complementary to \emph{operation research} (OR) 
 
 Non-monotonic reasoning means to face the basic objection \cite{minsky1975} that logic could not represent knowledge and commonsense reasoning as humans because the human reasoning is inherently \emph{non monotonic}---that is, consequences are not always preserved, in contrast to first-order logic.
 %
-Since then, a family of approaches have been developed to suit specific needs---among these, \emph{default reasoning} \cite{reiter1980}, \emph{defeasible reasoning} \cite{pollock1987}, \emph{abstract argumentation} theory \cite{bondarenko1997}. 
+Since then, a family of approaches have been developed to suit specific needs---among these, \emph{default reasoning} \cite{reiter1980}, \emph{defeasible reasoning} \cite{pollock1987}, \emph{abstract argumentation} theory \cite{bondarenko1997}.
 %
 Defeasible reasoning, in particular, is widely adopted in \emph{AI \& law} applications, to represent the complex intertwining of legal norms, often overlapping among each other, possibly from different, non-coherent sources.
 %
@@ -1899,7 +1899,7 @@ Abstract argumentation theory, in its turn, is concerned with the formalisation 
 
 Belief-desire-intention (BDI) logic is a kind of modal logic used for formalising, validating, and designing cognitive \emph{agents}---typically, in the \emph{multi-agent systems} (MAS) context.
 %
-A cognitive agent is an entity consisting of 
+A cognitive agent is an entity consisting of
 %
 \begin{inlinelist}
     \item a belief base storing the agent's \emph{beliefs}, i.e. what the agent knows about the world, itself, and other agents;
@@ -1933,7 +1933,7 @@ Such rules are commonly expressed via a particular notation, heavily leveraging 
 
 Unification \cite{MartelliMontanari1982} is among the most fundamental mechanism in CL: it enables the formalisation of inference, as well virtually any other symbolic manipulation of logic formul\ae{}.
 
-Informally speaking, unification aims at computing a \emph{unifier} among any two FOL formul\ae{}, i.e. a substitution (a.k.a. assignments of variables) making the two formul\ae{} syntatically equal, by properly assigning the variables therein contained.
+Informally speaking, unification aims at computing a \emph{unifier} among any two FOL formul\ae{}, i.e. a substitution (a.k.a. assignments of variables) making the two formul\ae{} syntactically equal, by properly assigning the variables therein contained.
 %
 So, in other words, unification computes substitutions out of logic formul\ae{}, checking whether they can be made equal, or failing otherwise.
 
@@ -1969,7 +1969,7 @@ A trivial way to recursively compute a unifier among $\phi$ and $\psi$ is as fol
         \\
         \{ X \mapsto Y \} & \text{if} ~ \phi = X \wedge \psi = Y
         \\
-        \bigcup_{i}^{N} \unify{\alpha_i}{\alpha'_i} & \text{if} ~ \phi = f(\alpha_1, \ldots, \alpha_N) 
+        \bigcup_{i}^{N} \unify{\alpha_i}{\alpha'_i} & \text{if} ~ \phi = f(\alpha_1, \ldots, \alpha_N)
         \\
         & \qquad \wedge\ \psi = f(\alpha'_1, \ldots, \alpha'_N)
         \\
@@ -1983,9 +1983,9 @@ where $\square$ denotes the lack of any unifier -- capturing the situation where
 %
 There, $f$ is either a predicate or functor symbol ($N$-ary, in both cases), $\alpha_i, \alpha'_i$ are arbitrary formul\ae{}, and $\odot$ denotes any binary logical connective.
 
-More precisely, unification aims at computing the \emph{most general} unifier (MGU), i.e. the unifier $\sigma^*$ such that, for each subsitution $\sigma$ making $\phi$ and $\psi$ syntactically equal (i.e., $\phi = \psi \cdot \sigma$) there exists a substitution $\omega$ making it possible to write $\sigma$ as a particular case of $\sigma^*$ (i.e., $\sigma = \sigma^* \cdot \omega$).
+More precisely, unification aims at computing the \emph{most general} unifier (MGU), i.e. the unifier $\sigma^*$ such that, for each substitution $\sigma$ making $\phi$ and $\psi$ syntactically equal (i.e., $\phi = \psi \cdot \sigma$) there exists a substitution $\omega$ making it possible to write $\sigma$ as a particular case of $\sigma^*$ (i.e., $\sigma = \sigma^* \cdot \omega$).
 %
-Despite computing the MGU among any two formul\ae{} is a non-trivial problem in general, an efficient algorithm is describen in \cite{MartelliMontanari1982}.
+Despite computing the MGU among any two formul\ae{} is a non-trivial problem in general, an efficient algorithm is described in \cite{MartelliMontanari1982}.
 %
 A formal description of this algorithm lays outside this chapter.
 %
@@ -1994,8 +1994,8 @@ However, in what follows we denote by $\mgu{\phi}{\psi}$ the function computing 
 \paragraph{Inference Rules}
 
 Inference rules are functions mapping premises (logic formul\ae{}) into conclusions (other logic formul\ae{}).
-% 
-They can be denoted both as $\phi_1, \ldots, \phi_N \vdash \psi_1, \ldots, \psi_M$ or as 
+%
+They can be denoted both as $\phi_1, \ldots, \phi_N \vdash \psi_1, \ldots, \psi_M$ or as
 %
 \begin{equation*}
     \frac{\phi_1, \ldots, \phi_N}{\psi_1, \ldots, \psi_M} ~ [\text{Rule name}]
@@ -2013,14 +2013,14 @@ Thus, rules of the form $\phi \vdash \psi$ are usually written as concise notati
 
 A plethora of inference rules have been defined in the history of logic.
 %
-Here we focus on four major examples, correspoding to as many inference principles, namely: 
+Here we focus on four major examples, corresponding to as many inference principles, namely:
 %
 \begin{equation*}
     \frac{\alpha \rightarrow \beta, \alpha}{\beta} ~ [\text{Modus Ponens}]
     \qquad
     \frac{\phi\cdot\sigma_1, \ldots, \phi\cdot\sigma_n}{\phi} ~ [\text{Subsumption}]
 \end{equation*}
-\begin{equation*}   
+\begin{equation*}
     \frac{\alpha \rightarrow \beta, \lnot\beta}{\lnot\alpha} ~ [\text{Modus Tollens}]
     \qquad
     \frac{\alpha \rightarrow \beta, \beta}{\alpha} ~ [\text{Abduction}]
@@ -2046,13 +2046,13 @@ It is for instance by abduction that one can hypothesise that it is raining ($ra
 
 Notice that only deductive rules lead to certainly correct conclusions, whereas inductive and deductive rules do not.
 %
-Accordingly, Bayesian inference may be better suited to represent inductive or abductive inferece -- as it let us infer not only hypotheses but their likelyhood as well --, yet it requires trepassing the sub-symbolic realm---as probabilities must be explicitly represented.
+Accordingly, Bayesian inference may be better suited to represent inductive or abductive inference -- as it let us infer not only hypotheses but their likelihood as well --, yet it requires trepassing the sub-symbolic realm---as probabilities must be explicitly represented.
 
 \paragraph{Inference Procedures}
 
 Inference rules alone are able to express reasoning, but they are not enough to let computational draw inferences autonomosly.
 %
-When dealing with inference, computational agents need an inference \emph{procedure}, i.e. an algorithm applying one or more inference rules to a knowledge base, in such a way that counclusions are eventually reached when the algorithm terminates.
+When dealing with inference, computational agents need an inference \emph{procedure}, i.e. an algorithm applying one or more inference rules to a knowledge base, in such a way that conclusions are eventually reached when the algorithm terminates.
 
 In practice, inference procedures should support the efficient and effective computation of correct conclusions.
 %
@@ -2108,9 +2108,9 @@ These are
 
 The SL resolution principle \cite{robinson1965} is a general procedure for proving a set of FOL formul\ae{} in Skolemized form\footnotemark{} true, by \emph{refutation}.
 %
-More precisely, the SL procedure aims at proving a set of clauses as contraddictory, by attemping to derive the empty clause $\bot$ (denoting contradiction) out of it via a number of reduction steps.
+More precisely, the SL procedure aims at proving a set of clauses as contradictory, by attempting to derive the empty clause $\bot$ (denoting contradiction) out of it via a number of reduction steps.
 %
-Thus, in pratice, proving a formula $\phi$ true is achieved by proving $\lnot\phi$ as false---i.e. by refutating it.
+Thus, in practice, proving a formula $\phi$ true is achieved by proving $\lnot\phi$ as false---i.e. by refutating it.
 %
 The basic inference rule operating in this context states that, in a set of Skolemized formul\ae{} $\mathbf{K}$ including $\phi$ and $\psi$, those formul\ae{} may be reduced $\phi'$ and $\psi'$, under the following condition:
 %
@@ -2148,7 +2148,7 @@ The SLD resolution principle \cite{Kowalski1976} is a refinement of the SL princ
 %
 By restricting the scope of resolution to Horn logic, Kowalsky shows how logic resolution can be described via a \emph{procedural} interpretation, mimicking programs execution.
 %
-The result is a non-deterministic algorithm describing how the proof tree of any given query -- expressed as a goal -- agaist any given knowledge base -- expressed as a set of definite clauses -- can be \emph{lazily} constructed, while attempting to refute the query.
+The result is a non-deterministic algorithm describing how the proof tree of any given query -- expressed as a goal -- against any given knowledge base -- expressed as a set of definite clauses -- can be \emph{lazily} constructed, while attempting to refute the query.
 
 The basic inference rule operating in this contexts states that any goal $\gamma$ can be rewritten as $\gamma'$, provided that some definite clause $\phi$ exists in the knowledge base whose head unifies with some literal in $\gamma$.
 %
@@ -2187,7 +2187,7 @@ Therefore, whenever applying the SL inference rule to any literal in $\gamma$, o
 
 \Cref{fig:proof-tree} exemplifies the proof tree generated by the recursive application of SLD inference rule to the goal $son(S, \functor{jacob})$.
 %
-The resolution attemps to prove the goal against a knowledge base describing Abraham's family tree, represented in the same image.
+The resolution attempts to prove the goal against a knowledge base describing Abraham's family tree, represented in the same image.
 %
 Each node in the tree represents a rewritten form of the original goal, whereas each arc subtends the selection of a rule from the knowledge base and a literal from the source node: the label of each edge describes their MGU.
 
@@ -2195,7 +2195,7 @@ Of course, at each step of the SLD resolution, several choices may be taken.
 %
 For instance, several literals may be selected, and each literal may unify with potentially many rules in the knowledge base.
 %
-The theorerical formulation of the SLD principle addresses such choices via \emph{non-determinism}.
+The theoretical formulation of the SLD principle addresses such choices via \emph{non-determinism}.
 %
 However, whenever an actual computational agent needs to perform automated reasoning, it must leverage upon some smart strategy to explore the proof tree sequentially, and in useful time.
 
@@ -2207,7 +2207,7 @@ It is at the same time a particular way of expressing logic resolution, and a ve
 %
 Here we focus on the theoretical aspects of Prolog, whereas technological aspects are treated later in this thesis.
 
-Prolog is essentially a particular way to make the exploratioon of the proof tree subtended by the SLD resolution principle \emph{sequential}.
+Prolog is essentially a particular way to make the exploration of the proof tree subtended by the SLD resolution principle \emph{sequential}.
 %
 In other words, Prolog makes the SLD resolution a sequential algorithm.
 %
@@ -2242,7 +2242,7 @@ SLDNF supports negation by defining the meta-predicate $not(g)$ which is proven 
 %
 So, in procedural terms, the goal $not(g)$ can be read as ``attempt to prove $g$, and, if no solution exists, then $not(g)$ is true, false otherwise''.
 
-Notably, NaF subtends a \emph{closed} world assumption, where everthing that is not know -- nor deducible from what is known -- is false.
+Notably, NaF subtends a \emph{closed} world assumption, where everything that is not know -- nor deducible from what is known -- is false.
 
 \section{Sub-symbolic Reasoning}
 %
@@ -2256,7 +2256,7 @@ Therefore, inference in simply a phase in the life-cycle of a data-driven model,
 
 In the inference phase of any sub-symbolic system, novel information is actually drawn, and that information strongly depends on what the systems has learned from data (prior knowledge) during training.
 %
-For instance, classifiers enable the labelling of arbitrarly complex unknown data according to some predefined set of labels.
+For instance, classifiers enable the labelling of arbitrarily complex unknown data according to some predefined set of labels.
 %
 Similarly, regressors enable predictions on unknown data, out of prior experience.
 %
@@ -2270,7 +2270,7 @@ Nevertheless, a number of recent proposals are pushing relevant aspects of logic
 %
 As a result, methods for building \emph{hybrid} systems -- i.e. systems mixing symbolic and sub-symbolic means to represent, learn, or infer -- are flourishing.
 
-Generally speaking, hybridation may occur in two ways, namely by \emph{model integration} or by \emph{symbolic knowledge embedding}.
+Generally speaking, hybridisation may occur in two ways, namely by \emph{model integration} or by \emph{symbolic knowledge embedding}.
 %
 In the former case, symbolic information is used to \emph{structure} or \emph{constrain} the behaviour of a sub-symbolic system---in most cases, a neural network, because of its malleability.
 %
@@ -2280,19 +2280,19 @@ In the latter case, symbolic information is \emph{embedded} into a sub-symbolic 
 
 In this category we review the main attempts to \emph{integrate} symbolic models (such as the logic ones) with sub-symbolic ones (such as statistical and numerical).
 %
-The main research lines here are those related to the neural-symbolic computing \cite{Hammer2007-neuralsymbolic}  -- the study of logics and connectionism as well as statistical approaches working on the integration of computational learning and symbolic reasoning -- and relational learning \cite{deRaedt2008-logicalRL}---focused on learning expressive logic / relational representations. 
+The main research lines here are those related to the neural-symbolic computing \cite{Hammer2007-neuralsymbolic}  -- the study of logics and connectionism as well as statistical approaches working on the integration of computational learning and symbolic reasoning -- and relational learning \cite{deRaedt2008-logicalRL}---focused on learning expressive logic / relational representations.
 
 Approaches in this category integrate logic and symbolic knowledge with sub-symbolic predictors such as (deep) neural networks.
 %
 Integration exploits logic rules expressed via FOL -- or some subset of it -- which are used to either constrain or structure the behaviour of one or more predictors.
 
-On the one hand, constraining is commonly performed by extending the loss function used by most numeric learning algorithms -- there including the back-propagation algorithm used for neural networks -- with an additive, regularisation term constructed from the logic constraints. 
+On the one hand, constraining is commonly performed by extending the loss function used by most numeric learning algorithms -- there including the back-propagation algorithm used for neural networks -- with an additive, regularisation term constructed from the logic constraints.
 %
 The numeric predictor is then trained ``as usual'', via optimisation---i.e. minimising some loss function.
 %
 However, thanks to a \emph{regularisation} term attained by encoding the logic rules accordingly, the training process is more likely to select a set of parameters for the numeric predictor, which are consistent with those logic rules.
 %
-Generally speaking, the key advantage of these approaches lies in the blended integration of different models, where the logic one -- where expressing crisp information is trivial -- can be used to inject prior knowledge or commonsense into the sub-symbolic one, even in lack of data.
+Generally speaking, the key advantage of these approaches lies in the blended integration of different models, where the logic one -- where expressing crisp information is trivial -- can be used to inject prior knowledge or common-sense into the sub-symbolic one, even in lack of data.
 
 On the other hand, structuring is commonly performed by building the sub-symbolic predictors in such a way that their internal structure mirrors the provided symbolic knowledge.
 %
@@ -2302,13 +2302,13 @@ There, the internal topology of neurons, as well as their activation functions, 
 %
 Computation is then shifted into the sub-symbolic realm, since the so-constructed predictors act ordinarily.
 %
-Generally speaking, the key advantage of these approaches sub-symbolic emulation of symbolic facilities, thus allowing efficiency of reasoning in particular cases -- at the price of constraining it scope of application --, and robustness w.r.t. missing or contraddictory data.
+Generally speaking, the key advantage of these approaches sub-symbolic emulation of symbolic facilities, thus allowing efficiency of reasoning in particular cases -- at the price of constraining it scope of application --, and robustness w.r.t. missing or contradictory data.
 
 \paragraph{Logic as constraints}
 
 Paradigmatic works in this category are for instance: DNN with Logic Rules \cite{hu2016}, Logic Tensor Networks (LTN) \cite{serafini2016,Serafini2017}, Semantic Loss Function (SLF) \cite{xu2018}, and Lyrics \cite{marra2019lyrics}.
 
-DNN with Logic Rules (no concise name is given) \cite{hu2016}, proposes a method for constraining a (deep) neural network behaviour via FOL rules. 
+DNN with Logic Rules (no concise name is given) \cite{hu2016}, proposes a method for constraining a (deep) neural network behaviour via FOL rules.
 %
 The proposed framework enables neural networks to be simultaneously trained on labelled data or logic rules, via an iterative distillation procedure aimed at transferring the symbolic knowledge encoded in the logic rules into the network parameters.
 %
@@ -2320,29 +2320,29 @@ In particular, logic constraints are encoded into the loss function via soft log
 %
 Conversely, the student network is trained to balance between emulating the teacher network output and predicting the expected outcomes of the dataset.
 
-LTN \cite{serafini2016,Serafini2017} integrate learning based on tensor networks \cite{socher2013} with reasoning based first-order many-valued logic \cite{bergmann2008}. 
+LTN \cite{serafini2016,Serafini2017} integrate learning based on tensor networks \cite{socher2013} with reasoning based first-order many-valued logic \cite{bergmann2008}.
 %
 They enable a range of knowledge-based tasks using rich knowledge representation in FOL to be combined with efficient data-driven machine learning based on the manipulation of real-valued vectors.
 %
-% Given data available in the form of real-valued vectors, logic soft and hard constraints, and relations that apply to certain subsets of the vectors can be specified in a compact way using FOL. 
+% Given data available in the form of real-valued vectors, logic soft and hard constraints, and relations that apply to certain subsets of the vectors can be specified in a compact way using FOL.
 % %
-% Reasoning about the constraints can help improve learning, and, viceversa, learning from new data can revise the constraints thus affecting the reasoning task. 
+% Reasoning about the constraints can help improve learning, and, viceversa, learning from new data can revise the constraints thus affecting the reasoning task.
 %
-Notably, integration is defined upon the Real Logic \cite{Serafini2017}. 
+Notably, integration is defined upon the Real Logic \cite{Serafini2017}.
 %
-FOL formul\ae{} are used to build a loss function that aims at training a network capable of approximating the truth value (in the $[0,1]$ interval) of the formul\ae{} given as input. 
+FOL formul\ae{} are used to build a loss function that aims at training a network capable of approximating the truth value (in the $[0,1]$ interval) of the formul\ae{} given as input.
 %
-This is done by searching for the best possible representation for symbolic constructs in a vector space (grounding of atoms, functions, predicates), so that the satisfiability of the network is as close as possible to 1 on the test dataset. 
+This is done by searching for the best possible representation for symbolic constructs in a vector space (grounding of atoms, functions, predicates), so that the satisfiability of the network is as close as possible to 1 on the test dataset.
 %
-The resulting network is able to learning from the rightly-labelled real examples, but keeps the logic imprint given in the training phase. 
+The resulting network is able to learning from the rightly-labelled real examples, but keeps the logic imprint given in the training phase.
 
 SLF \cite{xu2018} is another attempt of bridging neural networks and symbolic constraints via loss-function manipulation, similarly to LTN.
 %
-In the intentions of its authors, it aims to 
+In the intentions of its authors, it aims to
 %
 \begin{itemize}
-    \item improve the predictive performance of neural networks -- by allowing the training process to take background knowledge into account --, and 
-    \item support semi-supervised learning. 
+    \item improve the predictive performance of neural networks -- by allowing the training process to take background knowledge into account --, and
+    \item support semi-supervised learning.
 \end{itemize}
 %
 To do so, SLF constrains the training process of a neural network via some \emph{propositional} logic formul\ae{} which are then encoded as part the loss function exploited by the training algorithm.
@@ -2367,7 +2367,7 @@ KBANN \cite{Towell1990} is one of the earliest attempts of exploiting symbolic A
 %
 It is capable of devising the structure of a neural network from a symbolic knowledge base containing the user-defined, symbolic background knowledge.
 %
-More precisely, KBANN assumes a stratified, Prolog-like, logic theory is available, encoding the background knowledge. 
+More precisely, KBANN assumes a stratified, Prolog-like, logic theory is available, encoding the background knowledge.
 %
 Under this assumption, the KBANN algorithm aims at creating a neural network semantically reflecting the symbolic knowledge from which it was created.
 %
@@ -2381,10 +2381,10 @@ The resulting neural network can then be trained over data via back-propagation,
 
 CILP++ \cite{Franca2014} is a model aimed at performing inductive logic programming (ILP) via bottom clause propositionalisation and neural networks.
 %
-CILP++ leverages on 
+CILP++ leverages on
 %
 \begin{inlinelist}
-    \item neural networks to make ILP faster, and on 
+    \item neural networks to make ILP faster, and on
     \item propositionalisation to make the construction of neural networks out of arbitrary logic theories possible.
 \end{inlinelist}
 %
@@ -2449,13 +2449,13 @@ Most techniques developed so far are tailored on \emph{description logics}, that
 %
 The key idea is to translate components of an ontology (a.k.a.\ knowledge graph, or simply KG) into continuous vector spaces, to allow neural networks to accept such a type of structured information as input and take advantage of its background knowledge to perform ordinary machine learning tasks.
 
-Most of the currently-available techniques perform the embedding task only on the basis of observed facts. 
+Most of the currently-available techniques perform the embedding task only on the basis of observed facts.
 %
-Given a KG, knowledge graph injection techniques first represent entities and relations in a continuous vector space, and then measure facts plausibility exploiting some scoring function. 
+Given a KG, knowledge graph injection techniques first represent entities and relations in a continuous vector space, and then measure facts plausibility exploiting some scoring function.
 %
-Entity and relation embeddings can be obtained by maximising the total plausibility of observed facts. 
+Entity and relation embeddings can be obtained by maximising the total plausibility of observed facts.
 
-During this whole procedure, the learned embeddings are only required to be compatible within each individual fact, and hence might not be predictive enough for downstream tasks \cite{wang2015,wei2015}. 
+During this whole procedure, the learned embeddings are only required to be compatible within each individual fact, and hence might not be predictive enough for downstream tasks \cite{wang2015,wei2015}.
 %
 As a result, more and more researchers have started to add other types of information, including logic rules \cite{wang2015,rocktaschel2015,guo2016}, in order to learn more predictive embeddings.
 
@@ -2469,33 +2469,33 @@ The noteworthy approaches that we deem significant for the purpose of this surve
 	\item \textsc{Oscar} (2019) \cite{goodwin2019}
 \end{itemize}
 %
-In particular, \cite{wang2015,wei2015} exploit rules to refine embedding models aimed at KG completion. 
+In particular, \cite{wang2015,wei2015} exploit rules to refine embedding models aimed at KG completion.
 %
-KG completion is formulated as an integer linear programming problem, where the objective function is generated from embedding models and constraints are generated from rules. 
+KG completion is formulated as an integer linear programming problem, where the objective function is generated from embedding models and constraints are generated from rules.
 %
-Facts inferred in this way are the most preferred by the embedding models and comply with all the rules. 
+Facts inferred in this way are the most preferred by the embedding models and comply with all the rules.
 %
 By incorporating rules, these approaches can greatly reduce the solution space and significantly improve the inference accuracy of embedding models.
 %
 \textsc{Trescal} \cite{wang2015} is an extension of \textsc{Rescal}, requiring the arguments of a relation to be entities of certain specified types.
 
-Along this line, other works -- e.g., \cite{rocktaschel2015,guo2016} -- propose approaches that embed KG facts and logic rules simultaneously in a unified framework. 
+Along this line, other works -- e.g., \cite{rocktaschel2015,guo2016} -- propose approaches that embed KG facts and logic rules simultaneously in a unified framework.
 %
-In particular, in \textsc{Ins}, formul\ae{} are injected into the embeddings of relations and entity-pairs, i.e., the embeddings are estimated such that predictions based on them conform to given logic formul\ae. 
+In particular, in \textsc{Ins}, formul\ae{} are injected into the embeddings of relations and entity-pairs, i.e., the embeddings are estimated such that predictions based on them conform to given logic formul\ae.
 %
-\textsc{Kale}, on the other side, represents rules as complex formul\ae{} modelled by t-norm fuzzy logics. 
+\textsc{Kale}, on the other side, represents rules as complex formul\ae{} modelled by t-norm fuzzy logics.
 %
-Embedding then amounts to minimising a global loss over both atomic and complex formulae. 
+Embedding then amounts to minimising a global loss over both atomic and complex formulae.
 %
 Thus embeddings are learnt as compatible with rules.
 
-In \cite{goodwin2019} the authors propose a method, \textsc{Oscar}, for injecting task-agnostic knowledge from a KG into a neural network during the training. 
+In \cite{goodwin2019} the authors propose a method, \textsc{Oscar}, for injecting task-agnostic knowledge from a KG into a neural network during the training.
 %
 \textsc{Oscar} is a pre-training regularisation technique capable of injecting world knowledge and ontological relationships into a deep neural network: the expert knowledge is exploited as a regulariser for the network.
 
 It is worth noting that in all these approaches rules are modelled separately from embedding models, serving as post-processing steps: this is why we classify these work as combination and not integration.
 %
-Furthermore, all these works share a common drawback, in that they have to instantiate universally-quantified rules into ground rules before learning their models. 
+Furthermore, all these works share a common drawback, in that they have to instantiate universally-quantified rules into ground rules before learning their models.
 %
 This is called grounding procedure, and can be time- and space-inefficient---especially when dealing with big data scenarios or in case of rules complexity.
 
@@ -2503,20 +2503,46 @@ This is called grounding procedure, and can be time- and space-inefficient---esp
 
 Hybrid systems are still in their infancy.
 %
-Hybridation usually comes at the cost of a reduced expressivity of the logic formalism adopted.
+Hybridisation usually comes at the cost of a reduced expressiveness of the logic formalism adopted.
 %
-Empirically, we observe that full fledged FOL is too complex to handle for sub-symbolic systems.
+Empirically, we observe that full fledged FOL is too complex to handle for sub-symbolic systems, which are therefore forced to take countermeasures into account.
 %
 Once again, issues concern KR.
 %
-In particular, \emph{intensional} logic representations as well as the flexibility of logic -- which is open to the addition of novel symbols --, are what make hybridation difficult.
+In particular, \emph{intensional} logic representations as well as the flexibility of logic -- which is open to the addition of novel symbols --, are what makes hybridisation difficult.
 
+Countermeasures generally involve using a sub-sets of FOL -- thus renouncing to the full expressiveness of FOL --, and enforcing knowledge to be extensively represented.
 
+In the former case, constraints are imposed at the KR level.
+%
+These may involve
+%
+\begin{inlinelist}
+    \item forbidding structured terms,
+    \item limiting the shape of predicates or clauses,
+    \item focussing on simpler logics such as Horn logic, description logics, or predicate logic,
+    \item or a combination of these constraints.
+\end{inlinelist}
+%
+In all such cases, the scope of the hybrid system is reduced, w.r.t. a full-fledged symbolic system.
+%
+Consider for instance the case of Horn logic with no structured terms.
+%
+This would imply, for instance, that lists could not be used in the symbolic part of the system---hence greatly reducing the practical reach of hybrid systems.
 
+In the latter case, \emph{grounding} of the knowledge base is usually assumed as a preliminary step before any sub-symbolic processing.
+%
+In the general case, grounding a non-ground knowledge base involves enumerating all the possible variable assignments of for all variables of all formul\ae{} therein contained.
+%
+Variable assignments may in turn be infinite, depending on how may items the underlying Herbrand universe contains.
+%
+Of course, grounding is only possible in practice when the amount of items in the Herbrand universe -- and therefore the amount of admissible variable assignments --, is \emph{finite}.
+%
+Notably, by admitting structured terms for KR, the Herbrand universe will certainly be infinite (cf. \cref{par:herbrand})---hence why leveraging on grounding usually subtends forbidding (at least) structured terms from the KR formalism.
 
 \chapter{Explaining AI via Symbolic Knowledge}
 
-Despite the open philosophical issues, it is undeniable that AI and ML are nowadays becoming more and more intertwined with a growing number of aspects of people's every day life \cite{helbing2019, elliott2019}. 
+Despite the open philosophical issues, it is undeniable that AI and ML are nowadays becoming more and more intertwined with a growing number of aspects of people's every day life \cite{helbing2019, elliott2019}.
 %
 In fact, more and more decisions are delegated by humans to software agents whose intelligent behaviour is not the result of some skilled developer endowing it with some clever code, but rather the consequence the agents' capability of learning, planning, or inferring what to do from data.
 
@@ -2530,9 +2556,9 @@ Broadly speaking, the ``black-box'' expression is used to refer to models where 
 
 Such difficulty in understanding black-boxes content and functioning is what prevents people from fully trusting -- and thus accepting -- them.
 %
-In several contexts, such as the medical or financial ones, it is not sufficient for intelligent agents to output bare decisions, since, for instance, ethical and legal issues may arise. 
+In several contexts, such as the medical or financial ones, it is not sufficient for intelligent agents to output bare decisions, since, for instance, ethical and legal issues may arise.
 %
-An \emph{explanation} for each decision is therefore often desirable, preferable, or even required.  
+An \emph{explanation} for each decision is therefore often desirable, preferable, or even required.
 %
 Furthermore, it may happen for instance that black-boxes \emph{silently} learn something wrong (e.g., Google image recognition software that classified black people as gorillas \cite{fourcade2017, crawford2016artificial}), or something right, but in a biased way (like  the ``background bias'' problem, causing for instance husky images to be recognised only because of their snowy background \cite{RibeiroSG16}).
 
@@ -2565,19 +2591,19 @@ The idea, and the main goal of XAI is to create intelligible and understandable 
 %
 Thus explanations are built through a number of heterogeneous techniques, broadly referred to as \emph{explanators} \cite{GuidottiMRTGP19}---just to cite some, \emph{decision rules} \cite{Augasta2012}, \emph{feature importance} \cite{tolomei2017interpretable}, saliency masks \cite{FongV17}, sensitivity analysis \cite{SundararajanTY17}, etc.
 
-The state of the art for explainability currently recognises two main sorts of explanators, namely, either local or global. 
+The state of the art for explainability currently recognises two main sorts of explanators, namely, either local or global.
 %
 While \emph{local} explanators attempt to provide an explanation for each particular prediction of a given predictor $p$, the \emph{global} ones attempt to provide an explanation for the predictor $p$ as a whole.
 %
 In other words, local explanators provide an answer to the question ``why does $p$ predict $\mathbf{y}$ for the input $\mathbf{x}$?'' -- such as the LIME technique presented in \cite{RibeiroSG16} --, whereas global explanators provide an answer to the question ``how does $p$ build its predictions?''---such as decision rules.
 
-In spite of the many approaches proposed to explain black boxes, some important scientific questions still remain unanswered. 
+In spite of the many approaches proposed to explain black boxes, some important scientific questions still remain unanswered.
 %
-One of the most important open problems is that, until now, there is no agreement on what an explanation is. 
+One of the most important open problems is that, until now, there is no agreement on what an explanation is.
 %
-Indeed, some approaches adopt as explanation a set of rules, others a decision tree, others rely on visualisation techniques \cite{GuidottiMRTGP19}. 
+Indeed, some approaches adopt as explanation a set of rules, others a decision tree, others rely on visualisation techniques \cite{GuidottiMRTGP19}.
 %
-Moreover, recent works highlight the importance for an explanation to guarantee some properties, e.g., soundness, completeness, and compactness \cite{GuidottiMRTGP19}. 
+Moreover, recent works highlight the importance for an explanation to guarantee some properties, e.g., soundness, completeness, and compactness \cite{GuidottiMRTGP19}.
 
 % \note{Probabilmente si può tagliare da qui in poi}
 
@@ -2593,7 +2619,7 @@ Moreover, recent works highlight the importance for an explanation to guarantee 
 % %
 % Such approximation essentially trades off predictive performance with interpretability.
 % %
-% In fact, the structure of such a DT would then be used to provide useful insights concerning the original predictor inner functioning. 
+% In fact, the structure of such a DT would then be used to provide useful insights concerning the original predictor inner functioning.
 
 % Describing the particular means for extracting DT from black-boxes is outside the scope of this paper.
 % %
@@ -2605,7 +2631,7 @@ Moreover, recent works highlight the importance for an explanation to guarantee 
 
 % We believe that a logical representation of DT may be interesting and enabling for further research directions.
 % %
-% For instance, as far as explainability is concerned, we show how logic-translated DT can be used to both navigate the knowledge stored within the corresponding predictors -- thus acting as \emph{global} explanators --, and produce \emph{narrative} explanations for their predictions---thus acting as \emph{local} explanators. 
+% For instance, as far as explainability is concerned, we show how logic-translated DT can be used to both navigate the knowledge stored within the corresponding predictors -- thus acting as \emph{global} explanators --, and produce \emph{narrative} explanations for their predictions---thus acting as \emph{local} explanators.
 % %
 % Note that the restriction on the DT representation makes it easy to map DT onto logical clauses, since DT are finite and with a limited expressivity (if / else conditions).
 
@@ -2635,15 +2661,15 @@ In all contexts, ML is at the same time an enabling -- as it aids the decision p
 
 Opacity is why ML predictors are also referred to as \emph{black boxes} into the literature.
 %
-The ``black box'' expression refers to models where knowledge is not explicitly represented \cite{Lipton18}. 
+The ``black box'' expression refers to models where knowledge is not explicitly represented \cite{Lipton18}.
 %
 The lack of some explicit, symbolic representation of knowledge is what makes it hard for humans to \emph{understand} the functioning of black boxes, and why they led to suggest or undertake a given decision.
 %
-Obviously, troubles in understanding black-box content and functioning prevents people from fully trusting -- therefore accepting -- them. 
+Obviously, troubles in understanding black-box content and functioning prevents people from fully trusting -- therefore accepting -- them.
 %
 To make the picture even more complex, current regulations such as the GDPR \cite{gdpr-voigt2017} are starting to recognise the citizens' \emph{right to explanation} \cite{explanation-aimag38}---which implicitly requires IS to eventually become \emph{understandable}.
 %
-In fact, understanding IS is essential to guarantee algorithmic fairness, to identify potential bias/problems in the training data, and to ensure that IS perform as designed and expected. 
+In fact, understanding IS is essential to guarantee algorithmic fairness, to identify potential bias/problems in the training data, and to ensure that IS perform as designed and expected.
 
 %%%%
 \begin{figure}
@@ -2692,13 +2718,13 @@ Similarly to what we do here, Lipton \cite{Lipton18} starts his discussion by re
 %
 In his clarification effort, Lipton essentially maps interpretability on the notion of \emph{transparency}, and explanation on the notion of \emph{post-hoc} interpretation.
 %
-Then, he enumerates and describes the several possible variants of transparency, that are 
+Then, he enumerates and describes the several possible variants of transparency, that are
 %
 \begin{enumerate*}[label=\emph{(\roman{*})}]
     \item simulatability -- i.e., the \emph{practical} possibility, for a human being, to ``contemplate the entire model at once'' and simulate its functioning on some data  -- which characterises, for instance, generalised linear models;
-    
+
     \item decomposability -- i.e., the possibility, for the model to be decomposed in elementary parts whose functioning is intuitively understandable for humans and helpful in understanding the whole model -- which characterises, for instance, decision trees; and
-    
+
     \item algorithmic transparency -- i.e., the possibility, for a human being, to intuitively understand how a given learning algorithm, or the predictors it produces, operate -- which characterises, for instance, k-nearest-neighbours techniques.
 \end{enumerate*}
 %
@@ -2718,9 +2744,9 @@ In particular, when focussing on ML, they introduce the following classification
 %
 \begin{enumerate*}[label=\emph{(\roman{*})}]
     \item opaque systems -- i.e., black boxes acting as oracles where the logic behind predictions is not observable or understandable --,
-    
+
     \item interpretable systems -- i.e., white boxes whose functioning is understandable to humans, also thanks to expertise, resources, or tools --, and
-    
+
     \item comprehensible systems---i.e., ``systems which emit \emph{symbols} along with their outputs, allowing the user to relate properties of the input to the output''.
 \end{enumerate*}
 %
@@ -2732,7 +2758,7 @@ In \cite{DoshiVelezK2017}, interpretability of ML systems is defined as ``the ab
 %
 Interpretations and explanations are therefore collapsed in this work, as confirmed by the authors using the two terms interchangeably.
 %
-The reminder of that paper focuses 
+The reminder of that paper focuses
 \begin{enumerate*}[label=\emph{(\roman{*})}]
     \item on identifying under which circumstances interpretability is needed in ML, and
     \item how to assess the quality of some explanation.
@@ -2754,7 +2780,7 @@ However, she states some interesting properties about \emph{interpretability}, w
 %
 In particular, she acknowledges that ``interpretability is a domain-specific notion''.
 %
-Furthermore, she links interpretability of information with its complexity -- and, in particular, its \emph{sparsity} --, as the amount of cognitive entities the human mind can at one is very limited ($\sim 7 \pm 2$ according to \cite{numberseven-psyrev63}). 
+Furthermore, she links interpretability of information with its complexity -- and, in particular, its \emph{sparsity} --, as the amount of cognitive entities the human mind can at one is very limited ($\sim 7 \pm 2$ according to \cite{numberseven-psyrev63}).
 %
 As far as explainability is concerned, apparently, Rudin adopts a \emph{post-hoc} perspective similar to the one in \cite{Lipton18}, as she writes ``an explanation is a separate model that is supposed to replicate most of the behaviour of a black box''.
 %
@@ -2762,7 +2788,7 @@ In the reminder of the paper, the author argues how the path towards interpretab
 
 Finally, the recent article by Rosenfeld et al. \cite{RosenfeldR2019} is similar in its intents to our current work.
 %
-There, the authors attempt to formally define what explanation and interpretation respectively are in the case of ML-based classification. 
+There, the authors attempt to formally define what explanation and interpretation respectively are in the case of ML-based classification.
 %
 However, their work differs from ours in several ways.
 %
@@ -2770,11 +2796,11 @@ In particular, they define interpretation and explanation differently from what 
 %
 In fact, according to the authors, ``interpretation'' is a function mapping data, data schemes, and predictors to some representation of the predictors internal logic, whereas ``explanation'' is defined as ``the human-centric objective for the user to understand'' a predictor using the aforementioned interpretation function.
 %
-Other notions are formally defined into the paper, such as for instance, 
+Other notions are formally defined into the paper, such as for instance,
 %
 \begin{inlinelist}
-    \item explicitness, 
-    \item fairness, 
+    \item explicitness,
+    \item fairness,
     \item faithfullness,
     \item justification, and
     \item transparency.
@@ -2782,7 +2808,7 @@ Other notions are formally defined into the paper, such as for instance,
 %
 Such concepts are formally defined in terms of the aforementioned interpretation and explanation functions.
 %
-The reminder of the paper then re-interprets the field of XAI in terms of all the notions mentioned so far. 
+The reminder of the paper then re-interprets the field of XAI in terms of all the notions mentioned so far.
 
 \section{Explanation vs. Interpretation}\label{sec:basics}
 
@@ -2866,7 +2892,7 @@ At a very high abstraction level, many tasks in AI may be devoted to compute, fo
     \item the best $M^* \in \mathcal{M}$, given $X \subseteq \mathcal{X}$ and $Y \subseteq \mathcal{Y}$ (e.g. supervised ML),
     \item the best $M^*$ and $Y$, given $X$ (e.g.\ unsupervised ML),
     \item the best $Y^*$, given $X$ and $M$ (e.g.\ informed/uninformed search),
-    \item the best $X^*$, given $Y$ and $M$ (e.g.\  abduction, most likely explanation), etc 
+    \item the best $X^*$, given $Y$ and $M$ (e.g.\  abduction, most likely explanation), etc
 \end{itemize}
 %
 according to some goodness criterion which is specific for the task at hand.
@@ -2915,7 +2941,7 @@ Similarly, saliency maps are an interpretable way to \emph{locally} represent th
 So, a way for easing interpretation for a given model behaviour w.r.t.\ a particular sort of inputs is about looking for the right representation in the eyes of the observer.
 
 %---
-\paragraph{Local explanations}    
+\paragraph{Local explanations}
 %---
 
 Conversely, when an observer $A$ is \emph{explaining} a model $M$ w.r.t.\ some input data $Z \subseteq X$, it is actually trying to produce a model $M' = E(M, Z)$ through some function $E: \mathcal{M} \times 2^\mathcal{X} \rightarrow \mathcal{M}$.
@@ -2953,7 +2979,7 @@ Thus, providing an explanation for a given model behaviour w.r.t.\ a particular 
 \paragraph{Global / local explanations}
 %---
 
-The theoretical framework described so far -- which is graphically synthesised in \cref{fig:local} -- is aimed at modelling \emph{local} interpretations and explanations, that are, the two means an explanator agent may exploit in order to make AI tasks' \emph{outcomes} more understandable in the eyes of some explanee. 
+The theoretical framework described so far -- which is graphically synthesised in \cref{fig:local} -- is aimed at modelling \emph{local} interpretations and explanations, that are, the two means an explanator agent may exploit in order to make AI tasks' \emph{outcomes} more understandable in the eyes of some explanee.
 
 Conversely, when the goal is not to understand some model outcome, but the model itself, from a \emph{global} perspective -- or, equivalently, when the goal is to understand the model outcome w.r.t the whole set of input data $X$ --, the theoretical framework described so far is simplified as shown in \cref{fig:global}, where the dependency on the input data is omitted from functions $E$, $\Delta f$, and $r$.
 %
@@ -2967,7 +2993,7 @@ Finally, we remark that the case where a model $M$ is to be understood on a sing
 
 Our framework is deliberately abstract in order to capture a number of features we believe to be essential in XAI.
 %
-First of all, our framework acknowledges -- and properly captures -- the orthogonality of interpretability w.r.t.\ explainability. 
+First of all, our framework acknowledges -- and properly captures -- the orthogonality of interpretability w.r.t.\ explainability.
 %
 This is quite new, indeed, considering that most authors tend to use the two concepts as if they were equivalent or interchangeable.
 
@@ -3031,7 +3057,7 @@ This is deliberate, since different semantics may come with different computatio
 %
 For instance, one agent may be interested in finding the \emph{best} explanation---that is, the one for which \emph{each} representation is more interpretable than the most interpretable representation of the original model.
 %
-Similarly, in some cases, it may be sufficient -- other than more feasible -- to find an \emph{admissible} explanation---that is, a high-fidelity model for which \emph{some} representation exists that is more interpretable than \emph{some} representation of the original model. 
+Similarly, in some cases, it may be sufficient -- other than more feasible -- to find an \emph{admissible} explanation---that is, a high-fidelity model for which \emph{some} representation exists that is more interpretable than \emph{some} representation of the original model.
 %
 However, the inspection of the possible semantics and their properties falls outside the scope of this paper and is going to be considered as a future research direction.
 
@@ -3047,7 +3073,7 @@ Thus, hereafter, we adopt their taxonomy as a reference for assessing our framew
 
 The taxonomy proposed by Guidotti et al.\ essentially discriminates among two main categories of XAI methods.
 %
-These are the ``transparent box design'' and the ``black-box explanation'' categories. 
+These are the ``transparent box design'' and the ``black-box explanation'' categories.
 %
 While the former category is not further decomposed, the latter comes with three more sub-categories, such as ``model explanation'', the ``outcome explanation'', and the ``model inspection''.
 %
@@ -3066,21 +3092,21 @@ Hence, it can be defined as follows:
 \begin{itemize}
     \item[] Let $M$ be a sub-symbolic classifier whose internal functioning representation $R$ is poorly interpretable in the eyes of some explanee $A$, and let $E(\cdot)$ be some \emph{global} explanation strategy.
     %
-    Then, the model explanation problem consists of computing some \emph{global} explanation $M' = E(M)$ which is $\delta$-admissible and $\varepsilon$-clear w.r.t.\ to $A$, for some $\delta, \varepsilon > 0$. 
+    Then, the model explanation problem consists of computing some \emph{global} explanation $M' = E(M)$ which is $\delta$-admissible and $\varepsilon$-clear w.r.t.\ to $A$, for some $\delta, \varepsilon > 0$.
 \end{itemize}
 %
 For instance, according to Guidotti et al., possible sub-symbolic classifiers are neural (possibly deep) networks, support vector machines, and random forests.
 %
-Conversely, explanation strategies may consist of algorithms aimed at 
+Conversely, explanation strategies may consist of algorithms aimed at
 %
 \begin{enumerate*}[label=\emph{(\roman{*})}]
-    \item extracting decision trees/rules out of sub-symbolic predictors and the data they have been trained upon, 
+    \item extracting decision trees/rules out of sub-symbolic predictors and the data they have been trained upon,
     \item compute feature importance vectors,
     \item detecting saliency masks,
-    \item detecting partial dependency plots, etc. 
+    \item detecting partial dependency plots, etc.
 \end{enumerate*}
 
-In our framework, all the algorithms mentioned above can be described as \emph{explanation strategies}. 
+In our framework, all the algorithms mentioned above can be described as \emph{explanation strategies}.
 %
 Such mapping is plausible given their ability to compute an admissible, and possibly more explicit models out of black boxes and the data they have been trained upon.
 %
