@@ -66,6 +66,13 @@
 	\setstretch{\themainlinespacing}
 }
 
+\let\oldbackmatter\backmatter
+\renewcommand{\backmatter}{
+	\oldbackmatter
+	% \onehalfspacing % https://tex.stackexchange.com/questions/30073/why-is-the-linespread-factor-as-it-is
+	\setstretch{1}
+}
+
 \newcommand{\mypapers}[2][chapter]{
 	\begin{flushright}\tiny
 		This #1 contains contributions from the following works of ours: \cite{#2}

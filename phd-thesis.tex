@@ -214,7 +214,7 @@ However, at the time -- likely, because of computational limits of the hardware 
 
 Even if it is currently not as popular as NN, the history of symbolic AI is extremely important as well---mostly because of the prominent influence it has on the many fields converging in AI.
 %
-Despite their original ambition of reproducing human reasoning \emph{in toto} has been was inevitably rejected by facts, symbolic approaches gave birth to several research lines which are nowadays considered autonomous fields, such as computational logic \cite{lloyd1990computational}, logic programming \cite{apt1990logic}, planning \cite[Chap. 10-11]{russell2016artificial}, multi agent systems \cite{ferber1999multi}, etc.
+Despite their original ambition of reproducing human reasoning \emph{in toto} has been inevitably rejected by facts, symbolic approaches gave birth to several research lines which are nowadays considered autonomous fields, such as computational logic \cite{lloyd1990computational}, logic programming \cite{apt1990logic}, planning \cite[Chap. 10-11]{russell2016artificial}, multi-agent systems \cite{ferber1999multi}, etc.
 
 A few decades later, many things has changed.
 %
@@ -224,7 +224,7 @@ Nevertheless, a dualism is still there, alive and healthy, dividing symbolic app
 
 Nowadays, sub-symbolic techniques include NN, but they are not limited to the connectionist techniques.
 %
-The panorama of sub-symbolic techniques has been widened by the development of several data-mining algorithms -- along with their efficient implementations --, such as SVM \cite{Smola2004}, K-Means, Expectation Maximisation \cite{Dempster77maximumlikelihood}, Viterbi \cite{Viterbi06}, etc, which mostly leverage on \emph{numerical} computations while not being backed by a biological metaphor.
+The panorama of sub-symbolic techniques has been widened by the development of several data-mining algorithms -- along with their efficient implementations --, such as SVM \cite{Smola2004}, K-Means, Expectation Maximisation \cite{Dempster77maximumlikelihood}, Viterbi \cite{Viterbi06}, etc., which mostly leverage on \emph{numerical} computations while not being backed by a biological metaphor.
 
 Summarising, at the gates of 2020s, AI consists of a number of powerful techniques -- often backed by sound theoretical or empirical backgrounds --, which are widely employed to automate disparate tasks, both in the industry and in the research.
 %
@@ -1277,7 +1277,7 @@ Finally, two different graphs (possibly describing similar situations), may invo
 Depending on the nature of the data itself, and on the particular data-analytic goal data representation is serving, datasets of such sorts can be translated into rigid form by following one of the strategies below:
 %
 \begin{description}
-    \item[draw a number of statistics] on each datum (e.g. mean, standard deviation, min, max, etc), attempting to aggregate the information therein contained: if the same amount and sorts of statistics are drawn for each datum, the dataset will then become tabular;
+    \item[draw a number of statistics] on each datum (e.g. mean, standard deviation, min, max, etc.), attempting to aggregate the information therein contained: if the same amount and sorts of statistics are drawn for each datum, the dataset will then become tabular;
     \item[apply a domain-chancing transformation] such as the Fourier transform \cite{CooleyLW1969} or the wavelet transform \cite{Zhang2019};
     \item[sub-sample each variable-size datum] using a fixed-size sampling step; e.g. a sliding window for time series \cite{FrankDH01}, or neighbourhoods of fixed sizes for graphs;
     \item[exploit \emph{ad-hoc} embeddings] targetting particular sorts of data, such as GNN \cite{WuPCLZY2021}, Word2Vec \cite{Church2017}, etc.
@@ -2542,9 +2542,10 @@ Notably, by admitting structured terms for KR, the Herbrand universe will certai
 
 \chapter{Explaining AI via Symbolic Knowledge}
 
-Despite the open philosophical issues, it is undeniable that AI and ML are nowadays becoming more and more intertwined with a growing number of aspects of people's every day life \cite{helbing2019, elliott2019}.
+% Despite the open philosophical issues, i
+It is undeniable that AI and ML are nowadays becoming more and more intertwined with a growing number of aspects of people's every day life \cite{helbing2019, elliott2019}.
 %
-In fact, more and more decisions are delegated by humans to software agents whose intelligent behaviour is not the result of some skilled developer endowing it with some clever code, but rather the consequence the agents' capability of learning, planning, or inferring what to do from data.
+In fact, more and more decisions are delegated by humans to software agents whose intelligent behaviour is not the result of some skilled developer endowing them with some clever code, but rather the consequence the agents' capability of learning, planning, or inferring what to do from data.
 
 In spite of the large adoption, intelligent machines whose behaviour is the result of automatic synthesis / learning procedures are difficult to trust for most people---in particular when they are not expert in the field.
 %
@@ -2552,7 +2553,7 @@ This is especially true for agents leveraging on machine or deep learning based 
 
 There, agents often tend to accumulate their knowledge into \emph{black-box} predictive models which are trained through ML or DL.
 %
-Broadly speaking, the ``black-box'' expression is used to refer to models where knowledge is not explicitly represented -- such as in NN, support vector machines (SVM), or random forests --, and it is therefore difficult, for humans, to understand what a black-box actually knows, or what leads to a particular decision.
+As we further discuss in this paper, ``black boxes'' are models where knowledge is \emph{sub-symbolically} represented -- such as NN, support vector machines (SVM), or random forests --, and it is therefore difficult, for humans, to understand what they actually know, or what led them to a particular decision.
 
 Such difficulty in understanding black-boxes content and functioning is what prevents people from fully trusting -- and thus accepting -- them.
 %
@@ -2562,48 +2563,48 @@ An \emph{explanation} for each decision is therefore often desirable, preferable
 %
 Furthermore, it may happen for instance that black-boxes \emph{silently} learn something wrong (e.g., Google image recognition software that classified black people as gorillas \cite{fourcade2017, crawford2016artificial}), or something right, but in a biased way (like  the ``background bias'' problem, causing for instance husky images to be recognised only because of their snowy background \cite{RibeiroSG16}).
 
-To tackle such trust issues, the \emph{eXplainable Artificial Intelligence} (XAI) research field has recently emerged, and a comprehensive research road map has been proposed by DARPA \cite{darpa2016-xai}, targeting the themes of explainability and interpretability in AI -- and in particular ML -- as a challenge of paramount importance in a world where AI is becoming more and more pervasively adopted.
-%
-There, DARPA reviews the main approaches to make AI either more interpretable or \emph{a posteriori} explainable, it categorises the many currently available techniques aimed at building meaningful interpretations or explanations for black-box models, it summarises the open problems and challenges, and it provides a reference framework for the researchers interested in the field.
+% To tackle such trust issues, the \emph{eXplainable Artificial Intelligence} (XAI) research field has recently emerged, and a comprehensive research road map has been proposed by DARPA \cite{darpa2016-xai}, targeting the themes of explainability and interpretability in AI -- and in particular ML -- as a challenge of paramount importance in a world where AI is becoming more and more pervasively adopted.
+% %
+% There, DARPA reviews the main approaches to make AI either more interpretable or \emph{a posteriori} explainable, it categorises the many currently available techniques aimed at building meaningful interpretations or explanations for black-box models, it summarises the open problems and challenges, and it provides a reference framework for the researchers interested in the field.
 
-Broadly speaking, research efforts in the field of XAI are focused on achieving key properties in AI, such as \emph{interpretability}, \emph{transparency}, \emph{explainability}, \emph{accountability}, and \emph{trustworthiness}.
-%
-Unfortunately, such goals are still far from being reached.
-%
-For instance, as pointed out in \cite{Lipton18}, the aforementioned properties are still lacking a formal and agreed-upon definition.
-%
-Some authors \cite{Rudin2019} propose to strengthen the adoption of most \emph{interpretable} (i.e. algorithmically transparent) predictive models -- such as generalised linear models or decision trees --, while others seek new ways to produce \emph{post-hoc} explanations capable of tackling even most opaque predictors, such as NN.
-%
-However, as demonstrated by the comprehensive survey produced by Guidotti et al. \cite{GuidottiMRTGP19}, most works only target classification problems, and they rarely take wider properties -- such as accountability and trustworthiness -- into account.
+% Broadly speaking, research efforts in the field of XAI are focused on achieving key properties in AI, such as \emph{interpretability}, \emph{transparency}, \emph{explainability}, \emph{accountability}, and \emph{trustworthiness}.
+% %
+% Unfortunately, such goals are still far from being reached.
+% %
+% For instance, as pointed out in \cite{Lipton18}, the aforementioned properties are still lacking a formal and agreed-upon definition.
+% %
+% Some authors \cite{Rudin2019} propose to strengthen the adoption of most \emph{interpretable} (i.e. algorithmically transparent) predictive models -- such as generalised linear models or decision trees --, while others seek new ways to produce \emph{post-hoc} explanations capable of tackling even most opaque predictors, such as NN.
+% %
+% However, as demonstrated by the comprehensive survey produced by Guidotti et al. \cite{GuidottiMRTGP19}, most works only target classification problems, and they rarely take wider properties -- such as accountability and trustworthiness -- into account.
 
-\sidenote{Spostare il capoverso sotto in un posto più opportuno}
-Several works, among the various springs of AI, proposed to extract symbolic knowledge from sub-symbolic models.
-%
-As witnessed by a number of surveys \cite{GuidottiMRTGP19, GarcezBRFHIKLMS15, AndrewsDT95, GarcezBG01} and works on the topic \cite{BolognaH18, BolognaH16, FrosstH17, JohanssonN09, KrishnanSB1999, HruschkaE2006, ZhouZYS1983, CravenS95, AugastaK12, SatoT2002, KahramanliA09a} -- some of which are from the 80s or the 90s -- the potential of symbolic knowledge \emph{extraction} is well understood, despite not being subject to hype.
-%
-Unfortunately, a comprehensive and general framework tackling such problem in a general way is still missing.
+% \sidenote{Spostare il capoverso sotto in un posto più opportuno}
+% Several works, among the various springs of AI, proposed to extract symbolic knowledge from sub-symbolic models.
+% %
+% As witnessed by a number of surveys \cite{GuidottiMRTGP19, GarcezBRFHIKLMS15, AndrewsDT95, GarcezBG01} and works on the topic \cite{BolognaH18, BolognaH16, FrosstH17, JohanssonN09, KrishnanSB1999, HruschkaE2006, ZhouZYS1983, CravenS95, AugastaK12, SatoT2002, KahramanliA09a} -- some of which are from the 80s or the 90s -- the potential of symbolic knowledge \emph{extraction} is well understood, despite not being subject to hype.
+% %
+% Unfortunately, a comprehensive and general framework tackling such problem in a general way is still missing.
 
-\note{Armonizzare quanto segue con ciò che precede}
+% \note{Armonizzare quanto segue con ciò che precede}
 
-Since the adoption of interpretable predictors usually comes at cost of a lower potential in terms of predictive performance, \emph{explanations} are the newly preferred way for providing understandable predictions without necessarily sacrificing accuracy.
-%
-The idea, and the main goal of XAI is to create intelligible and understandable explanations for uninterpretable predictors \emph{without} replacing or modifying them.
-%
-Thus explanations are built through a number of heterogeneous techniques, broadly referred to as \emph{explanators} \cite{GuidottiMRTGP19}---just to cite some, \emph{decision rules} \cite{Augasta2012}, \emph{feature importance} \cite{tolomei2017interpretable}, saliency masks \cite{FongV17}, sensitivity analysis \cite{SundararajanTY17}, etc.
+% Since the adoption of interpretable predictors usually comes at cost of a lower potential in terms of predictive performance, \emph{explanations} are the newly preferred way for providing understandable predictions without necessarily sacrificing accuracy.
+% %
+% The idea, and the main goal of XAI is to create intelligible and understandable explanations for uninterpretable predictors \emph{without} replacing or modifying them.
+% %
+% Thus explanations are built through a number of heterogeneous techniques, broadly referred to as \emph{explanators} \cite{GuidottiMRTGP19}---just to cite some, \emph{decision rules} \cite{Augasta2012}, \emph{feature importance} \cite{tolomei2017interpretable}, saliency masks \cite{FongV17}, sensitivity analysis \cite{SundararajanTY17}, etc.
 
-The state of the art for explainability currently recognises two main sorts of explanators, namely, either local or global.
-%
-While \emph{local} explanators attempt to provide an explanation for each particular prediction of a given predictor $p$, the \emph{global} ones attempt to provide an explanation for the predictor $p$ as a whole.
-%
-In other words, local explanators provide an answer to the question ``why does $p$ predict $\mathbf{y}$ for the input $\mathbf{x}$?'' -- such as the LIME technique presented in \cite{RibeiroSG16} --, whereas global explanators provide an answer to the question ``how does $p$ build its predictions?''---such as decision rules.
+% The state of the art for explainability currently recognises two main sorts of explanators, namely, either local or global.
+% %
+% While \emph{local} explanators attempt to provide an explanation for each particular prediction of a given predictor $p$, the \emph{global} ones attempt to provide an explanation for the predictor $p$ as a whole.
+% %
+% In other words, local explanators provide an answer to the question ``why does $p$ predict $\mathbf{y}$ for the input $\mathbf{x}$?'' -- such as the LIME technique presented in \cite{RibeiroSG16} --, whereas global explanators provide an answer to the question ``how does $p$ build its predictions?''---such as decision rules.
 
-In spite of the many approaches proposed to explain black boxes, some important scientific questions still remain unanswered.
-%
-One of the most important open problems is that, until now, there is no agreement on what an explanation is.
-%
-Indeed, some approaches adopt as explanation a set of rules, others a decision tree, others rely on visualisation techniques \cite{GuidottiMRTGP19}.
-%
-Moreover, recent works highlight the importance for an explanation to guarantee some properties, e.g., soundness, completeness, and compactness \cite{GuidottiMRTGP19}.
+% In spite of the many approaches proposed to explain black boxes, some important scientific questions still remain unanswered.
+% %
+% One of the most important open problems is that, until now, there is no agreement on what an explanation is.
+% %
+% Indeed, some approaches adopt as explanation a set of rules, others a decision tree, others rely on visualisation techniques \cite{GuidottiMRTGP19}.
+% %
+% Moreover, recent works highlight the importance for an explanation to guarantee some properties, e.g., soundness, completeness, and compactness \cite{GuidottiMRTGP19}.
 
 % \note{Probabilmente si può tagliare da qui in poi}
 
@@ -2635,9 +2636,13 @@ Moreover, recent works highlight the importance for an explanation to guarantee 
 % %
 % Note that the restriction on the DT representation makes it easy to map DT onto logical clauses, since DT are finite and with a limited expressivity (if / else conditions).
 
+Accordingly, in the reminder of this chapter we discuss the meaning and the role of explanations in modern AI, we review the recent literature on this topic, and we present the possible means to construct \emph{symbolic} explanations for sub-symbolic predictors.
+
 %===============================================================================
-\section{XAI Background}\label{sec:background}
+\section{eXplainable Artificial Intelligence}\label{sec:xai-background}
 %===============================================================================
+
+\mypapers{agentbasedxai-aamas2020,agentbasedxai-extraamas2020}
 
 Most intelligent systems (IS) today leverage on \emph{numerical} predictive models which are trained from data through ML.
 %
@@ -2674,7 +2679,7 @@ In fact, understanding IS is essential to guarantee algorithmic fairness, to ide
 %%%%
 \begin{figure}
     \centering
-    \includegraphics[width=.5\linewidth]{figures/interpretability-performance-tradeoff}
+    \includegraphics[width=\linewidth]{figures/interpretability-performance-tradeoff}
     \caption[Interpretability/performance trade-off]{Interpretability/performance trade-off for some common sorts of black-box predictors}
     \label{fig:tradeoff}
 \end{figure}
@@ -2706,7 +2711,7 @@ Unfortunately, in spite of the great effort in defining terms, objects, and meth
 \subsection{Related works}\label{ssec:related}
 %-------------------------------------------------------------------------------
 
-Notions such as explanation, interpretation, transparency, etc, are mentioned, introduced, or informally defined in several works.
+Notions such as explanation, interpretation, transparency, etc., are mentioned, introduced, or informally defined in several works.
 %
 However, a coherent framework has not emerged yet.
 
@@ -2720,13 +2725,13 @@ In his clarification effort, Lipton essentially maps interpretability on the not
 %
 Then, he enumerates and describes the several possible variants of transparency, that are
 %
-\begin{enumerate*}[label=\emph{(\roman{*})}]
+\begin{inlinelist}
     \item simulatability -- i.e., the \emph{practical} possibility, for a human being, to ``contemplate the entire model at once'' and simulate its functioning on some data  -- which characterises, for instance, generalised linear models;
 
     \item decomposability -- i.e., the possibility, for the model to be decomposed in elementary parts whose functioning is intuitively understandable for humans and helpful in understanding the whole model -- which characterises, for instance, decision trees; and
 
     \item algorithmic transparency -- i.e., the possibility, for a human being, to intuitively understand how a given learning algorithm, or the predictors it produces, operate -- which characterises, for instance, k-nearest-neighbours techniques.
-\end{enumerate*}
+\end{inlinelist}
 %
 Similarly, \emph{post-hoc} interpretability is defined as an approach where some information is extracted from a black box in order to ease its understanding.
 %
@@ -2742,15 +2747,15 @@ Then they discuss the topic of explanation in AI from an historical perspective.
 %
 In particular, when focussing on ML, they introduce the following classification of IS systems:
 %
-\begin{enumerate*}[label=\emph{(\roman{*})}]
+\begin{inlinelist}
     \item opaque systems -- i.e., black boxes acting as oracles where the logic behind predictions is not observable or understandable --,
 
     \item interpretable systems -- i.e., white boxes whose functioning is understandable to humans, also thanks to expertise, resources, or tools --, and
 
     \item comprehensible systems---i.e., ``systems which emit \emph{symbols} along with their outputs, allowing the user to relate properties of the input to the output''.
-\end{enumerate*}
+\end{inlinelist}
 %
-According to this classification, while interpretable systems can be inspected to be understood -- thus letting observer draw their explanations by themselves--, comprehensible systems must explicitly provide a symbolic explanation of their functioning.
+According to this classification, while interpretable systems can be inspected to be understood -- thus letting observer draw their explanations by themselves --, comprehensible systems must explicitly provide a symbolic explanation of their functioning.
 %
 The focus there is thus on \emph{who} produces explanations, rather than \emph{how}.
 
@@ -2759,10 +2764,10 @@ In \cite{DoshiVelezK2017}, interpretability of ML systems is defined as ``the ab
 Interpretations and explanations are therefore collapsed in this work, as confirmed by the authors using the two terms interchangeably.
 %
 The reminder of that paper focuses
-\begin{enumerate*}[label=\emph{(\roman{*})}]
+\begin{inlinelist}
     \item on identifying under which circumstances interpretability is needed in ML, and
     \item how to assess the quality of some explanation.
-\end{enumerate*}
+\end{inlinelist}
 
 The survey by Guidotti et al. \cite{GuidottiMRTGP19} is a nice entry point to explainable ML.
 %
@@ -2790,11 +2795,12 @@ Finally, the recent article by Rosenfeld et al. \cite{RosenfeldR2019} is similar
 %
 There, the authors attempt to formally define what explanation and interpretation respectively are in the case of ML-based classification.
 %
-However, their work differs from ours in several ways.
+% However, their work differs from ours in several ways.
 %
-In particular, they define interpretation and explanation differently from what we do.
+% In particular, they define interpretation and explanation differently from what we do.
 %
-In fact, according to the authors, ``interpretation'' is a function mapping data, data schemes, and predictors to some representation of the predictors internal logic, whereas ``explanation'' is defined as ``the human-centric objective for the user to understand'' a predictor using the aforementioned interpretation function.
+% In fact, a
+According to the authors, ``interpretation'' is a function mapping data, data schemes, and predictors to some representation of the predictors internal logic, whereas ``explanation'' is defined as ``the human-centric objective for the user to understand'' a predictor using the aforementioned interpretation function.
 %
 Other notions are formally defined into the paper, such as for instance,
 %
@@ -2810,7 +2816,7 @@ Such concepts are formally defined in terms of the aforementioned interpretation
 %
 The reminder of the paper then re-interprets the field of XAI in terms of all the notions mentioned so far.
 
-\section{Explanation vs. Interpretation}\label{sec:basics}
+\section{Explanation vs. Interpretation}\label{sec:exp-int-basics}
 
 This section introduces the preliminary notions, intuitions, and notations we leverage upon in \cref{ssec:framework} and subsequent sections, in order to formalise our abstract framework for agent-based explanations.
 %
@@ -2839,7 +2845,7 @@ The value $I_A(X)$ is not required to be directly observable or measurable in pr
 This is far from being an issue, since we are not actually interested in the absolute value of $I_A(X)$, for some object $X$, but rather we are interested in being able to order different objects w.r.t.\ their subjective interpretability.
 %
 For instance, we write $I_A(X) > I_A(Y)$, for two objects $X$ and $Y$, meaning that the former is more interpretable than the latter, according to $A$.
-%
+
 For example, consider the case of a neural network and a decision tree, both trained on the same examples to solve the same problem with similar predictive performances.
 %
 Both objects may be represented as graphs.
@@ -2860,6 +2866,7 @@ Summarising, we stress the subjective nature of interpretations, as agents assig
 %---
 \paragraph{About explanation}
 %---
+
 We define ``explaining'' as the activity of producing a more interpretable object $X'$ out of a less interpretable one, namely $X$, performed by agent $A$.
 %
 More formally, we define \emph{explanation} as a function $E(X) \mapsto X'$ mapping objects into other objects, possibly, in such a way that $I_A(X') > I_A(X)$, for some agent $A$.
@@ -3005,7 +3012,7 @@ The last step is objective in the sense that it does not depend on the agent's p
 %
 Of course, the \emph{effectivess} of an explanation is again a subjective aspect.
 %
-Indeed, a clear explanation (for some agent) is a more interpretable variant of some given model--- thus, the subjective activity of interpretation is again implicitly involved.
+Indeed, a clear explanation (for some agent) is a more interpretable variant of some given model---thus, the subjective activity of interpretation is again implicitly involved.
 
 The proposed framework also captures the importance of representations.
 %
@@ -3013,7 +3020,7 @@ This is yet another degree of freedom that agents may exploit in their seek for 
 %
 While other frameworks consider interpretability as an intrinsic property of AI models, we stress the fact that a given model may be represented in several ways, and each representation may be interpreted differently by different agents.
 %
-As further discussed in the remainder of this paper, this is far from being an issue.
+As further discussed in the remainder of this chapter, this is far from being an issue.
 %
 This subjectivity is deliberate, and it is the starting point of some interesting discussions.
 
@@ -3033,7 +3040,7 @@ Notice that, in practice, the nature of the model constrains the set of admissib
 %
 This means that a rational agent is likely to exploit both the explanation and interpretation axes in the general case---because novel representations may become available through an explanation.
 %
-we argue and assume that each family of AI models comes with just a few \emph{natural} representations.
+We argue and assume that each family of AI models comes with just a few \emph{natural} representations.
 %
 Because of this practical remark, we expect that, in real-world scenarios, an agent seeking for understandability is likely to ``work'' on both the interpretation and the explanation axes.
 
@@ -3043,7 +3050,7 @@ Conversely, neural networks can either be represented as graphs or as algebraic 
 %
 In any case, neural network models are commonly considered less interpretable than other models.
 %
-In such situation, a rational agent willing to make a neural network more understandable may choose to combine decision trees extraction (explanation) -- possibly focusing on methods from the literature \cite{AndrewsDT95,xailp-woa2019} -- to produce a decision tree whose tree-like structure (representation) could be presented to the human observer to ease his/her interpretation.
+In such situation, a rational agent willing to make a neural network more understandable may choose to combine decision trees extraction (explanation) -- possibly focusing on methods from the literature \cite{AndrewsDT95,xailp-woa2019} -- to produce a decision tree whose tree-like structure (representation) could be presented to the human observer to ease their interpretation.
 %
 The decision-tree like representation is not ordinarily available for neural networks, but it may become available provided that an explanation step is performed.
 
@@ -3113,18 +3120,18 @@ Such mapping is plausible given their ability to compute an admissible, and poss
 However, it is worth to highlight that the clarity gain produced by such explanation strategies mostly relies on the implicit assumption that their output models come with a natural representation which is intuitively interpretable to the human mind.
 
 %-------------------------------------------------------------------------------
-\subsubsection{Outcome explanation}
+\paragraph{Outcome explanation}
 %-------------------------------------------------------------------------------
 
 Methods classified as part of the ``outcome explanation'' sub-category can be very naturally described in our framework as well.
 %
 In fact, it can be defined as follows:
 %
-\begin{itemize}
-    \item[] Let $M$ be some sub-symbolic classifier whose internal functioning representation $R = r(M, Z)$ in some subset $Z \subset \mathcal{X}$ of the input domain is poorly interpretable to some explanee $A$, and let $E(\cdot, \cdot)$ be some \emph{local} explanation strategy.
+\begin{quotation}
+    Let $M$ be some sub-symbolic classifier whose internal functioning representation $R = r(M, Z)$ in some subset $Z \subset \mathcal{X}$ of the input domain is poorly interpretable to some explanee $A$, and let $E(\cdot, \cdot)$ be some \emph{local} explanation strategy.
     %
     Then, the outcome explanation problem consists of computing some \emph{local} explanation $M' = E(M, Z)$ which is $\delta$-admissible and $\varepsilon$-clear w.r.t.\ to $A$, for some $\delta, \varepsilon > 0$
-\end{itemize}
+\end{quotation}
 %
 Summarising, while input black boxes may still be classifiers of any sort, explanation, and explanation strategies differ from the ``model explanation'' case.
 %
@@ -3137,16 +3144,16 @@ Such a portion is implicitly assumed to be relatively small in most cases.
 Furthermore, the explanation strategy is less constrained than in the global case, as it is not required to produce explanations elsewhere.
 
 %-------------------------------------------------------------------------------
-\subsubsection{Model inspection}
+\paragraph{Model inspection}
 %-------------------------------------------------------------------------------
 
 Methods classified as part of the ``model inspection'' sub-category can be naturally defined as follows:
 %
-\begin{itemize}
-    \item[] Let $M$ be a sub-symbolic classifier whose available \emph{global} representation $R = r(M)$ is poorly interpretable to some explanee $A$, and let $r(\cdot), r'(\cdot)$ be two different representation means.
+\begin{quotation}
+    Let $M$ be a sub-symbolic classifier whose available \emph{global} representation $R = r(M)$ is poorly interpretable to some explanee $A$, and let $r(\cdot), r'(\cdot)$ be two different representation means.
     %
     Then, the model inspection problem consists of computing some representation $R' = r'(M)$ such that $I_A(R') > I_A(R)$
-\end{itemize}
+\end{quotation}
 %
 Of course, solutions to the model inspection problem vary a lot depending on which specific representation means $r(\cdot)$ is exploited by the explanator, other than the nature of the data the black box is trained upon.
 %
@@ -3157,16 +3164,16 @@ It is worth pointing out the capability of our framework to reveal the actual na
 Indeed, it clearly shows how this is the first problem among the ones presented so far, which only relies on the interpretation axis alone to provide understandability.
 
 %-------------------------------------------------------------------------------
-\subsubsection{Transparent box design}
+\paragraph{Transparent box design}
 %-------------------------------------------------------------------------------
 
 Finally, methods classified as part of the ``transparent box design'' sub-category can be naturally defined as follows:
 %
-\begin{itemize}
-    \item[] Let $X \subseteq \mathcal{X}$ be a dataset from some input domain $\mathcal{X}$, let $r(\cdot)$ be a representation means, and let $A$ be the explanee agent.
+\begin{quotation}
+    Let $X \subseteq \mathcal{X}$ be a dataset from some input domain $\mathcal{X}$, let $r(\cdot)$ be a representation means, and let $A$ be the explanee agent.
     %
     Then the transparent box design problem consists of computing a classifier $M$ for which a global representation $R = r(M, X)$ exists such that $I_A(R) > 1 - \delta$, for some $\delta > 0$
-\end{itemize}
+\end{quotation}
 %
 Although very simple, the transparent-box design is of paramount importance in XAI systems as it is the basic brick of most general explanation strategies.
 %
@@ -3184,14 +3191,339 @@ In this case, the explanation strategy $E$ is said \emph{pedagogical}---whereas 
 
 In other words, as made evident by our framework, the pedagogical methods exploited to deal with the model or outcome explanation problems must internally solve the transparent box design problem, as they must build an interpretable model out of some sampled data-set and nothing more.
 
-\section{Symbolic Knowledge Extraction}
+\section{Symbolic Knowledge Extraction}\label{sec:knowledge-extraction}
 
-\cite{shallow2deep-extraamas2021}
-\cite{xailp-woa2019}
+\mypapers{xmas-aiiot2019,xaisurvey-ia14,xailp-woa2019}%,shallow2deep-extraamas2021}
 
-\section{Symbolic Knowledge Injection}
+Many strategies can be exploited to pursue the purpose of explainability~\cite{GuidottiMRTGP19}.
+%
+Some authors suggest for instance to \emph{only} rely on \emph{interpretable} algorithms~\cite{Rudin2019} -- such as generalised linear models, decision trees, etc. -- to construct data-driven solutions that are explainable by construction.
+%
+However, this may hinder predictive performance in the general case, as it essentially cuts off most effective algorithms---e.g., ANN.
+%
+Another strategy consists of deriving \emph{post-hoc} explanations \cite{KENNY2021103459}, aimed at reverse-engineering the inner operation of a BB so as to make it explicit.
+%
+In this way, data scientists can keep using prediction-effective predictors such as NN, while still attaining high predictive performance.
+%
+The focus of this paper is on the latter strategy.
 
-\cite{nsc4xai-woa2020}
+Symbolic knowledge extraction (SKE) \cite{GarcezBG01} is among the most promising means to derive \emph{post-hoc} explanations for sub-symbolic predictors.
+%
+Roughly speaking, the main idea behind SKE is to enable the construction of a \emph{symbolic} surrogate model mimicking the behaviour of a given predictor.
+%
+There, symbols may consist of intelligible knowledge, such as flat lists or hierarchical trees of \emph{rules}.
+%
+Such rules can then be exploited to either derive predictions or to better understand the behaviour of the original predictor.
+
+SKE has been applied, for instance, to credit-risk evaluation \cite{baesens2003using,baesens2001building,steiner2006using},  healthcare -- i.e., to make early breast cancer prognosis predictions \cite{franco2007early} and to help the diagnosis and discrimination among hepatobiliary disorders \cite{hayashi2000comparison} or other diseases and dysfunctions \cite{bologna1997three,bologna2000study} --, credit card screening \cite{setiono2011rule}, intrusion detection systems \cite{hofmann2003rule}, and keyword extraction \cite{azcarraga2012keyword}.
+
+\subsection{State of the art}
+
+Here we discuss the main approaches for extracting symbolic knowledge out of sub-symbolic predictors.
+
+The main underlying assumption behind most works in this category is that, once a sub-symbolic system has been trained over large amounts of data reaching some good predictive performance, then it must have attained a distributed representation of the knowledge contained in the data.
+%
+Even though unintelligible to human beings, the distributed representation is still somehow buried in the internals of that sub-symbolic systems.
+%
+Assuming this is the case, then a knowledge extraction technique is a means for making the distributed representation explicit and intelligible.
+
+It is worth to mention that the idea of extracting decision rules or trees from sub-symbolic predictors is not new: it has been introduced several times, in many forms, and with different names and methods, since the late 80s.
+%
+In fact, generally speaking, systems supporting symbolic knowledge extraction have a number of appealing features.
+%
+In particular, they support a full exploitation of sub-symbolic techniques, which are the best choice when information must be mined from large amounts of data, and are usually better suited in terms of precision, robustness, and predictive performance.
+%
+However, thanks to the knowledge extracted, those systems retain desirable XAI-related properties which would otherwise be lost.
+
+Knowledge extraction techniques can be described and discriminated according to a number of orthogonal dimensions, including:
+%
+\begin{enumerate}
+	\item\label{opt:structure-of-knowledge} the structure of the symbolic knowledge they extract (e.g., decision rules, decision trees, etc)
+	\item the type of constraints they exploit for decision-making (e.g., linear constraints, M-of-N rules, etc)
+	\item\label{opt:sort-of-predictor} the sort of sub-symbolic predictor(s) they can deal with (e.g., neural networks, support vector machines, etc)
+\end{enumerate}
+%
+In the reminder of this section we partition the surveyed works according to dimensions \ref{opt:structure-of-knowledge}, and \ref{opt:sort-of-predictor}, then for each approach we discuss the sort of the constraints exploited.
+%
+In particular, in the same way as other impactful surveys on the topic \cite{GuidottiMRTGP19,AndrewsDT95}, we distinguish between techniques extracting \emph{rule} lists and techniques extracting decision \emph{trees}.
+%
+Then, we further distinguish between pedagogical and decompositional approaches.
+%
+In doing so we borrow the terminology from \cite{AndrewsDT95}, where \emph{pedagogical} techniques are those capable of extracting symbolic knowledge from any sort of sub-symbolic predictor -- as they do \emph{not} exploit any internal detail of the predictor under study to perform the extraction --, whereas \emph{decompositional} techniques are those only capable of extracting symbolic knowledge from some particular sort of sub-symbolic predictor (e.g., neural networks, in most cases)---as they perform the extraction by looking at the internals of the predictor at hand.
+
+%%%%---------------------------%%%%
+\subsubsection{Rules extraction}
+%%%%---------------------------%%%%
+
+Here we focus on methods for extracting \emph{flat} list of rules in the form
+%
+\begin{center}
+	\textbf{if} $condition_1$ \textbf{then} $outcome_1$
+	\\
+	\textbf{else if} $condition_2$ \textbf{then} $outcome_2$
+	\\
+	$\vdots$
+	\\
+	\textbf{else} $outcome_n$
+\end{center}
+%
+out of sub-symbolic predictors, where each $condition$ is can be a conjunction or disjunction of
+%
+\begin{inlinelist}
+    \item boolean predicates,
+    \item linear constraints, or
+    \item M-of-N rules
+\end{inlinelist}
+%
+over the attributes of the data used to train the sub-symbolic predictor.
+
+
+We categorise the surveyed techniques for rule extraction depending on whether they are decompositional or pedagogical; 
+then we provide some details for each technique; 
+finally, we analyse them from the XAI perspective in an aggregate manner, given the huge similarity characterising the surveyed techniques from the XAI perspective.
+
+%%%%
+\paragraph{Pedagogical approaches}
+%%%%
+
+We identified three main pedagogical approaches for rule extraction: 
+\begin{itemize}
+	\item the method from Saito et al.\ (1988) \cite{saito1988}
+	\item RxREN (2012) \cite{Augasta2012}  
+	\item ALPA (2015) \cite{Fortuny2015}
+\end{itemize}
+
+In particular, \cite{saito1988} extracts M-of-N rules out of any black-box classifier, regardless of whether it is a neural network or not.
+%
+Apparently, however, this method does not support regression, and it only supports categorical attributes as conditions in the extracted rules.
+%
+In spite of its limitations, this work has been proven to be effective in expert systems for diagnosis support.
+
+On the contrary, \cite{Augasta2012} and \cite{Fortuny2015} extract if-then-else rules out of arbitrary classifiers. 
+%
+In particular, RxREN supports datasets with mixed mode attributes (i.e., either categorical or numerical).
+%
+The algorithm is based on a reverse-engineering algorithm that essentially discards insignificant attributes and discovers the variation range of input attribute for each possible outcome of the classification.
+%
+For this reason, the rules extracted by RxREN are composed by linear constraints.
+%
+Conversely, the ALPA rule extraction technique is the first that is applicable to any black-box model with no limitations on the nature of constraints.
+
+It is worth remarking that pedagogical approaches are not based on the structure of the network, therefore they also work with other sub-symbolic models---even though oldest papers tend to mention neural networks more than other sorts of predictors.
+
+Finally, it is worth to be mentioned that pedagogical extraction algorithms can essentially be described as oracle-based algorithms.
+%
+In fact, in most cases the extraction algorithm works by querying the black box (which is therefore considered as an oracle), and by using the corresponding responses to build the rule list.
+%
+This behaviour is repeated until the set of rules given by the white-box model converges to that of the black box. 
+%
+In other words, the extraction procedure terminates when the rule set as whole reaches an high \emph{fidelity} w.r.t. the original black box.
+
+%%%%
+\paragraph{Decompositional approaches}
+%%%%
+
+We identify some main decompositional approaches for rule extraction:
+%
+\begin{itemize}
+	\item RuleNet (1992) \cite{mcmillan1992} 
+	\item MofN (1992) \cite{towell1992} 
+	\item the method from Giles et al.\ (1993) \cite{giles1993} 
+	\item KT (1994) \cite{fu1994} 
+	\item VI-Analysis (1995) \cite{thrun1995} 
+	\item RX (1997) \cite{Setiono1997} 
+	\item the method from N\'u\~{n}ez et al.\ (2008) \cite{NunezAC08} 
+\end{itemize}
+
+Generally speaking, most approaches here explicitly target a particular sort of sub-symbolic predictor.
+%
+In particular, all approaches except \cite{NunezAC08} target neural networks, whereas \cite{NunezAC08} target support vector machines (SVM).
+
+Some approaches \cite{mcmillan1992,towell1992,giles1993} exploit some strict assumptions that limit the kind of neural networks they can manage, thus reducing their generality.
+%
+For instance, the RuleNet technique described in \cite{mcmillan1992} can only handle neural networks aimed at computing endomorphisms on $n$-sized strings of characters, and it aims at making explicit the condition-action rules exploited by such sorts of networks. 
+%
+At the same time, the MofN technique \cite{towell1992} can only handle neural networks attained via the KBANN algorithm described above.
+%
+As suggested by its name, this method extracts M-of-N-like rules.
+%
+Finally, the method proposed in \cite{giles1993} focuses on neural networks trained to act as recognisers for regular languages, and it is capable of extracting rules in the form of finite state automata for parsing these languages.
+
+Other approaches -- e.g., \cite{fu1994,thrun1995,Setiono1997} -- target general purpose neural networks.
+%
+Briefly speaking, they compile networks into sets of rules with equivalent structure. 
+%
+There, each processing unit (neuron) is mapped into a separate rule -- or a small set of rules --, and the in-going connections are interpreted as preconditions to that rule. 
+%
+The particular shape of preconditions -- e.g., linear constraints, M-of-N constraints, etc. --, is then inferred by taking into account the weights of a neuron in-going connections, and its activation function.
+%
+For instance, the KT algorithm \cite{fu1994} is capable of learning if-then-else rules with linear constraints out of general neural-network classifier.
+%
+Similarly, the VI-Analysis \cite{thrun1995} and RX \cite{Setiono1997} algorithms perform the same task via different procedures.
+
+Finally, a different and noteworthy approach is described in \cite{NunezAC08}.
+%
+There, the authors propose a method for extracting if-then-else rules with linear constraints out of SVM classifiers.
+
+\subparagraph{XAI Perspective}
+
+Generally speaking, rule extraction techniques provide \emph{post-hoc} explainability via model simplification.
+%
+In fact, all the surveyed extraction procedures aims at creating a list of rule having an high-fidelity w.r.t. the source black-box predictor.
+%
+This rule list can then be considered a symbolic, intelligible explanation of the source predictor.
+%
+Accordingly, we argue that all these techniques may contribute to the pursuit of XAI goals as: trustworthiness, causality, transferability, informativeness, confidence, and possibly fairness.
+%
+In fact, by making the inner function a black-box predictor explicit and intelligible, these techniques may increase the trustworthiness and confidence of intelligent systems.
+%
+Furthermore, by providing an overview of the all the possible context-decision situation an intelligent system may face, and by making it possible to inspect which particular rule lead to a particular decision, rule extraction techniques may provide informativeness and causality.
+%
+Moreover, the symbolic knowledge extracted can be translated into several forms, possibly making it compliant with symbolic intelligent systems.
+%
+This of course provides for transferability.
+%
+Finally, rule extraction techniques may help with fairness as well, by highlighting the biases possibly learned by sub-symbolic predictors.
+
+It is worth to mention, however, that rule extraction technique are not the silver bullet of XAI.
+%
+Issues related to accuracy, fidelity, and consistency, may easily arise in this kind of approaches, because the extracted rule list may not perfectly reflect insights of the original one. 
+%
+We argue that this is essentially unavoidable: the extracted rule lists are essentially approximated models, which are attained by removing (i.e. loosing) information from the source black-box.
+%
+Moreover, interpretability of the extracted rule list may easily deteriorate as the amount of rules (or the amount of predicates per rule) increases---a situation which may easily arise as the complexity or the dimensionality of the black-box become non-trivial.
+%
+Finally, it is worth to be noted that virtually all rule extraction techniques only focus on black-box predictors acting as classifiers.
+%
+Not so much attention has been devoted by the academic community to the extraction of rules out of sub-symbolic regressors, as well as black boxes aimed at performing unsupervised learning tasks.
+
+As a side note concerning SVM-based rule extraction techniques, it is worth to be mentioned that, although they have been known to produce classifiers that are easily comprehensible, they often approximate secondary models of worse accuracy \cite{Barakat2010}. 
+%
+Moreover, even though these models may be reasonably understandable from an expert perspective, they still lack the simplicity and familiarity to an individual user that often intelligent systems have to provide, as in the case of recommendation.
+
+% \subparagraph{Technological Perspective}
+
+% In spite of the many surveyed papers for rule extraction algorithm, only one of them comes with some actual implementation: ALPA.
+% %
+% The implementation of ALPA is available for download on the web page of the Applied Data Mining Research Group at the University of Antwerp\footnote{\url{http://applieddatamining.com/cms/?q=software}}.
+% %
+% It consists of a plugin for the Weka data-mining framework\footnote{\url{https://www.cs.waikato.ac.nz/ml/weka}}.
+% %
+% Thus, it is JVM-based software coming with a detailed manual.
+% %
+% Apparently, the ALPA source and binary code was published in 2013 and never been updated since then.
+
+
+%%%%---------------------------%%%%
+\subsubsection{Decision trees extraction}
+%%%%---------------------------%%%%
+
+Here we focus on methods for extracting \emph{hierarchical} decision tree out of sub-symbolic predictors.
+
+Generally speaking, extracted decision trees are ordinary decision trees whose nodes are represented by rules consisting of a conjunction or disjunction of
+%
+\begin{inlinelist}
+    \item boolean predicates,
+    \item linear constraints, or
+    \item M-of-N rules
+\end{inlinelist}
+%
+over the attributes of the data used to train the sub-symbolic predictor, similarly to the aforementioned decision rules.
+%
+In other words, the main difference with decision rules lays in the hierarchical nature of decision choices.
+
+Given the small amount of techniques for decision tree extraction surveyed in this section, we do not split our discussion any further to distinguish between pedagogical or decompositional approaches.
+%
+Rather we provide this information as part of the details description of each method, provided below.
+%
+We provide a joint discussion of decision tree extraction methods from the XAI perspective, at the end of the paragraph.
+
+\paragraph{Surveyed methods}
+
+We identify three main approaches for decision tree extraction:
+%
+\begin{itemize}
+	\item \textsc{Trepan} (1996, pedagogical) \cite{CravenS95} 
+	\item the method by Krishnan et al.\ (1999, pedagogical) \cite{KrishnanSB1999} 
+	\item the method by Schetinin et al.\ (2007, decompositional: random-forest-specific) \cite{schetinin2007} 
+\end{itemize}
+
+\textsc{Trepan} \cite{CravenS95} is a pedagogical tree extraction algorithm that extracts decision trees from sub-symbolic models.
+%
+\textsc{Trepan} grows a tree through recursive partitioning, using a best-first expansion strategy, towards M-of-N-like, tree-structured rules.
+%
+The black box model -- be it a neural network, a support vector machine, or any other model that can be used for classification -- is used as an oracle to answer questions of class belongingness on artificially-generated data points. 
+%
+It also exploits the active learning process to additionally generate data points according to network constraints.
+
+Along the same line, \cite{KrishnanSB1999} proposes decision tree extraction from neural networks. 
+%
+Unlike \textsc{Trepan}, however, the internal structure of the neural network is taken into consideration in the process of decision tree construction.
+%
+Furthermore, while \textsc{Trepan} leverages on a restricted form of active learning, the method proposed by \cite{KrishnanSB1999} leverages on a genetic algorithm.
+%
+Finally, it is worth mentioning that the latter algorithm supports the extraction of trees of a given size.
+%
+In other words, the size of extracted tree can be tuned.
+
+Finally, \cite{schetinin2007} proposes an approach for the probabilistic interpretation of Bayesian decision trees ensembles (a.k.a.\ random forests) as a single decision tree.
+%
+Classification confidence for each tree in the forest is calculated by exploiting training data: the decision tree covering the maximum number of correct training examples is selected, keeping the amount of classification errors in the remaining examples minimal. 
+%
+Unlike the previous ones, this method of explanation does not extend the input data set with random additional data and cannot be generalised to other types of sub-symbolic black boxes.
+
+\subparagraph{XAI Perspective}
+
+From the point of view of XAI, decision tree extraction methods are quite similar to rule extraction ones, thus similar concerns fit their case.
+%
+Accordingly, we argue that decision tree extraction techniques provide \emph{post-hoc} explainability via model simplification, and help in pursuing XAI goals such as trustworthiness, causality, transferability, informativeness, confidence, and fairness.
+
+In spite of the many similarities with rule extraction techniques, a remarkable peculiarity of decision trees extractors is worth to be mentioned: as hierarchical models, they are less prone to interpretability issues when the complexity or dimensionality of the source predictor grows.
+
+Other critical aspects remain however unresolved w.r.t.\ rule extraction techniques.
+%
+These include issues arising from the potential lack of fidelity, as well as the concentration of practically all the decision tree extraction techniques on the sole case of classification tasks---leaving others kinds of tasks in machine learning essentially uncovered.
+
+% \subparagraph{Technological Perspective}
+
+% As far as implementations of decision tree extraction facilities are concerned, we were only able to find an ancient C-based implementation of \textsc{Trepan} on the author's homepage\footnotetext{\url{http://www.biostat.wisc.edu/~craven/TrepanWin.zip}}.
+% %
+% The archive only contains the C source code of \textsc{Trepan} plus some basic instruction and a \texttt{Makefile} for build automation.
+% %
+% We classify this technology as a legacy experimental project.
+
+\subsection{A practical framework for MAS}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\linewidth]{figures/psyke-abstract.pdf}
+    \caption{A practical framework for XAI based on SKE}
+    \label{fig:psyke-abstract}
+\end{figure}
+
+In the reminder of this thesis, we commit to computational logics as the preferred means for explainability.
+%
+In particular, we sketch a general framework for XAI, reifying the abstract framework from \cref{ssec:framework} via SKE.
+
+The basic idea is that SKE can be used to draw explanations in the form logic knowledge, which can then be further symbolically manipulated to ease the interpretation of the users.
+%
+Explanations, in this case, consist of \emph{surrogate} predictors trained to mimic the ones to be explained, as closely as possible.
+%
+Such surrogates consist of logic knowledge bases, intensively representing the inner functioning of some sub-symbolic ML predictor via interpretable formul\ae{}.
+%
+In fact, given a trained predictor and a knowledge-extraction procedure applicable to it, the extracted rules/trees act as \emph{explanations} for that predictor -- or as a basis to build some --, provided that they retain high \emph{fidelity} w.r.t.\ both the original predictor and the data used to train it.
+
+\note{Discuss \cref{fig:psyke-abstract}}
+
+The exploitation of computational logic as the basic means to draw explanations is strategical under a number of perspectives.
+%
+First, we argue that symbolic representations (e.g., the language of FOL formul\ae{}), may act as a \emph{lingua franca} for knowledge representation and exchange among heterogeneous intelligent agents---there including humans.
+%
+Second, we believe that the adoption of symbolic AI to be an enabling choice for the full exploitation of MAS.
+%
+Finally, this would enable XAI technologies to benefit form the wide gamma of results, methods, algorithms, and toolkits developed under the umbrella of symbolic AI.
+
+In particular, the potential of logic-based models and their extensions is mainly due to their \emph{declarativeness} and \emph{explicit knowledge representation} -- enabling knowledge sharing at an adequate level of abstraction -- modularity, and separation of concerns \cite{OliyaP2011}---which are especially valuable in open and dynamic distributed systems.
 
 \part{How}
 \label{part:how}
