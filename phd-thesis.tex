@@ -2522,7 +2522,7 @@ These may involve
     \item limiting the shape of predicates or clauses,
     \item focussing on simpler logics such as Horn logic, description logics, or predicate logic,
     \item or a combination of these constraints.
-\end{inlinelist}
+\end{inlinelist}\
 %
 In all such cases, the scope of the hybrid system is reduced, w.r.t. a full-fledged symbolic system.
 %
@@ -3217,7 +3217,7 @@ Such rules can then be exploited to either derive predictions or to better under
 
 SKE has been applied, for instance, to credit-risk evaluation \cite{baesens2003using,baesens2001building,steiner2006using},  healthcare -- i.e., to make early breast cancer prognosis predictions \cite{franco2007early} and to help the diagnosis and discrimination among hepatobiliary disorders \cite{hayashi2000comparison} or other diseases and dysfunctions \cite{bologna1997three,bologna2000study} --, credit card screening \cite{setiono2011rule}, intrusion detection systems \cite{hofmann2003rule}, and keyword extraction \cite{azcarraga2012keyword}.
 
-\subsection{State of the art}
+\subsection{State of the art}\label{ssec:ske-soa}
 
 Here we discuss the main approaches for extracting symbolic knowledge out of sub-symbolic predictors.
 
@@ -3278,18 +3278,18 @@ out of sub-symbolic predictors, where each $condition$ is can be a conjunction o
 over the attributes of the data used to train the sub-symbolic predictor.
 
 
-We categorise the surveyed techniques for rule extraction depending on whether they are decompositional or pedagogical; 
-then we provide some details for each technique; 
+We categorise the surveyed techniques for rule extraction depending on whether they are decompositional or pedagogical;
+then we provide some details for each technique;
 finally, we analyse them from the XAI perspective in an aggregate manner, given the huge similarity characterising the surveyed techniques from the XAI perspective.
 
 %%%%
 \paragraph{Pedagogical approaches}
 %%%%
 
-We identified three main pedagogical approaches for rule extraction: 
+We identified three main pedagogical approaches for rule extraction:
 \begin{itemize}
 	\item the method from Saito et al.\ (1988) \cite{saito1988}
-	\item RxREN (2012) \cite{Augasta2012}  
+	\item RxREN (2012) \cite{Augasta2012}
 	\item ALPA (2015) \cite{Fortuny2015}
 \end{itemize}
 
@@ -3299,7 +3299,7 @@ Apparently, however, this method does not support regression, and it only suppor
 %
 In spite of its limitations, this work has been proven to be effective in expert systems for diagnosis support.
 
-On the contrary, \cite{Augasta2012} and \cite{Fortuny2015} extract if-then-else rules out of arbitrary classifiers. 
+On the contrary, \cite{Augasta2012} and \cite{Fortuny2015} extract if-then-else rules out of arbitrary classifiers.
 %
 In particular, RxREN supports datasets with mixed mode attributes (i.e., either categorical or numerical).
 %
@@ -3315,7 +3315,7 @@ Finally, it is worth to be mentioned that pedagogical extraction algorithms can 
 %
 In fact, in most cases the extraction algorithm works by querying the black box (which is therefore considered as an oracle), and by using the corresponding responses to build the rule list.
 %
-This behaviour is repeated until the set of rules given by the white-box model converges to that of the black box. 
+This behaviour is repeated until the set of rules given by the white-box model converges to that of the black box.
 %
 In other words, the extraction procedure terminates when the rule set as whole reaches an high \emph{fidelity} w.r.t. the original black box.
 
@@ -3326,13 +3326,13 @@ In other words, the extraction procedure terminates when the rule set as whole r
 We identify some main decompositional approaches for rule extraction:
 %
 \begin{itemize}
-	\item RuleNet (1992) \cite{mcmillan1992} 
-	\item MofN (1992) \cite{towell1992} 
-	\item the method from Giles et al.\ (1993) \cite{giles1993} 
-	\item KT (1994) \cite{fu1994} 
-	\item VI-Analysis (1995) \cite{thrun1995} 
-	\item RX (1997) \cite{Setiono1997} 
-	\item the method from N\'u\~{n}ez et al.\ (2008) \cite{NunezAC08} 
+	\item RuleNet (1992) \cite{mcmillan1992}
+	\item MofN (1992) \cite{towell1992}
+	\item the method from Giles et al.\ (1993) \cite{giles1993}
+	\item KT (1994) \cite{fu1994}
+	\item VI-Analysis (1995) \cite{thrun1995}
+	\item RX (1997) \cite{Setiono1997}
+	\item the method from N\'u\~{n}ez et al.\ (2008) \cite{NunezAC08}
 \end{itemize}
 
 Generally speaking, most approaches here explicitly target a particular sort of sub-symbolic predictor.
@@ -3341,7 +3341,7 @@ In particular, all approaches except \cite{NunezAC08} target neural networks, wh
 
 Some approaches \cite{mcmillan1992,towell1992,giles1993} exploit some strict assumptions that limit the kind of neural networks they can manage, thus reducing their generality.
 %
-For instance, the RuleNet technique described in \cite{mcmillan1992} can only handle neural networks aimed at computing endomorphisms on $n$-sized strings of characters, and it aims at making explicit the condition-action rules exploited by such sorts of networks. 
+For instance, the RuleNet technique described in \cite{mcmillan1992} can only handle neural networks aimed at computing endomorphisms on $n$-sized strings of characters, and it aims at making explicit the condition-action rules exploited by such sorts of networks.
 %
 At the same time, the MofN technique \cite{towell1992} can only handle neural networks attained via the KBANN algorithm described above.
 %
@@ -3351,9 +3351,9 @@ Finally, the method proposed in \cite{giles1993} focuses on neural networks trai
 
 Other approaches -- e.g., \cite{fu1994,thrun1995,Setiono1997} -- target general purpose neural networks.
 %
-Briefly speaking, they compile networks into sets of rules with equivalent structure. 
+Briefly speaking, they compile networks into sets of rules with equivalent structure.
 %
-There, each processing unit (neuron) is mapped into a separate rule -- or a small set of rules --, and the in-going connections are interpreted as preconditions to that rule. 
+There, each processing unit (neuron) is mapped into a separate rule -- or a small set of rules --, and the in-going connections are interpreted as preconditions to that rule.
 %
 The particular shape of preconditions -- e.g., linear constraints, M-of-N constraints, etc. --, is then inferred by taking into account the weights of a neuron in-going connections, and its activation function.
 %
@@ -3375,7 +3375,7 @@ This rule list can then be considered a symbolic, intelligible explanation of th
 %
 Accordingly, we argue that all these techniques may contribute to the pursuit of XAI goals as: trustworthiness, causality, transferability, informativeness, confidence, and possibly fairness.
 %
-In fact, by making the inner function a black-box predictor explicit and intelligible, these techniques may increase the trustworthiness and confidence of intelligent systems.
+In fact, by making the inner operation of a black-box predictor explicit and intelligible, these techniques may increase the trustworthiness and confidence of intelligent systems.
 %
 Furthermore, by providing an overview of the all the possible context-decision situation an intelligent system may face, and by making it possible to inspect which particular rule lead to a particular decision, rule extraction techniques may provide informativeness and causality.
 %
@@ -3387,7 +3387,7 @@ Finally, rule extraction techniques may help with fairness as well, by highlight
 
 It is worth to mention, however, that rule extraction technique are not the silver bullet of XAI.
 %
-Issues related to accuracy, fidelity, and consistency, may easily arise in this kind of approaches, because the extracted rule list may not perfectly reflect insights of the original one. 
+Issues related to accuracy, fidelity, and consistency, may easily arise in this kind of approaches, because the extracted rule list may not perfectly reflect insights of the original one.
 %
 We argue that this is essentially unavoidable: the extracted rule lists are essentially approximated models, which are attained by removing (i.e. loosing) information from the source black-box.
 %
@@ -3397,7 +3397,7 @@ Finally, it is worth to be noted that virtually all rule extraction techniques o
 %
 Not so much attention has been devoted by the academic community to the extraction of rules out of sub-symbolic regressors, as well as black boxes aimed at performing unsupervised learning tasks.
 
-As a side note concerning SVM-based rule extraction techniques, it is worth to be mentioned that, although they have been known to produce classifiers that are easily comprehensible, they often approximate secondary models of worse accuracy \cite{Barakat2010}. 
+As a side note concerning SVM-based rule extraction techniques, it is worth to be mentioned that, although they have been known to produce classifiers that are easily comprehensible, they often approximate secondary models of worse accuracy \cite{Barakat2010}.
 %
 Moreover, even though these models may be reasonably understandable from an expert perspective, they still lack the simplicity and familiarity to an individual user that often intelligent systems have to provide, as in the case of recommendation.
 
@@ -3443,20 +3443,20 @@ We provide a joint discussion of decision tree extraction methods from the XAI p
 We identify three main approaches for decision tree extraction:
 %
 \begin{itemize}
-	\item \textsc{Trepan} (1996, pedagogical) \cite{CravenS95} 
-	\item the method by Krishnan et al.\ (1999, pedagogical) \cite{KrishnanSB1999} 
-	\item the method by Schetinin et al.\ (2007, decompositional: random-forest-specific) \cite{schetinin2007} 
+	\item \textsc{Trepan} (1996, pedagogical) \cite{CravenS95}
+	\item the method by Krishnan et al.\ (1999, pedagogical) \cite{KrishnanSB1999}
+	\item the method by Schetinin et al.\ (2007, decompositional: random-forest-specific) \cite{schetinin2007}
 \end{itemize}
 
 \textsc{Trepan} \cite{CravenS95} is a pedagogical tree extraction algorithm that extracts decision trees from sub-symbolic models.
 %
 \textsc{Trepan} grows a tree through recursive partitioning, using a best-first expansion strategy, towards M-of-N-like, tree-structured rules.
 %
-The black box model -- be it a neural network, a support vector machine, or any other model that can be used for classification -- is used as an oracle to answer questions of class belongingness on artificially-generated data points. 
+The black box model -- be it a neural network, a support vector machine, or any other model that can be used for classification -- is used as an oracle to answer questions of class belongingness on artificially-generated data points.
 %
 It also exploits the active learning process to additionally generate data points according to network constraints.
 
-Along the same line, \cite{KrishnanSB1999} proposes decision tree extraction from neural networks. 
+Along the same line, \cite{KrishnanSB1999} proposes decision tree extraction from neural networks.
 %
 Unlike \textsc{Trepan}, however, the internal structure of the neural network is taken into consideration in the process of decision tree construction.
 %
@@ -3468,7 +3468,7 @@ In other words, the size of extracted tree can be tuned.
 
 Finally, \cite{schetinin2007} proposes an approach for the probabilistic interpretation of Bayesian decision trees ensembles (a.k.a.\ random forests) as a single decision tree.
 %
-Classification confidence for each tree in the forest is calculated by exploiting training data: the decision tree covering the maximum number of correct training examples is selected, keeping the amount of classification errors in the remaining examples minimal. 
+Classification confidence for each tree in the forest is calculated by exploiting training data: the decision tree covering the maximum number of correct training examples is selected, keeping the amount of classification errors in the remaining examples minimal.
 %
 Unlike the previous ones, this method of explanation does not extend the input data set with random additional data and cannot be generalised to other types of sub-symbolic black boxes.
 
@@ -3494,13 +3494,6 @@ These include issues arising from the potential lack of fidelity, as well as the
 
 \subsection{A practical framework for MAS}
 
-\begin{figure}
-    \centering
-    \includegraphics[width=\linewidth]{figures/psyke-abstract.pdf}
-    \caption{A practical framework for XAI based on SKE}
-    \label{fig:psyke-abstract}
-\end{figure}
-
 In the reminder of this thesis, we commit to computational logics as the preferred means for explainability.
 %
 In particular, we sketch a general framework for XAI, reifying the abstract framework from \cref{ssec:framework} via SKE.
@@ -3509,11 +3502,97 @@ The basic idea is that SKE can be used to draw explanations in the form logic kn
 %
 Explanations, in this case, consist of \emph{surrogate} predictors trained to mimic the ones to be explained, as closely as possible.
 %
-Such surrogates consist of logic knowledge bases, intensively representing the inner functioning of some sub-symbolic ML predictor via interpretable formul\ae{}.
+Such surrogates consist of logic knowledge bases, intensively representing the internals of some sub-symbolic ML predictor via interpretable formul\ae{}.
 %
 In fact, given a trained predictor and a knowledge-extraction procedure applicable to it, the extracted rules/trees act as \emph{explanations} for that predictor -- or as a basis to build some --, provided that they retain high \emph{fidelity} w.r.t.\ both the original predictor and the data used to train it.
 
-\note{Discuss \cref{fig:psyke-abstract}}
+\paragraph{Framework design}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\linewidth]{figures/psyke-abstract.pdf}
+    \caption{A practical framework for XAI based on SKE}
+    \label{fig:psyke-abstract}
+\end{figure}
+
+In particular, as depicted in \cref{fig:psyke-abstract},  a pivotal role in the design of our practical framework is played by the notion of \emph{extractor}, defining the general contract of any knowledge extraction procedure.
+%
+More precisely, any algorithm accepting a \emph{ML-trained} predictor -- either a classifier or a regressor -- as input, and producing logic rules as output can act as an extractor.
+%
+Thus, the many algorithms described in \cref{ssec:ske-soa} are well suited to act as extractors.
+
+To perform their job, extractors may require additional information about the data the input predictor has been trained upon.
+%
+In the general case, such information consists of the data set itself and its schema---i.e., a formal description of the names and the data types of all features characterising the data set itself.
+%
+Data sets are required to let extraction procedures inspect BB behaviour -- and therefore build the corresponding output rules --, whereas schemas are required to
+%
+\begin{inlinelist}
+	\item let the extraction procedure take informed decisions on the basis of the feature \emph{types},
+	\item let the extracted knowledge be clearer by referring to the feature \emph{names}.
+\end{inlinelist}
+%
+For all these reasons, extractors expect a data set and its schema metadata to be provided in input as well.
+
+We stress the logic nature of the extractors' outputs.
+%
+These may consist of \emph{knowledge bases} containing logic rules expressed via some logic formalism of choice---e.g. FOL, Horn clauses, or ProbLog.
+%
+These rules should \emph{intensively} represent the general behaviour of the original predictor, in a symbolic way.
+%
+Furthermore, the actual behaviour of the original predictor on a particular input should be reproducible via inference.
+%
+Thus, the whole knowledge base acts as a \emph{global} explanation for the original predictor, whereas the proof tree aimed at inferring a particular output acts as a \emph{local} explanation for that particular prediction.
+
+Of course, logic rules may still be poorly interpretable to inexpert human agents.
+%
+The formalism may for instance be obscure for the human, the rules may be too many, their arity may be too large, or their bodies may involve too many literals.
+%
+For all these reasons, the framework assumes one further processing step, aimed at representing explanations in the most adequate way for the human agent consuming them.
+%
+While the possible representations are manifold, the key point here is that the extraction of logic knowledge out of sub-symbolic predictors is not the ultimate step of explanation but rather an intermediate one, enabling the \emph{inspection} of the inner operation of some black-box predictor.
+
+Consider for instance the case of a sub-symbolic predictor $\mathcal{P}$ (say, a neural network) trained on the well-known Iris data-set to classify iris flowers as one of the $\functor{setosa}$, $\functor{versicolor}$, or $\functor{virginica}$ types, by only looking at a flower's sepal width ($SW$) and height ($SH$), and petal width ($PW$) and ($PH$).
+%
+Suppose that the following logic theory $\mathcal{T}$ is extracted by means of some extraction procedure:
+%
+\begin{equation*}
+    \begin{array}{rcl}
+        iris(SL, SW, PL, PW, \functor{setosa}) & \leftarrow & PW \leq 0.65 .
+        \\
+        iris(SL, SW, PL, PW, \functor{versicolor}) & \leftarrow & PW \in\ ]0.65, 1.64] .
+        \\
+        iris(SL, SW, PL, PW, \functor{virginica}) & \leftarrow & PW > 1.64 .
+    \end{array}
+\end{equation*}
+%
+In the hypothesis that $\mathcal{T}$ has an high fidelity w.r.t. $\mathcal{P}$, the as a whole theory provides useful insights about how it works.
+%
+For instance, it demonstrates how the ``petal length'' feature plays a central role in the strategy followed by $\mathcal{P}$ to classify iris flowers.
+%
+Furthermore, given a particular query such as $iris(4.9,\, 2.4,\, 3.3,\, 1,\, C)$, and the proof tree corresponding to a resolution attempt of that query w.r.t $\mathcal{T}$, each query-to-solution path is highly informative:
+%
+\begin{equation*}
+    \resizebox{\linewidth}{!}{
+        \begin{prooftree}
+            \hypo{\bot\quad\text{(a)}}
+            \infer1{C \mapsto \functor{setosa} \quad \cancel{1 \leq 0.65}}
+            \hypo{\top\quad\text{(b)}}
+            \infer1{C \mapsto \functor{versicolor} \quad 1 \in\ ]0.65, 1.64]}
+            \hypo{\bot\quad\text{(c)}}
+            \infer1{C \mapsto \functor{virginica} \quad \cancel{1 > 1.64}}
+            \infer3{iris(4.9,\, 2.4,\, 3.3,\, 1,\, C)}
+        \end{prooftree}
+    }
+\end{equation*}
+%
+There, path (a) explains why the iris flower above is \emph{not} of type $\functor{setosa}$ -- i.e., because its petal width (1) is greater than 0.65 --, path (b) explains why it is of type $\functor{versicolor}$ -- i.e., because its petal width is in the $0.65\div1.64$ range --, and path (c) explains why the iris flower is \emph{not} of type $\functor{virginica}$---totally analogous to the $\functor{setosa}$ case.
+
+Finally, more user-friendly representations could be generated for both rules and proof tree paths.
+%
+The topic is further discussed in \cite{xailp-woa2019}.
+
+\paragraph{Why logic}
 
 The exploitation of computational logic as the basic means to draw explanations is strategical under a number of perspectives.
 %
@@ -3523,7 +3602,9 @@ Second, we believe that the adoption of symbolic AI to be an enabling choice for
 %
 Finally, this would enable XAI technologies to benefit form the wide gamma of results, methods, algorithms, and toolkits developed under the umbrella of symbolic AI.
 
-In particular, the potential of logic-based models and their extensions is mainly due to their \emph{declarativeness} and \emph{explicit knowledge representation} -- enabling knowledge sharing at an adequate level of abstraction -- modularity, and separation of concerns \cite{OliyaP2011}---which are especially valuable in open and dynamic distributed systems.
+In particular, the potential of logic-based models and their extensions is mainly due to their \emph{declarativeness} and \emph{explicit knowledge representation} -- enabling knowledge sharing at an adequate level of abstraction -- modularity, and separation of concerns \cite{OliyaP2011}---which are especially valuable in open (and possibly distributed) systems composed by several intelligent agents.
+%
+The interested readers may consider reading \cite{xmas-aiiot2019, expectation-extraamas2021} for a more detailed description of the expected benefits provided by a logic based approach to XAI.
 
 \part{How}
 \label{part:how}
