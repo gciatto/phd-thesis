@@ -117,11 +117,11 @@ Vice versa, CL is inherently symbolic in nature and therefore less subject to su
 
 Accordingly, this thesis stems from the acknowledgement that CS and DS are complementary -- rather than competing -- aspects of AI, and that \emph{knowledge} plays a pivotal role in both these fields.
 %
-Along this line, we aim to \emph{elicit} and \emph{enable} the many possible bridges among them, w.r.t. knowledge manipualtion.
+Along this line, we aim to \emph{elicit} and \emph{enable} the many possible bridges among them, w.r.t. knowledge manipulation.
 %
 In doing so, we follow the ultimate purpose of increasing the degree of intelligence and autonomy of modern computational systems.
 %
-Therefore, our focus is on computational entities and on the ways they can combine and integrate CL and DS to either act more intelligently or more autonomosly---or both.
+Therefore, our focus is on computational entities and on the ways they can combine and integrate CL and DS to either act more intelligently or more autonomously---or both.
 
 On the one side, we \emph{elicit} analogies, dichotomies, and possible synergies among CL and DS by analysing them along four orthogonal dimensions, corresponding to as many knowledge-related activities, namely:
 %
@@ -561,7 +561,7 @@ Perception implies consuming some input data, which must in turn be represented,
 %
 So, agents always deal with \emph{phenomena} -- i.e. how things appear --, hoping that the corresponding \emph{noumena} are reflected with sufficient precision.
 %
-(Of course, to reach a true understading about a particular noumenon, several related phenomena should be observed, but this particular aspect is addressed in the following chapters.)
+(Of course, to reach a true understanding about a particular noumenon, several related phenomena should be observed, but this particular aspect is addressed in the following chapters.)
 %
 % In other words, whenever an agent is dealing with some information, it is actually dealing with a particular representation of some underlying concept which can only be grasped by its observable properties.
 
@@ -667,7 +667,7 @@ Informally, the syntax for the general FOL formula is defined over the assumptio
     \item a number of \emph{variables}, denoted by italic symbols starting with a capital letter, such as $X_1, X_2, \ldots$.
 \end{itemize}
 %
-Under such assumption a FOL formula is any expression composed by a list of quantified variables, followed by a number of \emph{literals}, i.e. \emph{predicates} which may or may not be prefixed by the negation operator ($\lnot$)---in which case would be called nagated.
+Under such assumption a FOL formula is any expression composed by a list of quantified variables, followed by a number of \emph{literals}, i.e. \emph{predicates} which may or may not be prefixed by the negation operator ($\lnot$)---in which case would be called negated.
 %
 Each predicate consists of a predicate symbol, possibly applied to one or more \emph{terms}.
 %
@@ -905,7 +905,7 @@ Given a set of constants and functor symbols, $\mathcal{H}$ can be recursively d
 
 The Herbrand universe may easily become infinite.
 %
-A single functor of arity greater than 0 -- say, $\functor{f}$ -- plus a single constant -- say, $\functor{x}$ -- are sufficient to create an infinite Herbrand universe, as the functor may be recurively applied to the constant, infinitely many times---i.e. $\mathcal{H} = \{ \functor{x}, \functor{f}(\functor{x}), \functor{f}(\functor{f}(\functor{x})), \ldots \}$.
+A single functor of arity greater than 0 -- say, $\functor{f}$ -- plus a single constant -- say, $\functor{x}$ -- are sufficient to create an infinite Herbrand universe, as the functor may be recursively applied to the constant, infinitely many times---i.e. $\mathcal{H} = \{ \functor{x}, \functor{f}(\functor{x}), \functor{f}(\functor{f}(\functor{x})), \ldots \}$.
 
 \subsection{Representation Engineering}
 
@@ -1219,7 +1219,7 @@ All such methods lay under the \emph{feature engineering} umbrella.
 
 The ideal situation, under a data representation perspective, is when data is in \emph{tabular} form, i.e. $N$ instances and $M$ features, and all features only involve numeric values.
 %
-There, each instance is naturally described by a $M$-dimentional vector, while the whole dataset is described by an $N \times M$ matrix.
+There, each instance is naturally described by a $M$-dimensional vector, while the whole dataset is described by an $N \times M$ matrix.
 %
 However, in practice, only rarely raw data fits the rigid and numeric paradigm since the very beginning.
 %
@@ -1287,7 +1287,7 @@ Depending on the nature of the data itself, and on the particular data-analytic 
 
 Symbolic and sub-symbolic approaches to KR can be compared along several dimensions, along which their duality seems clear.
 
-\paragraph{Cripsness vs. Fuzziness}
+\paragraph{Crispness vs. Fuzziness}
 
 At the syntactical level we describe symbolic KR as ``flexible'' -- mostly because it can represent knowledge intensionally, via variables, and concisely, via recursive structures -- and sub-symbol KR as ``rigid''---because of its prominent reliance on fixed-size arrays.
 %
@@ -1299,7 +1299,7 @@ For instance, in the early 90s, Minsky described symbolic approaches as neat, an
 
 Regardless of the particular terminological choices, the statement stems from the exact nature of symbolic KR as opposed to the approximate nature of its sub-symbolic counterpart.
 %
-Indeed, while the interpretation of logic formul\ae{} is often discrete and finite-valued -- and more commonly Boolean (i.e. two-valued) --, arrays of real numbers may span through an infinity of values, and continous notions of similarity or distance may be defined among them.
+Indeed, while the interpretation of logic formul\ae{} is often discrete and finite-valued -- and more commonly Boolean (i.e. two-valued) --, arrays of real numbers may span through an infinity of values, and continuos notions of similarity or distance may be defined among them.
 %
 So, for instance, while symbolically represented objects can only be either equals or not, vectors, matrices, or tensors may be more or less similar, according to a continuum of possibilities.
 
@@ -1377,7 +1377,7 @@ Each approach is characterised by a well-defined pool of tasks, which may, in tu
 %
 The three major approaches to learning are: \emph{supervised}, \emph{unsupervised}, and \emph{reinforcement}.
 %
-They essentially deal with the kind of task $T$ to be learned -- commonly consisting in the estimation of an unknown relation --, and how expericence $E$ is provided to the learning algorithm.
+They essentially deal with the kind of task $T$ to be learned -- commonly consisting in the estimation of an unknown relation --, and how experience $E$ is provided to the learning algorithm.
 
 In supervised learning, the learning task consists of finding a way to approximate an unknown relation, given a sampling of its items---which constitute the experience.
 %
@@ -1389,7 +1389,7 @@ There, a plan can be described as a relation among the possible states of the wo
 
 Such categorization of learning approaches can be applied to both symbolic and sub-symbolic techniques.
 %
-Indeed, in this chapter, we provide an overview of learning on a per repesentation basis.
+Indeed, in this chapter, we provide an overview of learning on a per representation basis.
 %
 In particular, in the following sections we summarise the state of the art for what concerns both symbolic and sub-symbolic forms of \emph{supervised} learning.
 
@@ -1497,7 +1497,7 @@ They may be either guessed or estimated by trial-and-error by data scientists---
 \note{
     Comments on existing algorithms and their relevant aspects?
     Let's distinguish among parametric and non-parametric algorithms.
-    Let's distriguish among regression and classification algorithms, with a focus on regression as classification can be reduced to regression.
+    Let's distinguish among regression and classification algorithms, with a focus on regression as classification can be reduced to regression.
     Focus on gradient descent, back-propagation and deep learning.
 }
 
@@ -1638,7 +1638,7 @@ In the particular case of symbolic supervised learning, that mechanism is the la
 \note{
     Intuition behind the functioning of the algorithms.
     ProbLog as the main approach to SRL.
-    Bottom up or top down approaces in ILP.
+    Bottom up or top down approaches in ILP.
     Mention main approaches: relatively least general generalisation, reverse entailment, bottom clause generalisation, meta-interpretative learning.
     Mention major algorithms developed in this field.
 }
@@ -1647,7 +1647,7 @@ In the particular case of symbolic supervised learning, that mechanism is the la
 
 Symbolic and sub-symbolic approaches to supervised learning share similar formulations, despite the corresponding methods and algorithms operate in quite different ways.
 %
-Both formulations deal with optimisation problems aimed at iteratively construting an algorithm mimicking an unknown relation/function in the best possible way, leveraging on a number of examples.
+Both formulations deal with optimisation problems aimed at iteratively constructing an algorithm mimicking an unknown relation/function in the best possible way, leveraging on a number of examples.
 %
 However, because of their nature and the inherent way they represent knowledge, both approaches come with pros and cons.
 %
@@ -1695,7 +1695,7 @@ Focussing on sub-symbolic approaches, flexibility lays in the variety of methods
 %
 Such variety is once again the result of the particular choice of arrays of numbers for KR.
 %
-In fact, this choice enables the pervasive exploitation of mathematical operations as the basic bricks of sub-subolic processing. %learning and computing.
+In fact, this choice enables the pervasive exploitation of mathematical operations as the basic bricks of sub-symbolic processing. %learning and computing.
 %
 These include basic algebraic operators (sum, product, etc.), as well as statistical (mean, variance, standard deviation, etc.), information-theoretical (cross-entropy, mutual information, etc.), signal-processing (Fourier- or Laplace-transform, etc.), binary (bitwise-and, -or, etc.), or differential (differentiation, integration, etc.) operators.
 %
@@ -1791,7 +1791,7 @@ A similar argument may hold for language bias, since it may be considers as meta
 
 \chapter{Reasoning over Knowledge}\label{chap:reasoning}
 
-The Cambridge dictionary\footnote{\url{https://dictionary.cambridge.org/it/dizionario/inglese/reasoning}} defines \emph{reasoning} as
+The Cambridge dictionary\footnote{\url{https://dictionary.cambridge.org/dictionary/english/reasoning}} defines \emph{reasoning} as
 %
 ``the process of thinking about something in order to make a decision''.
 %
@@ -2050,7 +2050,7 @@ Accordingly, Bayesian inference may be better suited to represent inductive or a
 
 \paragraph{Inference Procedures}
 
-Inference rules alone are able to express reasoning, but they are not enough to let computational draw inferences autonomosly.
+Inference rules alone are able to express reasoning, but they are not enough to let computational draw inferences autonomously.
 %
 When dealing with inference, computational agents need an inference \emph{procedure}, i.e. an algorithm applying one or more inference rules to a knowledge base, in such a way that conclusions are eventually reached when the algorithm terminates.
 
@@ -2089,7 +2089,7 @@ In the reminder of this section, we briefly overview the field of logic programm
 
 Logic programming (LP) is computational paradigm where logic is used to represent both data and programs, and inference is used to perform computations.
 %
-From a human-centered perspective, LP is a means for programming computers to perform symbolic AI related tasks.
+From a human-centred perspective, LP is a means for programming computers to perform symbolic AI related tasks.
 %
 However, from a agent-oriented perspective, LP is the means to endow software agents with automated reasoning capabilities.
 
@@ -2110,7 +2110,7 @@ The SL resolution principle \cite{robinson1965} is a general procedure for provi
 %
 More precisely, the SL procedure aims at proving a set of clauses as contradictory, by attempting to derive the empty clause $\bot$ (denoting contradiction) out of it via a number of reduction steps.
 %
-Thus, in practice, proving a formula $\phi$ true is achieved by proving $\lnot\phi$ as false---i.e. by refutating it.
+Thus, in practice, proving a formula $\phi$ true is achieved by proving $\lnot\phi$ as false---i.e. by refuting it.
 %
 The basic inference rule operating in this context states that, in a set of Skolemized formul\ae{} $\mathbf{K}$ including $\phi$ and $\psi$, those formul\ae{} may be reduced $\phi'$ and $\psi'$, under the following condition:
 %
@@ -2118,11 +2118,11 @@ The basic inference rule operating in this context states that, in a set of Skol
     \frac{x \in \phi \quad \lnot y \in \psi \quad \sigma = \mgu{x}{y}}{\phi' = (\phi - x)\cdot\sigma \quad \psi' = (\psi - \lnot y)\cdot\sigma}[\text{SL}]
 \end{equation*}
 %
-where $x$ and $y$ are literals possibly contained into $\phi$ and $\psi$, and operator $(-)$ denotes the eviciton of a literal from a formula.
+where $x$ and $y$ are literals possibly contained into $\phi$ and $\psi$, and operator $(-)$ denotes the eviction of a literal from a formula.
 %
 In other words, if any two formul\ae{} in $\mathbf{K}$ respectively include two literals, $x$ and $y$, which can be unified by $\sigma$ and such that \emph{only} one is negated, then the two literals are evicted from the corresponding formul\ae{}, and the substitution $\sigma$ is be applied to the reminder of those formul\ae{}.
 %
-If the repeated application of this rule leads to a situation where a formula has no more literals, the original set of formul\ae{} $\mathbf{K}$ is proved to be false, as it contains an unsatisfiable (i.e. contraddictory) formula---namely, the one that has been emptied by the SL procedure.
+If the repeated application of this rule leads to a situation where a formula has no more literals, the original set of formul\ae{} $\mathbf{K}$ is proved to be false, as it contains an unsatisfiable (i.e. contradictory) formula---namely, the one that has been emptied by the SL procedure.
 %
 Otherwise, if no further reduction is possible, $\mathbf{K}$ is proved to \emph{satisfiable}.
 
@@ -2134,7 +2134,7 @@ This implies a goal $\gamma$ can be proved against a knowledge base $\mathbf{K}$
 %
 When this is the case, proof by refutation if applied to the set $\lnot\gamma \cup \mathbf{K}$: at each step, some literal of $\lnot\gamma$ is reduced, along with some other formula in $\textbf{K}$.
 %
-Upon termination, if all literals of $\lnot\gamma$ have been evicted, then $\lnot\gamma$ is considered unsatisfiable, therefore $\gamma$ is provable, and the formula $\gamma \cdot \sigma_1 \cdot \sigma_2 \cdots$ -- attained by appling all the MGU computed at each reduction step -- represents a \emph{solution} for $\gamma$, according to $\mathbf{K}$.
+Upon termination, if all literals of $\lnot\gamma$ have been evicted, then $\lnot\gamma$ is considered unsatisfiable, therefore $\gamma$ is provable, and the formula $\gamma \cdot \sigma_1 \cdot \sigma_2 \cdots$ -- attained by applying all the MGU computed at each reduction step -- represents a \emph{solution} for $\gamma$, according to $\mathbf{K}$.
 
 The whole process subtends the so-called \emph{proof tree}: at each step of the procedure, several formual\ae{} may be selected from $\mathbf{K}$, therefore the algorithm may follow as many different paths.
 %
@@ -2176,7 +2176,7 @@ The relation among SL and SLD becomes quite evident if one writes clauses in dis
 %
 Under such perspective, $\gamma$ is written as a disjunctive of negated literals $\lnot g_1 \vee \ldots \vee \lnot g_n$, as well as each rule $\phi \equiv (h \vee \lnot b_1 \vee \ldots \vee \lnot b_m)$.
 %
-Therefore, whenever applying the SL inference rule to any literal in $\gamma$, one can only choose amongs the heads of each rule, as all literals in $\gamma$ are negated and all heads of all rules are positive.
+Therefore, whenever applying the SL inference rule to any literal in $\gamma$, one can only choose among the heads of each rule, as all literals in $\gamma$ are negated and all heads of all rules are positive.
 
 \begin{figure}
     \centering
@@ -2213,7 +2213,7 @@ In other words, Prolog makes the SLD resolution a sequential algorithm.
 %
 More precisely, Prolog assumes goals to be \emph{ordered} disjunctions of literals (left to right), and knowledge bases to be \emph{ordered} sets of definite clauses (top to bottom).
 %
-Under such assumption, it adopts the following stategy while dealing with the non-determinism of SLD resolution:
+Under such assumption, it adopts the following strategy while dealing with the non-determinism of SLD resolution:
 %
 \begin{itemize}
     \item literals in the current goal are reduced from left to right,
@@ -2691,9 +2691,9 @@ At the same time, there is no consensus on what exactly providing an \emph{expla
 %
 However, several authors agree that not all black boxes are equally \emph{interpretable}---meaning that some black boxes are easier to understand than others for our mind.
 %
-For example, \Cref{fig:tradeoff} is a common way to illustrate the differences in black-box interpretability.
+For example, \Cref{fig:trade-off} is a common way to illustrate the differences in black-box interpretability.
 
-Even though informal -- as pointed on in \cite{Rudin2019}, given the lack of way to measure ``interpretability'' -- \Cref{fig:tradeoff} effectively express why more research is need on understandability.
+Even though informal -- as pointed on in \cite{Rudin2019}, given the lack of way to measure ``interpretability'' -- \Cref{fig:trade-off} effectively express why more research is need on understandability.
 %
 In fact, the image essentially states how the better performing black boxes are also the less interpretable ones.
 %
@@ -2737,7 +2737,7 @@ Similarly, \emph{post-hoc} interpretability is defined as an approach where some
 %
 Such information have not necessarily to expose the internal functioning of the black box.
 %
-As stated in the paper: ``examples of post-hoc interpretations include the verbal explanations produced by people or the saliency maps used to analyze deep neural networks''.
+As stated in the paper: ``examples of post-hoc interpretations include the verbal explanations produced by people or the saliency maps used to analyse deep neural networks''.
 
 Conversely, Besold et al. \cite{BesoldU2018} discuss the notion of explanation at a fundamental level.
 %
@@ -2807,7 +2807,7 @@ Other notions are formally defined into the paper, such as for instance,
 \begin{inlinelist}
     \item explicitness,
     \item fairness,
-    \item faithfullness,
+    \item faithfulness,
     \item justification, and
     \item transparency.
 \end{inlinelist}
@@ -3010,7 +3010,7 @@ Indeed, interpretation is a subjective activity directly related to agents' perc
 %
 The last step is objective in the sense that it does not depend on the agent's perceptions and SoM, thus being reproducible in principle.
 %
-Of course, the \emph{effectivess} of an explanation is again a subjective aspect.
+Of course, the \emph{effectiveness} of an explanation is again a subjective aspect.
 %
 Indeed, a clear explanation (for some agent) is a more interpretable variant of some given model---thus, the subjective activity of interpretation is again implicitly involved.
 
@@ -3493,6 +3493,7 @@ These include issues arising from the potential lack of fidelity, as well as the
 % We classify this technology as a legacy experimental project.
 
 \subsection{A practical framework for MAS}
+\sidenote{Cite Sabba's WOA21 paper}
 
 In the reminder of this thesis, we commit to computational logics as the preferred means for explainability.
 %
