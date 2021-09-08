@@ -208,7 +208,7 @@ Despite both families have both pros and cons, they have stepped through both gl
 
 For instance, despite the initial hype, artificial neural networks (NN) -- the warhorse of connectionism -- encountered their first \emph{winter} when Rosenblatt's \emph{perceptron} \cite{rosenblatt1957perceptron} was proven unable to learn the XOR function \cite{Minsky1988}.
 %
-The period following the publication of the well-known Back-Propagation algorithm \cite{Bryson1979} and the proof that multi-layered perceptrons could be used as universal functional approximators \cite{Cybenko1989}, can be considered as the second \emph{spring} of connectionist approaches.
+The period following the publication of the well-known back-propagation algorithm \cite{Rumelhart1986} and the proof that multi-layered perceptrons could be used as universal functional approximators \cite{Cybenko1989}, can be considered as the second \emph{spring} of connectionist approaches.
 %
 However, at the time -- likely, because of computational limits of the hardware and the lack of data -- the success of connectionist approaches can be considered very moderate, especially when compared with the explosion of deep NN and deep learning (DL) \cite{goodfellow2016deep} which was pervasive in both the academy and the industry during the 2010s, and can thus be considered the third spring of AI.
 
@@ -1490,8 +1490,6 @@ They may be either guessed or estimated by trial-and-error by data scientists---
 
 \note{About generalisation: the bias-variance trade-off?} % maybe out of topic
 
-\note{Comments on the role of feature engineering} % already discussed in chap on KR
-
 \subsection{Overview on learning algorithms}
 
 \note{
@@ -1501,11 +1499,115 @@ They may be either guessed or estimated by trial-and-error by data scientists---
     Focus on gradient descent, back-propagation and deep learning.
 }
 
-% Depending on the predictor family $\mathcal{P}$ of choice, the nature of the learning algorithm and the admissible shapes of $\hat{p}$ may vary dramatically, as well as the their \emph{interpretability}.
-% %
-% Even if the interpretability of predictor families is not a well-defined feature, most authors agree on the fact that some predictor families are \emph{more interpretable than others} \cite{Lipton18}---in the sense that it is easier for humans to understand the functioning and the predictions of the former ones.
-% %
-% For instance, it is widely acknowledged that \emph{generalized linear models} (GLM) are more interpretable than neural networks (NN), whereas \emph{decision trees} (DT) \cite{breiman1984classification} are among the most interpretable families \cite{GuidottiMRTGP19}.
+Depending on the predictor family of choice, the nature of the admissible hypotheses spaces and learning algorithms may vary dramatically, as well as the predictive performance of the target predictor, and the whole efficiency of learning.
+
+In the literature of machine learning, statistical learning, and data mining, a plethora of learning algorithms have been proposed along the years.
+%
+Because of the ``no free lunch'' (NFL) theorem \cite{DolpertM97}, however, no algorithm is guaranteed to outperform the others in all possible scenarios.
+%
+For this reason, the literature and the practice of data science keeps leveraging on algorithms and methods whose first proposal was published decades ago.
+%
+Most notable algorithms include for instance (deep) neural networks, decision trees, (generalised) linear models, nearest neighbours, support vector machines (SVM), random forests, and many others.
+
+These algorithms can be categorised in several ways, for instance depending on the supervised learning task they support (classification vs. regression), on when they consume data (lazy vs. eager), or on the underlying strategy adopted for learning (e.g. gradient descent, least squares optimization), etc.
+
+Some learning algorithms target regression problems (e.g. neural networks), whereas others target classification problems (e.g. SVM).
+%
+Similarly, some target multi-dimensional outputs ($\mathbf{y} \in \mathbb{R}^n$), whereas others target mono-dimensional outputs ($n = 1$).
+%
+Mono-dimensional regressors are considered as sufficiently general as
+%
+\begin{inlinelist}
+    \item binary classifiers can be treated as mono-dimensional regressors where admissible outputs lay in the interval $[0, 1]$, and
+    \item multi-class (resp. multi-dimensional) classifiers (resp. regressors) can be treated as ensembles of multiple binary (resp. regressors)
+\end{inlinelist}
+
+% briefly explain the eager-lazy dicotomy
+The eager--lazy dichotomy relates to operational aspects of learning, and, in particular, to \emph{when} training data is actually processed.
+%
+This, in turn, affects the computational time required in the training and inference phases---i.e. when the predictor is exploited to draw predictions.
+%
+In principle, the training phase of \emph{lazy} predictors (e.g. nearest neighbours) is trivial and no data needs to be processed as training data is mostly processed in the inference phase.
+%
+This make the training phase quicker, at the expense of a slower inference phase.
+%
+To mitigate this issue, in practice, indexing or grouping of training data may be exploited in the training phase, with the purpose of speeding up the inference phase.
+%
+Conversely, \emph{eager} predictors (e.g. linear models, neural networks, and virtually any other method mentioned so far) come with a full-fledged learning phase, where the unknown function binding input and outputs is approximated from training data.
+%
+There, the learning phase carries the higher computational effort, and the inference phase is quick.
+%
+In the reminder of this section, we focus on eager predictors as they actually produce an internal representation of data during their learning phase, which is the starting point of relevant discussion carried out in \cref{chap:explaining}.
+
+% discuss about GD-based approaces
+Finally, the learning strategy is inherently bound to the predictor family of choice.
+%
+Neural networks are commonly trained via back-propagation \cite{Rumelhart1986} -- a particular case of gradient descent, tailored on NN --, generalised linear models via Gauss' least squares method, decision trees via CART \cite{breiman1984classification}, etc.
+%
+Despite all such algorithms may appear interchangeable, in principle, because of the NFL theorem, their malleability is very different in practice.
+
+% introduce DT as the most intuitive algorithm and NN as the most flexible.
+\sidenote{Riprendi da qui}
+
+\paragraph{Decision Trees}
+
+DT can be considered more interpretable due to their construction: that is, recursively partitioning the input space $\mathcal{X}$ through a number of splits or \emph{decisions} based on the input data $X$, in such a way that the prediction in each partition is constant, and the loss w.r.t.\ $Y$ is low, while keeping the amount of partitions low as well.
+%
+Without affecting generality, we focus on the case of mono-dimensional classification -- thus we write $y$ instead of $\mathbf{y}$ --, since other cases can be easily reduced to this one.
+%
+We further assume the input space $\mathcal{X}$ is $N$-dimensional, and let $n_j$ be the meta-variable representing the name of the $j^{th}$ dimension of $\mathcal{X}$.
+
+Under such hypotheses, a DT predictor $p_T \in \mathcal{P}_{dt}$ assumes a \emph{binary} tree $T$ exists such that each node is either
+%
+\begin{itemize}
+    \item a \emph{leaf}, carrying and representing a prediction, i.e. and assignment for $y$,
+    \item an \emph{internal} node, carrying and representing a \emph{decision}, i.e. a formula in the form $(n_j \leq c)$---where $c$ is a constant \emph{threshold} chosen by the learning algorithm.
+\end{itemize}
+%
+Each node $\nu$ inherits a partition $X_\nu \subseteq X$ of the original input data, from its parent.
+%
+Since the root node $\nu_0$ has no parent, it is assigned to the whole set of input data---i.e. $X_{\nu_0} \equiv X$.
+%
+The decision carried by each internal node splits its $X_\nu$ into two disjoint parts -- $X^L_\nu$ and $X_\nu^R$ -- along the $j^{th}$ dimension of $\mathcal{X}$.
+%
+In particular, $X_\nu^L $ contains all the residual $x_i \in X_\nu$ such that $(x_i^j \leq c_\nu)$ -- which are inherited by $\nu$ left child --, whereas $X_\nu^R$ contains all the residual $x_i \in X_\nu$ such that $x_i^j > c_\nu$---which are inherited by  by $\nu$ right child.
+%
+A leaf node $l$ is created whenever a sequence of splits (i.e., a path from the tree root to the leaf parent) leads to a partition $X_l$ which is (almost) \emph{pure}---roughly, meaning that $X_l$ (mostly) contains input data $x_i$ for which the expected output is the same $y_l$.
+%
+In this case, we say that the prediction carried by $l$ is $y_l$.
+%
+Assuming such a tree $T$ exists, in order to classify some input data $\mathbf{x} \in \mathcal{X}$, the predictor $p_T$ simply navigates the path $P = (\nu_0, \nu_1, \nu_2, \ldots, l)$ of $T$ such that all decisions $\nu_k$ are matched by $\mathbf{x}$, then it outputs $y_l$.
+
+\paragraph{Neural Networks}
+
+Neural networks are biologically-inspired computational models, made of several elementary units (neurons) interconnected into a \emph{directed-acyclic} graph (DAG) via \emph{weighted} synapses.
+%
+NN can be \emph{trained} on data via back-propagation \cite{Rumelhart1986} and exploited into both supervised and unsupervised learning tasks such as classification, regression, and anomaly detection.
+%
+% More precisely, while the training phase sets up synapses weights automatically,
+The training phase makes a NN learn from data.
+%
+Yet, only network synapses weights are modified in this phase, whereas its overall graph structure (topology henceforth) is not allowed to vary.
+%
+It is rather assumed to be \emph{manually} engineered by data scientists.
+
+Convolutional Neural Networks (CNN) are particular sorts of NN whose topology consists of a cascade of \emph{convolutional} layers.
+%
+In other words, CNN can learn how to apply a number of convolution operations \cite{o2015introduction} to the data.
+%
+Convolutions let the network spot relevant features into the input data, at possibly different scales.
+%
+Thus, CNN are primarily used to solve complex pattern-recognition tasks, such as in computer vision or speech recognition.
+%
+Yet, how many convolutions a network may learn as well as their interconnections depend on NN topology.
+%
+Again, this implementation detail requires human intervention.
+
+Traditionally, NN development workflows are deeply influenced by the choices by human experts.
+%
+Network architectures represent the most relevant aspect requiring human contribution.
+%
+However, as neither theorems nor methods ensure optimal results, human choices may lead to sub-optimal or inefficient solutions.
 
 \section{Symbolic Supervised Learning}
 
@@ -2540,7 +2642,7 @@ Of course, grounding is only possible in practice when the amount of items in th
 %
 Notably, by admitting structured terms for KR, the Herbrand universe will certainly be infinite (cf. \cref{par:herbrand})---hence why leveraging on grounding usually subtends forbidding (at least) structured terms from the KR formalism.
 
-\chapter{Explaining AI via Symbolic Knowledge}
+\chapter{Explaining AI via Symbolic Knowledge}\label{chap:explaining}
 
 % Despite the open philosophical issues, i
 It is undeniable that AI and ML are nowadays becoming more and more intertwined with a growing number of aspects of people's every day life \cite{helbing2019, elliott2019}.
