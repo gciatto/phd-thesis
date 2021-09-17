@@ -1,3 +1,4 @@
+% !TeX spellcheck = en_GB
 \documentclass[12pt,a4paper,openright,twoside]{book}
 \usepackage[utf8]{inputenc}
 \usepackage{phd-thesis}
@@ -1509,18 +1510,22 @@ For this reason, the literature and the practice of data science keeps leveragin
 %
 Most notable algorithms include for instance (deep) neural networks, decision trees, (generalised) linear models, nearest neighbours, support vector machines (SVM), random forests, and many others.
 
-These algorithms can be categorised in several ways, for instance depending on the supervised learning task they support (classification vs. regression), on when they consume data (lazy vs. eager), or on the underlying strategy adopted for learning (e.g. gradient descent, least squares optimization), etc.
-
-Some learning algorithms target regression problems (e.g. neural networks), whereas others target classification problems (e.g. SVM).
-%
-Similarly, some target multi-dimensional outputs ($\mathbf{y} \in \mathbb{R}^n$), whereas others target mono-dimensional outputs ($n = 1$).
-%
-Mono-dimensional regressors are considered as sufficiently general as
+These algorithms can be categorised in several ways, for instance depending on
 %
 \begin{inlinelist}
-    \item binary classifiers can be treated as mono-dimensional regressors where admissible outputs lay in the interval $[0, 1]$, and
-    \item multi-class (resp. multi-dimensional) classifiers (resp. regressors) can be treated as ensembles of multiple binary (resp. regressors)
+    \item the supervised learning task they support (classification vs. regression),
+    \item on when they consume data (lazy vs. eager),
+    \item or on the underlying strategy adopted for learning (e.g. gradient descent, least squares optimization), etc.
 \end{inlinelist}
+
+
+Some learning algorithms (e.g. neural networks) target regression problems, whereas others (e.g. SVM) target classification problems.
+%
+Similarly, some target multi-dimensional outputs ($\mathbf{y} \in \mathbb{R}^m$), whereas others target mono-dimensional outputs ($m = 1$).
+%
+Regressors are considered as the most general case, as other learning tasks can usually be defined in terms of mono-dimensional regression.
+%
+Binary classifiers, for instance, can be treated as mono-dimensional regressors where admissible outputs lay in the interval $[0, 1]$, while multi-class (resp. multi-dimensional) classifiers (resp. regressors) can be treated as ensembles of multiple binary classifiers (resp. regressors).
 
 % briefly explain the eager-lazy dicotomy
 The eager--lazy dichotomy relates to operational aspects of learning, and, in particular, to \emph{when} training data is actually processed.
@@ -1529,7 +1534,7 @@ This, in turn, affects the computational time required in the training and infer
 %
 In principle, the training phase of \emph{lazy} predictors (e.g. nearest neighbours) is trivial and no data needs to be processed as training data is mostly processed in the inference phase.
 %
-This make the training phase quicker, at the expense of a slower inference phase.
+This makes the training phase quicker, at the expense of a slower inference phase.
 %
 To mitigate this issue, in practice, indexing or grouping of training data may be exploited in the training phase, with the purpose of speeding up the inference phase.
 %
@@ -1542,72 +1547,137 @@ In the reminder of this section, we focus on eager predictors as they actually p
 % discuss about GD-based approaces
 Finally, the learning strategy is inherently bound to the predictor family of choice.
 %
-Neural networks are commonly trained via back-propagation \cite{Rumelhart1986} -- a particular case of gradient descent, tailored on NN --, generalised linear models via Gauss' least squares method, decision trees via CART \cite{breiman1984classification}, etc.
+Neural networks, for instance, are trained via back-propagation \cite{Rumelhart1986} -- a particular case of stochastic gradient descent (SDG, \cite{enwiki:SGD}), tailored on NN --, generalised linear models via Gauss' least squares method, decision trees via CART \cite{breiman1984classification}, etc.
 %
-Despite all such algorithms may appear interchangeable, in principle, because of the NFL theorem, their malleability is very different in practice.
+Despite all such algorithms may appear interchangeable in principle -- because of the NFL theorem --, their malleability is very different in practice.
+%
+For instance, the least squares method involves inverting matrices of order $N$ -- where $N$ is the amount of available examples in the training set --, making the computational complexity of learning more than quadratic in time.
+%
+Furthermore, in practice, convergence of the method is not guaranteed in the general case, while it is for generalised linear models---hence why it is not adopted elsewhere.
+%
+Thus, learning by least squares optimisation may become impractical for big datasets or for predictor families outside the scope of generalised linear models.
+%
+Conversely, the SGD method involves arbitrarily-sized subsets of the dataset (a.k.a. batches) to be processed a limited (i.e. controllable) amount of times.
+%
+Hence, the complexity of SGD can be finely controlled and adapted to the computational resources at hand---e.g. by making the learning process incremental, and by avoiding all data to be loaded in memory.
+%
+Furthermore, SGD can be applied to several sorts of predictor families (there including neural networks and generalised linear models), as it only requires the target function to be differentiable w.r.t. its parameters.
+%
+For all these reasons, despite the lack of optimality guarantees, SGD is considered as very effective, scalable, and malleable in practice, hence why it is extensively exploited in the modern data science applications.
 
-% introduce DT as the most intuitive algorithm and NN as the most flexible.
-\sidenote{Riprendi da qui}
+In the reminder of this thesis, we focus on two particular families of predictors -- namely, decision trees and neural networks --, and their respective learning methods---i.e. the CART \cite{breiman1984classification} and back-propagation \cite{Rumelhart1986} algorithms.
+%
+Notably, decision tree are relevant because of their user friendliness, whereas neural networks are relevant because of their predictive performance and flexibility.
 
 \paragraph{Decision Trees}
 
-DT can be considered more interpretable due to their construction: that is, recursively partitioning the input space $\mathcal{X}$ through a number of splits or \emph{decisions} based on the input data $X$, in such a way that the prediction in each partition is constant, and the loss w.r.t.\ $Y$ is low, while keeping the amount of partitions low as well.
-%
-Without affecting generality, we focus on the case of mono-dimensional classification -- thus we write $y$ instead of $\mathbf{y}$ --, since other cases can be easily reduced to this one.
-%
-We further assume the input space $\mathcal{X}$ is $N$-dimensional, and let $n_j$ be the meta-variable representing the name of the $j^{th}$ dimension of $\mathcal{X}$.
+\begin{figure}
+    \centering
+    \includegraphics[width=\linewidth]{figures/dt-kyphosis.png}
+    \caption{An example decision tree estimating the probability of kyphosis after spinal surgery, given the \emph{age} of the patient and the vertebra at which surgery was \emph{start}ed \cite{wiki:dt-learning}. Notice that each decision tree subtends a partition of the input space, and that the tree itself provides an intelligible representation of \emph{how} predictions are attained.}
+    \label{fig:dt-example}
+\end{figure}
 
-Under such hypotheses, a DT predictor $p_T \in \mathcal{P}_{dt}$ assumes a \emph{binary} tree $T$ exists such that each node is either
+Decision trees (DT) are a particular sort of predictors supporting both classification and regression tasks.
 %
-\begin{itemize}
-    \item a \emph{leaf}, carrying and representing a prediction, i.e. and assignment for $y$,
-    \item an \emph{internal} node, carrying and representing a \emph{decision}, i.e. a formula in the form $(n_j \leq c)$---where $c$ is a constant \emph{threshold} chosen by the learning algorithm.
-\end{itemize}
+In their learning phase, the input space is recursively \emph{partitioned} through a number of splits (a.k.a. \emph{decisions}) based on the input data $X$, in such a way that the prediction in each partition is constant, and the error w.r.t.\ the expected outputs $Y$ is minimal, while keeping the total amount of partitions low as well.
 %
-Each node $\nu$ inherits a partition $X_\nu \subseteq X$ of the original input data, from its parent.
+The whole procedure then synthesises a number of \emph{hierarchical} decision rules to be followed whenever the prediction corresponding to any $x \in \mathcal{X}$ must be computed.
 %
-Since the root node $\nu_0$ has no parent, it is assigned to the whole set of input data---i.e. $X_{\nu_0} \equiv X$.
+In the inference phase, decision rules are orderly evaluated from the root to some leaf, in order to select the portion of the input space  $\mathcal{X}$ containing $x$.
 %
-The decision carried by each internal node splits its $X_\nu$ into two disjoint parts -- $X^L_\nu$ and $X_\nu^R$ -- along the $j^{th}$ dimension of $\mathcal{X}$.
+As each leaf corresponds to a single portion of the input space, the whole procedure results in a single prediction for each $x$.
+
+Differently from other families of predictors, the peculiarity of decision trees lays in the particular outcome of the learning process -- namely, the \emph{tree} of decision rules -- which is naturally intelligible for humans and graphically representable in 2D charts.
 %
-In particular, $X_\nu^L $ contains all the residual $x_i \in X_\nu$ such that $(x_i^j \leq c_\nu)$ -- which are inherited by $\nu$ left child --, whereas $X_\nu^R$ contains all the residual $x_i \in X_\nu$ such that $x_i^j > c_\nu$---which are inherited by  by $\nu$ right child.
+As further discussed in the reminder of this thesis, this property is of paramount importance whenever the inner operation of an automatic predictor must be interpreted by a human being.
+
+
+%Without affecting generality, we focus on the case of mono-dimensional classification -- thus we write $y$ instead of $\mathbf{y}$ --, since other cases can be easily reduced to this one.
+%%
+%We further assume the input space $\mathcal{X}$ is $N$-dimensional, and let $n_j$ be the meta-variable representing the name of the $j^{th}$ dimension of $\mathcal{X}$.
 %
-A leaf node $l$ is created whenever a sequence of splits (i.e., a path from the tree root to the leaf parent) leads to a partition $X_l$ which is (almost) \emph{pure}---roughly, meaning that $X_l$ (mostly) contains input data $x_i$ for which the expected output is the same $y_l$.
-%
-In this case, we say that the prediction carried by $l$ is $y_l$.
-%
-Assuming such a tree $T$ exists, in order to classify some input data $\mathbf{x} \in \mathcal{X}$, the predictor $p_T$ simply navigates the path $P = (\nu_0, \nu_1, \nu_2, \ldots, l)$ of $T$ such that all decisions $\nu_k$ are matched by $\mathbf{x}$, then it outputs $y_l$.
+%Under such hypotheses, a DT predictor $p_T \in \mathcal{P}_{dt}$ assumes a \emph{binary} tree $T$ exists such that each node is either
+%%
+%\begin{itemize}
+%    \item a \emph{leaf}, carrying and representing a prediction, i.e. and assignment for $y$,
+%    \item an \emph{internal} node, carrying and representing a \emph{decision}, i.e. a formula in the form $(n_j \leq c)$---where $c$ is a constant \emph{threshold} chosen by the learning algorithm.
+%\end{itemize}
+%%
+%Each node $\nu$ inherits a partition $X_\nu \subseteq X$ of the original input data, from its parent.
+%%
+%Since the root node $\nu_0$ has no parent, it is assigned to the whole set of input data---i.e. $X_{\nu_0} \equiv X$.
+%%
+%The decision carried by each internal node splits its $X_\nu$ into two disjoint parts -- $X^L_\nu$ and $X_\nu^R$ -- along the $j^{th}$ dimension of $\mathcal{X}$.
+%%
+%In particular, $X_\nu^L $ contains all the residual $x_i \in X_\nu$ such that $(x_i^j \leq c_\nu)$ -- which are inherited by $\nu$ left child --, whereas $X_\nu^R$ contains all the residual $x_i \in X_\nu$ such that $x_i^j > c_\nu$---which are inherited by  by $\nu$ right child.
+%%
+%A leaf node $l$ is created whenever a sequence of splits (i.e., a path from the tree root to the leaf parent) leads to a partition $X_l$ which is (almost) \emph{pure}---roughly, meaning that $X_l$ (mostly) contains input data $x_i$ for which the expected output is the same $y_l$.
+%%
+%In this case, we say that the prediction carried by $l$ is $y_l$.
+%%
+%Assuming such a tree $T$ exists, in order to classify some input data $\mathbf{x} \in \mathcal{X}$, the predictor $p_T$ simply navigates the path $P = (\nu_0, \nu_1, \nu_2, \ldots, l)$ of $T$ such that all decisions $\nu_k$ are matched by $\mathbf{x}$, then it outputs $y_l$.
 
 \paragraph{Neural Networks}
 
-Neural networks are biologically-inspired computational models, made of several elementary units (neurons) interconnected into a \emph{directed-acyclic} graph (DAG) via \emph{weighted} synapses.
+Neural networks (NN) are biologically-inspired computational models, made of several elementary units (neurons) interconnected into a graph (commonly, \emph{directed} and \emph{acyclic}, i.e. DAG) via \emph{weighted} synapses.
 %
-NN can be \emph{trained} on data via back-propagation \cite{Rumelhart1986} and exploited into both supervised and unsupervised learning tasks such as classification, regression, and anomaly detection.
+Accordingly, the most relevant aspects of NN concern the inner functioning of neurons and the particular architecture of their interconnection.
+
+Neurons are very simple numeric computational units.
 %
-% More precisely, while the training phase sets up synapses weights automatically,
-The training phase makes a NN learn from data.
+They accept $n$ scalar inputs $(x_1, \ldots, x_n) = \mathbf{x} \in \mathbb{R}^n$ weighted by as many scalar weights $(w_1, \ldots, w_n) = \mathbf{w} \in \mathbb{R}^n$, and they process their linear combination $\mathbf{x} \cdot \mathbf{w}$ via an activation function \cite{enwiki:ActivationFunctions} $\sigma : \mathbb{R} \mapsto \mathbb{R}$, producing a scalar output $y = \sigma(\mathbf{x} \cdot \mathbf{w})$, as depicted in \cref{fig:neuron}.
 %
-Yet, only network synapses weights are modified in this phase, whereas its overall graph structure (topology henceforth) is not allowed to vary.
+\begin{figure}
+    \centering
+    \includegraphics[width=.6\linewidth]{figures/neuron.png}
+    \caption{Admissible architectures for neural networks \cite{VanVeenL2019}}
+    \label{fig:neuron}
+\end{figure}
+%
+The output of a neuron may become the input of many others, possibly forming \emph{networks} of neurons having arbitrary topologies.
+%
+These network may be fed with any numeric information encoded as vectors of real numbers by simply letting a number of neurons produce constant outputs.
+
+While virtually all topologies are admissible for NN, not all are convenient.
+%
+A number of convenient \emph{architectures} -- roughly, patterns of well-studied topologies -- have been proposed into the literature \cite{VanVeenL2019} to serve disparate purposes---far beyond the scope of supervised machine learning.
+%
+\Cref{fig:nn-architectures} overviews the current state of the art of NN architectures.
+%
+\begin{figure}
+    \centering
+    \includegraphics[width=.8\linewidth]{figures/neural-network-architectures.png}
+    \caption{Admissible architectures for neural networks \cite{VanVeenL2019}}
+    \label{fig:nn-architectures}
+\end{figure}
+
+NN can be \emph{trained} on data via stochastic gradient descent and exploited into both supervised and unsupervised learning tasks such as classification, regression, and anomaly detection, depending on the particular architecture of choice.
+%
+More precisely, while the training phase sets up weights of each neuron's ingoing synapses automatically, the overall topology of the network is not allowed to vary.
 %
 It is rather assumed to be \emph{manually} engineered by data scientists.
 
-Convolutional Neural Networks (CNN) are particular sorts of NN whose topology consists of a cascade of \emph{convolutional} layers.
+Most common NN architectures are feed-forward, meaning that neurons are organised in successive \emph{layers}, in such a way that neurons from layer $i$ can only accept ingoing synapses from neurons of layers $j < i$.
 %
-In other words, CNN can learn how to apply a number of convolution operations \cite{o2015introduction} to the data.
+The first layer is considered the input layer, which is used to \emph{feed} the whole network, while the last one is the output layer, where prediction are drawn.
 %
-Convolutions let the network spot relevant features into the input data, at possibly different scales.
-%
-Thus, CNN are primarily used to solve complex pattern-recognition tasks, such as in computer vision or speech recognition.
-%
-Yet, how many convolutions a network may learn as well as their interconnections depend on NN topology.
-%
-Again, this implementation detail requires human intervention.
+In these kind of architectures, inference lets information flow from the input to the output layers -- assuming the weights of synapses are fixed --, while training lets information flow from the output to the input layers---provoking the variation of weights to minimise the prediction error of the overall network.
 
-Traditionally, NN development workflows are deeply influenced by the choices by human experts.
-%
-Network architectures represent the most relevant aspect requiring human contribution.
-%
-However, as neither theorems nor methods ensure optimal results, human choices may lead to sub-optimal or inefficient solutions.
+\note{Riprendi da qui}
+
+%Convolutional Neural Networks (CNN) are particular sorts of NN whose topology consists of a cascade of \emph{convolutional} layers.
+%%
+%In other words, CNN can learn how to apply a number of convolution operations \cite{o2015introduction} to the data.
+%%
+%Convolutions let the network spot relevant features into the input data, at possibly different scales.
+%%
+%Thus, CNN are primarily used to solve complex pattern-recognition tasks, such as in computer vision or speech recognition.
+%%
+%Yet, how many convolutions a network may learn as well as their interconnections depend on NN topology.
+%%
+%Again, this implementation detail requires human intervention.
+
 
 \section{Symbolic Supervised Learning}
 
