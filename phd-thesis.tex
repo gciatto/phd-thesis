@@ -6,7 +6,7 @@
 \usepackage{notes}
 \usepackage{shortcuts}
 
-\school{ALMA MATER STUDIORUM -- UNIVERSITÀ DI BOLOGNA}
+\school{\MakeUppercase{\unibo}}
 \programme{Dottorato di Ricerca in Data Science and Computation}
 \title{On the role of Computational Logics in modern Data Science: representing, learning, reasoning, and explaining knowledge}
 \author{Giovanni Ciatto}
@@ -3797,18 +3797,281 @@ The interested readers may consider reading \cite{xmas-aiiot2019, expectation-ex
 
 \cite{xaisurvey-ia14}
 
-\chapter{Need for An Open Ecosystem for Logic-Based AI}
+%\chapter{Need for An Open Ecosystem for Logic-Based AI}
+%
+%\cite{cco-softwarex-2021-2pkt}
 
-\cite{cco-softwarex-2021-2pkt}
+\chapter{The 2P-Kt Ecosystem for Logic-Based AI}
 
-\chapter{The 2P-Kt Ecosystem}
+\mypapers{cco-softwarex-2021-2pkt,kotlindsi4prolog-woa2020}
 
-\cite{cco-softwarex-2021-2pkt}
-\cite{kotlindsi4prolog-woa2020}
+While their impact on the \emph{symbolic} branch of AI is well established, many emergent AI techniques leverage logic to make data-driven AI either more predictable or more understandable.
+%
+This is why the need for solid, interoperable, general-purpose \emph{logic-based technologies} is nowadays more compelling than ever.
+%
+Most of the logic-based technologies proposed so far are typically either built on top or as extensions of the Prolog language.
+%
+Even when this is not the case, \emph{monolithic} solutions are built around different inference procedures, unification mechanisms, or knowledge representation techniques.
+
+This chapter stems from the idea that logic-based technologies should be neither constructed as Prolog-centred monoliths nor tailored to a specific semantics or language.
+%
+Instead, in order to maximise their impact on AI, logic-based technologies should welcome the manifold contributions coming from the LP playground, supporting the exploitation of as many mechanisms as possible, in an unopinionated way.
+%
+As a foundational step in that direction, we present \twopkt{}, a reboot of the \tuprolog{} project offering a general-purpose, extensible, and interoperable \emph{ecosystem} for logic programming and symbolic AI.
+
+\section{The Need for an Ecosystem}
+\label{sec:motivation}
+
+In spite of the wide availability of logics, inference rules, and resolution strategies in the LP literature, only a relatively small amount of them have been reified into actual logic-based technologies.
+%
+Among these, the Prolog language \cite{ColmerauerR93} is by far the most successful story \cite{logictech-information11}.
+%
+It consists of a well-defined language \cite{prologISO-pt1,prologISO-pt2} coming with several implementations \cite{homepageBprolog,homepageCiao,homepageEclipse,homepageSicstus,homepageSwi,homepageXsb,homepageTau}.
+
+While standard implementations of Prolog target first-order logic (FOL) via SLDNF inference rule \cite{robinson1965,Kowalski1974,Clark77} and depth-first resolution strategy, most implementers have extended Prolog to support other resolution strategies as well.
+%
+This is the case of Prolog implementations supporting for instance, \emph{constraint logic programming} (CLP) \cite{jaffar1987}, \emph{constraint handling rules} (CHR) \cite{Fruhwirth98}, \emph{tabled resolution} \cite{SwiftW12}, etc.
+
+Thanks to the versatility of FOL, it is a common practice in LP to either develop logic-based technologies either \emph{on top} of Prolog or \emph{from scratch}.
+%
+In the former case, the resulting logic-based technologies tend to be poorly interoperable -- as strictly Prolog-dependent \cite{kotlindsi4prolog-woa2020} --, while in the latter case they tend to be very narrow in scope---as heavily tailored on a particular domain.
+
+Building logic-based technologies on top of Prolog is often preferred as they automatically inherit Prolog basic mechanisms, including e.g.\ the capability of
+%
+\begin{inlinelist}
+    \item representing data structures via logic terms,
+    \item knowledge via Horn clauses,
+    \item logic unification,
+    \item efficient in-memory indexing of logic information,
+    \item a flexible inference rule, and
+    \item meta-level programming.
+\end{inlinelist}
+%
+This is the smartest strategy when novel logic-based technologies must be quickly bootstrapped, yet it may easily result in poorly-interoperable, Prolog-tailored solutions.
+%
+Conversely, when Prolog capabilities are not adequate for the particular problem at hand, logic-based technologies may be designed from scratch.
+%
+This commonly involves re-designing and re-implementing most LP features from scratch.
+
+In \cite{Sterling1996}, Sterling states that logic unification is by itself the major contribution of LP to software engineering---thus singling a specific feature out of Prolog for its value and benefits.
+%
+Along this path, we argue that many aspects of LP may be useful in AI by themselves, and each contribution could be conveniently reified into some individually-usable software library.
+%
+Accordingly, our work aims at the creation of an \emph{open ecosystem} for interoperable, general-purpose LP libraries, virtually supporting multiple logics, inference rules, and resolution strategies, and possibly factorising any shared aspect---e.g. terms and clauses representation, unification, in-memory storage, (de)serialisation, etc.
+
+In the early 2000s, the idea of LP as a key \emph{technology}-enabler of intelligent application was already in place.
+%
+The \tuprolog{} project \cite{tuprolog-padl01} was proposed for this purpose.
+%
+It consists of a lightweight \emph{malleable}, object-oriented, Java-based implementation of Prolog \cite{tuprolog-sac08} which can be used as a library for JVM projects.
+%
+Despite many versions have been proposed along the years -- bringing new features, or more platforms support \cite{2p-alpnews2013} --, and many research products have been built upon it -- such as \tucson{} \cite{tucson-jaamas2}, \respect{} \cite{respect-scp41}, \lpaas{} \cite{lpaas-bdcc2}, or \tenderfone{} \cite{blockchainmas-applsci10},  \argtwop{} \cite{arg2p-cilc2020}, etc. --, it still consists of a \emph{monolithic} library targetting Prolog \emph{alone}.
+
+Accordingly, this chapter stems from the idea that Prolog is not the silver-bullet for logic-based technologies, and the belief that LP should not be reduced to Prolog alone.
+%
+For this reason, we present \twopkt{}, a \emph{reboot} of the \tuprolog{} project aimed at providing a common technological ground for LP.
+%
+Acknowledging that most mechanisms in LP have the potential to be of general value, not necessarily tailored to any specific logic, inference rule, or resolution strategy, \twopkt{} consists of a logic-based \emph{ecosystem} for symbolic AI, designed and implemented by taking openness, modularity, extensibility, and interoperability into account.
+
+More precisely, the \tuprolog{} project has been completely re-designed and re-written, splitting LP functionalities into minimal, loosely-coupled, Prolog-agnostic, individually-usable, multi-platform \emph{modules}.
+%
+The rationale behind this choice is to enable the incremental addition of novel LP functionalities to the \twopkt{} ecosystem -- possibly targeting other inference rules and search strategies --, minimising duplication of features and reusing pre-existing ones, while supporting as many programming platforms as possible.
+
+On the long run, \twopkt{} aims at becoming a comprehensive technological playground supporting several sorts of logics -- e.g. first-order, higher-order, temporal, deontic, etc. -- and mechanisms---e.g. deductive, inductive, abductive, probabilistic reasoning, etc.
+
+Finally, a non-negligible effort is devoted to keep \twopkt{} widely interoperable at the technological level with as many platforms as possible---to maximise the pool of potential adopters.
+%
+This is why most \twopkt{} modules are Kotlin Multiplatform projects -- currently supporting the JVM, JS, and Android platforms --  while others are expected to be supported soon---e.g. MacOS, iOS, .NET, and Python.
+
+%\section{Software description}
+%\label{sec:sw-description}
+
+%\twopkt{} is deeply rooted in LP, a programming paradigm based on computational logic \cite{lloyd1990computational,Nerode1996}.
+%
+%In LP, programs are typically \emph{theories} (a.k.a. \emph{knowledge bases}, KB), i.e. collections of sentences in logical form, expressing \emph{facts} and \emph{rules} about some domain.
+%%
+%These are often in the form of \emph{clauses}, i.e.:
+%\[ Head \impliedBy Body_1,\ ...,\ Body_n \]%,
+%where both $Head$ and $Body_i$ are \emph{atomic} formul\ae{}, and the whole sentence is read declaratively as logical implication ($Head$ is implied by all $Body_i$).
+%%
+%If $n = 0$, the clause is called \emph{fact}, \emph{rule} otherwise.
+%%
+%An atomic formula is an expression in the form $P(t_1,...,t_m)$ where $P$ is a $m$-ary predicate ($m \geq 0$), and $t_1,...,t_m$ are \emph{terms}.
+%%
+%Terms are the most general sort of data structure in LP languages.
+%%
+%They can be \emph{constant} (either \emph{numbers} or \emph{atoms}/strings), \emph{variables}, or recursive elements named \emph{structures}.
+%%
+%Structures are used to represent clauses, lists, sets, or other sorts of expressions.
+%
+%Logic \emph{solvers} exploit KB to answer users' \emph{queries} via some inference procedure and resolution strategy.
+%%
+%For instance, Prolog interpreters exploit a \emph{deductive} procedure rooted into the SLDNF resolution principle \cite{Kowalski1974, Clark77}, and a depth-first strategy.
+%%
+%Yet, other options exist like, e.g., abductive \cite{FungIff97}, inductive \cite{Muggleton94}, probabilistic \cite{RaedtK15}, inference.
+%%
+%Each of them represents a particular reification of a logic solver.
+%
+%A common mechanisms in LP is the \emph{unification} algorithm \cite{MartelliMontanari1982} for constructing a \emph{most general unifier} (MGU) for any two suitable terms.
+%%
+%Provided that such an MGU exists, the subsequent application of the resulting substitution to the terms, renders them syntactically equal.
+%%
+%This is a basic brick in virtually all LP algorithms, regardless of the particular inference rule.
+%
+%Summarising, LP leverages several mechanisms -- terms and clauses representation, knowledge base storage, unification, resolution, etc. --, which constitute the basis of any logic solver.
+%%
+%Subsets of these mechanisms may be useful \textit{per se}.
+%%
+%\twopkt{} makes all these mechanisms \emph{individually} available, while easing the construction of novel mechanisms on top of the existing ones.
+
+\section{Overall Design}
+\label{ssec:sw-architecture}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\linewidth]{figures/2p-kt-project-map.pdf}
+    \caption{\twopkt{} project map: LP functionalities are partitioned into some loosely-coupled and incrementally-dependent modules}
+    \label{fig:2p-kt-project-map}
+\end{figure}
+
+\twopkt{} is deeply rooted in CL, a programming paradigm based on computational logic \cite{lloyd1990computational,Nerode1996}.
+%
+Hence, from an architectural perspective, \twopkt{} is a framework supporting the creation of logic-based software via several loosely-coupled \emph{modules}---each one tailored on a particular aspect of CL.
+
+To further support reusability, each module factorises a small number of related functionalities, via a compact API composed by OOP types and methods.
+%
+As modules are the most basic deployable units in \twopkt{}, major LP functionalities are partitioned into modules on a per-usage basis, to make them selectively usable as dependencies in other projects.
+%
+The \twopkt{} ecosystem itself is attained by incrementally combining such modules, as depicted in \cref{fig:2p-kt-project-map}.
+%
+Accordingly, to maximise interoperability, \twopkt{} modules are individually available as pre-compiled libraries both on Maven Central Repository (MCR)\footnote{\url{https://search.maven.org/search?q=g:it.unibo.tuprolog}} -- for JVM-, Android- or Kotlin-based contexts -- and on the NPM Registry\footnote{\url{https://www.npmjs.com/org/tuprolog}} -- for JS-based contexts --, whereas a detailed description of their API is available on the Web as part of \twopkt{} documentation.
+%
+% In the latter case, self-executing Jars for \twopkt{} GUI and CLI are available on the GitHub Release page\footnote{\url{\twopktRelease}} of the project, while a Web-based GUI is available at \cite{2P-Playground} for direct in-browser usage in a serverless fashion.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\linewidth]{figures/2p-kt-api.pdf}
+    \caption{\twopkt{} public API: a type is provided for each relevant concept in LP}
+    \label{fig:2p-kt-api}
+\end{figure}
+
+If all \twopkt{} modules were merged together, the most relevant aspects of their API could be summarised as in \cref{fig:2p-kt-api}.
+% depicts the main aspects of \twopkt{} public API.
+%
+The diagram points out how all relevant aspect of LP are reified into types: e.g.
+%
+\begin{itemize}
+    \item logic \texttt{Term}s (as well as any specific sort of term, e.g. \texttt{Var}iables, or \texttt{Struct}ures, etc.),
+    \item logic \texttt{Substitution}s, unification, and MGU (computed by an \texttt{Unificator}),
+    \item \texttt{Clause}s (there including \texttt{Rule}s, \texttt{Fact}s, and \texttt{Directive}s),
+    \item knowledge bases and logic theories (e.g. the \texttt{Theory} type),
+    \item automatic reasoning, via the \texttt{Solver} interface, and
+    \item logic \texttt{Solution}s---computed by \texttt{Solver}s in response to queries.
+\end{itemize}
+%
+There, interfaces are used to expose relevant aspects, in order to keep the system extensible.
+%
+Developers may e.g.\ define custom implementations for \texttt{Unificator} and \texttt{Solver} to provide novel inference mechanisms involving some variant of the unification algorithm.
+%
+Of course, a detailed diagram would include several more types, as the \twopkt{} API also supports:
+%
+\begin{inlinelist}
+    \item (de)se\-ria\-li\-sa\-tion of logic terms and theories into/from standard data-representation formats such as JSON, or YAML;
+    \item parsing/formatting logic terms and theories from/into concrete logic syntaxes such as Prolog's one;
+    \item letting developers extend solvers via libraries of custom LP functionalities;
+    \item letting users exploit logic solvers either by a command-line (CLI) and graphical (GUI) user interface;
+\end{inlinelist}
+%
+etc.
+
+\subsection{Overview of Functionalities}
+\label{ssec:functionalities}
+
+% Present the major functionalities of the software.
+
+Each major \twopkt{} functionality is reified into a particular module.
+%
+Accordingly, in this subsection we enumerate \twopkt{} functionalities on a per-module basis.
+%
+Following Gradle convention, we denote modules by \module{mo\-du\-le\-Na\-me}.
+
+The most fundamental module is \module{core}, which exposes types for representing symbolic knowledge via terms and clauses, other than methods to support their manipulation (e.g. construction, unfolding, scoping, formatting, etc.) for OOP or FP programmers.
+%
+It comes with several data structures aimed at covering most common KR needs in LP.
+%
+However, novel sorts of terms and clauses may optionally be added by developers by extending/implementing any public interface in \module{core}.
+%
+Furthermore, the pervasive adoption of an \emph{immutable} design makes data structures in \module{core} well suited for concurrent and multi-threaded contexts.
+
+Terms and clauses are often compared or manipulated in LP via \emph{unification}.
+%
+Arguably \cite{Sterling1996}, unification \cite{unification-automatedreasoningbook2001} is -- by itself --, among the most useful contributions of LP to AI.
+%
+For this reason, we encapsulate it within an \emph{ad-hoc} module, \module{unify}, coming with a general notion of \texttt{Unificator} -- i.e. any algorithm aimed at computing MGU out of terms or clauses --, and a default implementation based on \cite{MartelliMontanari1982}.
+%
+Developers may extend the default implementation by configuring e.g. when terms should be considered equal or not, or they can provide a different implementation for \texttt{Unificator}, in case they need a specific unification strategy, or, they  prefer to adopt a different unification algorithm.
+
+Another common need in LP is the in-memory storage of clauses into ordered -- e.g. queues -- or unordered -- e.g. multisets -- data structures, and their efficient retrieval via pattern-matching (e.g. unification).
+%
+The \module{theory} module follows this purpose, by providing notions such as \texttt{ClauseQueue}, \texttt{ClauseMultiset}---all coming both in an \emph{immutable} (access-efficient) and \emph{mutable} (update-efficient) implementation.
+%
+These data structures differ from ordinary collections as they enable an unification-based retrieval and indexing of clauses.
+%
+Prolog's notions of theory, and static/dynamic KB are built on top these data structures, exploiting the most adequate implementation in each case.
+
+The practice of LP may also involve several ancillary operations over terms and clauses, e.g.:
+%
+\begin{inlinelist}
+    \item formatting -- into some \emph{customisable} form --,
+    \item (de)serialization -- into/from open data-representation formats such as JSON or YAML --, and
+    \item parsing---out of a particular concrete syntax, such as, e.g., Prolog syntax.
+\end{inlinelist}
+%
+While formatting is considered a \module{core} functionality, attained via the \texttt{TermFormatter} type, (de)serialization and parsing come with their own modules.
+%
+Thus, module \module{serialize-core} (resp. \moduleStyle{-theory}) supports the serialisation and deserialisation of terms (resp. theories) into JSON or YAML, according to a human-readable schema.
+%
+This is aimed at supporting distributed applications needing to exchange logic knowledge over the network.
+%
+Similarly, parsing terms (resp. theories) in Prolog syntax is currently supported through the \module{parser-core} (resp. \moduleStyle{-theory}) module, which is based on the well-known ANTLR technology \cite{Parr2013} for language engineering.
+
+A generic API for logic solvers is available as well within the \module{solve} module.
+%
+Conceptually, the purpose of this module is as simple as exposing the \texttt{Solver} type, which represents any entity capable of performing some sort of logic resolution to provide one or more \texttt{Solution}s to a logic query.
+%
+However, resolution involves many practical aspects -- such as errors management, extensibility via libraries, I/O, etc. -- which are \emph{orthogonal} w.r.t. any particular resolution strategy.
+%
+This is why \module{solve} is a quite articulated -- despite not directly usable -- module.
+
+While developers may easily build their inference procedure of choice by providing an implementation for the \texttt{Solver} interface -- possibly selectively reusing features from \module{solve} --, two implementations are currently available as part of \twopkt{} -- namely \module{solve-classic} and \moduleStyle{-streams} --, both implementing Prolog's SLDNF resolution strategy.
+%
+In particular, \module{solve-classic} is based on the work of Piancastelli et al. \cite{tuprolog-sac08} and is currently stable, while \module{solve-streams} is an experimental attempt of implementing Prolog via LP following the idea proposed in \cite{Carlsson84}.
+%
+Notably, none of them relies on the Warren Abstract Machine \cite{Warren1983}---the computational model Prolog is commonly built upon.
+
+A generic API for developing Prolog-like predicates in Kotlin is available as well.
+%
+It heavily leverages FP and OOP to let developers extend their solvers with libraries of complex functionalities -- possibly involving backtracking or side-effects -- which are easier to implement in Kotlin than through LP.
+%
+There, lazy streams of data are treated as flows of solutions to be enumerated via backtracking.
+%
+This makes \twopkt{} very well-suited for handling possibly infinite streams of data via LP---an essential feature in modern AI.
+
+User experience (UX) is enabled by two more modules -- namely, \module{repl} and \module{ide} --, which provide a CLI and GUI, respectively.
+%
+While they both target JVM-specific UX, an experimental web-based GUI is available at \cite{2P-Playground}, targetting JS-specific UX.
+
+The many \module{dsl-*} modules in \cref{fig:2p-kt-project-map} are aimed at supporting the Kotlin-based DSL for LP described in \cite{kotlindsi4prolog-woa2020}.
+%
+It consists of façade to \twopkt{} API aimed at blending the OOP, FP, and LP programming paradigms via Kotlin's flexible syntax.
+%
+Within the \twopkt{} project, this DSL is extensively exploited for unit testing.
+
+Finally, the \module{oop-lib} module is experimental logic library aimed at supporting the exploitation of OOP from within logic programs.
 
 \chapter{Bridging Logic Programming and Data Processing}
 
-\cite{2pkt-jelia2021}
+\mypapers{2pkt-jelia2021}
 
 \chapter{Bridging Logic Programming and Object Orientation}
 

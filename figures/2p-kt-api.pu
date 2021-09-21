@@ -1,0 +1,136 @@
+@startuml
+skinparam shadowing false
+
+package terms {
+
+    interface Term {
+       + apply(Substitution): Term
+       + freshCopy(): Term
+    }
+    interface Constant {
+       + value: Any
+    }
+    interface Var {
+       + name: String
+    }
+    interface Struct {
+       + functor: String
+       + args: Array<Term>
+    }
+    interface Numeric
+    interface Integer {
+       + value: Int
+    }
+    interface Real {
+       + value: Double
+    }
+    interface Atom {
+       + value: String
+    }
+    interface Truth {
+       + isTrue: Boolean
+    }
+    interface EmptyList
+    interface List
+    interface Cons {
+      + head: Term
+      + tail: Term
+    }
+
+    Term <|-down- Struct
+    Term <|-down- Constant
+    Term <|-down- Var
+
+    Constant <|-down- Numeric
+    Constant <|-down- Atom
+
+    Numeric <|-down- Real
+    Numeric <|-down- Integer
+
+    Struct <|-down- Atom
+    Struct <|-down- List
+
+    Atom <|-down- Truth
+    Atom <|-- EmptyList
+
+    List <|-down- EmptyList
+    List <|-down- Cons
+
+}
+
+package substitutions {
+
+    class Substitution{
+        + get(Var): Term
+        + contains(Var): Boolean
+    }
+
+    Substitution <|-- Unifier 
+    Substitution <|-- Fail
+
+}
+
+package unification {
+
+    interface Unificator {
+        + mgu(Term, Term): Substitution
+        + unify(Term, Term): Term?
+        + match(Term, Term): Boolean
+    }
+
+}
+
+package "clauses & theories" {
+
+    interface Clause {
+       + head: Struct?
+       + body: Term
+    }
+    interface Rule
+    interface Directive
+    interface Fact
+    Clause <|-down- Rule
+    Clause <|-down- Directive
+    Rule <|-left- Fact
+    
+    interface Theory {
+        + assertA(Clause)
+        + assertZ(Clause)
+        + retract(Clause)
+        + retractAll(Clause)
+        + get(Clause): Sequence<Clause>
+    }
+
+    Theory "1" o-- "*" Clause
+
+}
+
+package resolution {
+
+    interface Solver {
+        + solve(Struct,Long): Sequence<Solution> 
+    }
+    
+    interface MutableSolver {
+        + loadStaticKb(Theory)
+        + loadDynamicKb(Theory)
+    }
+    
+    Solver <|-- MutableSolver
+
+    class Solution {
+        + query: Struct
+    }
+    class Yes {
+        + substitution: Unifier
+    }
+    class No
+    class Halt {
+        + exception: PrologError
+    }
+
+    Solution <|-- Yes
+    Solution <|-- No
+    Solution <|-- Halt
+}
+@enduml
