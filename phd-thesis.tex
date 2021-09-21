@@ -1489,16 +1489,16 @@ In fact, while parameters are \emph{automatically} computed by the learning algo
 %
 They may be either guessed or estimated by trial-and-error by data scientists---hence representing a bottleneck in the automatisation of learning.
 
-\note{About generalisation: the bias-variance trade-off?} % maybe out of topic
+%\note{About generalisation: the bias-variance trade-off?} % maybe out of topic
 
 \subsection{Overview on learning algorithms}
 
-\note{
-    Comments on existing algorithms and their relevant aspects?
-    Let's distinguish among parametric and non-parametric algorithms.
-    Let's distinguish among regression and classification algorithms, with a focus on regression as classification can be reduced to regression.
-    Focus on gradient descent, back-propagation and deep learning.
-}
+%\note{
+%    Comments on existing algorithms and their relevant aspects?
+%    Let's distinguish among parametric and non-parametric algorithms.
+%    Let's distinguish among regression and classification algorithms, with a focus on regression as classification can be reduced to regression.
+%    Focus on gradient descent, back-propagation and deep learning.
+%}
 
 Depending on the predictor family of choice, the nature of the admissible hypotheses spaces and learning algorithms may vary dramatically, as well as the predictive performance of the target predictor, and the whole efficiency of learning.
 
@@ -1578,7 +1578,7 @@ Notably, decision tree are relevant because of their user friendliness, whereas 
     \label{fig:dt-example}
 \end{figure}
 
-Decision trees (DT) are a particular sort of predictors supporting both classification and regression tasks.
+Decision trees (DT) are particular sorts of predictors supporting both classification and regression tasks.
 %
 In their learning phase, the input space is recursively \emph{partitioned} through a number of splits (a.k.a. \emph{decisions}) based on the input data $X$, in such a way that the prediction in each partition is constant, and the error w.r.t.\ the expected outputs $Y$ is minimal, while keeping the total amount of partitions low as well.
 %
@@ -1620,7 +1620,7 @@ As further discussed in the reminder of this thesis, this property is of paramou
 
 \paragraph{Neural Networks}
 
-Neural networks (NN) are biologically-inspired computational models, made of several elementary units (neurons) interconnected into a graph (commonly, \emph{directed} and \emph{acyclic}, i.e. DAG) via \emph{weighted} synapses.
+Neural networks (NN) are biologically-inspired computational models, made of several elementary units (neurons) interconnected into a graph (commonly, \emph{directed} and \emph{acyclic}, a.k.a. DAG) via \emph{weighted} synapses.
 %
 Accordingly, the most relevant aspects of NN concern the inner functioning of neurons and the particular architecture of their interconnection.
 
@@ -1652,9 +1652,9 @@ A number of convenient \emph{architectures} -- roughly, patterns of well-studied
     \label{fig:nn-architectures}
 \end{figure}
 
-NN can be \emph{trained} on data via stochastic gradient descent and exploited into both supervised and unsupervised learning tasks such as classification, regression, and anomaly detection, depending on the particular architecture of choice.
+NN can be \emph{trained} on numeric data via stochastic gradient descent and exploited into both supervised and unsupervised learning tasks such as classification, regression, and anomaly detection, depending on the particular architecture of choice.
 %
-More precisely, while the training phase sets up weights of each neuron's ingoing synapses automatically, the overall topology of the network is not allowed to vary.
+More precisely, while the training \emph{automatically} sets up the weights of each neuron's ingoing synapses, the overall topology of the network is not allowed to vary.
 %
 It is rather assumed to be \emph{manually} engineered by data scientists.
 
@@ -1664,20 +1664,17 @@ The first layer is considered the input layer, which is used to \emph{feed} the 
 %
 In these kind of architectures, inference lets information flow from the input to the output layers -- assuming the weights of synapses are fixed --, while training lets information flow from the output to the input layers---provoking the variation of weights to minimise the prediction error of the overall network.
 
-\note{Riprendi da qui}
-
-%Convolutional Neural Networks (CNN) are particular sorts of NN whose topology consists of a cascade of \emph{convolutional} layers.
-%%
-%In other words, CNN can learn how to apply a number of convolution operations \cite{o2015introduction} to the data.
-%%
-%Convolutions let the network spot relevant features into the input data, at possibly different scales.
-%%
-%Thus, CNN are primarily used to solve complex pattern-recognition tasks, such as in computer vision or speech recognition.
-%%
-%Yet, how many convolutions a network may learn as well as their interconnections depend on NN topology.
-%%
-%Again, this implementation detail requires human intervention.
-
+The recent success of deep learning \cite{GoodfellowBC2016} has proved the flexibility and the predictive performance of \emph{deep} neural networks (DNN).
+%
+`Deep' here refers to the large amount of (possibly \emph{convolutional}) layers.
+%
+In other words, DNN can learn how to apply cascades of convolutional operations to the input data.
+%
+Convolutions let the network spot relevant features into the input data, at possibly different scales.
+%
+Hence why DNN are good at solving complex pattern-recognition tasks, such as in computer vision or speech recognition.
+%
+Unfortunately, however, unprecedented predictive performances of DNN come at the cost of their increased internal complexity and greater data greediness.
 
 \section{Symbolic Supervised Learning}
 
@@ -1891,7 +1888,7 @@ They are characterised by a great flexibility because of their reliance on diffe
 %
 Therefore, regardless of the complexity of the overall structure, a NN is composed by the recursive composition of differentiable operators---which makes the whole network trainable via SGD.
 %
-To further speed up NN training, a plethora of software frameworks have been designed and implemented, with the purpose of exploiting ad-hoc hardware, such as GPUs---cf. Tensorflow, Theano, Caffe, etc. \missingref.
+To further speed up NN training, a plethora of software frameworks have been designed and implemented, with the purpose of exploiting ad-hoc hardware, such as GPUs---cf. Tensorflow \cite{tensorflow2015-whitepaper}, Theano \cite{theano2016}, Caffe \cite{JiaSDKLGGD14}, etc.
 %
 Conversely, despite the many algorithms designed for ILP, the availability of software frameworks reifying them is quite scarce, and the support for parallelisation is even scarcer.
 %
@@ -2019,9 +2016,9 @@ It is such an obvious capability for human beings that most of it is not even ex
 
 Despite the formalisation of commonsense soon proved to be very challenging -- mostly because of the many non-trivial involved issues, such as the need of formalising the situation the agent is immersed into, actions it may perform of be subject to, and physical and legal laws governing its environment and context, etc. --, many frameworks and tools have been developed over the years while pursuing such goal.
 %
-There are freely available commonsense knowledge bases and natural language processing toolkits, supporting practical textual-reasoning tasks on real-world documents including analogy-making, and other context oriented inferences---see for instance \cite{lieberman2004,trinh2018,liu2004conceptnet,liu2002goose,shapiro1999sneps}). \missingref
+There are freely available commonsense knowledge bases and natural language processing toolkits, supporting practical textual-reasoning tasks on real-world documents including analogy-making, and other context oriented inferences---see for instance \cite{lieberman2004,liu2004conceptnet,liu2002goose,shapiro1999sneps}).
 %
-There have been also a number of attempts to construct very large knowledge bases of commonsense knowledge by hand, one of the largest being the CYC program by Douglas Lenat at CyCorp \cite{lenat1995-cyc}. \missingref
+There have been also a number of attempts to construct very large knowledge bases of commonsense knowledge by hand, one of the largest being the CYC program by Douglas Lenat at CyCorp \cite{lenat1995-cyc}.
 
 The modern approach to automated reasoning starts with Robinson's resolution principle \cite{robinson1965}: since then, several technologies have exploited \emph{deduction} on FOL knowledge bases to provide reasoning capabilities in diverse areas---logic programming, deductive data bases, and constraint logic programming (CLP) possibly being the major ones.
 %
