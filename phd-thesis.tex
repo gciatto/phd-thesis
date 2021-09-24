@@ -1031,7 +1031,7 @@ It just requires the novel predicates to be added to the KB.
 %
 Conversely, in the propositional approach, the same operation would require the \emph{whole} KB to be rewritten---to let each predicate carry one more feature.
 
-\subsection{Relevant Subsets of FOL}
+\subsection{Relevant Subsets of FOL}\label{ssec:fol-sub-sets}
 
 Historically, most KR formalisms and technologies have been designed around either sub-sets or applications of the \emph{first order logic} (FOL).
 %
@@ -2005,7 +2005,7 @@ In the reminder of this chapter we delve into the details of reasoning from both
 %
 In particular, we present the classic approaches and algorithms to automate logical reasoning and we introduce the theory behind the mimicking of symbolic reasoning via sub-symbolic facilities.
 
-\section{Symbolic Reasoning}
+\section{Symbolic Reasoning}\label{sec:symbolic-reasoning}
 \mypapers{logictech-information11}
 
 Symbolic (i.e., logic-based) reasoning approaches root back to John McCarthy's work of 1958 \cite{Mccarthy1958}, aimed at developing the idea of formalising the so-called \emph{commonsense reasoning} to build intelligent artefacts---i.e. computational or cyber-physical agents endowed with human-like intelligence.
@@ -3779,27 +3779,572 @@ The interested readers may consider reading \cite{xmas-aiiot2019, expectation-ex
 \part{How}
 \label{part:how}
 
-\chapter{The Role of Software}
+\chapter{The Role of Logic Based Technologies}
+
+\mypapers{logictech-information11}
+
+Artificial intelligence (AI) is getting ever growing attention from both the academia and the industry, in terms of resources, economical impact, available technologies and widespread adoption in virtually any application area.
+%
+In fact, more and more industries are adopting and applying state-of-the-art AI techniques, to actively pursue challenging business objectives.
+
+Such a general interest, and technology adoption, has been favoured by two main ingredients:
+%
+\begin{inlinelist}
+    \item the development of advanced technologies even at the micro scale, and
+    \item the availability of large amounts of data in the environment around us to learn from.
+\end{inlinelist}
+%
+These ingredients have boosted \emph{sub-symbolic} AI techniques, such as machine learning (ML), -- there including deep learning and neural networks -- aimed at exploiting big data to make predictions and take autonomous decisions---in contrast to the more long-established \emph{symbolic} techniques, based on the formal representation of knowledge and its elaboration via explicit reasoning rules.
+
+The increasing role of intelligent systems in human society, however, raises unprecedented issues about the need to \emph{explain} the behaviour, or the result of, intelligent systems---in the sense of being capable of \emph{motivating} their decision and make the underlying decision process \emph{understandable} by human beings: this is where sub-symbolic techniques, despite their efficiency, fall short.
+%
+This is especially relevant when AI is exploited in the context of human organisations meant at providing public services---such as, e.g., health care / diagnostic systems or legal advice.
+%
+There is therefore an emerging need to reconcile and synthesise symbolic and sub-symbolic techniques, exploiting the first to \emph{explain} the latter---the scope of \emph{eXplainable Artificial Intelligence} (XAI) \cite{darpa2016-xai}.
+
+So, just when AI's general focus is on sub-symbolic techniques, symbolic approaches are re-emerging as the means to bring AI closer to the human understanding, helping humans to overcome fears and ethical issues by providing explainability, observability, interpretability, responsibility, and trustability.
+%
+In this context \emph{logic-based} approaches, despite their age, are finding a new youth, for a number of reasons---first of all, because of their closer relation to the human cognitive process.
+%
+Moreover, their role in (not just computer) science is well understood -- think for instance of the formal study of programs and semantics in computational models, computational logic, inference as computation, logic programming, and automatic theorem proving \cite{gallier2015,boyer2014-computationallogic}.
+%
+Last but not least, logic-based approaches have long been at the centre of many successful agent-based models and technologies: indeed, agents reason through logic, and plan and coordinate through logical processes \cite{levesque1984,omicini1995,bordini2006}.
+%
+Overall, from the XAI spark, wider perspectives are raising also beyond the symbolic/sub-symbolic dichotomy, yet all sharing a logic-based root.
+
+Accordingly, in this chapter we focus on the role that logic technologies have played over the years and are going to play in the forthcoming AI landscape---in particular, for the engineering of intelligent systems.
+%
+We leverage on that analysis to identify the most promising research perspectives and the open issues characterising the current state of the art.
+
+%===============================================================================
+\section{Logic-based AI: Application Areas}\label{sec:application}
+%===============================================================================
+
+\begin{figure}
+    \centering\includegraphics[width=\linewidth]{figures/logicForAI.png}
+    \caption{Logic-based technologies application areas with respect to the main AI categories---namely, AI Foundations, AI for Society, and AI for Business.  Intentionally, the picture only illustrates the AI areas that are closely related to logic.}
+    \label{fig:logicBasedAIArea}
+\end{figure}
+
+The above techniques have been applied in a variety of fields: \cref{fig:logicBasedAIArea} summarises both the main application areas and their interconnections.
+%
+For each application area, in the following we \emph{(i)} introduce what the area is about, \emph{(ii)} outline the main sub-categories (if any), \emph{(iii)} discuss the role of logic in each sub-category as well as \emph{(iv)} its benefits and limits, and \emph{(v)} present the main actual applications.
+
+In order to make the comparison actually effective, \cref{tab:logic-usages} and \cref{tab:logic-segments} summarise our findings from two different viewpoints.
+The first outlines the strengths of the diverse techniques per application area, that is, where they provide the strongest contribution; the second puts each technique in relation with the different market segments, providing appropriate references to the literature where each technique is used.
+
+\input{tables/tech-tables}
+
+%-------------------------------------------------------------------------------
+\subsection{AI Foundations}\label{ssec:ai-foundations}
+%------------------------------------------------------------------------
+
+%---------------------------------------
+\subsubsection{Formalisation \& Verification of Computational Systems}
+%---------------------------------------
+
+% What is this area about
+Formalisation and verification of computational systems refer to a collection of techniques for the automatic analysis of reactive systems---in particular, safety-critical systems, where subtle design errors can easily elude conventional simulation and testing techniques.
+
+The main logic-based technology exploited in this field is model checking---nowadays a standard procedure for quality assurance both because of its cost-effectiveness and of the ease of integration with more conventional design methods.
+%
+The model checker input is a description of the system to be analysed and a number of properties that are supposed to hold: logic is used both to formalise the system description -- states, transitions, model description, and specifications to be verified -- and to express the behavioural aspects, capturing the key properties of information flow.
+%
+Accordingly, such descriptions are often expressed in temporal and probabilistic logic (and their extension/variations).
+%
+The model checker input is then a (usually finite-state) description of the system to be analysed, and the expected properties in terms of temporal-logic formulas.
+
+% Example and applications
+Application examples (\cref{model-check}) are notably heterogeneous, since model-checking is multidisciplinary and cross-field by its very nature.
+
+% Benefits and Limits
+Model checking can provide a significant increase in the level of confidence of a system, enabling system verification a-priori, a-posteriori, and -- what is most relevant nowadays -- at runtime.
+%
+On the other hand, any validation is, by definition, only as good as the system model itself: so, the validation result strongly depends on the precision of the input model.
+%
+In addition, model checking can turn out to be unsuitable for data intensive applications, as it increases the number communications.
+
+%---------------------------------------
+\subsubsection{Cognitive Agents \& Intelligent Systems}\label{ssec:cognitive-arch}
+%---------------------------------------
+
+Cognitive architectures are design methodologies, i.e., collections of knowledge and strategies applied to the problem of creating \emph{situated intelligence}.
+%
+Here, the main technologies borrow from \emph{multi-agent systems} (MAS), since the cognitive architecture can be considered as the brain of an agent reasoning to solve problems, achieving goals and taking decisions.
+
+Generally speaking, cognitive agents in intelligent MAS straightforwardly exploit the logic-based models and technologies for the rational process, knowledge representation, expressive communication, and effective coordination.
+%
+Developing an agent means to set up a deduction process: each agent is encoded as a logic theory, and selecting an action means to perform a deduction that reduces the problem to a solution, as in theorem proving.
+%
+Logic can also be used to represent the agent's surrounding \emph{environment} and the \emph{society} of agents---that is, overall, two of the three key aspects when it comes model the structure and dynamics of non-trivial MAS \cite{soda-aoseI}.
+
+Technologies reflect the above context: many are related to agent programming and reasoning (\cref{sec:symbolic-reasoning}), others to agent reliability and verification (\cref{model-check}).
+%
+Many others focus on the societal aspect of cognitive architectures, by interpreting society as the ensemble where the collective behaviour of the MAS are \emph{coordinated} towards the achievement of the global system goals.
+%
+Along this line, \emph{coordination models} glue agents together by governing agent interaction, paving the way towards social intelligence: after the seminal work of Shared Prolog \cite{logictuplespaces-ngc12}, notable examples are \tucson{} \cite{tucson-jaamas2}, \respect{} \cite{respect-scp41}, and AORTA \cite{jensen2014-aorta-emas}.
+
+Within an agent society, agents can enter into argumentation processes to reach agreements and dynamically adapt to changes: so, disputes and conflicts need to be managed in order to achieve a common agreement and establish the winner argument.
+%
+A number of technologies exist for solving reasoning tasks on the abstract argumentation frameworks \cite{Dung:1995:AAF:220193.220197}.
+%
+Since problems of this kind are intractable, efficient algorithms and solvers are needed.
+%
+As discussed in \cite{Gaggl_Linsbichler_Maratea_Woltran_2018}, most solvers are based on logic-based programming or logic frameworks including ASP and SAT-solvers.
+
+Specific technologies exist for dealing with the \emph{environment} abstraction of cognitive architectures, mostly in the \emph{coordination} area.
+%
+There, coordination/interaction artefacts work as runtime abstractions which encapsulate and support coordination/interaction services, usable as building blocks for designing and governing coordination, collaboration,  competition services inside heterogeneous MASs.
+%
+\emph{Description spaces with fuzziness} \cite{DBLP:conf/sac/NardiniOV11} and \emph{semantic tuple centres} \cite{DBLP:conf/sac/NardiniVP10} can be read as technologies for \emph{situated interaction \& coordination}, emphasising the \emph{situated} aspect of interaction, i.e., the environment-related aspect.
+%
+In-between lies \lpaas{} (Logic Programming as a Service), a framework aimed at supporting the distribution of logic knowledge in the environment.
+%
+There, artefacts work as knowledge repositories (in the form of environment structure and properties) while also embedding the reasoning process (enabled and constrained by the knowledge they embody).
+
+When agents are immersed in a Knowledge-Intensive Environment (KIE), the cognition process goes beyond that of the individual agent, and distributed cognition processes may take place, promoting the idea of \emph{intelligent environment} \cite{distributedcognition-hollan-2000}.
+%
+In such a way, the environment concept is extended beyond situated action---which, by the way, motivates the inclusion of the semantic web within the macro-area of environmental abstractions.
+
+Moving from \cite{Hendler2001}, the ``Agents {\bf in} the semantic web'' sub-category lists JADL, AgentOWL, and EMERALD, which exploit semantic web technologies to inter-operate.
+
+Hybrid cognitive architectures have recently gained attention to combine symbolic and sub-symbolic (emergent) approaches.
+%
+Examples are ACT-R \cite{Anderson2003} -- based on the modelling of human behaviour --, CLARION \cite{Sun2005} and LIDA \cite{franklin2006}.
+
+In spite of the simplicity and elegance of the logical semantics in logic-based architectures, some issues do exist.
+%
+The \emph{transduction} problem\cite{bie2004} has to do with the difficulty of accurately translating the model into a symbolic representation, especially in a complex environment.
+%
+One more difficulty comes from suitably representing information in such a symbolic form that agents can reason about, with and in a time-constrained environment.
+%
+Finally, the transformation of percepts may not be accurate enough to describe the environment itself, due to sensor faults, reasoning errors, etc.
+
+%-------------------------------------------------------------------------------
+\subsection{AI for Society}\label{ssec:ai-society}
+%-------------------------------------------------------------------------------
+
+%---------------------------------------
+\subsubsection{Healthcare \& Well-being}
+%---------------------------------------
+
+In the healthcare domain, AI typically takes the form of complex algorithms and software systems to emulate human cognition in the analysis of complicated medical data, approximating conclusions without direct human input.
+%
+The primary aim here is to analyse relationships between prevention or treatment techniques and patient outcomes. AI programs have been developed and applied to practices such as diagnosis processes, treatment protocol development, drug development, personalised medicine, and patient monitoring and care.
+
+In this field, logic is exploited to represent knowledge in a human understandable way, and reason on it via properly-formalised rules---in particular, decision support (symbolic) rules, obtained from domain experts and/or decision models induced from data.
+
+At the same time, symbolic logic scales does not scale easily: knowledge engineers need to extract the logic by interviewing or observing human experts.
+%
+On the other hand, sub-symbolic techniques such as supervised deep learning scale more easily, but are subject to bias in the training data---and, of course, their outcome cannot be explained.
+
+Here again, the semantic web provides a technical framework for the formal semantic modelling -- i.e. interpretation, abstraction, axiomatisation, and annotation -- of healthcare knowledge in terms of classes, properties, relations and axioms \cite{berners2001semantic}.
+%
+The semantic web framework for healthcare systems provide notable features:
+%
+\begin{inlinelist}
+    \item semantic modelling of the procedural and declarative healthcare knowledge as ontologies, hence a semantically rich and executable knowledge representation formalism;
+    \item annotation -- typically via RDF (Resource Description Framework) -- of healthcare knowledge artefacts guided by the ontological model of the knowledge artefact, so as to characterise the main concepts and relations within the artefact;
+    \item representation of different patient data sources in a semantically-enriched formalism, that helps to integrate heterogeneous data sources by establishing semantic similarity between data elements;
+    \item semantic interoperability between multiple ontologies, using ontology alignment and mediation methods to dynamically synthesise / shape multiple knowledge resources so as to address all the facets of the specific healthcare problem;
+    \item specification of the decision-making logic in terms of symbolic rules, which can be executed using proof engines to infer suitable recommendations/actions;
+and
+    \item provision of a justification trace of the inferred recommendations, so as to let users understand the rationale of the recommended interventions \cite{Abidi2008}.
+\end{inlinelist}
+
+Among the healthcare systems based on reasoning, CARA (Context Aware Real-time Assistant) \cite{yuan2012} aims at providing personalised healthcare services for chronic patients in a timely manner, adapting the healthcare technology so that it fits in both with the normal activities of the elderly and with the working practices of the caregivers.
+%
+Based on a fuzzy-logic context model and a related context-aware reasoning middleware, CARA provides context-aware data fusion and representation, as well as inference mechanisms that support remote patient monitoring and caregiver notification.
+
+%---------------------------------------
+\subsubsection{Law \& Governance}\label{sssec:ai-and-law}
+%---------------------------------------
+
+Due to its wide potential impact on society and economy, \emph{AI \& law} is one of today's most relevant research areas.
+%
+It consists of an interdisciplinary effort combining methods and results from several sources, from deontic logic, norms and agent-based simulation to game theory and norms, normative agents, norms and organisation, norms and trust, norms and argumentation.
+
+Contributions in the field of AI \& law are strongly connected with the aforementioned agents architectures.
+%
+\emph{Agreement technologies} \cite{ossowski2012}, in particular, is a new vision outlining next-generation, open, distributed systems where interaction between computational agents could be  based on the notion of \emph{agreement}.
+%
+This calls for
+%
+\begin{itemize}
+    \item a normative context defining the rules of the game, or the ``space'' of agreements that the agents can possibly reach;
+    \item an interaction mechanism to establish (first) and enact (then) agreements; and
+    \item a joint research effort from several fields -- including, but not limited to, multi-agent systems, semantic technologies, social sciences -- aimed at fruitfully combining results and contributions from all such areas---like, for instance, semantic alignment, negotiation, argumentation, virtual organisations, learning, real time, and others.
+\end{itemize}
+%
+Semantic web standards provide a good basis for representing the knowledge of local agents, the functionalities and everything needed to achieve a goal in agreement with other agents.
+
+However, the formalisms behind these technologies fall short when dealing with the distributed, open and heterogeneous nature of AT systems where agents may have different views of the world and, therefore, mutually-inconsistent knowledge bases.
+%
+To cope with this issue, new logical formalisms -- specifically aimed at handling situations where pieces of knowledge are independently defined in different contexts -- have been defined, extending classical logics in order to deal with incomplete and \emph{defeasible} knowledge.
+%
+Logic is thus exploited to represent the knowledge with a high degree of peculiarity (for instance defeasibility, but also the possibility to discern among permission, obligation or beliefs in deontic logic), and to reason over such knowledge.
+
+Many interesting experiments have been performed in this application area.
+%
+Notable defeasible argumentation implementations, aimed at supporting reasoning and resolve inconsistencies, are Defeasible Logic Programs \cite{garcia2004}, ASPIC \cite{modgil2014}, and ABA \cite{dung2009}.
+%
+Several other applications use ontologies and legal search engines \cite{solarte2016}, which exploit advanced search technology from AI, data mining, data analytics, ontologies and natural language processing \cite{kerikmae2018}.
+%
+The main issues that remain unsolved in this area is that a unique and general framework for dealing with norms and argumentative issues is still missing: in fact, most solutions are too narrow in scope, tailored to specific use cases, other than being possibly weak from the software engineering perspective.
+
+In short, logic-based approaches in the legal field \cite{Prakken2015}
+%
+\begin{itemize}
+    \item help formalise legal norms and concepts in a clear and understandable way, thus enabling verification and the detection of
+unfair policies, or the violation of essential rights;
+    \item support explanatory and arguable decisions in the regulatory context.
+\end{itemize}
+
+In general, however, current tools are unable to imitate advanced cognitive processes such as human reasoning, understanding, meta-cognition or the contextual perception of abstract concepts that are essential for legal thinking.
+%
+Indeed, a lawyer's work is often very complex, implying the management and processing of huge amounts of data, where to find correlations between facts and circumstances, and formulate reasoned opinions and action guidelines taking into account all the applicable rights and obligations.
+%
+This is why the process of understanding and formulating a decision is mostly creative---the result of a complex cognitive process.
+
+
+%---------------------------------------
+\subsubsection{Education}\label{sssec:ai-and-education}
+%---------------------------------------
+
+AI has been part of many e-learning platforms for a long time, with applications ranging from personalised learning, recommendation of resources, automated grading, to prediction of attrition rates---to name just a few.
+%
+The rapid expansion of the \emph{educational technology} industry is now further pushing and exploiting advanced AI-enabled learning technologies.
+
+Within this area, symbolic AI techniques have been used in adaptive educational systems, such as fuzzy logic, decision tree, etc. there, logic has been mainly applied for knowledge management and recommendation.
+%
+In some systems, for instance, the focus is on examining and assessing the student characteristics in order to generate students' profiles, to be used for evaluating their overall level of knowledge and, consequently, as a basis for prescribed software pedagogy.
+%
+Symbolic AI approaches are used to support the diagnostic process, so that the course content can be adjusted to cater each student's needs.
+Some of them, in addition, are also used to learn from student's behaviour so as to adjust the prescribed software pedagogy.
+
+Applications are related to semantic web technologies, contextualised to e-learning so as to adapt instruction to the learner’s cognitive requirements in three ways---background knowledge, knowledge objectives and the most suitable learning style \cite{guangzuo2004,sancho2005}.
+%
+Over the years, fuzzy logic techniques and logic MAS have also been experimented for e-learning purposes.
+%
+In particular, in \cite{almohammadi2013,chrysafiadi2013}, a fuzzy logic-based system learns the users' preferred knowledge delivery to generate a personalised learning environment; whereas in \cite{gong2006} agents detect, recognise, eliminate, and repair the faults of the e-learning course, keeping the system up \& working, providing robustness.
+%
+Another interesting application in the domain of formal logic proofs, taken as the base of several further extensions, is the Logic-ITA (Intelligent Teaching Assistant) web-based system \cite{yacef2005}: its purpose is to soothe the issues caused by large classes or distance learning, acting as an intermediary between teacher and students.
+%
+On the one hand, it provides students with an environment to practice formal proofs, giving proper feedback;  on the other, it allows teachers to monitor the class's progress and mistakes.
+
+Although the impact on classrooms has been relatively minor so far, the potential of AI in education is high and likely to increase, as demonstrated by the many European actions / projects currently in place \cite{pedro2019,tuomi2018}.
+%
+The main challenges and issues concern the creation of a sustainable educational environment, capable of developing equitable education even for the least developed countries---to be dealt with at the suitable political level.
+
+%-------------------------------------------------------------------------------
+\subsection{AI for Business: Automation \& Robotics}
+%-------------------------------------------------------------------------------
+
+Automation is probably the earliest and perhaps most impactful application area for AI, as it represents the first step towards machine autonomy.
+%
+Autonomy, in turn, is highly desirable whenever there is a need of re-designing, re-building, or re-programming machines while the deployment context evolves.
+%
+\emph{Autonomous} machines differ from \emph{automatic} ones in that designers no longer need to forecast any possible situation, because the machine is programmed for learning or planning.
+%
+This is particularly interesting in \emph{cyber-physical systems} (CPS) \cite{baheti2011} and \emph{robotics}, where machines have a physical body that makes them capable of affecting (or being affected by) the physical world.
+
+Needless to say, applications of automation and robotics in industry are manifold, and so are the corresponding research lines.
+%
+In the following we explore the role and impact of logic-based paradigms and technologies in such areas.
+
+%---------------------------------------
+\subsubsection{Planning \& Task Allocation}
+%---------------------------------------
+
+Planning and scheduling are one of the oldest fields in AI, also related to multi-agents and cognitive architectures: research has mainly to do with the decision making process that determines what, when, where, and how to reach a goal and compute a task.
+%
+There, logic is exploited to represent the knowledge domain, its constraints, and the reasoning mechanism.
+
+Logic-based scheduling methodologies include \emph{rule-based} approaches and \emph{constraint-guided} search.
+%
+Rule-based scheduling methods aim to emulate the decision-making behaviour of human schedulers, captured in terms of suitable logic rules.
+%
+Correspondingly, rule-based systems are typically envisioned as a means to replicate the actions of experienced humans with specific scheduling skills.
+%
+Unsurprisingly, this is one the most successful application domains of CLP techniques: the scheduler goal is to identify feasible solutions which balance different constraints or schedule requirements.
+
+Applications spread from manufacturing to traffic scheduling and management (e.g., autonomous vehicles, aircraft, \ldots), up to urban search and rescue activities (e.g., traffic assignment in natural disaster evacuations, \ldots), and many others.
+%
+A typical example of a constraint-based scheduling application is ATLAS \cite{akbarinia2006}, which schedules the production of herbicides at the Monsanto plant in Antwerp.
+%
+PLANE \cite{Simonis2001} is another system used at Dassault Aviation to plan the production of the military Mirage 2000 jet and the Falcon business jet: the objective is to minimize changes in the production rate, which has a high set-up cost, while finishing the aircraft just in time for delivery.
+%
+The COBRA system \cite{Simonis2001} generates workplans for train drivers of North Western Trains in the UK: each week, about 25000 activities need to be scheduled in nearly 3000 diagrams on a complex route network.
+%
+The DAYSY Esprit project \cite{simonis2000} and the SAS-Pilot program \cite{baues1994} consider the operational re-assignment of airline crews to flights.
+%
+The STP (Short Term Planning) application at Renault \cite{wallace1996} assigns product orders to factories so as to minimise transportation costs.
+%
+The MOSES application by COSYTEC \cite{wallace1996} schedules the production of compound food for different animal species, eliminating contamination risks while satisfying customer's demand at the minimal cost.
+%
+FORWARD \cite{simonis1995} is a decision support system, based on CHIP, used in three oil refineries in Europe to tackle all the scheduling problems occurring in the process of crude oil arrival, processing, finished product blending and final delivery.
+%
+Finally, Xerox has adopted a constraint-based system for scheduling various tasks in reprographic machines (like photocopiers, printers, fax machines, etc.); the scheduler is supposed to determine the sequence of print making and coordinate the time-sensitive activities of the several hardware modules that make up the machine configuration \cite{bistarelli2001}.
+
+Overall, the CLP approach faces well some of the key issues such as development time, nodes visited in the search tree, number of generated feasible solutions, and efficiency.
+%
+At the same time, the very nature of such systems mandates for considerable development and tuning effort for each new application, as there is no expert to emulate.
+%
+More generally, the main two issues are \emph{i)} the lack of a structured way to carry the insight gained from one application to the next, and \emph{ii)} the complexity of generating the symbolic knowledge that fully describes the application domain.
+
+%---------------------------------------
+\subsubsection{Robotics \& Control}
+%---------------------------------------
+
+Cognitive architectures, planning, and task allocation techniques have been widely applied to robotics and control system: indeed, robotics applications translate the agent abstraction of cognitive architecture into a mechanical robot capable of doing action and taking decision.
+
+Logic in robotics is, much more than elsewhere, tailored to the specificity of the application field, since control mechanisms need to control the robot sensors and actuators, along with all their low-level control software (for instance, robot motion mandatorily requires a set of feedback control primitives in order to keep motion coherent).
+%
+More generally, control systems are present in lifts, photocopiers, car engines, assembly lines, power stations, etc.
+
+Again, the logic-based approaches (and technologies) that are mostly adopted in this context are CLP, fuzzy logic, and temporal logic: in fact, many works dealing with robotic reasoning \cite{Ferrein2008} exploit languages and technologies detailed in \cref{sec:symbolic-reasoning}.
+%
+CLP-based applications are typically at the smaller end, where it is still possible to prove that some global properties can be guaranteed with a given control.
+%
+Thus, CLP is often exploited to build control software for electro-mechanical systems with a finite number of inputs, outputs, and internal states: each component is connected to a small part of the overall system, so its behaviour can be captured quite simply.
+%
+However, when the system is considered as a whole, the number of global states can become very large: this calls for a smart technology that is able to handle such combinatorial explosion \cite{lytras2008}.
+
+On the other side, many control system have been developed exploiting a fuzzy logic approach for dealing with real data which are sometimes imprecise, uncertain, complex, and with a high degree of randomness.
+%
+Due to its good tolerance of uncertainty and imprecision, fuzzy logic has gained wide application in the area of advanced control of humanoid robots.
+%
+For the same reason, fuzzy system are powerful tools to face crucial problems in industrial engineering
+and technology, such as risk management or product quality assurance, as well as in intelligent decision support system for adaptive industrial engineering \cite{chilwal2020,rastogi2015,patil2012,zhu2004,center1998}.
+%
+Also, the hybrid techniques based on the integration of neuro-fuzzy networks, neuro-genetic algorithms, and fuzzy-genetic algorithms are of great importance in the development of efficient algorithms \cite{Tahmasebi2012}.
+
+Temporal logic approaches and technologies have been exploited, e.g., for controlling robot motion or planning activities \cite{finucane2010,fainekos2009}, because of their ability to reason over the time and its change, which makes it possible to build control laws to be verified over the time elapse.
+%
+This is specially relevant for mobile robots, whose specifications are often temporal---even though time is not necessarily captured explicitly.
+%
+For example, a swarm might be required to reach a certain position and shape eventually, or maintain a size smaller than a specified value until a final desired value is achieved.
+%
+Other examples are collision avoidance among robots, obstacle avoidance, and cohesion, which are always required.
+%
+In a surveillance mission, a selected area needs be visited ``infinitely often'' \cite{Kloetzer2007}.
+
+%===============================================================================
+\section{Discussion}
+%===============================================================================
+
+The new AI era calls for two fundamentals enabling factors:
+%
+\begin{inlinelist}
+    \item the availability of big computing power even in minimal spaces, and
+    \item the availability of huge amounts of context-related data.
+\end{inlinelist}
+%
+Such factors on the one side make it possible to learn from experience, which is the playground of  sub-symbolic algorithms; on the other, make logic algorithms, historically used for expert systems and hence very effective as for transparency and explainability, computable \emph{in good time}.
+
+Big data have naturally led sub-symbolic approaches to prevail, because of their effectiveness in elaborating and getting valuable results from context-related data, learning trends and repeating patterns: yet, their inherent black-box nature is a clear issue.
+%
+This is precisely where the integration with symbolic approaches can naturally provide added-value, complementing symbolic and sub-symbolic approaches with each other.
+In fact, the two main weaknesses of symbolic approaches concern specifically \textit{(a)} the extraction of context-related knowledge, and \textit{(b)} computational complexity---the first being the natural territory of sub-symbolic approaches.
+
+Computational complexity, in its turn, can be partially addressed thanks to the exponential increase of computational power, by suitably exploiting  parallelism, as well as by re-defining and re-tuning symbolic approaches so as to fit nowadays computing paradigms and architectures---as in the case, for instance, of \lpaas{} \cite{lpaas-tplp18}.
+%
+However, it still remains an issue in some application contexts, often leading to higher processing costs.
+%
+An example is propositional interval temporal logics (ITL) \cite{goranko2004}, which provide a natural framework for representing and reasoning about temporal properties, but whose computational complexity constitutes a barrier for extensive use in practical applications.
+%
+To cope with this issue, several approaches exploit constraints or adopt a locality principle; in other cases, as in DLs, complexity is decreased at the price of a limited expressiveness.
+%
+For instance, in Bowman and Thompson’s decision procedure for propositional ITL, decidability is achieved by means of a simplifying hypothesis -- the locality principle -- that constrains the relation between the truth value of a formula over an interval and its truth values over initial sub-intervals \cite{holldobler2008}.
+%
+Tableau-based decision procedures have been recently developed \cite{dellaMonica2013} for some interval temporal logics over specific classes of temporal structures, without resorting to any simplifying assumption.
+
+Parallelism and concurrent programming techniques are another valuable tool to deal with complexity.
+%
+The computing power of multi-level parallelism (MLP), in particular, constitutes a promising technique to facilitate concurrent programming while delivering performance comparable to that of fine-grained locking implementations---see for instance \cite{larus2007} and \cite{jacobsen2013}.
+
+To recap, due to their strong foundations and features, logic-based technologies have the full potential to power symbolic approaches in such integration, opening intriguing perspectives currently under exploration in many research contexts.
+%
+%as discussed in \xs{perspective}.
+%%
+%\xt{logic-usages} and \xt{logic-segments}, in particular, point out the very connections among the diverse logics, their application areas, and market segments.
+%%
+%\xt{logic-usages} highlights that cognitive agents and robotics are the application areas that exploit the widest spectrum of logic-based approaches, whereas other areas typically rely on a smaller subset.
+%%
+%Reading the table orthogonally, first-order logic, description logic, and fuzzy logics appear to be the most general purpose ones, the others being more specific.
+%%
+%In its turn, \xt{logic-segments} puts in evidence that some logics -- such as description logic and fuzzy logics -- are widely used in a variety of market segments, while the same does not hold for other logics, like BDI, defeasible reasoning, and probabilistic logic, thus opening a space of action for their possible expansion.
+%%
+%BDI and defeasible reasoning, in particular, could effectively help to enable intelligent systems, intended as agents immersed in a continuous collaboration with humans, to behave and reason more  ``like a human''.
+
+Overall, the synergy of symbolic and sub-symbolic approaches appears to be a viable and promising option to face key issues in today's intelligent systems---namely, the need of explainable, responsible, ethical AI.
+%
+In particular, the adoption of symbolic approaches can help to achieve the key features of e-justice, fairness, ethics and transparency.
 
 \chapter{Technological State of the Art}
 
-\cite{coordination-jlamp2020}
+\mypapers{lptech4mas-jaamas35,lptech4mas-aamas2021}
 
-\section{Current State of Logic-Based Technologies}
+Precisely when the success of artificial intelligence (AI) sub-symbolic techniques makes them be identified with the whole AI by many non-computer-scientists and non-technical media, symbolic approaches are getting more and more attention as those that could make AI amenable to human understanding.
+%
+Given the current status of AI technologies -- mostly focussed on sub-symbolic approaches successful in well-delimited application scenarios --, a key issue for intelligent system engineering is \emph{integration} of the diverse AI techniques: in software engineering terms, not just how to integrate diverse technologies, but also how to preserve \emph{conceptual integrity} when highly-heterogeneous approaches -- bringing about manifold abstractions of various nature -- are put to work together.
 
-\cite{lptech4mas-aamas2021}
-\cite{lptech4mas-jaamas35}
-\cite{logictech-information11}
+The most straightforward and generally-acknowledged way to address the above issue is by using \emph{agents} and \emph{multi-agent systems} (MAS).
+%
+Agents and MAS have been at the core of the design of intelligent systems since their very beginning:  their long-term connection with \emph{logic-based technologies} might open new ways to engineer \emph{explainable intelligent systems}.
 
-\section{Current State of Machine Learning Technologies}
+This is why understanding the current status of \emph{logic-based technologies for MAS} is nowadays of paramount importance and why our work focus on logic-based approaches in MAS: they are to be counted among the most promising techniques for building understandable and explainable intelligent systems.
+%
+Furthermore, given the unavoidable push towards the exploitation of intelligent applications, focussing on logic-based \emph{technologies} is of strategical importance.
+%
+Accordingly, understanding and representing the current status of the available logic-based MAS technologies is a key step -- from both an historical and an avant-garde perspective -- to let MAS researchers and practitioners identify the actually usable methods for the engineering of intelligent systems.
 
-\section{Current State of XAI Technologies}
+To this end, in \cite{lptech4mas-jaamas35} we provide a Systematic Literature Review (\slr{}) driven by the primary research question: ``What is the role played by logic-based technologies in MAS nowadays?''.
+%
+In particular, the \slr{} aims at understanding which and how many logic-based technologies for MAS can be considered ready enough to face the challenges of modern and future intelligent systems, other than identifying what is missing and what research directions require further attention.
+%
+Accordingly, the goal is to provide an exhaustive assessment of the available logic-based technologies for MAS, by performing a carefully-designed \slr{} on the subject.
 
-\cite{xaisurvey-ia14}
+\section{Method}
+
+The \slr{} follows a well-founded, understandable, and reproducible method defining how to find, include/exclude, and analyse papers describing logic-based MAS technologies.
+%
+It relies on the standard \slr{} method: we carried out a manual retrieval, filtering, analysis, and categorisation of huge number of papers, by repeating 8 queries on 6 search engines (Google Scholar, IEEE Xplore, ScienceDirect, SpringerLink, DBLP, ACM Digital Library) and 5 specific conference/workshop proceedings.
+%
+To keep a tight focus on the \emph{reproducibility} of the whole process, the methodological approach, and the inclusion/exclusion and analysis criteria are carefully designed and described in detail.
+%
+In particular, we only included works defining or exploiting some \emph{logic-based MAS technology}.
+%
+A specific definition of \emph{logic-based MAS technology} is provided as well, explicitly requiring the provable availability of
+%
+\begin{inlinelist}
+    \item a clearly identifiable logic-based MAS-related framework into the literature, and
+    %
+    \item some actual software reification of that framework.
+\end{inlinelist}
+
+%
+Out of the retrieves papers, we selected 271 documents and there identified 47 technologies, classified them according to both a MAS and a logic perspective, and analysed from the technology viewpoint.
+%
+Accordingly, the technologies selected in our SLR are analysed and assessed from two different perspectives -- namely, the MAS and the logical perspective --, thus discussing the specific MAS- and logic-related aspects defined, tackled, or exploited by each technology.
+%
+Along the MAS perspective, we categorise the selected technologies w.r.t.\ the main MAS abstractions they relate to---agents, societies, environment.
+%
+Along the logic perspective, we categorise the selected technologies w.r.t.\ the sort of logic they relate to---thus choosing among first-order logic, description logic, BDI logic, etc.
+%
+Such categorisations reveal an uneven distribution of logic-based technologies along both MAS abstractions and logics, and highlighting research opportunities on abstractions and logics which are currently in an urgent need of technologies---such as the environment abstraction and the defeasible logic.
+
+We also perform a technical assessment of each technology, according to number of technological criteria including, but not limited to,
+%
+\begin{inlinelist}
+    \item source-code organisation,
+    %
+    \item maintenance status,
+    %
+    \item target platform(s),
+    %
+    \item availability of executable as well as documentation,
+    %
+    \item some technical assessment involving the run of executables and available examples.
+\end{inlinelist}
+%
+Arguably, the analysis enables a detailed discussion on the current state of logic-based MAS technologies---in particular highlighting their state of maintenance.
+%
+More precisely, we consider technologies as unmaintained based on the last provable edit involving either the technology source code or any of its software artefacts.\footnote{Since our original assessment (September 2020), some technologies described as unmaintained reworked their repositories, code and/or documentation---as in the case of DALI (\url{https://github.com/AAAI-DISIM-UnivAQ/DALI}) and MCAPL (\url{https://autonomy-and-verification.github.io/tools/mcapl}).}
+
+%%===============================================================================
+\section{Main outcomes}\label{sec:outcomes}
+%%===============================================================================
+
+The outcome of the \slr{} highlights that, as far as logic-based technologies for MAS are concerned, there is still room for technological advancements---except for a few relevant success stories.
+%
+In fact, despite the enormous technological effort clearly carried out by the MAS community in the last decades, several surveyed technologies cannot be considered as mature and ready for use in the new challenging contexts required by AI.
+%
+Several technologies are in fact unmaintained, outdated, or just proof of concepts.
+
+In our original work the discussion attempts to provide a comprehesive answer to all the \slr{} research questions.
+%
+In the following we summarise some general remarks in relation to key features of modern intelligent systems, namely:
+%
+\begin{enumerate}[label=\emph{(\roman*)}]
+    \item inherent distribution and decentralisation and deep intertwist with domains like the Internet of (Intelligent) Things (Io(I)T) and Cyber-Physical Systems (CPS);
+    %
+    \item support to key properties such as robustness, efficiency, interoperability, portability, standardisation, situatedness, and real-time support;
+    %
+    \item need to reconcile and synthesise symbolic and sub-symbolic AI, exploiting the former to \emph{explain} the latter so as to overcome fears and ethical issues posed by AI by providing for explainability, observability, interpretability, responsibility, and trustability---the scope of XAI.
+\end{enumerate}
+
+%----
+\subsubsection{Applicability to distributed domains such as \iot{} and CPS}
+%----
+
+The existing agent-oriented logic-based solutions applicable to the \iot{} and CPS are only available for a specific and limited set of devices and platforms.
+%
+For instance, Agent Factory Micro Edition (AFME) \cite{afme-iccs2006} enables the execution of a deliberative agent on top of mobile phones with CLDC/MIDP profiles and Sun-SPOT sensor by means of TCP/IP and Zigbee protocols.
+
+However, some technologies, more than others, are explicitly designed to support \iot{} domains and CPS.
+%
+For example, the \lpaas{} architecture \cite{lpaas-tplp18} is designed to promote distributed intelligence for the \iot{} world---offering logic programming as a service, and explicitly addressing the requirements and issues of cloud and edge architectures.
+%
+Analogously, the situated coordination approach promoted by the \tucson{}/\respect{} model and technology can be explicitly exploited to handle situatedness in MAS as a coordination issue.
+%
+Also, \tucson{} \cite{tucson-jaamas2} provides the main abstractions for \iot{} environments: environmental resources can be sources of perceptions (like sensors), targets of actions (like actuators), or even both.
+
+Finally, there are technologies that are not explicitly meant to address the \iot{} and CPS domains, but still let us suppose they would be easily portable to those domains---because of their standard compliance, interoperability, and portability features.
+%
+Among the many, \jason{} \cite{jason-clima2005} supports interoperability with non-\jason{} agents via \jade{} \cite{jade-mapbook2005} through \fipa{}-ACL communication \cite{fipa-acl}.
+%
+Similarly, there are extensions to \jack{} \cite{jack-mapbook2005} that make it work in open systems.
+%
+Finally, the Teleo-Reactive \cite{nilsson2001-teleoreactive} approach has been often exploited to facilitate the development of the \iot{} systems as a set of communicating Teleo-Reactive nodes.
+
+%----
+\subsubsection{Symbolic and sub-symbolic integration.}
+%----
+
+With respect to the need to reconcile and integrate symbolic and sub-symbolic techniques, none of the selected technologies has been experimented yet \cite{xaisurvey-ia14}, due to their original design purpose out of this scope.
+%
+However, we argue that portable and interoperable technologies might be more suitable for the integration.
+%
+Anyway, the field is still unexplored and represents a frontier research domain.
+
+%----
+\subsubsection{Can existing technologies be labelled as ready? If not, what is missing?}
+%----
+
+The role of logic-based technologies in MAS nowadays exhibits a huge potential for covering the vast majority of intelligent system abstractions.
+%
+However, just a few among the technologies surveyed can be actually labelled as \emph{ready-to-go}, in particular when considering the new challenges for symbolic technologies in AI.
+
+Even though 10\% of the selected technologies can be considered as mature -- in terms of cross-platform support, code quality, and ease of distribution in heterogeneous environments --, most of the times they have not been tested in pervasive and real-world scenarios, yet.
+%
+This implies, at least, that further research and technical activity are required to ensure that any technological barrier can be overcome.
+%
+Furthermore, integration with sub-symbolic techniques remains a \emph{nice-to-have} feature, but it is not actually a thing in any MAS technology, for the time being.
+%
+Nevertheless, the selected technologies are an excellent starting point for \emph{(i)} highlighting the advantages of logic-based technologies, and  \emph{(ii)} broadening the scope of research towards the directions envisioned.
+
+In the end, we forward the interested readers to the original SLR for the full details \cite{lptech4mas-jaamas35}.
+
+%\section{Current State of Logic-Based Technologies}
+
+%\cite{lptech4mas-aamas2021}
+%\cite{lptech4mas-jaamas35}
+%\cite{logictech-information11}
+
+%\section{Current State of Machine Learning Technologies}
+
+%\section{Current State of XAI Technologies}
+
+%\cite{xaisurvey-ia14}
 
 %\chapter{Need for An Open Ecosystem for Logic-Based AI}
 %
 %\cite{cco-softwarex-2021-2pkt}
+
+\note{Take more info from the survey?}
+
+\note{A chapter on the state of Prolog systems?}
 
 \chapter{The 2P-Kt Ecosystem for Logic-Based AI}
 
@@ -4069,6 +4614,8 @@ Within the \twopkt{} project, this DSL is extensively exploited for unit testing
 
 Finally, the \module{oop-lib} module is experimental logic library aimed at supporting the exploitation of OOP from within logic programs.
 
+\note{Go on describing \twopkt}
+
 \chapter{Bridging Logic Programming and Data Processing}
 
 \mypapers{2pkt-jelia2021}
@@ -4134,7 +4681,7 @@ Speciale
 
 % \nocite{*} % uncomment this to show all the reference in the .bib file
 \bibliographystyle{alpha}
-\bibliography{phd-thesis}
+\bibliography{phd-thesis,ccdo-information-2020}
 
 
 \end{document}

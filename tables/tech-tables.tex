@@ -1,0 +1,62 @@
+%\gcnote{Metto le tabelle qui, spostatele come più vi aggrada}
+
+\newcommand{\y}{\checkmark}
+
+\begin{table}
+    \centering
+    \begin{tabular}{l||c|c|c|c|c|c|c|c}
+        \hline
+        & FOL & DL & BDI & TL & FL & PL & DR & CLP \\ \hline
+        \hline
+        Formalisation \& Verification &    &    &    & \y &    & \y &    &    \\ \hline
+        Cognitive Agents              & \y & \y & \y & \y & \y &    & \y &    \\ \hline
+        Health-care \& Wellbeing      & \y & \y &    &    &    & \y &    &    \\ \hline
+        Law \& Governance             & \y &    &    &    &    &    & \y &    \\ \hline
+        Education                     & \y & \y &    &    & \y &    &    &    \\ \hline
+        Planning \& Task Allocation   & \y & \y &    &    &    &    & \y & \y \\ \hline
+        Robotics \& Control           &    & \y &    & \y & \y &    &    & \y \\ \hline
+    \end{tabular}
+    \caption{Sorts of logic per application area. Acronym and abbreviation key: FOL: First-Order Logic; DL: Description Logic; BDI: Belief Desire Intention (Logic); TL: Temporal Logic; FL: Fuzzy Logic; PL: Probabilistic Logic; DR: Defeasible Reasoning; CLP: Constraint Logic Programming.}
+    \label{tab:logic-usages}
+\end{table}
+
+\begin{table}
+    \centering
+    \resizebox{\linewidth}{!}{
+        \begin{tabular}{l||c|c|c|c|c|c|c|c}
+            \hline
+            & FOL & DL & BDI & TL & FL & PL & DR & CLP \\ \hline
+            \hline
+            Aerospace                   &     &    &     &    & \cite{castillo2016,ooi2015}   &    &    & \cite{JaffarM94} \\ \hline
+            Analytics                   & \cite{Carlsson2012} &    & \cite{Leitao2016} &    &    &    &    &     \\ \hline
+            Bioinformatics              & \cite{Carlsson2012} & \cite{yang2003-flora,horrocks2005} &     &    & \cite{torres2006,dong2008}   & \cite{KwiatkowskaNP02} &    & \cite{JaffarM94} \\ \hline
+            BPM                         & \cite{Carlsson2012} & \cite{yang2003-flora} &     &    &    &    &    &     \\ \hline
+            Constructions               &     &    &     &    &    &    &    & \cite{JaffarM94} \\ \hline
+            Critical systems            &     &    &     & \cite{PasareanuVBGMR13, Wu17b} &    &    &    &     \\ \hline
+            CPS                         &     & \cite{yang2003-flora} & \cite{Leitao2016,Winikoff2005} & \cite{Holzmann97} & \cite{alam2017,mbuli2017} & \cite{KwiatkowskaNP02} &    & \\ \hline
+            Cybersecurity               &     &    &     &    & \cite{goztepe2012,linda2011} & \cite{KwiatkowskaNP02} &    &     \\ \hline
+            Databases                   &     & \cite{horrocks2005} &     &    & \cite{kacprzyk2000,kacprzyk1989}   &    &    &     \\ \hline
+            Decision support            &     &    &     &    & \cite{liu2009,adriaenssens2004}   &    & \cite{gomez2013}   &     \\ \hline
+            Energy                      &     & \cite{lenat1995-cyc} & \cite{Leitao2016} & \cite{Holzmann97} & \cite{suganthi2015}   & \cite{KwiatkowskaNP02} &    & \cite{JaffarM94} \\ \hline
+            Finance                     &     & \cite{lenat1995-cyc} &     &    & \cite{bojadziev2007,gil2005}   &    &    & \cite{JaffarM94} \\ \hline
+            Government \& Legal         &     &    &     &    &    &    & \cite{prakken2013}   &     \\ \hline
+            Hardware                    &     & \cite{lenat1995-cyc} &     &    & \cite{costa1995,bolognani1998}   &    &    & \cite{JaffarM94} \\ \hline
+            Healthcare                  &     &    & \cite{Leitao2016,Croatti2019} & \cite{Holzmann97} & \cite{abbod2001,yuan2012}   &    &    &     \\ \hline
+            Information retrieval       &     & \cite{horrocks2005} &     &    & \cite{gupta2015,horng2005}   &    &    &     \\ \hline
+            %Legal                       &     &    &     &    &    &    &    &     \\ \hline
+            Logistic                    & \cite{Carlsson2012} & \cite{lenat1995-cyc} & \cite{Leitao2016,Winikoff2005} & \cite{Holzmann97} &    &    &    & \cite{JaffarM94} \\ \hline
+            Manufacturing               &     &    & \cite{Leitao2016,Winikoff2005} & \cite{Holzmann97} & \cite{azadegan2011,lin2005}
+            &    &    &     \\ \hline
+            Mechanics                   &     &    &     &    &    &    &    & \cite{JaffarM94} \\ \hline
+            Mobile applications         &     &    &     & \cite{KohanYAYMHT16,MartinelliMN18} &    &    &    &     \\ \hline
+            Railways                    &     &    &     & \cite{Wu17b} & \cite{sezer2011,skarlatos2004}  &    &    &     \\ \hline
+            Telecommunications          & \cite{Carlsson2012} &    &     &    & \cite{ghosh1998,catania1996}   & \cite{KwiatkowskaNP02} &    & \cite{JaffarM94} \\ \hline
+            Transports                  &     &    & \cite{Leitao2016} &    & \cite{sarkar2012,quddus2006}   &    &    &     \\ \hline
+            Web services                &     & \cite{yang2003-flora,horrocks2005} &     & \cite{DoniniMRT06, ArtziKDTDPE10} & \cite{tran2008,chao2005}   &    &    &     \\ \hline
+        \end{tabular}
+    }
+    \caption{Sorts of logic per market segment. Acronym and abbreviation key: FOL: First-Order Logic; DL: Description Logic; BDI: Belief Desire Intention (Logic); TL: Temporal Logic; PL: Probabilistic Logic; DR: Defeasible Reasoning; CLP: Constraint Logic Programming.}
+    \label{tab:logic-segments}
+\end{table}
+%
+%\gcnote{Alcune citazioni come ad esempio \cite{Carlsson2012, Winikoff2005, Holzmann97, Croatti2019, Leitao2016, PasareanuVBGMR13, KohanYAYMHT16, KwiatkowskaNP02, Wu17b, DoniniMRT06, ArtziKDTDPE10, MartinelliMN18, JaffarM94} sono nuove e non sono menzionate nel testo}
