@@ -1,0 +1,24 @@
+@startuml
+hide footbox
+
+actor User
+control Solver
+
+activate User
+User -> Solver: solve(Goal)
+activate Solver
+
+Solver -> Solver: //compute first solution//
+
+Solver --> User: solution(Unifier)
+deactivate Solver
+
+loop //do while last Substitution ≠ ⊥//
+User -> Solver: next()
+activate Solver
+Solver -> Solver: //compute next solution//
+Solver --> User: solution(Substituion)
+deactivate Solver
+end
+deactivate User
+@enduml

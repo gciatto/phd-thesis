@@ -1,0 +1,27 @@
+@startuml
+hide footbox
+
+control Solver
+database KB
+
+[-> Solver: // request of i-th Solution for Goal //
+activate Solver
+
+== Behind the scenes ==
+
+Solver -> KB: get(SubGoal)
+KB --> Solver: // stream of Clauses //
+
+== If new knowledge is acquired ==
+
+Solver -> KB: assert(NewClause)
+
+== If prior knowledge must be retracted ==
+
+Solver -> KB: retract(OldClause)
+
+== Once a solution is found ==
+
+[<-- Solver: //i-th Solution//
+deactivate Solver
+@enduml

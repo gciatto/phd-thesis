@@ -1,0 +1,1 @@
+typealias Generator = (Request) -> Sequence<Response>

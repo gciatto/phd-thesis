@@ -12,6 +12,7 @@
 \usepackage[font=small,labelfont=bf]{caption}
 \usepackage{ebproof}
 \usepackage[makeroom]{cancel}
+\usepackage{subcaption}
 
 \fancypagestyle{plain}{
 	\fancyhf{}
@@ -87,6 +88,8 @@
 \renewcommand{\subparagraph}[1]{\oldsubparagraph{#1.}}
 
 \setlist[description]{leftmargin=2\parindent,labelindent=\parindent}
+
+\newcommand{\footnoteref}[1]{{\normalfont\textsuperscript{\ref{#1}}}}
 
 \newcommand{\frontispiece}{
 	\newgeometry{margin=0.8in}

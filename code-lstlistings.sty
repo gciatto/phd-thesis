@@ -5,13 +5,13 @@
 % LISTING CONFIGURATIONS
 %-----------------------------------------------------
 
-\crefname{lstlisting}{listing}{listing}	
+\crefname{lstlisting}{listing}{listing}
 \Crefname{lstlisting}{Listing}{Listing}
 \renewcommand\lstlistlistingname{List of Listings}
 
 \lstset{
 	showstringspaces=false,
-	basicstyle=\ttfamily,
+	basicstyle=\scriptsize\ttfamily,
 	commentstyle={\color{olive}},
 	identifierstyle=\color{black},
 	ndkeywordstyle={\color{blue}},
@@ -29,12 +29,16 @@
 }
 
 \lstdefinelanguage{Kotlin}{
-	comment=[l]{//},
-	emph={delegate, filter, first, firstOrNull, forEach, lazy, map, mapNotNull, println, return@},
-	keywords={abstract, actual, as, as?, break, by, class, companion, continue, data, do, dynamic, else, enum, expect, false, final, for, fun, get, if, import, in, interface, internal, is, null, object, override, package, private, public, return, set, super, suspend, this, throw, true, try, typealias, val, var, vararg, when, where, while},
-	morecomment=[s]{/*}{*/},
-	morestring=[b]",
-	morestring=[s]{"""*}{*"""},
-	ndkeywords={@Deprecated, @JvmField, @JvmName, @JvmOverloads, @JvmStatic, @JvmSynthetic, Array, Byte, Double, Float, Int, Integer, Iterable, Long, Runnable, Short, String, Unit, it},
-	sensitive=true
+    comment=[l]{//},
+    emph={delegate, filter, filterIsInstance, flatMap, toSet, firstOrNull, forEach, lazy, map, mapNotNull, println, return@, sequence, yield},
+    keywords={init, abstract, actual, as, as?, break, by, class, companion, continue, data, do, dynamic, else, enum, expect, false, final, for, fun, get, if, import, in, interface, internal, is, null, object, override, package, private, public, return, set, super, suspend, this, throw, true, try, typealias, val, var, vararg, when, where, while, it},
+    morecomment=[s]{/*}{*/},
+    morestring=[b]",
+    morestring=[s]{"""*}{*"""},
+    ndkeywords={@Deprecated, @JvmField, @JvmName, @JvmOverloads, @JvmStatic, @JvmSynthetic, Array, Byte, Double, Float, Int, Iterable, Long, Runnable, Short, String},
+    sensitive=true,
 }
+
+\newcommand{\prolog}[1]{\lstinline[language=Prolog,basicstyle=\ttfamily\normalsize]{#1}}
+
+\newcommand{\kotlin}[1]{\lstinline[language=Kotlin,basicstyle=\ttfamily\normalsize]{#1}}

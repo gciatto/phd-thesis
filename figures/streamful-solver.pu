@@ -1,0 +1,29 @@
+@startuml
+hide footbox
+
+actor User
+control Solver
+collections "Solution\nStream" as Stream
+
+activate User
+User -> Solver: solve(Goal)
+activate Solver
+
+create Stream
+Solver -> Stream: //create//
+
+Solver --> User: //reference to stream//
+deactivate Solver
+
+loop //do while last Substitution ≠ ⊥//
+User -> Stream: next()
+activate Stream
+Stream -> Solver: pull()
+activate Solver
+Solver -> Solver: //compute next solution//
+Solver --> Stream: solution(Substitution)
+deactivate Solver
+Stream -> User: solution(Substitution)
+deactivate Stream
+end
+@enduml
