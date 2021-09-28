@@ -4628,9 +4628,9 @@ Indeed, a growing amount of application scenarios are characterised by the perva
 
 A stream is an \emph{ordered sequence} of data that may or may not be limited in length.
 %
-%Stream processing facilities are thus commonly constructed in such a way that streams are \emph{lazily consumed}, in order to minimise the amount of required memory---which may be soon saturated otherwise.
+Stream processing facilities are thus commonly constructed in such a way that streams are \emph{lazily consumed}, in order to minimise the amount of required memory---which may be soon saturated otherwise.
 %
-%However, despite all sorts of streams are lazily consumed, categories may be drawn depending on how they are \emph{generated}.
+However, despite all sorts of streams are lazily consumed, categories may be drawn depending on how they are \emph{generated}.
 %
 Depending on how the are \emph{generated}, streams are either \emph{cold} (a.k.a.\ \emph{pull}) or \emph{hot} (a.k.a.\ \emph{push}).
 %
@@ -4666,15 +4666,15 @@ Conversely, in this paper, we discuss how Prolog can be reinterpreted as a \emph
 %
 In particular, our solution does not affect the syntax (nor the operation) of the Prolog language.
 %
-More precisely, we show how Prolog predicates may be interpreted as \emph{generators} of streams to be lazily consumed via backtracking.
+More precisely, we show how Prolog predicates may be interpreted as \emph{primitives} of streams to be lazily consumed via backtracking.
 %
-Along this line, we present an abstract design for Prolog solvers based on finite-state machines, aimed at supporting our notion of generators.
+Along this line, we present an abstract design for Prolog solvers based on finite-state machines, aimed at supporting our notion of primitives.
 %
-Finally, a practical demonstration based on the \twopkt{} technology \cite{homepage2PKt} is discussed showing how generators may let a Prolog solver consume events from the external world in a transparent way.
+Finally, a practical demonstration based on the \twopkt{} technology \cite{homepage2PKt} is discussed showing how primitives may let a Prolog solver consume events from the external world in a transparent way.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Logic Solvers as Streams Prosumers}\label{sec:generators}
+\section{Logic Solvers as Streams Prosumers}\label{sec:primitives}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \subsection{Logic solvers as stream producers}
@@ -4777,33 +4777,33 @@ Second, solvers do not necessarily have to process or \emph{consume} reified eve
 %
 Accordingly, a different approach is required to let solvers consume event streams from the external world without reifying them unnecessarily.
 
-In this work, we propose \emph{generators} as the basic means to let solvers interact with the external world.
+In this work, we propose \emph{primitives} as the basic means to let solvers interact with the external world.
 %
-A generator is a special Prolog primitive capable of affecting and inspecting the external world via some I/O facility (\cref{fig:generators}).
+A primitive is a special Prolog facility capable of affecting and inspecting the external world via some I/O facility (\cref{fig:primitives}).
 %
 It is invoked by a solver and produces a \emph{stream of facts} to be consumed by the same solver.
 %
-However, from the solvers perspective, generators are ordinary built-in predicates denoted by \emph{signatures}---i.e., name/arity couples of the form $p/n$.
+However, from the solvers perspective, primitives are ordinary built-in predicates denoted by \emph{signatures}---i.e., name/arity couples of the form $p/n$.
 
 \begin{figure}\centering
-    \includegraphics[width=.65\linewidth]{figures/generator.pdf}
-    \caption{Dataflow and component view of \emph{generators}, i.e.\ solvers' gates towards the external world}
-    \label{fig:generators}
+    \includegraphics[width=.65\linewidth]{figures/primitive.pdf}
+    \caption{Dataflow and component view of \emph{primitives}, i.e.\ solvers' gates towards the external world}
+    \label{fig:primitives}
 \end{figure}
 
-More precisely, whenever the solver needs to compute the assignment of variables $T_i$ satisfying relation $p(T_1, \ldots, T_n)$, it can trigger the generator denoted by $p/n$ (if it exists), by sending the $p/n$ generator a \emph{request} providing a snapshot of the current resolution context and possibly an initial assignment of some $T_i$.
+More precisely, whenever the solver needs to compute the assignment of variables $T_i$ satisfying relation $p(T_1, \ldots, T_n)$, it can trigger the primitive denoted by $p/n$ (if it exists), by sending the $p/n$ primitive a \emph{request} providing a snapshot of the current resolution context and possibly an initial assignment of some $T_i$.
 %
-The generator answers by providing a stream of \emph{responses} -- each one with some possible complete assignment of $T_i$ -- that the solver can consume accordingly to its resolution strategy---i.e., possibly later.
+The primitive answers by providing a stream of \emph{responses} -- each one with some possible complete assignment of $T_i$ -- that the solver can consume accordingly to its resolution strategy---i.e., possibly later.
 %
-To produce responses, generators may take into account several information sources -- e.g., the resolution context, the external world -- as a part of the request.
+To produce responses, primitives may take into account several information sources -- e.g., the resolution context, the external world -- as a part of the request.
 %
 They may also attempt to \emph{affect} the external world via some I/O \emph{action}---e.g., triggering a sensor.
 
-Depending on the numbers of responses a generator provides, it can either be classified as either \emph{functional} or \emph{relational}.
+Depending on the numbers of responses a primitive provides, it can either be classified as either \emph{functional} or \emph{relational}.
 %
-Functional generators produce just one response and their execution is therefore analogous to the execution of a function, as they consume an input and return a single result.
+Functional primitives produce just one response and their execution is therefore analogous to the execution of a function, as they consume an input and return a single result.
 %
-Conversely, relational generators produce two or more responses.
+Conversely, relational primitives produce two or more responses.
 
 %-----------------------------------------------------------------------------------------------%
 \subsection{Example: TSP in Prolog}\label{ssec:tsp}
@@ -4858,15 +4858,15 @@ In its simplest formulation, the predicate may leverage Prolog's depth-first str
 %
 However, better strategies have been proposed in the literature for solving the TSP, with efficient implementations built upon them---rarely based on pure Prolog.
 %
-Here, instead, generators make it possible to exploit external libraries for solving the TSP in Prolog as if they were implemented via LP.
+Here, instead, primitives make it possible to exploit external libraries for solving the TSP in Prolog as if they were implemented via LP.
 
-For instance, we assume that a ``ACME TSP'' C library exists that solves TSP efficiently, which can be wrapped within a relational generator \prolog{tsp/3} to be exploited by a Prolog solver.
+For instance, we assume that a ``ACME TSP'' C library exists that solves TSP efficiently, which can be wrapped within a relational primitive \prolog{tsp/3} to be exploited by a Prolog solver.
 %
-Generator \prolog{tsp/3} should work as follows:
+The primitive \prolog{tsp/3} should work as follows:
 %
 \begin{enumerate}
-    \item whenever the Prolog solver encounters a \prolog{tsp(Cities, Circuit, Cost)} subgoal, it triggers the generator via a \emph{request} containing a snapshot of the current KB and the \emph{actual} values of \prolog{Cities}, \prolog{Circuit}, and \prolog{Cost};
-    \item the generator reads
+    \item whenever the Prolog solver encounters a \prolog{tsp(Cities, Circuit, Cost)} subgoal, it triggers the primitive via a \emph{request} containing a snapshot of the current KB and the \emph{actual} values of \prolog{Cities}, \prolog{Circuit}, and \prolog{Cost};
+    \item the primitive reads
     %
     \begin{inlinelist}
         \item the map graph from the KB snapshot, and
@@ -4874,15 +4874,15 @@ Generator \prolog{tsp/3} should work as follows:
     \end{inlinelist}
     % %
     % these must be marshalled and forwarded to the ACME TSP library---which is triggered behind the scenes;
-    \item the generator generates the stream of all the possible subsets of $\mathcal{C}$ and selects the ones unifying with the actual value of \prolog{Cities}, thus: if \prolog{Cities} is bound to a particular sub-set of cities, then the stream has just one element, otherwise it may have several ones;
-    \item for each sub-set of cities in the stream, the generator triggers ACME TSP and computes the corresponding TSP solution, if any;
-    \item every time it is triggered, ACME TSP computes zero or more solutions for the TSP and returns them to the generator;
-    \item for each TSP solution of each selected instantiation of \prolog{Cities}, the generator yields a response to the solver;
+    \item the primitive generates the stream of all the possible subsets of $\mathcal{C}$ and selects the ones unifying with the actual value of \prolog{Cities}, thus: if \prolog{Cities} is bound to a particular sub-set of cities, then the stream has just one element, otherwise it may have several ones;
+    \item for each sub-set of cities in the stream, the primitive triggers ACME TSP and computes the corresponding TSP solution, if any;
+    \item every time it is triggered, ACME TSP computes zero or more solutions for the TSP and returns them to the primitive;
+    \item for each TSP solution of each selected instantiation of \prolog{Cities}, the primitive yields a response to the solver;
     \item each response may either contain a unifier -- assigning \prolog{Cities} to the selected list of cities, \prolog{Circuit} to the minimally-costly circuit for those cities, and \prolog{Cost} to the cost of that circuit -- or a failed substitution---informing the solver the \prolog{tsp/3} predicate should fail;
     \item the solver can consume the response stream lazily via backtracking.
 \end{enumerate}
 %
-In other words, generators can be exploited as a means to wrap external data producers and let the solver consume the data they produce via streams.
+In other words, primitives can be exploited as a means to wrap external data producers and let the solver consume the data they produce via streams.
 %
 In Prolog, streams of this sort are lazily consumed via ordinary backtracking: the solver lazily generates a new choice point for each element in the stream and handles them as usual.
 %
@@ -4895,23 +4895,23 @@ Solvers of different sorts may consume the stream differently---e.g. buffering (
 
 \begin{figure}\centering
     \includegraphics[width=\linewidth]{figures/2p-fsa-dataflow}
-    \caption{The generator-enabled state machine governing Prolog solvers' behaviour. Location \state{Goal Selection} is the initial one, whereas \state{End} and \state{Halt} are the final ones. Location \state{Generator} (resp. \state{Rule}) \state{Selection} is where generators (resp. KB) are triggered (resp. queried) and their data streams are opened. Conversely, location \state{Generator} (resp. \state{Rule}) \state{Execution} is where response (resp. clause) streams are lazily consumed.}
+    \caption{The primitive-enabled state machine governing Prolog solvers' behaviour. Location \state{Goal Selection} is the initial one, whereas \state{End} and \state{Halt} are the final ones. Location \state{Primitive} (resp. \state{Rule}) \state{Selection} is where primitives (resp. KB) are triggered (resp. queried) and their data streams are opened. Conversely, location \state{Primitive} (resp. \state{Rule}) \state{Execution} is where response (resp. clause) streams are lazily consumed.}
     \label{fig:prolog-fsa}
 \end{figure}
 
-In order to design a Prolog solver supporting our notion of generator, we enhance the Prolog state machine proposed in \cite{tuprolog-sac08} with the capability of lazily consuming streams of data coming from either a generator or the KB (\cref{fig:prolog-fsa}).
+In order to design a Prolog solver supporting our notion of primitive, we enhance the Prolog state machine proposed in \cite{tuprolog-sac08} with the capability of lazily consuming streams of data coming from either a primitive or the KB (\cref{fig:prolog-fsa}).
 %
-In particular, we change how the state machine manages the resolution of (sub-)goals, by supporting the selection of a generator as a means to provide one or more solutions for (sub-)goals, other than the ordinary selection of rules from the KB.
+In particular, we change how the state machine manages the resolution of (sub-)goals, by supporting the selection of a primitive as a means to provide one or more solutions for (sub-)goals, other than the ordinary selection of rules from the KB.
 
-The state machine in \cref{fig:prolog-fsa} stems from the acknowledgement that a Prolog solver may solve a (sub-)goal by either selecting a generator or a number of logic rules from the KB.
+The state machine in \cref{fig:prolog-fsa} stems from the acknowledgement that a Prolog solver may solve a (sub-)goal by either selecting a primitive or a number of logic rules from the KB.
 %
-In both cases, a stream of data must be lazily consumed by the solver---either carrying generator responses or clauses from the KB.
+In both cases, a stream of data must be lazily consumed by the solver---either carrying primitive responses or clauses from the KB.
 
 Whenever a stream of data needs to be processed, there are essentially two major phases: the \emph{opening} of the stream -- where a channel between the stream producer and its consumer is created --, and the \emph{consumption} of the stream---where items from the stream are sequentially processed.
 %
-To support both phases, two more locations are included -- namely \state{Generator Selection} and \state{Generator Execution} -- respectively aimed at triggering a generator and consuming the response stream it provides.
+To support both phases, two more locations are included -- namely \state{Primitive Selection} and \state{Primitive Execution} -- respectively aimed at triggering a primitive and consuming the response stream it provides.
 %
-Furthermore, to support a stream-oriented interaction among the solver and its KB, we model rule management as well through two locations, namely \state{Generator Selection} and \state{Generator Execution}, respectively aimed at querying the KB, and consuming the rule stream it provides.
+Furthermore, to support a stream-oriented interaction among the solver and its KB, we model rule management as well through two locations, namely \state{Primitive Selection} and \state{Primitive Execution}, respectively aimed at querying the KB, and consuming the rule stream it provides.
 
 All the other aspects are handled in the same way as in \cite{tuprolog-sac08}.
 %
@@ -4927,31 +4927,31 @@ Conversely, the latter case is only possible if the last solution was provided b
 %
 In that case, the automaton backtracks and looks for the next solution.
 %
-This may involve stepping through \state{Backtracking}, then moving back into the \state{Generator} (resp. \state{Rule}) \state{Execution}, in order to consume one more element from some previously-opened response (resp. caluse) stream.
+This may involve stepping through \state{Backtracking}, then moving back into the \state{Primitive} (resp. \state{Rule}) \state{Execution}, in order to consume one more element from some previously-opened response (resp. caluse) stream.
 
 Overall, our state machine affects the operation of a Prolog solver as follows:
 %
 \begin{enumerate}
-    \item $\left[\state{Generator Selection}\right]$ whenever a new sub-goal is selected, the solver looks for a generator whose signature matches the sub-goal one;
+    \item $\left[\state{Primitive Selection}\right]$ whenever a new sub-goal is selected, the solver looks for a primitive whose signature matches the sub-goal one;
 
-    \item $\left[\state{Generator Execution}\right]$ if some are found, the solver considers the first response in the stream as a solution to the goal, and generates choice points for subsequent responses;
+    \item $\left[\state{Primitive Execution}\right]$ if some are found, the solver considers the first response in the stream as a solution to the goal, and generates choice points for subsequent responses;
 
-    \item $\left[\state{Rule Selection}\right]$ otherwise, if no generator is selected for the current sub-goal, some rule is looked for instead, whose head unifies with the sub-goal;
+    \item $\left[\state{Rule Selection}\right]$ otherwise, if no primitive is selected for the current sub-goal, some rule is looked for instead, whose head unifies with the sub-goal;
 
     \item $\left[\state{Rule Execution}\right]$ if any such rule is found, resolution can proceed by addressing the rule's body as the next goal to be proved;
 
     \item $\left[\state{Backtracking}\right]$ otherwise, if no rule is found, the sub-goal is considered failed and resolution must backtrack.
 \end{enumerate}
 %
-Location \state{Exception} completes the picture by intercepting exceptions -- possibly thrown by generators as part of some response of theirs --, via the standard \prolog{catch/3} predicate.
+Location \state{Exception} completes the picture by intercepting exceptions -- possibly thrown by primitives as part of some response of theirs --, via the standard \prolog{catch/3} predicate.
 
-Ordinary Prolog built-in primitives naturally fit the picture as they are re-interpreted as  generators by solvers.
+Ordinary Prolog built-in primitives naturally fit the picture as they are re-interpreted as  primitives by solvers.
 %
-For instance, the \texttt{is/2} predicate can be considered a functional generator accepting a variable and an expression and returning a single response assigning the variable to the value attained by reducing the expression -- if possible --, or an exception---in case the expression cannot be reduced.
+For instance, the \texttt{is/2} predicate can be considered a functional primitive accepting a variable and an expression and returning a single response assigning the variable to the value attained by reducing the expression -- if possible --, or an exception---in case the expression cannot be reduced.
 %
-Conversely, the \prolog{member/2} predicate can be considered as a relational generator, enumerating all the possible items in a list.
+Conversely, the \prolog{member/2} predicate can be considered as a relational primitive, enumerating all the possible items in a list.
 %
-Accordingly, the aforementioned \state{Generator Selection} location is where built-in primitives are selected for execution in place of rules from the KB.
+Accordingly, the aforementioned \state{Primitive Selection} location is where built-in primitives are selected for execution in place of rules from the KB.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Predicates as Streams in \twopkt{}}
@@ -4961,15 +4961,15 @@ In order to demonstrate the feasibility of our approach, we propose a case study
 %
 \twopkt{} \cite{cco-softwarex-2021-2pkt} is a Kotlin-based ecosystem for LP, including general API for stream-oriented logic solvers of any sort.
 %
-Regardless of the particular logic, inference rule, or search strategy of choice, a logic solver is modelled in \twopkt{} as a prosumer of streams: it produces output streams of solutions and consumes input streams generated by generators.
+Regardless of the particular logic, inference rule, or search strategy of choice, a logic solver is modelled in \twopkt{} as a prosumer of streams: it produces output streams of solutions and consumes input streams generated by primitives.
 %
 A Prolog solver implementation is available as well, leveraging the state-machine-based design presented in \cref{sec:state-machine}.
 %
-Furthermore, \twopkt{} involves an API for writing generators in Kotlin, by blending an imperative, object-oriented, and functional programming style .
+Furthermore, \twopkt{} involves an API for writing primitives in Kotlin, by blending an imperative, object-oriented, and functional programming style .
 
-In this section, we first illustrate briefly the portion of the \twopkt{} API involving solvers and generators, then we discuss an example generator implementing the TSP example from \ref{ssec:tsp}.
+In this section, we first illustrate briefly the portion of the \twopkt{} API involving solvers and primitives, then we discuss an example primitive implementing the TSP example from \ref{ssec:tsp}.
 
-\subsection{\twopkt{} Solvers and Generators API}
+\subsection{\twopkt{} Solvers and Primitives API}
 
 Here we focus on the resolution-related portion of the \twopkt{} API (cf. \cref{chap:ecosystem} for further details).
 %
@@ -4984,7 +4984,7 @@ Furthermore, \twopkt{} requires each logic solver to be composed by at least thr
 \begin{inlinelist}
     \item a \kotlin{staticKb} and
     \item a \kotlin{dynamicKb}, both of type \kotlin{Theory} -- that is, an ordered and indexed container of logic clauses, retrievable via unification --, and
-    \item a \kotlin{libraries} container of type \kotlin{Libraries}---which, within the scope of this section, is essentially an implementation of the structure indexing generators.
+    \item a \kotlin{libraries} container of type \kotlin{Libraries}---which, within the scope of this section, is essentially an implementation of the structure indexing primitives.
 \end{inlinelist}
 
 Each \kotlin{Solution} in \twopkt{} may be of any of three sorts, namely \kotlin{Yes}, \mbox{\kotlin{No},} and \kotlin{Halt}, representing the positive, negative, and exceptional case, respectively.
@@ -4995,9 +4995,9 @@ So for instance, objects of type \kotlin{Solution.Yes} always contain an object 
 %
 Similarly, objects of type \kotlin{Solution.Halt} carry the uncaught exception which interrupted the resolution process.
 
-Generators are modelled in \twopkt{} as functions of the type:
+Primitives are modelled in \twopkt{} as functions of the type:
 %
-\lstinputlisting[language=Kotlin]{listings/Generator.kt}
+\lstinputlisting[language=Kotlin]{listings/Primitive.kt}
 %
 i.e., functions accepting a \kotlin{Request} as input and returning a \kotlin{Sequence} of \kotlin{Responses} as output.
 %
@@ -5009,33 +5009,33 @@ These include:
 %
 \begin{inlinelist}
     \item a snapshot of \kotlin{ExecutionContext} at invocation time -- in turn including a snapshot of the solver's \kotlin{staticKb} and \kotlin{dynamicKb} --,
-    \item the \kotlin{Signature} of the invoked generator, and
-    \item the \kotlin{List} of \kotlin{Terms} storing actual \kotlin{arguments} provided to the generator upon invocation.
+    \item the \kotlin{Signature} of the invoked primitive, and
+    \item the \kotlin{List} of \kotlin{Terms} storing actual \kotlin{arguments} provided to the primitive upon invocation.
 \end{inlinelist}
 %
 Furthermore, each instance of \kotlin{Request} exposes a bunch of methods -- namely, the many \kotlin{reply*()} ones --, aimed at generating a new \kotlin{Response} for that particular \kotlin{Request}.
 %
-As \kotlin{Response}s are mere containers of \kotlin{Solution}s, there are many variants of the \kotlin{reply*()} methods, each one aimed at generating a given sort of responses -- e.g. responses carrying positive/negative/exceptional solutions -- for the sub-goal that triggered the generator.
+As \kotlin{Response}s are mere containers of \kotlin{Solution}s, there are many variants of the \kotlin{reply*()} methods, each one aimed at generating a given sort of responses -- e.g. responses carrying positive/negative/exceptional solutions -- for the sub-goal that triggered the primitive.
 %
 Finally, each request supports the spawning of an inner resolution process via its \kotlin{solve(...)} method.
 %
-This method creates a novel sub-solver through which generator implementors can resolve sub-queries as part of some generator execution.
+This method creates a novel sub-solver through which primitive implementors can resolve sub-queries as part of some primitive execution.
 
 Thanks to this design, any Kotlin method of the form:
 %
 \lstinputlisting[language=Kotlin]{listings/method.kt}
 %
-can be considered a generator in the eyes of a logic solver.
+can be considered a primitive in the eyes of a logic solver.
 %
-This leverages a particular feature of Kotlin, namely the \kotlin{sequence \{ ... \}} blocks, which let developers write stream \emph{generators} by blending the imperative and functional programming styles.
+This leverages a particular feature of Kotlin, namely the \kotlin{sequence \{ ... \}} blocks, which let developers write stream \emph{primitives} by blending the imperative and functional programming styles.
 %
 This is possible because of the \kotlin{yield(value)} method which users may call inside \kotlin{sequence \{ ... \}} blocks in place of \kotlin{return value} to provide values to the stream.
 
-So, for instance, to implement the predicate \prolog{natural/1} -- which holds true for all natural numbers --, one may write the following generator:
+So, for instance, to implement the predicate \prolog{natural/1} -- which holds true for all natural numbers --, one may write the following primitive:
 %
 \lstinputlisting[language=Kotlin]{listings/natural.kt}
 %
-A Prolog solver would then treat such a generator as a backtrackable predicate.
+A Prolog solver would then treat such a primitive as a backtrackable predicate.
 %
 Thus, in Prolog, one may use the goal \prolog{natural(X)} to enumerate all the natural numbers.
 %
@@ -5043,19 +5043,19 @@ Similarly, to implement the predicate \prolog{even/1} -- which holds true for al
 %
 \lstinputlisting[language=Kotlin]{listings/even.kt}
 
-Summarising, \twopkt{} generators API supports the creation of backtrackable Prolog predicates out of lazy data streams.
+Summarising, \twopkt{} primitives API supports the creation of backtrackable Prolog predicates out of lazy data streams.
 
 \subsection{Travelling Salesman Problem in \twopkt{}}
 
-The real potential of generators is revealed when they are exploited by solvers to manage input data streams from the external world.
+The real potential of primitives is revealed when they are exploited by solvers to manage input data streams from the external world.
 %
 There, the external world may be any source of data, there including other solvers, possibly of different nature.
 %
-For example, generators may be exploited to let a Prolog solver call a TSP solver to efficiently compute solutions for TSP instances, as discussed in \cref{ssec:tsp}.
+For example, primitives may be exploited to let a Prolog solver call a TSP solver to efficiently compute solutions for TSP instances, as discussed in \cref{ssec:tsp}.
 %
-Accordingly, here we demonstrate how a generator of such a sort may be realised through \twopkt{}.
+Accordingly, here we demonstrate how a primitive of such a sort may be realised through \twopkt{}.
 
-In \cite{2P-Kt-TSP-Example} we provide a GitHub repository hosting the source code of a \twopkt{} generator leveraging Google OR-Tools \cite{ortools} to efficiently solve TSP instances.
+In \cite{2P-Kt-TSP-Example} we provide a GitHub repository hosting the source code of a \twopkt{} primitive leveraging Google OR-Tools \cite{ortools} to efficiently solve TSP instances.
 %
 Google OR-Tools is a C++ library proving many constraint programming and operative research tools -- there including routing-related facilities --, and some JVM bindings which let us exploit such tools in Kotlin.
 
@@ -5067,13 +5067,13 @@ As an ordinary Prolog interpreter, such facts may be either consulted from a \te
 
 \begin{figure}
     \lstinputlisting[basicstyle=\ttfamily\tiny,language=Kotlin]{listings/Tsp.kt}
-    \caption{\twopkt{} generator implementing the \prolog{tsp/3} predicate}
+    \caption{\twopkt{} primitive implementing the \prolog{tsp/3} predicate}
     \label{lst:2pkt:tsp}
 \end{figure}
 
-The actual operational behaviour of predicate \prolog{tsp/3} is governed by the \texttt{Tsp} generator whose source code (stub) is shown in \cref{lst:2pkt:tsp} (cf. \cite{2P-Kt-TSP-Example} for full source code).
+The actual operational behaviour of predicate \prolog{tsp/3} is governed by the \texttt{Tsp} primitive whose source code (stub) is shown in \cref{lst:2pkt:tsp} (cf. \cite{2P-Kt-TSP-Example} for full source code).
 %
-The \kotlin{Tsp} generator is a singleton object of type \kotlin{TernaryRelation} -- i.e., a particular sort of \kotlin{Generator}, tailored on ternary predicates --, whose main behaviour is encapsulated within the \kotlin{computeAll} method.
+The \kotlin{Tsp} primitive is a singleton object of type \kotlin{TernaryRelation} -- i.e., a particular sort of \kotlin{Primitive}, tailored on ternary predicates --, whose main behaviour is encapsulated within the \kotlin{computeAll} method.
 
 The \kotlin{Tsp} object is also endowed with a method -- namely, \kotlin{tsp} -- which returns a sequence of circuits and costs for any given list of cities provided as input.
 %
@@ -5097,7 +5097,7 @@ Then, for all selected sets of cities, all possible solutions to the correspondi
 %
 Finally, each possible circuit (resp.\ cost) computed for each TSP instance is unified with \kotlin{snd} (resp. \kotlin{trd}).
 %
-Failed unifications are of course dropped, while the successful ones are converted into responses of the \prolog{tsp/3} generator.
+Failed unifications are of course dropped, while the successful ones are converted into responses of the \prolog{tsp/3} primitive.
 
 It is worth to highlight that the whole pipeline is \emph{lazy}.
 %
@@ -5118,19 +5118,19 @@ In particular, we discuss how logic solvers can be naturally conceived as lazy p
     \item lazily \emph{consume} data streams as part of their resolution process---e.g. when they access knowledge bases.
 \end{inlinelist}
 %
-Furthermore, we show how logic solvers can support the processing of input data stream via the notion of predicates as \emph{generators}, which we introduce in this paper.
+Furthermore, we show how logic solvers can support the processing of input data stream via the notion of predicates as \emph{primitives}, which we introduce in this paper.
 %
-Summarising, generators are reactive computational units which logic solvers may trigger so as to receive data streams from the external world.
+Summarising, primitives are reactive computational units which logic solvers may trigger so as to receive data streams from the external world.
 %
 This may be useful, for instance, to let a solver delegate some part of its resolution process to some external entity---assuming that it is optimised to the purpose.
 
-To demonstrate the feasibility of our approach in the specific (and technically most relevant) case of Prolog, we propose a generator-enabled modelling of Prolog solvers as state machines, formalising the lazy consumption of streams via backtracking.
+To demonstrate the feasibility of our approach in the specific (and technically most relevant) case of Prolog, we propose a primitive-enabled modelling of Prolog solvers as state machines, formalising the lazy consumption of streams via backtracking.
 %
 The proposed formalisation preserves the standard operation of Prolog and requires no modification to the language, while enabling Prolog solvers to process data streams.
 
 Finally, we discuss the use case of \twopkt{} \cite{homepage2PKt}, a Kotlin-based technology for LP including an implementation of Prolog solvers relying on our state-machine-based formalisation.
 %
-We then exploit \twopkt{} to show how generators can be used to bridge different sorts of solvers together via a few lines of Kotlin code.
+We then exploit \twopkt{} to show how primitives can be used to bridge different sorts of solvers together via a few lines of Kotlin code.
 
 In our perspective, this work represents one further step towards the \emph{practical} exploitation of LP -- and, in particular, Prolog -- as a general means for stream processing.
 %
