@@ -1,0 +1,46 @@
+% !TeX root = phd-thesis.tex
+
+%\usepackage{graphicx}
+
+\begin{table}
+\caption{Prolog implementations and their foreign language interfaces (FLI)}
+\label{tab:fli}
+\begin{adjustbox}{width=\textwidth,center}
+\begin{tabular}{c|ccccc}
+\textbf{\makecell{Prolog\\Implementation}} & \textbf{Platform} & \textbf{\makecell{FLI\\towards}} & \textbf{\makecell{Nature\\of FLI}} & \textbf{\makecell{Paradigm\\of FLI}} & \textbf{Source}
+%& \textbf{Homepage}
+\\
+\hline\hline
+BProlog \cite{homepageBprolog}     & C  & Java       & JNI    & imperative & \href{http://www.picat-lang.org/bprolog/download/manual.pdf#chapter.18}{Official BProlog doc.}
+%& \url{http://www.picat-lang.org/bprolog}
+\\
+\hline
+Ciao! \cite{homepageCiao}        & C  & Java       & TCP/IP & imperative & \href{http://cliplab.org/~clip/Software/Ciao/ciao-1.15.0.html/javall_doc.html}{Official Ciao Prolog doc.}
+%& \url{https://ciao-lang.org}
+\\
+\hline
+ECLiPSe \cite{homepageEclipse}     & C  & Java       & JNI    & imperative & \href{https://eclipseclp.org/doc/javadoc/JavaEclipseInterface/index.html}{Official ECLiPSe doc.}
+%& \url{https://eclipseclp.org}
+\\
+\hline
+SICStus \cite{homepageSicstus}      & C  & Java, C\#       & TCP/IP & object-oriented & \href{https://sicstus.sics.se/sicstus/docs/latest4/html/sicstus.html/Interfacing-_002eNET-and-Java.html}{Jasper Library}
+%& \url{https://sicstus.sics.se}
+\\
+\hline
+SWI \cite{homepageSwi}         & C  & Java       & JNI    & object-oriented & \href{https://jpl7.org}{JPL API}
+%& \url{https://www.swi-prolog.org}
+\\
+\hline
+$\tau$Prolog \cite{homepageTau} & JS & JavaScript & Native & object-oriented & \href{http://tau-prolog.org}{Project homepage}
+%& \url{http://tau-prolog.org}
+\\
+\hline
+\tuprolog{} \cite{homepageTuprolog} & \makecell{JS, JVM\\ Android} & \makecell{Kotlin, Java,\\ JavaScript} & Native & \makecell{object-oriented,\\ functional} & \href{http://tuprolog.unibo.it}{Project homepage}
+%& \url{http://tuprolog.unibo.it}
+\\
+\hline
+XSB  \cite{homepageXsb}       & C  & Java       & TCP/IP & imperative & \href{http://interprolog.com/java-bridge}{Interprolog Java Bridge}
+%& \url{http://xsb.sourceforge.net}
+\end{tabular}%
+\end{adjustbox}
+\end{table}

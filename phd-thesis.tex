@@ -4786,7 +4786,7 @@ It is invoked by a solver and produces a \emph{stream of facts} to be consumed b
 However, from the solvers perspective, primitives are ordinary built-in predicates denoted by \emph{signatures}---i.e., name/arity couples of the form $p/n$.
 
 \begin{figure}\centering
-    \includegraphics[width=.65\linewidth]{figures/primitive.pdf}
+    \includegraphics[width=\linewidth]{figures/primitive.pdf}
     \caption{Dataflow and component view of \emph{primitives}, i.e.\ solvers' gates towards the external world}
     \label{fig:primitives}
 \end{figure}
@@ -5857,10 +5857,623 @@ In particular we plan to explore the temporal dimension in LP-based stream proce
 %
 Similarly, we would like to explore the intricacies related to the processing of data streams which may affect the internal state of a logic solver -- e.g. by affecting the KB -- in a predictable way.
 
-\chapter{Bridging LP and Object Orientation}
+\chapter{Bridging LP and Mainstream Programming Paradigms}
 
-\cite{cco-softwarex-2021-2pkt}
-\cite{kotlindsi4prolog-woa2020}
+\mypapers{kotlindsi4prolog-woa2020}
+
+Logic Programming (LP) \cite{Apt2001,Kowalski1974} is a programming pa\-ra\-di\-gm based on formal logic, inspired to the idea of declaratively specifying a program semantics via logic formul\ae{}, so that automatic reasoners can then prove such formul\ae{} by leveraging on different \emph{control} strategies.
+%
+In the years, LP has contributed to the development of a number of diverse research fields laying under the umbrella of symbolic AI---such as automatic theorem proving, multi-agent systems, model checking, research optimisation, natural language processing, etc.
+
+Nowadays, LP is one of the major programming pa\-ra\-di\-gms available for software development, along with the imperative, functional, and object-oriented ones.
+%
+In particular, LP is today one of the best-suited choices for tackling problems involving knowledge representation, logic inference, automated reasoning, search in a discrete space, or meta-programming \cite{logictech-information11}.
+%
+Moreover, today LP supports the core of AI components in pervasive and distributed systems, providing intelligence where and when it is needed \cite{microintelligencelp-mmasII}.
+
+This is why the \emph{integration} of LP within the main programming languages is  nowadays more interesting than ever.
+%
+However, to make it actually work, integration should be designed -- from a linguistic standpoint -- so as to reduce both the development time and the learning curve of developers, as well as the psychological and cultural resistances against the adoption of new paradigms---thus, basically, moving LP up to a manageable level by the OOP developer.
+
+Most mainstream programming languages -- such as Java, Kotlin, Scala, Python, JavaScript, C\# -- have recognised the added value of the integration of diverse programming paradigms under a unique syntax, a coherent API, and a rich standard library.
+%
+In fact, they all already support both the object-oriented (OOP) and functional (FP) programming paradigms.
+%
+We believe that the same languages would largely benefit from extending their support to LP languages as well, making them usable in the OOP context in the same way as FP features already are.
+
+Interoperability among Prolog \cite{ColmerauerR93} (as the first and most prominent LP language) with other languages from different paradigms is not new: the Prolog community has actually been studying this theme for years \cite{Bagnara2002}, as shown by the many forms of integration historically present in most Prolog systems, providing either
+%
+\begin{inlinelist}
+    \item\label{item:logic2oop} logic-to-OOP interoperability, making object orientation available within Prolog scripts, or
+    \item\label{item:oop2logic} OOP-to-logic interoperability, making logic programming exploitable within object-oriented code
+\end{inlinelist}%
+%
+---or both, as in the case of \tuprolog{} Java Library \cite{tuprolog-scp57}.
+%
+It is worth noting here that existing integrations make quite strong assumptions.
+%
+For instance, \cref{item:logic2oop} assumes the main application is written in Prolog and the interoperation is given via a suitable interface allowing the injection of (small) parts written in other languages, while \cref{item:oop2logic} implicitly assumes LP and Prolog to be somehow \emph{harmonised} with the language(s) hosting them, at the paradigm, syntactical, and technological levels.
+%
+Both these assumptions can actually create a barrier against an effective adoption of LP in today applications despite its huge potential.
+
+Therefore, the approach adopted in this work is to devise instead a form of LP-FP-OOP \emph{blended integration}, such that the key features of LP paradigm can be exposed and made available to mainstream language developers in a way that is the most natural in that context.
+%
+The key requirement, therefore, is the ``making LP easy to adopt for OOP programmers'', in order to break down the learning curve for non-experts, and pursuit the typical developers' mindset.
+%
+Going beyond the mere interoperability intended as simple technical habilitation, our approach is meant to embrace the perspective of the OOP developer aiming at exploiting the potential of LP.
+
+To this end, we show how designing Prolog as a \emph{domain-specific language} (DSL) for an OOP language such as Kotlin can make LP close enough to the OOP developers' mindset to overcome most cultural barriers, while at the same mimicking the Prolog syntax and semantics close enough to make its use straightforward for LP developers.
+
+Generally speaking, the integration of Prolog with other paradigms aims at bringing the effectiveness and declarativeness of LP into general-purpose OOP framework.
+%
+In particular, OOP designers and programmers can be expected to benefit from LP features for
+%
+\begin{inlinelist}
+    \item data-driven or data-intensive computations, such as in the case of complex-event-processing frameworks;
+    \item operation research or symbolic AI algorithms, or more generally other algorithms involving a search space to be explored;
+    \item multi-agent systems, and the many areas in that field leveraging on LP, such as knowledge representation, argumentation, normative systems, etc.
+\end{inlinelist}
+
+The proposed solution is based on the \twopkt{} technology \cite{githubpage2pkt}, a re-engineering of the \tuprolog{} project \cite{homepageTuprolog,tuprolog-padl01} as a Kotlin multi-platform library supporting the JVM, JS, Android, and Native platforms.
+%
+The case of a Kotlin-based Prolog DSL is presented and discussed.
+
+Accordingly, the paper is organised as follows.
+%
+\Cref{sec:sota} briefly introduces LP, providing details about \tuprolog{}, \twopkt{}, and Kotlin as well.
+%
+It also summarises the current state of the integration between LP and mainstream programming languages.
+%
+\Cref{sec:contribution} discusses the rationale, design, and architecture of our Prolog-Kotlin DSL along with some examples.
+%
+\Cref{sec:case-study}, briefly illustrates a case study where our DSL is used in combination with functional programming to solve a simple AI task in an elegant way.
+%
+Finally, in \cref{sec:conclusions}, concludes the paper by providing some insights about the possible future research directions stemming from our work.
+
+\section{Background}\label{sec:sota}
+
+\subsection{LP integration with other languages}
+
+%The idea of integrating Prolog with high-level languages is not new.
+%
+%Indeed, as shown in \cref{tab:fli}, many Prolog implementations expose a \emph{foreign language interface} (FLI) towards some high-level target language.
+In order to integrate LP with high-level languages, many Prolog implementations expose a foreign language interface (FLI, \cref{tab:fli}) towards some high-level \emph{target} language.
+%
+In most cases, the target language is Java, and the FLI is bi-directional---meaning that it supports both ``calling Prolog from the target language'' and vice versa.
+%
+In a few particular cases, however, the JavaScript and C\# languages are also supported.
+%
+As we are mostly interested in discussing how and to what extent Prolog exploitation is  possible within the target languages, in the reminder of this section we only focus on those FLI allowing to ``call Prolog from the target language''.
+
+Each FLI mentioned in \cref{tab:fli} is characterised by a number of features that heavily impact the way the users of the target languages may actually exploit Prolog.
+%
+These are, for instance, the nature of the FLI -- which is tightly related to the target platform of the underlying Prolog implementation -- and its reference programming paradigm.
+
+By ``nature'' of the FLI, we mean the technological mechanism exploited by a particular Prolog implementation to interact with the target language.
+%
+There are some cases -- like \tuprolog{} and $\tau$Prolog -- where this aspect is trivial, because the target language is also the implementation language---so Prolog is considered there as just another library for the target language.
+%
+More commonly, however, Prolog is implemented in C, and the Java Native Interface (JNI) is exploited to make it callable from Java.
+%
+This is for instance the case of SWI- and ECLiPSe-Prolog.
+%
+While this solution is very efficient, it hinders the portability of Prolog into particular contexts such as Android, and its exploitation within mobile applications.
+
+\input{tables/related-tech-table}
+
+Another viable solution is to leverage on the TCP/IP protocol stack.
+%
+This is for instance the case of SICStus- and Ciao-Prolog.
+%
+The general idea behind this approach is that the Prolog implementation acts as a remote server offering logic-programming services to the target language via TCP/IP, provided that a client library exists on the Java side making the exploitation of TCP/IP transparent to the users.
+%
+While this solution is more portable -- as virtually any sort of device supports TCP/IP --, it raises efficiency issues because of the overhead due to network/inter-process communications.
+%
+A more general solution of that sort is instead offered by the LPaaS architecture \cite{lpaas-tplp18}, where the fundamental idea is to have many Prolog engines distributed over the network, accessed as logic-based web services.
+%
+By the way, the implementation of LPaaS\footnote{\url{http://lpaas.apice.unibo.it}} is based on \tuprolog{}.
+
+By ``reference programming paradigm'' of the FLI we mean the specific programming style proposed by a Prolog implementation to the target language users through its API.
+%
+Some FLI are conceived to be used in a strictly imperative way: this is e.g.\ the case of BProlog or Ciao! Prolog, where a Java API is available for writing Prolog queries and issue them towards the underlying Prolog system in an imperative way.
+%
+Other Prolog implementations, such as SICStus- and SWI-Prolog, offer a more object-oriented API which let developer not only represent queries but also terms, and solutions (there including variable bindings) which can be consumed through ordinary OOP mechanisms such as iterators.
+
+In most cases, however, the code to be produced in the target language is far less concise and compact than pure Prolog -- unless strings and parsing are extensively adopted  --, especially when the size of the Prolog code to be represented grows.
+%
+So, for instance, the simple Prolog query \mbox{\texttt{?- parent(adam, X)}} (aimed at computing who Adam's son is) in Java through SWI-Prolog's JPL interface would be written as in \cref{lst:swi-fli}.
+%
+\lstinputlisting[
+    float,
+    language=Java,
+    label={lst:swi-fli},
+    caption={SWI-Prolog JPL interface example}
+]{listings/SwiFliExample.java}
+%
+While this a totally effective solution on the technical level, we argue that a more convenient integration among LP and the other paradigms is possible.
+%
+In particular, in this paper we show how \twopkt{} allows for a finer integration at the paradigm level through \emph{domain-specific languages}.
+
+\subsection{Kotlin Domain-Specific Languages (DSL)}
+
+Domain-specific languages (DSL) are a common way to tackle recurrent problems in a general way via software engineering.
+%
+When a software artefact (e.g. library, architecture, system) is available to tackle with  some sort of problems, designers may provide a DSL for that artefact to ease its usage for practitioners.
+%
+There, the exploitation of a DSL hides the complexity of the library behind the scenes, while supporting the usage of the artefact for non-expert users too.
+%
+This is, for instance, the approach of the Gradle build system\footnotemark---which is nowadays one of the most successful build automation systems for the JVM, Android, and C/C++ platforms.
+%
+\footnotetext{\url{https://gradle.org}}
+%
+It is also the approach followed by the JADE agent programming framework, which is nowadays usable through the Jadescript DSL \cite{BergentiCMP20}.
+
+Building a DSL usually requires the definition of a concrete syntax, the design and implementation of a compiler or code generator, and the creation of an eco\-system of tools---e.g., syntax highlighters, syntax checkers, debuggers.
+%
+In particular, compilation or code generation are fundamental as they are what makes a DSL machine-interpretable and -executable.
+
+Some high-level languages, however, such as Kotlin, Groovy, or Scala, enable a different approach.
+%
+They come with a flexible syntax which \emph{natively} supports the definition of new DSL with no addition to the hosting language required.
+%
+For instance, Gradle consists of a JVM library of methods for building, testing, and deploying sources codes, plus a Kotlin- or Groovy-based DSL allowing developers to customise their particular workflows.
+
+The advantages of this approach are manifold.
+%
+First, no compiler or code generator has to be built, as the DSL is already part of the hosting language and it is therefore machine-interpretable and -executable by construction.
+%
+Second, the DSL automatically inherits all the constructs, API, and libraries of the hosting lan\-gua\-ge---there including conditional or iterative con\-stru\-cts, string manipulation API, etc., which are common and useful for many DSL, regardless of their particular domain.
+%
+Third, the ecosystem of tools supporting the hosting language -- e.g. compilers, debuggers, formatters, code analysers, IDE, etc. -- can be reused for the DSL as well, easing its adoption and making it more valuable.
+
+When Kotlin is the hosting language of choice, DSL leverage on a small set of features making the Kotlin syntax very flexible, described below:
+%
+\begin{description}
+    \item[operator overloading\footnotemark] --- allowing ordinary arithmetic, comparison, access, and function invocation operators to change their ordinary meaning on a per-type basis;
+
+    \footnotetext{\url{https://kotlinlang.org/docs/reference/operator-overloading.html}}
+
+    \item[block-like lambda expressions\footnotemark] --- including a number of syntactic sugar options such as
+    %
+    \begin{inlinelist}
+        \item the possibility to omit formal parameters in case of a single-argument lambda expression, and
+        \item the possibility to omit the round parentheses in case of a function invocation having a lambda expression as a last argument;
+    \end{inlinelist}
+
+    \footnotetext{\label{foot:lamdbda}\url{https://kotlinlang.org/docs/reference/lambdas.html}}
+
+    \item[function types/literals with receiver\footnoteref{foot:lamdbda}] --- allowing functions and methods to accept lambda expressions within which the \texttt{this} variable references a different object than the outer scope;
+
+    \item[extension methods\footnotemark] --- allowing pre-existing types to be extended with new instance methods whose visibility is scope-sensible.
+
+    \footnotetext{\url{https://kotlinlang.org/docs/reference/extensions.html}}
+\end{description}
+%
+Of course, Kotlin-based DSL automatically inherit the full gamma of facilities exposed by the Kotlin language and standard library---there including support for imperative, and object-oriented programming, as well as a rich API supporting functional programming through most common high-order operations.
+%
+Furthermore, if properly engineered, these DSL may be executed on all the platforms supported by Kotlin---which commonly include, at least, the JVM, JavaScript, and Android.
+%
+This is for instance the case of our DSL proposed in \cref{sec:contribution}.
+
+While this paper focuses on Kotlin-based DSL, similar results could be achieved in other languages by means of equivalent mechanisms.
+%
+For instance, in Scala, extension methods have to be emulated via implicit classes, and DSL, in particular, can be built via the ``Pimp My Library'' pattern \cite{Oliveira2010}.
+
+\section{A domain-specific language for LP}\label{sec:contribution}
+
+\subsection{Design Rationale}
+
+Regardless of the technological choices, the design of our DSL leverages on a small set of principles ($\mathbf{P_i}$) briefly discussed below.
+%
+In fact, our aim is to ($\mathbf{P_1}$) provide a DSL that is a \emph{strict} extension of its hosting language, meaning that no feature of the latter language is prevented by the usage of our DSL.
+%
+Dually, we require ($\mathbf{P_2}$) our DSL to be fully interoperable and finely integrated with the hosting language, meaning that all the features of the latter language can be exploited from within our DSL.
+%
+However, we also require ($\mathbf{P_3}$) the DSL to be well encapsulated and clearly identifiable within the hosting language, in order to prevent unintended usage of the DSL itself.
+%
+Finally, we require ($\mathbf{P_4}$) our DSL to be as close as possible to Prolog, both at the syntactic and semantic level, to ease its exploitation for logic programmers.
+
+In order to accomplish to the aforementioned principles, we choose the Kotlin language as the technological reference for prototyping our proposal.
+%
+This is because it
+%
+\begin{inlinelist}
+    \item comes with a flexible syntax supporting the definition of DSL,
+    \item supports a considerable number of platforms (JVM, JavaScript, Android, Native) and therefore enables a wide exploitation of LP -- for instance, on smart devices --,
+    \item includes a number of libraries supporting LP-based applications, such as \twopkt{}.
+\end{inlinelist}
+
+\subsection{The Kotlin DSL for Prolog}\label{ssec:dsl-overview}
+
+Before dwelling into the details of our proposal, we provide an overview of what a Kotlin DSL for Prolog has to offer.
+
+Let us consider the Prolog theory shown in \cref{fig:relatives-prolog} describing a portion of Abraham's family tree.
+%
+\lstinputlisting[
+    float,
+    language=Prolog,
+    caption={Prolog theory describing Abraham's family tree},
+    label={fig:relatives-prolog}
+]{listings/relatives.pl}
+%
+It enables a number of queries, e.g. \texttt{ancestor(a\-bra\-ham, X)}, which can be read as ``Does there exist some \texttt{X} which is a descendant of Abraham?''.
+%
+According to the Prolog semantics, this query may have a number of solutions, enumerating all the possible descendants of Abraham that can be deduced from the above theory---i.e., Isaac, Jacob, and Joseph.
+
+The same result may be attained through the Kotlin program depicted in \cref{fig:relatives-kotlin}, which leverages on our DSL for Prolog:
+%
+%\begin{listing}[H]
+\lstinputlisting[
+    float,
+    language=Kotlin,
+    caption={Kotlin code generating the logic theory from \cref{fig:relatives-prolog}},
+    label={fig:relatives-kotlin}
+]{listings/Relatives.kt}
+%\end{listing}
+%
+The program creates a Prolog solver and initialises it with standard built-in predicates.
+%
+Then it loads a number of facts and rules representing the aforementioned Prolog theory about Abraham's family tree.
+%
+Finally, it exploits the solver to find all the descendants of Abraham, by issuing the query \texttt{ancestor(abraham, X)}.
+
+It is worth noting how the simple code snippet exemplified above is adherent w.r.t. our principles.
+%
+In fact, the whole DSL is \emph{encapsulated} ($\mathbf{P_3}$) within the
+%
+\begin{center}\ttfamily
+    prolog \{ $\langle DSL\ block \rangle$ \}
+\end{center}
+%
+In there, LP facilities can be exploited in combination with the imperative and functional constructs offered by the Kotlin language and its standard-library ($\mathbf{P_1}$ and $\mathbf{P_2}$)---such as the \texttt{for-each}-loop used to print solutions in the snippet above.
+%
+Furthermore, within \texttt{prolog} blocks, both theories and queries are expressed via a Kotlin-compliant syntax mimicking Prolog ($\mathbf{P_4}$).
+%
+The main idea behind such syntax is that each expression in the form
+%
+\begin{center}\ttfamily
+    \kotlin{"functor"}($\langle e_1 \rangle$, $\langle e_2 \rangle$, $\ldots$)
+\end{center}
+%
+is interpreted as a compound term (a.k.a.\ structure) in the form
+$\texttt{functor}(t_1,\ t_2,\ \ldots)$,
+provided that each Kotlin expression $e_i$ can be recursively evaluated as the term $t_i$---e.g. capital strings such as \kotlin{"X"} are interpreted as variables, whereas non-capital strings such as \kotlin{"atom"} (as well as Kotlin numbers) are interpreted as Prolog constants.
+%
+In a similar way, expressions of the form\footnote{backticks make Kotlin parse words as identifiers instead of keywords}
+%
+%\begin{minted}[frame=none,framesep=0mm]{kotlin}
+%rule {
+%  "head"(|$\langle e_1 \rangle$|, |$\ldots$|,  |$\langle e_N \rangle$|) `if` (
+%    |$\langle e_{N+1} \rangle$| and |$\ldots$| and |$\langle e_M \rangle$|
+%  )
+%}
+%\end{minted}
+\begin{center}\ttfamily
+    rule \{ \kotlin{"head"}($\langle e_1 \rangle$, $\ldots$,  $\langle e_N \rangle$) \kotlin{`if`} ($\langle e_{N+1} \rangle$ and $\ldots$ and $\langle e_M \rangle$) \}
+\end{center}
+%
+are interpreted as Prolog rules of the form
+\[
+    \texttt{head}(t_1,\ \ldots,\ t_N) \impliedBy t_{N+1},\ \ldots,\ t_M
+\]
+provided that $M > N$ and each Kotlin expression $e_i$ can be recursively evaluated as the term $t_i$.
+%
+A similar statement holds for fact expressions of the form \texttt{fact \{ $\ldots$ \}} .
+
+To support our DSL for Prolog, a number of Kotlin classes and interfaces have been designed on top of the \twopkt{} library, exploiting manifold extensions methods, overloaded operators, etc. to provide the syntax described so far.
+%
+The details of our solution -- there including its architecture, design, and implementation -- are discussed in the reminder of this section.
+
+\subsection{Architecture, Design, Implementation}
+
+\begin{figure*}
+    \centering
+    \begin{subfigure}{.24\linewidth}
+        \centering
+        \includegraphics[width=.5\linewidth]{figures/layers}
+        \caption{Layered view showing the modules of \twopkt{} and our Kotlin DSL for Prolog}
+        \label{fig:layers}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{.75\linewidth}
+        \includegraphics[width=\linewidth]{figures/dsl-types}
+        \caption{Structural view showing the API of our Kotlin DSL for Prolog, leveraging on the \twopkt{} API}
+        \label{fig:dsl-types}
+    \end{subfigure}
+    \caption{Architectural view of our Kotlin DSL for Prolog}
+\end{figure*}
+
+The Kotlin DSL for Prolog is essentially a compact means to instantiate and use objects from the \twopkt{} library, through a Prolog-like syntax.
+%
+More precisely, it consists of a small software layer built on top of Kotlin and \twopkt{}, as represented by \cref{fig:layers}.
+%
+In particular, the DSL is enabled by the five \emph{factory interfaces} depicted in \cref{fig:dsl-types}.
+%
+We call \emph{factory interface} a type definition whose methods are aimed at \emph{instantiating} objects of related types, as dictated by the Gang of Four' abstract factory pattern \cite{GammaHelmEtAl95}.
+
+The five factory interfaces are: \texttt{Scope}, \texttt{Prolog}, \texttt{Pro\-log\-Wi\-th\-Uni\-fi\-ca\-tion}, \texttt{Pro\-logWi\-thTheo\-ries}, and \texttt{PrologWithResolution}.
+%
+Each factory type extends the previous one with more LP-related functionalities.
+%
+So, for instance, while instances of \texttt{Scope} simply provide the basic bricks to create logic terms, instances of \texttt{Prolog} leverage on these bricks to enable the exploitation of the Prolog-like syntax exemplified above.
+%
+\texttt{PrologWithUnification} extends \texttt{Prolog} with u\-ni\-fi\-ca\-tion-re\-la\-ted facilities, and it is in turn extended by \texttt{Pro\-log\-Wi\-th\-Theo\-ries}, which lets developers create both clauses and theories via a Prolog-like syntax.
+%
+Finally \texttt{PrologWithResolution} extends \texttt{PrologWi\-thTheories} by adding resolution-related facilities, plus some syntactic shortcuts for writing rules exploiting Prolog standard predicates such as \texttt{member/2}, \texttt{len\-gth/1}, etc.
+
+In the following we provide further details about how each factory contributes to our DSL.
+
+\paragraph{Scope}
+
+The simplest factory type is \texttt{Scope}.
+%
+As suggested by its name, it is aimed at building terms which must share one or more variables.
+%
+For this reason, it exposes a number of factory methods -- roughly, one for each sub-type of \texttt{Term} --, some of which are mentioned in \cref{fig:dsl-types}.
+%
+The main purpose of a scope, however, is to enable the creation of objects reusing the same logic \texttt{Var}iables more than once.
+%
+Thus, it includes a method -- namely, \kotlin{varOf(String)} -- which always returns the same variable if the same name is provided as input.
+
+For example, to create the term \prolog{member(X, [X | T])}, one may write:
+%
+\begin{lstlisting}[language=Kotlin]
+val m = Scope.empty {
+    structOf("member", varOf("X"), consOf(varOf("X"), varOf("T")))
+} // m references the term member(X, [X | T])
+\end{lstlisting}
+%
+There, the two calls to \kotlin{varOf("X")} actually return the same object, if occurring within the same scope---whereas they would return different variables if invoked on different scopes.
+%
+This mechanism is what enables developers to instantiate terms and clauses without having to explicitly refresh variables among different clauses: it is sufficient to create them within different scopes.
+
+\paragraph{Prolog}
+
+The \texttt{Prolog} factory type extends \texttt{Scope} by adding the capability of creating terms through a Prolog-like syntax.
+%
+To do so, it exposes a number of extension methods aimed at automatically converting Kotlin objects into Prolog terms or using Kotlin objects in place of Prolog terms.
+%
+The most relevant extension methods are mentioned in \cref{fig:dsl-types}.
+%
+These methods are:
+%
+\begin{itemize}
+    \item \kotlin{fun Any.toTerm(): Term}, which is an extension method aimed at making any Kotlin object convertible into a Prolog term, through the syntax \kotlin{obj.toTerm()}.
+    %
+    To convert an object into a term, it leverages on the following type mapping:
+    %
+    \begin{inlinelist}
+        \item a Kotlin number is either converted into a Prolog real or integer number, depending on whether the input number is floating-point or not,
+        \item a Kotlin string is either converted into a Prolog variable or atom, depending on whether the input string starts with a capital letter or not,
+        \item a Kotlin boolean is always converted into a Prolog atom,
+        \item a Kotlin iterable (be it an array, a list, or any other collection) is always converted into a Prolog list, provided that each item can be recursively converted into a term,
+        \item a Kotlin object remains unaffected if it is already an instance of \texttt{Term},
+        \item an error is raised if the input object cannot be converted into a \texttt{Term}.
+    \end{inlinelist}
+
+    \item \kotlin{operator fun String.invoke(vararg Any): Struct},
+    %
+    which is an extension method aimed at overloading the function invocation operator for strings.
+    %
+    Its purpose is to enable the construction of compound terms through the syntax \kotlin{"f"}\texttt{(arg$_1$, $\ldots$, arg$_N$)}, which mimics Prolog.
+    %
+    Its semantics is straightforward: assuming that each \texttt{arg}$_i$ can be converted into a term via the \texttt{Any.toTerm()} extension method above, this method creates a $N$-ary \texttt{Struct}ure whose functor is \kotlin{"f"} and whose $i^{th}$ is \texttt{arg$_i$.toTerm()}.
+    %
+    So, for instance, the expression
+    %
+    \begin{center}
+        \kotlin{"member"("X", arrayOf(1, true))}
+    \end{center}
+    %
+    creates the Prolog term \prolog{member(X, [1, true])}.
+
+    \item \kotlin{fun Substitution.get(String): Term?}, which is an extension method aimed at overloading the \texttt{get} method of the \texttt{Substitution} type in such a way that is can also accept a string other than a \texttt{Var}iable.
+    %
+    This enables DSL users to write expressions such as
+    \begin{center}
+        \kotlin{substitution.get("X")}
+    \end{center}
+    %
+    instead of having to create a variable explicitly via \kotlin{varOf("X")}.
+    %
+    While we only discuss this method, the main idea here is that every method in the \twopkt{} API accepting some basic Prolog type -- such as \texttt{Var}, \texttt{Atom}, or \texttt{Real} -- as argument should be similarly overloaded to accept the corresponding Kotlin type as well---e.g. \texttt{String} or \texttt{Double}.
+    %
+    This is what enables a fine-grained integration of our DSL with the Kotlin language and the \twopkt{} library.
+\end{itemize}
+%
+It is worth highlighting that every \texttt{Prolog} object is also a particular sort of \texttt{Scope}.
+%
+So, converting the same string into a \texttt{Var}iable twice or more times, within the same \texttt{Prolog} object, always yields the exact same variable.
+
+\paragraph{Prolog with unification}
+
+The \texttt{Pro\-logWi\-thU\-ni\-fi\-ca\-tion} factory type extends \texttt{Prolog} by adding the capability of
+%
+\begin{inlinelist}
+    \item computing the most general unifier (MGU) among two terms,
+    \item checking whether two terms match or not according to logic unification -- i.e., checking if a MGU exists unifying the two terms --, and
+    \item computing the term attained by unifying two terms---assuming an MGU exists for them.
+\end{inlinelist}
+%
+To do so, it exposes a number of extension methods aimed at providing unification-related support to Kotlin objects, provided that they can be converted into terms.
+%
+The most relevant extension methods are mentioned in \cref{fig:dsl-types}.
+
+\paragraph{Prolog with theories}
+
+The \texttt{Pro\-logWi\-thTheo\-ries} factory type extends \texttt{Pro\-logWi\-thU\-ni\-fi\-ca\-tion} by adding the capability of creating logic clauses (e.g. rules and facts) and theories.
+%
+To do so, it exposes a number of methods aimed supporting the conversion of Kotlin objects into Prolog clauses -- through the syntactic facilities presented so far --, and their combination into theories.
+%
+The most relevant methods, mentioned in \cref{fig:dsl-types}, are the following:
+%
+\begin{itemize}
+    \item \kotlin{fun theoryOf(vararg Clause): Theory}, an ordinary method aimed at creating a logic \texttt{Theory} out of a variable amount of clauses.
+
+    \item \kotlin{infix fun Any.`if`(Any): Rule}, which is an extension method aimed at creating logic rules via a Prolog-like syntax in the form \kotlin{head `if` body}.
+    %
+    Its semantics is straightforward: assuming that both \kotlin{head} and \kotlin{body} can be converted into logic goals via the \kotlin{Any.toTerm()} extension method above, this method creates a binary \texttt{Struct}ure whose functor is \texttt{`:-'} and whose arguments are \kotlin{head.toTerm()} and \kotlin{body.toTerm()}.
+    %
+    Similar methods exists -- namely, \kotlin{and}, \kotlin{or}, etc. --  to create conjunctions or disjunctions of clauses.
+    %
+    \item \kotlin{fun rule(PrologWithTheories.() -> Any): Rule}, an ordinary method aimed at creating a rule in a separate scope, thus avoiding the risk of accidentally referencing the variables created elsewhere.
+    %
+    It creates a fresh, empty, and nested instance of \texttt{Pro\-logWi\-thTheo\-ries} and accepts a function with receiver to be invoked on that nested instance.
+    %
+    The function is expected to return a Kotlin object which can be converted into a Prolog rule.
+    %
+    Any variable possibly created within the nested scope is guaranteed to be different than any homonymous variable defined elsewhere.
+    %
+    \item \kotlin{fun fact(PrologWithTheories.() -> Any): Fact},  analogous to the previous method, except that it is aimed at creating Prolog facts.
+    %
+    So, for instance, one may write
+    %
+\begin{lstlisting}[language=Kotlin]
+val r1 = fact {
+    "member"("X", consOf("X", `_`))
+}
+val r2 = rule {
+    "member"("X", consOf(`_`, "T")) `if` "member"("X", "T")
+}
+\end{lstlisting}
+    %
+    while being sure that the \texttt{X} variable used in \texttt{r1} is different than the one used in \texttt{r2}.
+    %
+\end{itemize}
+
+\paragraph{Prolog with resolution}
+
+The \texttt{Pro\-logWi\-thRe\-so\-lu\-tion} factory type extends \texttt{Pro\-logWi\-thU\-ni\-fi\-ca\-tion} by adding the capability of performing logic queries and consuming their solutions attained through the standard Prolog semantics.
+%
+To do so, it exposes a number of methods aimed at supporting
+%
+\begin{inlinelist}
+    \item the instantiation of Prolog \texttt{Solver}s,
+    \item the loading of Prolog theories, either as static or dynamic knowledge bases (KB), and
+    \item the invocation of Prolog queries on those KB.
+\end{inlinelist}
+%
+The most relevant methods, mentioned in \cref{fig:dsl-types}, are the following:
+%
+\begin{itemize}
+    \item \kotlin{fun solve(Any, Long): Sequence<Solution>},
+    which is an ordinary method aimed at executing Prolog queries without requiring a new solver to be explicitly created.
+    %
+    It accept a Kotlin object as argument -- which must be convertible into a Prolog query --, and an optional timeout limiting the total amount of time the solver may exploit to compute a solution.
+    %
+    If the provided arguments are well formed, this method returns a \texttt{Sequence} of \texttt{Solution}s which \emph{lazily} enumerates all the possible answers to the query provided as input, using Prolog's SLDNF proof procedure.
+
+    \item \kotlin{fun staticKb(vararg Clause)}, which is an ordinary method aimed at loading the \emph{static} KB the \texttt{solve} method above will operate upon.
+
+    \item \kotlin{fun dynamicKb(vararg Clause)}, which is analogous to the previous method, except that it loads the \emph{dynamic} KB the \texttt{solve} method above will operate upon.
+
+    \item \kotlin{fun member(Any, Any): Struct} which is an ordinary method aimed at easily creating invocations of the \prolog{member/2} built-in predicate.
+    %
+    While we only discuss this method, the main idea here is that every standard built-in predicate in Prolog has a Kotlin counterpart in \texttt{Pro\-logWi\-thRe\-so\-lu\-tion} accepting the proper amount or arguments and returning an invocation to that built-in predicate.
+    %
+    This is aimed easing the exploitation of the standard Prolog predicates to developers leveraging our DSL.
+    %
+    So, for instance, we also provide facility methods for built-in such as \prolog{is/2}, \prolog{+/2}, \prolog{-/2}, \prolog{!/0}, \prolog{fail/0}, \prolog{append/3}, etc.
+\end{itemize}
+%
+Instances of \texttt{Pro\-logWi\-thRe\-so\-lu\-tion} are created and used via the
+%
+\begin{center}
+        \kotlin{fun <R> prolog(PrologWithResolution.() -> R): R}
+\end{center}
+%
+static method, which accepts a lambda expression letting the user exploit the DSL on the fly, and returns the object created by this lambda expression.
+%
+This is for instance what enables developers to write the code snippet discussed in \cref{ssec:dsl-overview}.
+
+\section{Case study: N-Queens}\label{sec:case-study}
+
+We present now a brief example demonstrating how, by integrating multiple programming paradigms, developers may easily produce compact and effective solutions.
+%
+Suppose one is willing to implement the following Kotlin method
+%
+\begin{center}
+    \kotlin{fun nQueens(n: Int): Sequence<List<Position>>}
+\end{center}
+%
+aimed at computing all the possible solutions to the N-Queens problem.
+%
+More precisely, the method is expected to enumerate all the possible dispositions of $n$ queens on a $n \times n$ chessboard, such that no queen can be attacked by others.
+%
+Each solution can be represented by a list of queen positions, in the form $[(1, Y_1),\ \ldots,\ (n, Y_n)]$, where each $Y_i$ represent the row occupied by the $i^{th}$ queen---i.e., the one in column $i$.
+
+Computing all solutions for the N-Queens problem may require a lot of code in most programming paradigms.
+%
+However, in LP, the solution is straightforward and compact.
+%
+One may, for instance, leverage the Prolog code depicted in \cref{lst:nqueens-prolog}.
+%
+\lstinputlisting[
+    float,
+    language=Prolog,
+    caption={Logic theory aimed at computing solutions for the N-Queens problem},
+    label={lst:nqueens-prolog},
+]{listings/nqueens.pl}
+%
+which can satisfy queries in the form
+%
+\begin{center}
+    \prolog{?- solution(N, [(1, Y1), ..., (N, YN)])}
+\end{center}
+%
+(provided that some actual $N$ is given) by instantiating each variable \texttt{Yi}.
+
+Thanks to our Kotlin DSL for Prolog, one may exploit the elegance of LP in implementing the aforementioned \texttt{nQueens} method.
+%
+For instance, one may implement it as shown in \cref{lst:nqueens-kotlin}.
+%
+\lstinputlisting[
+    float,
+    language=Kotlin,
+    caption={Kotlin code aimed generating the theory depicted in \cref{lst:nqueens-prolog}},
+    label={lst:nqueens-kotlin},
+]{listings/NQueens.kt}
+%
+This implementation produces a \emph{lazy} stream of solutions to the N-Queens problem, given a particular value of $n$.
+%
+In doing so, it takes advantages not only of logic- but also of functional-programming paradigm.
+%
+For instance, on the last line, it exploits the \texttt{map} high-order function to build a list in the form $[(1, Y_1),\ \ldots,$ $(n, Y_n)]$, to be provided as argument of \prolog{solution/2}.
+
+A number of minuti\ae{} may be noted as well by comparing the Prolog code with its Kotlin counterpart.
+%
+For instance, Prolog operators (such as \texttt{=$\backslash$=/2}, \prolog{-/2}, etc.) retain their infix notations in the Prolog DSL.
+%
+This is possible because they are part of the DSL, in the same way as Prolog built-in predicates (such as \prolog{between/3}).
+%
+This implies the Kotlin compiler can prevent standard operators and built-in from being silently mistyped.
+
+\section{Conclusions and future works}\label{sec:conclusions}
+
+In this paper we propose a novel way of integrating the logic, object-oriented, functional, and imperative programming paradigms into a single language, namely Kotlin.
+%
+More precisely, we describe how a domain-specific language (DSL) for Prolog can be built on top of the Kotlin language by exploiting the \twopkt{} library.
+%
+The proposed solution extends the Kotlin language with LP facilities by only relying on its own mechanisms -- therefore no external tool is necessary apart from Kotlin itself and \twopkt{} --, even if, however, analogous extensions can in principle be constructed for other high-level languages as well---such as Scala.
+
+Our DSL is currently implemented as part of the \twopkt{} project -- namely, within the \texttt{dsl-*} modules --, and it is hosted on both GitHub \cite{githubpage2pkt} and Maven Central.
+%
+Other than being available to the public for general purpose usage -- under the terms of the Apache License 2.0\footnote{\url{https://www.apache.org/licenses/LICENSE-2.0}} open-source license --, the DSL is currently extensively exploited to implement the unit tests of \twopkt{} itself.
+
+While in this paper we discuss the design rationale and architecture of our DSL by explicitly focusing on Kotlin as our target technology, in the future we plan to generalise our approach, possibly tending to technology independence.
+%
+Furthermore, we plan to provide other implementations of our DSL, targeting other high-level languages and platforms, in order to make logic programming and its valuable features available in general-purpose programming languages and frameworks.
+
+As concerns possible research directions and applications, in the future, we plan to exploit our DSL in several contexts.
+%
+For instance, we argue our DSL may ease the usage of the logic tuple spaces offered by the \textsc{TuSoW} technology \cite{tusow-icccn2019}.
+%
+Similarly, we believe our DSL may be used as a basic brick in the creation of logic-based technologies for MAS, as the MAS community is eager of general-purpose, logic-based technologies targetting the JVM platform \cite{lptech4mas-jaamas2020}.
+%
+Along this line, we argue logic-based languages for MAS may benefit from the integration of our DSL -- or a similar one -- to support the reasoning capabilities of agents.
+%
+Finally, we plan to exploit our DSL within the scope of XAI \cite{xaisurvey-ia2020}, to ease the creation of hybrid (i.e., logic + machine-learning) systems, and management on the symbolic side.
+
 
 \chapter{Bridging LP and Machine Learning}
 

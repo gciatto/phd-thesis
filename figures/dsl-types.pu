@@ -1,0 +1,52 @@
+@startuml
+skinparam shadowing false
+
+interface Scope {
+    + _: Var
+    + **varOf(String): Var**
+    + atomOf(String): Atom
+    + structOf(String, Iterable<Term>): Struct
+    + emptyList(): EmptyList
+    + listOf(Iterable<Term>): List
+    + numOf(Double): Real
+    + numOf(Int): Integer
+}
+
+interface Prolog {
+    + **//Any//.toTerm(): Term**
+    + //String//.invoke(Any, vararg Any): Struct
+    + //Substitution//.get(String): Term?
+}
+
+interface PrologWithUnification {
+    + **//Any//.mguWith(Any): Substitution**
+    + //Any//.matches(Any): Boolean
+    + //Any//.unifyWith(Any): Term?
+}
+
+interface PrologWithTheories {
+    + theoryOf(vararg Clause): Theory
+    + rule(PrologWithTheories.() -> Any): Rule
+    + fact(PrologWithTheories.() -> Any): Fact
+    + and(Any, Any): Term
+    + or(Any, Any): Term
+}
+
+interface PrologWithResolution {
+    + **solve(Any): Sequence<Solution>**
+    + solverOf(...)
+---
+    + member(Any, Any): Term
+    + is(Any, Any): Term
+    + !: Atom
+    + fail: Atom
+}
+
+Scope <|-right- Prolog
+
+Prolog <|-right- PrologWithUnification
+
+PrologWithUnification <|-down- PrologWithTheories: extends
+
+PrologWithTheories <|-left- PrologWithResolution
+@enduml
