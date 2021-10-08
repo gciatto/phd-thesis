@@ -6495,29 +6495,34 @@ There exist, however, critical applications where black-box predictions or recom
 %
 In all those cases, it is of paramount importance to rely on \emph{explainable} predictions, recommendations, or suggestions, in order to let humans retain accountability and liability over the decision or choices they make.
 
-Many strategies can be exploited to pursue the purpose of explainability~\cite{GuidottiMRTGP19}.
+%\note{Repetition starts here}
 %
-Some authors suggest for instance to \emph{only} rely on \emph{interpretable} algorithms~\cite{Rudin2019} -- such as generalised linear models, decision trees, etc. -- to obtain data-driven solutions that are explainable by construction.
+%Many strategies can be exploited to pursue the purpose of explainability~\cite{GuidottiMRTGP19}.
+%%
+%Some authors suggest for instance to \emph{only} rely on \emph{interpretable} algorithms~\cite{Rudin2019} -- such as generalised linear models, decision trees, etc. -- to obtain data-driven solutions that are explainable by construction.
+%%
+%However, this may hinder predictive performance in the general case, as it essentially cuts off most effective algorithms---e.g., ANN.
+%%
+%Another strategy consists of deriving \emph{post-hoc} explanations \cite{KENNY2021103459}, aimed at reverse-engineering the inner operation of a BB so as to make it explicit.
+%%
+%In this way, data scientists can keep using prediction-effective algorithms such as ANN, while still attaining high predictive performance.
+%%
+%The focus of this chapter is on the latter strategy.
 %
-However, this may hinder predictive performance in the general case, as it essentially cuts off most effective algorithms---e.g., ANN.
+%Symbolic knowledge extraction (SKE) is among the most promising means to derive \emph{post-hoc} explanations for sub-symbolic predictors.
+%%
+%Roughly speaking, the main idea behind SKE is to enable the construction of a \emph{symbolic} surrogate model mimicking the behaviour of a given predictor.
+%%
+%There, symbols may consist of intelligible knowledge, such as \emph{rule} lists or trees.
+%%
+%Such rules can then be exploited to either derive predictions or to better understand the behaviour of the original predictor.
 %
-Another strategy consists of deriving \emph{post-hoc} explanations \cite{KENNY2021103459}, aimed at reverse-engineering the inner operation of a BB so as to make it explicit.
+%SKE has been applied, for instance, to credit-risk evaluation \cite{baesens2003using,baesens2001building,steiner2006using},  healthcare -- i.e., to make early breast cancer prognosis predictions \cite{franco2007early} and to help the diagnosis and discrimination among hepatobiliary disorders \cite{hayashi2000comparison} or other diseases and dysfunctions \cite{bologna1997three} --, credit card screening \cite{setiono2011rule}, intrusion detection systems \cite{hofmann2003rule}, and keyword extraction \cite{azcarraga2012keyword}.
 %
-In this way, data scientists can keep using prediction-effective algorithms such as ANN, while still attaining high predictive performance.
+%\note{Repetition ends here}
+As further discussed in \cref{sec:knowledge-extraction}, in this thesis we commit to symbolic knowledge extraction (SKE) as the preferred means to derive \emph{post-hoc} explanations for sub-symbolic predictors.
 %
-The focus of this chapter is on the latter strategy.
-
-Symbolic knowledge extraction (SKE) is among the most promising means to derive \emph{post-hoc} explanations for sub-symbolic predictors.
-%
-Roughly speaking, the main idea behind SKE is to enable the construction of a \emph{symbolic} surrogate model mimicking the behaviour of a given predictor.
-%
-There, symbols may consist of intelligible knowledge, such as \emph{rule} lists or trees.
-%
-Such rules can then be exploited to either derive predictions or to better understand the behaviour of the original predictor.
-
-SKE has been applied, for instance, to credit-risk evaluation \cite{baesens2003using,baesens2001building,steiner2006using},  healthcare -- i.e., to make early breast cancer prognosis predictions \cite{franco2007early} and to help the diagnosis and discrimination among hepatobiliary disorders \cite{hayashi2000comparison} or other diseases and dysfunctions \cite{bologna1997three} --, credit card screening \cite{setiono2011rule}, intrusion detection systems \cite{hofmann2003rule}, and keyword extraction \cite{azcarraga2012keyword}.
-
-Despite the wide adoption of SKE, however, a unified and general-purpose software technology supporting it is currently lacking.
+However, despite the wide adoption of SKE, a unified and general-purpose software technology supporting it is currently lacking.
 %
 In other words, the burden of implementing SKE algorithms is currently on data scientists alone, who are likely to realise custom solutions on a per-need basis.
 %
