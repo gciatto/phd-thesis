@@ -211,7 +211,7 @@ For instance, despite the initial hype, artificial neural networks (NN) -- the w
 %
 The period following the publication of the well-known back-propagation algorithm \cite{Rumelhart1986} and the proof that multi-layered perceptrons could be used as universal functional approximators \cite{Cybenko1989}, can be considered as the second \emph{spring} of connectionist approaches.
 %
-However, at the time -- likely, because of computational limits of the hardware and the lack of data -- the success of connectionist approaches can be considered very moderate, especially when compared with the explosion of deep NN and deep learning (DL) \cite{goodfellow2016deep} which was pervasive in both the academy and the industry during the 2010s, and can thus be considered the third spring of AI.
+However, at the time -- likely, because of computational limits of the hardware and the lack of data -- the success of connectionist approaches can be considered very moderate, especially when compared with the explosion of deep NN and deep learning (DL) \cite{GoodfellowBC2016} which was pervasive in both the academy and the industry during the 2010s, and can thus be considered the third spring of AI.
 
 Even if it is currently not as popular as NN, the history of symbolic AI is extremely important as well---mostly because of the prominent influence it has on the many fields converging in AI.
 %
@@ -2530,7 +2530,7 @@ The resulting computational graph is then optimised against the available data v
 
 \paragraph{Logic as structure}
 
-Paradigmatic works in this category are for instance: Knowledge-Based Artificial Neural Networks (KBANN) \cite{Towell1990}, CILP++ \cite{Franca2014}, Neural Theorem Prover (NTP) \cite{rocktaschel2017}, Differentiable Inductive Logic Programming ($\partial$ILP) \cite{Evans2017}, DeepProbLog \cite{Manhaeve2018}, and Lifted Relational Neural Networks (LRNN) \cite{SourekAZSK18}.
+Paradigmatic works in this category are for instance: Knowledge-Based Artificial Neural Networks (KBANN) \cite{Towell1990}, CILP++ \cite{Franca2014}, Neural Theorem Prover (NTP) \cite{rocktaschel2017}, Differentiable Inductive Logic Programming ($\partial$ILP) \cite{EvansG18}, DeepProbLog \cite{Manhaeve2018}, and Lifted Relational Neural Networks (LRNN) \cite{SourekAZSK18}.
 
 KBANN \cite{Towell1990} is one of the earliest attempts of exploiting symbolic AI to govern the structure and the behaviour of neural networks.
 %
@@ -2573,7 +2573,7 @@ However, differently from the other techniques presented in this sub-category, b
 %
 In other words, NTP perform symbolic reasoning on top of sub-symbolic and distributed representations of knowledge.
 
-$\partial$ILP \cite{Evans2017} is another means for ILP  leveraging on neural networks.
+$\partial$ILP \cite{EvansG18} is another means for ILP  leveraging on neural networks.
 %
 It works by mimicking logic deduction on definite clauses via a neural network, similarly to NTP.
 %
@@ -2759,7 +2759,7 @@ Furthermore, it may happen for instance that black-boxes \emph{silently} learn s
 % %
 % The idea, and the main goal of XAI is to create intelligible and understandable explanations for uninterpretable predictors \emph{without} replacing or modifying them.
 % %
-% Thus explanations are built through a number of heterogeneous techniques, broadly referred to as \emph{explanators} \cite{GuidottiMRTGP19}---just to cite some, \emph{decision rules} \cite{Augasta2012}, \emph{feature importance} \cite{tolomei2017interpretable}, saliency masks \cite{FongV17}, sensitivity analysis \cite{SundararajanTY17}, etc.
+% Thus explanations are built through a number of heterogeneous techniques, broadly referred to as \emph{explanators} \cite{GuidottiMRTGP19}---just to cite some, \emph{decision rules} \cite{AugastaK12}, \emph{feature importance} \cite{tolomei2017interpretable}, saliency masks \cite{FongV17}, sensitivity analysis \cite{SundararajanTY17}, etc.
 
 % The state of the art for explainability currently recognises two main sorts of explanators, namely, either local or global.
 % %
@@ -3458,7 +3458,7 @@ finally, we analyse them from the XAI perspective in an aggregate manner, given 
 We identified three main pedagogical approaches for rule extraction:
 \begin{itemize}
 	\item the method from Saito et al.\ (1988) \cite{saito1988}
-	\item RxREN (2012) \cite{Augasta2012}
+	\item RxREN (2012) \cite{AugastaK12}
 	\item ALPA (2015) \cite{Fortuny2015}
 \end{itemize}
 
@@ -3468,7 +3468,7 @@ Apparently, however, this method does not support regression, and it only suppor
 %
 In spite of its limitations, this work has been proven to be effective in expert systems for diagnosis support.
 
-On the contrary, \cite{Augasta2012} and \cite{Fortuny2015} extract if-then-else rules out of arbitrary classifiers.
+On the contrary, \cite{AugastaK12} and \cite{Fortuny2015} extract if-then-else rules out of arbitrary classifiers.
 %
 In particular, RxREN supports datasets with mixed mode attributes (i.e., either categorical or numerical).
 %
