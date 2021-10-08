@@ -1,0 +1,126 @@
+% !TeX root = ../phd-thesis.tex
+% \begin{landscape}
+\begin{table}
+\caption{
+	Overview on the selected technologies and their analysis.
+	Dashes represent missing values, whereas question marks represent unknown values.
+}
+\label{tab:tech-data}
+\begin{adjustbox}{width=.8\textwidth,center}
+\begin{tabular}{c|cccccccc}
+\textbf{Name} & \textbf{Fresh.} & \textbf{Code} & \textbf{\makecell{Doc.}} & \textbf{License} & \textbf{Target} & \textbf{Runs} & \textbf{Benchmark} & \textbf{Works} \\
+\hline\hline
+2APL & 2012 & - & 3 & none & JVM 6,7,8 & Yes & *.mas & Yes \\
+\hline
+2CL & 2013 & - & 1 & none & JVM 7 & Yes & *.2cl & Yes \\
+\hline
+3APL & 2007 & - & 4 & none & JVM 6 & No & - & - \\
+\hline
+Agent-0 & 1993 & 1 & 1 & none & \makecell{(Allegro)\\Common Lisp} & Yes & none & No \\
+\hline
+AFAPL2 & 2016 & 3 & - & LGPL v2 & JVM & ? & none & ? \\
+\hline
+AgentOWL$^a$ & 2013 & 3 & 1 & LGPL v2 & JVM 8, 11+ & Yes & \makecell{Compiled\\demo} & No \\
+\hline
+AIL & 2018 & 3 & 1 & LGPL v3 & JVM 8+ & Yes & *.ail & Yes \\
+\hline
+ALIAS$^b$ & 2000 & 1 & 1 & none & JVM $\mid$ Prolog & No & - & - \\
+\hline
+AORTA & 2015 & 4 & - & none & JVM +7 & Yes & *.ail & Yes \\
+\hline
+ASPARTIX$^c$ & 2018 & - & 1 & MIT & Web Service & Yes & *.dl & Yes \\
+\hline
+ASPIC & 2019 & 4 & 3 & LGPL v3 & JVM 12+ & Yes & \makecell{Compiled\\demo} & Yes \\
+\hline
+Astra$^e$ & 2018 & 3 & 5 & GPL v3 & JVM & Yes & \makecell{Provided\\examples} & Yes \\
+\hline
+ConGolog & - & - & - & ? & ? & ? & ? & ? \\
+\hline
+DALI & 2018 & 3 & 1 & Apache v2 & SICStus & Yes & ? & ? \\
+\hline
+DCaseLP / DyLog & 2005 & 2 & 3 & none & JVM & No & - & - \\
+\hline
+DeLP$^d$ & 2018 & 4 & 3 & LGPL v3 & Web Service & No & - & No \\
+\hline
+DRAGO & 2006 & 2 & 2 & none & JVM 5+ & Yes & \makecell{Any OWL\\ontology} & Yes \\
+\hline
+EMERALD$^a$ & 2010 & - & 3 & none & JVM 6+ & Yes & \makecell{Compiled\\demo} & Yes \\
+\hline
+eXAT & 2012 & 4 & 3 & GPL v3 & Erlang & No & - & No \\
+\hline
+Go! & 2015 & 2 & - & GPL v2 & ? & ? & ? & ? \\
+\hline
+GOAL$^e$ & 2019 & 5 & 4 & GPL v3 & JVM 8 & Yes & \makecell{Template\\projects} & Yes \\
+\hline
+Golog & 1998 & 1 & - & ah hoc & SWI $\mid$ ECLiPSe & Yes & - & ? \\
+\hline
+IndiGolog & - & - & - & ? & ? & ? & ? & ? \\
+\hline
+JACK & - & - & 5 & proprietary & JVM & ? & ? & ? \\
+\hline
+Jadex & 2020 & 5 & 5 & GPL v3 & JVM 8+ & Yes & \makecell{Compiled\\demo} & No \\
+\hline
+JADL/JIAC & 2018 & 4 & 5 & Apache v2 & JVM 7+ & Yes & \makecell{Provided\\examples} & Yes \\
+\hline
+Jason & 2020 & 5 & 5 & LGPL v3 & JVM 8+ & Yes & \makecell{Provided\\examples} & Yes \\
+\hline
+Jason-ER & 2019 & 5 & - & LGPL v3 & JVM 8+ & Yes & \makecell{Provided\\examples} & Yes \\
+\hline
+jDALMAS & 2016 & 3 & - & none & JVM & No & - & - \\
+\hline
+LPaaS & 2018 & 5 & 3 & Apache v2 & JVM 8+ & Yes & none & ? \\
+\hline
+MCAPL & 2018 & 3 & 1 & LGPL v3 & JVM 8+ & No & *.ail & No \\
+\hline
+MCK & - & - & 3 & none & Web Service & Yes & \makecell{Provided\\examples} & Yes \\
+\hline
+MCMAS & 2017 & 4 & 3 & none & Native / Linux & Yes & \makecell{From\\manual} & Yes \\
+\hline
+Mozart & 2019 & 5 & 5 & ad-hoc & Native & Yes & \makecell{Provided\\examples} & Yes \\
+\hline
+MetateM & 2010 & 2 & 3 & GPL v3 & JVM 6+ & Yes & *.sys & Yes \\
+\hline
+Onto2Jacamo$^e$ & 2017 & - & 1 & none & JVM & No & - & - \\
+\hline
+Raspberry & - & - & 1 & none & Native / Linux & Yes & *.rasp & Yes \\
+\hline
+RML & 2019 & 5 & 3 & Apache 2 & JVM 8+ & Yes & *.rml & Yes \\
+\hline
+Rodin & 2020 & 4 & ? & none & JVM 8 & Yes & none & ? \\
+\hline
+SALMA$^f$ & 2016 & 3 & 1 & none & Python & No & - & - \\
+\hline
+SCIFF & 2008 & 1 & 2 & none & SWI $\mid$ SICStus & Yes & none & ? \\
+\hline
+SHOP & 2020 & 4 & 2 & MPL & Common Lisp & Yes & ? & ? \\
+\hline
+Spindle & 2017 & 2 & 4 & GPL v3 & JVM 7+ & Yes & *.dfl & Yes \\
+\hline
+Teleo-R/QLog & 2019 & 3 & 3 & none & QuProlog & No & - & - \\
+\hline
+\makecell{TuCSoN / Respect\\ (and variants)} & 2020 & 3 & 3 & LGPL v3 & JVM 8+ & Yes & \makecell{Compiled\\demo} & Yes \\
+\hline
+TuSoW & 2020 & 5 & - & Apache 2 & JVM 8+ & Yes & none & ? \\
+%\hline
+%VerICS & 2010 & - & ? & ? & ? & ? & ? & ? \\
+\hline\hline
+\end{tabular}
+\end{adjustbox}
+
+\tiny
+%\begin{itemize}\tiny
+%    \item[]
+    $^a$ depends on some ancient Jade version, which is not provided.
+%    \item[]
+    $^b$ requires the Jinni Prolog interpreter for Java.
+%    \item[]
+    $^c$ requires the Clingo solver.
+%    \item[]
+    $^d$ depends on ancient \tuprolog{} version, which is not provided.
+%    \item[]
+    $^e$ is a plug-in for (or customisation of) the Eclipse IDE.
+%    \item[]
+    $^f$ requires ECLiPSe Prolog and the PyCLP Python module.
+%\end{itemize}
+\end{table}
+% \end{landscape}

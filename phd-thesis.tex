@@ -4283,13 +4283,13 @@ In our original work the discussion attempts to provide a comprehesive answer to
 %
 In the following we summarise some general remarks in relation to key features of modern intelligent systems, namely:
 %
-\begin{enumerate}[label=\emph{(\roman*)}]
+\begin{inlinelist}
     \item inherent distribution and decentralisation and deep intertwist with domains like the Internet of (Intelligent) Things (Io(I)T) and Cyber-Physical Systems (CPS);
     %
     \item support to key properties such as robustness, efficiency, interoperability, portability, standardisation, situatedness, and real-time support;
     %
     \item need to reconcile and synthesise symbolic and sub-symbolic AI, exploiting the former to \emph{explain} the latter so as to overcome fears and ethical issues posed by AI by providing for explainability, observability, interpretability, responsibility, and trustability---the scope of XAI.
-\end{enumerate}
+\end{inlinelist}
 
 %----
 \subsubsection{Applicability to distributed domains such as \iot{} and CPS}
@@ -4341,7 +4341,7 @@ Furthermore, integration with sub-symbolic techniques remains a \emph{nice-to-ha
 %
 Nevertheless, the selected technologies are an excellent starting point for \emph{(i)} highlighting the advantages of logic-based technologies, and  \emph{(ii)} broadening the scope of research towards the directions envisioned.
 
-In the end, we forward the interested readers to the original SLR for the full details \cite{lptech4mas-jaamas35}.
+%In the end, we forward the interested readers to the original SLR for the full details \cite{lptech4mas-jaamas35}.
 
 %\section{Current State of Logic-Based Technologies}
 
@@ -4359,7 +4359,139 @@ In the end, we forward the interested readers to the original SLR for the full d
 %
 %\cite{cco-softwarex-2021-2pkt}
 
-\note{Take more info from the survey?}
+%-----------------------------------------------------------------------
+\section{Detailed Technological Analysis}\label{sec:table-evaluation}
+%-----------------------------------------------------------------------
+
+\input{tables/table-tech-data}
+
+In this subsection we deepen the analysis of the technologies selected in \cite{lptech4mas-jaamas35}, in order to provide additional insights about research questions.
+%
+\Cref{tab:tech-data} provides an overview of our analysis.
+
+There, we analyse the selected technologies according to a number of technical dimensions, corresponding to the columns of \cref{tab:tech-data}.
+%
+In particular:
+column \textbf{Fresh.} assesses the \emph{freshness} of each technology, by indicating -- when possible -- the year of the visible update;
+column \textbf{Code} provides a qualitative assessment of each technology \emph{code base}, when available;
+column \textbf{Doc.} provides a qualitative assessment of each technology \emph{documentation}, when available;
+column \textbf{License} indicates under which license each technology is provided, if any;
+column \textbf{Target} reports on the target \emph{runtime platform(s)} each technology can be executed upon;
+column \textbf{Runs} shows our success in \emph{executing} each technology -- or loading it into its target runtime --, possibly after any necessary compilation step;
+column \textbf{Benchmark} points out whether each technology is distributed with some \emph{benchmarks} or \emph{examples};
+column \textbf{Work} points out whether each technology \emph{works}, i.e., if the aforementioned benchmarks / examples can be executed successfully.
+
+More precisely, the freshness of a technology is defined by the \emph{year} of its most recent release, or, source code modification.
+%
+The code-base assessment consists of a (possibly missing) integer number ranging from $1$ to $5$:
+%
+\begin{itemize}
+    \item ``$1$'' means the code base is available as a bare archive, even if it appears to have no clear file organisation, and it is comes with no facility supporting the compilation (or, in general, usage) of the code;
+    \item ``$2$'' means the code base is available as a bare archive, and it adheres to a well organised structure or it includes instructions on how to compile/use it
+    \item ``$3$'' means the code base is available through some version control system \footnote{e.g., SVN, Git, Mercurial, etc.} (VSC, henceforth), but poor support is provided for compilation or usage;
+    \item ``$4$'' means the code base is available through some VCS and it comes with some build automation tool\footnote{e.g., Make, Apache Ant, Apache Maven, Gradle, Pip, Npm, etc.} as well, supporting compilation or usage;
+    \item ``$5$'' means the code base is available through some VCS, it comes with some build automation tool, and it is also distributed through some official repository;
+\end{itemize}
+%
+whereas a missing value denotes that no assessment can be drawn given the available information---e.g., because we were not able to access any code base.
+
+Similarly, the documentation assessment consists of a (possibly missing) integer number ranging from $1$ to $5$ as well.
+%
+In this case, however:
+%
+\begin{itemize}
+    \item ``$1$'' means that the only available form of documentation is some textual note briefly describing the technology or how manage the codebase;
+    \item ``$2$'' means that some \emph{structured} form of documentation exists describing the technology or how manage the codebase;
+    \item ``$3$'' means that a \emph{detailed manual} or some \emph{API reference} are available, but \emph{not both};
+    \item ``$4$'' means that \emph{both} a detailed manual and some API reference are available;
+    \item ``$5$'' means that a detailed manual, some API reference, and some \emph{usage examples} or \emph{tutorials} are available;
+\end{itemize}
+%
+whereas a missing value denotes the total lack of any form of documentation.
+
+Whenever available, the license of each technology is referenced in \cref{tab:tech-data} as well, possibly leveraging on well-known license acronyms.
+%
+For instance, as far as open source licenses are concerned, ``GPL'' refers to the GNU General Public License\footnote{\url{https://www.gnu.org/licenses/gpl-3.0.html}, last accessed in April 2020.}, ``LGPL'' refers to the GNU \emph{Lesser} General Public License\footnote{\url{https://www.gnu.org/licenses/lgpl-3.0.html}, last accessed in April 2020.}, ``MIT'' refers to the MIT License\footnote{\url{https://opensource.org/licenses/mit-license.php}, last accessed in April 2020.}, ``MPL'' refers to the Mozilla Public License\footnote{\url{https://www.mozilla.org/en-US/MPL/2.0}, last accessed in April 2020.}, whereas ``Apache'' refers to the Apache License\footnote{\url{https://www.apache.org/licenses/LICENSE-2.0}, last accessed in April 2020.}.
+%
+The absence of licenses for a particular technology is pointed out as well, as it may have an impact on its users\footnote{\url{https://choosealicense.com/no-permission}, last accessed in April 2020.}.
+
+The target runtime platform is another relevant aspect we analyse for each technology.
+%
+It provides an intuition of which sorts of machines and devices could in principle be capable of running a given technology.
+%
+As it clearly emerges from \cref{tab:tech-data}, the \jvm{} platform is targeted by most technologies.
+%
+This is why, in the particular case of \jvm{}-based technologies, we try to assess the specific version(s) of the \jvm{} they can run upon.
+%
+Thus, the ``\jvm{} $N$+'' notation indicates that a given technology is tested on all \jvm{} versions ranging from $N$ (included) to version 13 (included) -- which is the most recent one at the time of writing --, and only executes without errors starting from version $N$.
+%
+Of course, the \jvm{} is not the only platform our selected technologies leverage upon.
+%
+Some technologies require a compilation step targeting some \emph{native} platform.
+%
+So, for instance, in case only the \textit{OS} operative system is supported, we write ``Native / \textit{OS}'' to identify the target platform.
+%
+Other technologies target the Common Lisp, Python, or \erlang{} runtimes, which come with several implementations supporting mainstream operative systems, similarly to what \jvm{} does.
+%
+%There exist also technologies targeting specific, well-known, implementations of Prolog, such as SWI-Prolog, \sicstus{} Prolog, or ECLiPSe-Prolog.
+%%
+%In this case we simply write a short indicator of the target Prolog implementation (``SWI'', ``\sicstus{}'', or ``ECLiPSe''), or some piped-separated combination of two or more indicators, in case more than one implementation are supported.
+%
+Furthermore, a few technologies are available as web services.
+%
+In those cases, we argue that the actual platform of the service implementation is not essential---this is why we simply denote the target platform as ``Web Service''.
+%
+Finally, there are some technologies which are explicitly aimed at extending (or customising) the Eclipse IDE\footnote{\url{https://www.eclipse.org/ide}, last accessed in April 2020.}, and are not meant to be used otherwise.
+%
+In those cases, we indicate ``\jvm{}'' as the target platform, and tag the technology through an \emph{ad-hoc} footnote.
+
+In order to test whether a technology runs or not, we simply launch it on its target platform---possibly, after performing all necessary compilation/confi\-guration steps.
+%
+If neither compilation/configuration nor launching produces error or crash, then we say the technology runs, otherwise it does not.
+%
+Thus, a question mark in \cref{tab:tech-data} in the \textbf{Runs} column may indicate either the total lack of any information on how to launch the technology, or, the impossibility of producing / accessing an executable to launch.
+
+Finally, when we are able to run a given technology, we then test it to get further detail, so as to understand if it actually \emph{works} or not.
+%
+To do so, we first look for available \emph{benchmarks} or examples into the running technologies code bases, documentation, or home pages.
+%
+In case some benchmarks / example are available, we check if they can be run without producing error outputs or crashes.
+%
+If they can, then the technology works, otherwise it does not.
+%
+Thus, a missing value in \cref{tab:tech-data} in the \textbf{Benchmark} or \textbf{Works} columns indicates that no assessment is needed because the technology does not run.
+%
+Conversely, a question mark in the same columns denotes the impossibility to perform any further assessment due to lacking benchmarks, examples, or instructions on how to launch them.
+
+%%%%
+\input{tables/table-tech-stats}
+%%%%
+
+By aggregating the data in \cref{tab:tech-data}, we can draw several interesting conclusions.
+%
+Most relevant ones are summarised in \cref{tab:tech-stats}.
+%
+The most evident information is that only 12 out of 47 technologies have been actively maintained since 2019---i.e., 25.53\% of the total.
+%
+The percentage is lower than 50\%, even if we enlarge the spectrum to technologies maintained since 2017.
+%
+However, most technologies (65.96\%) can still be run successfully -- regardless of when they were last updated --, even though we are able to make them work in 67.74\% of cases only.
+
+Another interesting trait is that -- except for \jack{} -- all technologies that are explicitly licensed come with an open source license.
+%
+These correspond to 55.32\% of the total.
+%
+The amount of unlicensed technologies is quite high as well, as it corresponds to the 40.43\% of the total.
+
+It is interesting to note how the \jvm{} is by far the preferred platform for logic-based MAS technologies.
+%
+Indeed, 63.83\% of the selected technologies target some version of the \jvm{}.
+%
+Other recurring platforms are Lisp-, Prolog-, or native-based.
+
+Finally, it is worth to be mentioned how -- except for a few notable exceptions, such as \jason{} -- poor care is given to technologies code bases and documentary resources.
+%
+Indeed, considering the 1-5 ranges defined above, only 34.04\% of the technologies come with a code base whose quality is greater than 3, whereas only 19.15\% are scored similarly as far as documentation is concerned.
 
 \note{A chapter on the state of Prolog systems?}
 
