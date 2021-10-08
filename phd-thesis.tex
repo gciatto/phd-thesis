@@ -3828,7 +3828,15 @@ We leverage on that analysis to identify the most promising research perspective
 
 The above techniques have been applied in a variety of fields: \cref{fig:logicBasedAIArea} summarises both the main application areas and their interconnections.
 %
-For each application area, in the following we \emph{(i)} introduce what the area is about, \emph{(ii)} outline the main sub-categories (if any), \emph{(iii)} discuss the role of logic in each sub-category as well as \emph{(iv)} its benefits and limits, and \emph{(v)} present the main actual applications.
+For each application area, in the following we
+%
+\begin{inlinelist}
+    \item introduce what the area is about,
+    \item outline the main sub-categories (if any),
+    \item discuss the role of logic in each sub-category as well as
+    \item its benefits and limits, and
+    \item present the main actual applications.
+\end{inlinelist}
 
 In order to make the comparison actually effective, \cref{tab:logic-usages} and \cref{tab:logic-segments} summarise our findings from two different viewpoints.
 The first outlines the strengths of the diverse techniques per application area, that is, where they provide the strongest contribution; the second puts each technique in relation with the different market segments, providing appropriate references to the literature where each technique is used.
@@ -3846,16 +3854,16 @@ The first outlines the strengths of the diverse techniques per application area,
 % What is this area about
 Formalisation and verification of computational systems refer to a collection of techniques for the automatic analysis of reactive systems---in particular, safety-critical systems, where subtle design errors can easily elude conventional simulation and testing techniques.
 
-The main logic-based technology exploited in this field is model checking---nowadays a standard procedure for quality assurance both because of its cost-effectiveness and of the ease of integration with more conventional design methods.
+The main logic-based technology exploited in this field is model checking \cite{ClarkeGP2001}---nowadays a standard procedure for quality assurance both because of its cost-effectiveness and of the ease of integration with more conventional design methods.
 %
 The model checker input is a description of the system to be analysed and a number of properties that are supposed to hold: logic is used both to formalise the system description -- states, transitions, model description, and specifications to be verified -- and to express the behavioural aspects, capturing the key properties of information flow.
 %
 Accordingly, such descriptions are often expressed in temporal and probabilistic logic (and their extension/variations).
 %
-The model checker input is then a (usually finite-state) description of the system to be analysed, and the expected properties in terms of temporal-logic formulas.
+%The model checker input is then a (usually finite-state) description of the system to be analysed, and the expected properties in terms of temporal-logic formulas.
 
 % Example and applications
-Application examples (\cref{model-check}) are notably heterogeneous, since model-checking is multidisciplinary and cross-field by its very nature.
+%Application examples (\cref{model-check}) are notably heterogeneous, since model-checking is multidisciplinary and cross-field by its very nature.
 
 % Benefits and Limits
 Model checking can provide a significant increase in the level of confidence of a system, enabling system verification a-priori, a-posteriori, and -- what is most relevant nowadays -- at runtime.
@@ -3878,7 +3886,7 @@ Developing an agent means to set up a deduction process: each agent is encoded a
 %
 Logic can also be used to represent the agent's surrounding \emph{environment} and the \emph{society} of agents---that is, overall, two of the three key aspects when it comes model the structure and dynamics of non-trivial MAS \cite{soda-aoseI}.
 
-Technologies reflect the above context: many are related to agent programming and reasoning (\cref{sec:symbolic-reasoning}), others to agent reliability and verification (\cref{model-check}).
+Technologies reflect the above context: many are related to agent programming and reasoning, others to agent reliability and verification.
 %
 Many others focus on the societal aspect of cognitive architectures, by interpreting society as the ensemble where the collective behaviour of the MAS are \emph{coordinated} towards the achievement of the global system goals.
 %
@@ -3906,7 +3914,7 @@ When agents are immersed in a Knowledge-Intensive Environment (KIE), the cogniti
 %
 In such a way, the environment concept is extended beyond situated action---which, by the way, motivates the inclusion of the semantic web within the macro-area of environmental abstractions.
 
-Moving from \cite{Hendler2001}, the ``Agents {\bf in} the semantic web'' sub-category lists JADL, AgentOWL, and EMERALD, which exploit semantic web technologies to inter-operate.
+Moving from \cite{Hendler2001}, the ``Agents \emph{in} the semantic web'' sub-category lists JADL, AgentOWL, and EMERALD, which exploit semantic web technologies to inter-operate.
 
 Hybrid cognitive architectures have recently gained attention to combine symbolic and sub-symbolic (emergent) approaches.
 %
@@ -3914,7 +3922,7 @@ Examples are ACT-R \cite{Anderson2003} -- based on the modelling of human behavi
 
 In spite of the simplicity and elegance of the logical semantics in logic-based architectures, some issues do exist.
 %
-The \emph{transduction} problem\cite{bie2004} has to do with the difficulty of accurately translating the model into a symbolic representation, especially in a complex environment.
+The \emph{transduction} problem \cite{bie2004} has to do with the difficulty of accurately translating the model into a symbolic representation, especially in a complex environment.
 %
 One more difficulty comes from suitably representing information in such a symbolic form that agents can reason about, with and in a time-constrained environment.
 %
@@ -3930,7 +3938,9 @@ Finally, the transformation of percepts may not be accurate enough to describe t
 
 In the healthcare domain, AI typically takes the form of complex algorithms and software systems to emulate human cognition in the analysis of complicated medical data, approximating conclusions without direct human input.
 %
-The primary aim here is to analyse relationships between prevention or treatment techniques and patient outcomes. AI programs have been developed and applied to practices such as diagnosis processes, treatment protocol development, drug development, personalised medicine, and patient monitoring and care.
+The primary aim here is to analyse relationships between prevention or treatment techniques and patient outcomes.
+%
+AI programs have been developed and applied to practices such as diagnosis processes, treatment protocol development, drug development, personalised medicine, and patient monitoring and care.
 
 In this field, logic is exploited to represent knowledge in a human understandable way, and reason on it via properly-formalised rules---in particular, decision support (symbolic) rules, obtained from domain experts and/or decision models induced from data.
 
@@ -4140,12 +4150,17 @@ The new AI era calls for two fundamentals enabling factors:
     \item the availability of huge amounts of context-related data.
 \end{inlinelist}
 %
-Such factors on the one side make it possible to learn from experience, which is the playground of  sub-symbolic algorithms; on the other, make logic algorithms, historically used for expert systems and hence very effective as for transparency and explainability, computable \emph{in good time}.
+Such factors on the one side make it possible to learn from experience, which is the playground of  sub-symbolic algorithms; on the other, make logic algorithms, historically used for expert systems and hence very effective as for transparency and explainability, computable \emph{in reasonable time}.
 
 Big data have naturally led sub-symbolic approaches to prevail, because of their effectiveness in elaborating and getting valuable results from context-related data, learning trends and repeating patterns: yet, their inherent black-box nature is a clear issue.
 %
 This is precisely where the integration with symbolic approaches can naturally provide added-value, complementing symbolic and sub-symbolic approaches with each other.
-In fact, the two main weaknesses of symbolic approaches concern specifically \textit{(a)} the extraction of context-related knowledge, and \textit{(b)} computational complexity---the first being the natural territory of sub-symbolic approaches.
+In fact, the two main weaknesses of symbolic approaches concern specifically
+%
+\begin{inlinelist}
+    \item the extraction of context-related knowledge, and
+    \item computational complexity---the first being the natural territory of sub-symbolic approaches.
+\end{inlinelist}
 
 Computational complexity, in its turn, can be partially addressed thanks to the exponential increase of computational power, by suitably exploiting  parallelism, as well as by re-defining and re-tuning symbolic approaches so as to fit nowadays computing paradigms and architectures---as in the case, for instance, of \lpaas{} \cite{lpaas-tplp18}.
 %
@@ -4180,6 +4195,8 @@ To recap, due to their strong foundations and features, logic-based technologies
 Overall, the synergy of symbolic and sub-symbolic approaches appears to be a viable and promising option to face key issues in today's intelligent systems---namely, the need of explainable, responsible, ethical AI.
 %
 In particular, the adoption of symbolic approaches can help to achieve the key features of e-justice, fairness, ethics and transparency.
+
+\note{Frase di chiusura che colleghi il prossimo capitolo}
 
 \chapter{Technological State of the Art}
 
