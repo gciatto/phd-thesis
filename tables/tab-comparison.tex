@@ -1,0 +1,22 @@
+% !TeX root = ../phd-thesis.tex
+
+\begin{table}
+	\caption{Comparison between accuracy and fidelity measurements with different combinations of extractor algorithms and underlying models.}
+	\label{tab:comparison}
+	\begin{tabular}{cc|ccc}
+		\hline\hline
+		\multicolumn{2}{c|}{\textbf{Predictor}} & 		\multicolumn{3}{c}{\textbf{Extractor}}\\
+ 		\textbf{Type} & \textbf{Accuracy} & \textbf{Algorithm} & \textbf{Fidelity} & \textbf{Accuracy} \\
+		\hline\hline
+		5-NN & 0.94 & \real{} & 0.98 & 0.95 \\
+		& & \trepan{} & 0.96 & 0.96 \\
+		\hline
+		MLP & 0.92 & \real{} & 0.95 & 0.95 \\
+		& & \trepan{} & 0.99 & 0.92 \\
+		\hline
+		DT (continuous features) & 0.92 & \cart{} & 1.00 & 0.92 \\
+		\hline
+		DT (binarised features) & 0.96 & \cart{} & 1.00 & 0.96 \\
+		\hline\hline
+	\end{tabular}
+\end{table}

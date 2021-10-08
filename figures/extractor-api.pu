@@ -1,0 +1,35 @@
+# PlantUML Editor
+
+1. select template
+2. write uml diagram
+
+@startuml
+
+package Smile {
+  interface Regression<T>
+  interface Classifier<T>
+  interface DataFrame
+}
+
+package 2P-Kt {
+  interface Clause
+  interface Theory
+  
+  Theory " " *-right- "*" Clause
+}
+
+package Psyke {
+  interface Extractor<T, P : ToDoubleFunction<T>> {
+    + predictor: P
+    + discretization: Discretization
+    + extract(DataFrame): Theory
+  }
+}
+
+Extractor --> Regression: may use
+Extractor --> Classifier: may use
+
+DataFrame --> Extractor: input of
+Extractor --> Theory: output of
+
+@enduml

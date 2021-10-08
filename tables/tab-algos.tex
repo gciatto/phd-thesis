@@ -1,0 +1,26 @@
+% !TeX root = ../phd-thesis.tex
+
+\begin{table}
+	\caption{Summary of the knowledge-extraction algorithms supported by \psyke{}.}
+	\label{tab:psyke}
+    \begin{adjustbox}{width=\textwidth,center}
+    	\begin{tabular}{c|ccccc}
+    		\hline\hline
+    		%Extraction Algorithm & Task & Translucency & Required & Knowledge Shape \\
+    		\textbf{Extraction} & \textbf{Task} & \textbf{Translucency} & \textbf{Required} & \textbf{Knowledge} & \textbf{Exhaustive} \\
+    		\textbf{Algorithm} & & & \textbf{Features} & \textbf{Shape} & \\
+    		\hline\hline
+    		\real{} & Classification & Pedagogical & One-hot encoded & Rule list & - \\
+            \hline
+    		\trepan{} & Classification & Pedagogical & One-hot encoded & Decision tree  & \checkmark\\
+            \hline
+    		\iter{} & Regression & Pedagogical & Continuous & Rule list & - \\
+    		\hline
+            \gridex{} & Regression & Pedagogical & Continuous & Rule list & \checkmark \\
+    		\hline
+            \cart{} & Classification & Pedagogical & Continuous or & Decision tree & \checkmark \\
+    		& and regression & & one-hot encoded & & \\
+    		\hline\hline
+    	\end{tabular}
+    \end{adjustbox}
+\end{table}

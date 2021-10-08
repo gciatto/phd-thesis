@@ -1,0 +1,52 @@
+package smile.classification {
+  interface Classifier<T>
+  
+  class DecisionTree 
+  class SVM<T>
+  class "MLP" as MLPc
+  class KNN<T>
+  
+  Classifier <|-- SVM
+  Classifier <|-- MLPc
+  Classifier <|-up- KNN
+  Classifier <|-- DecisionTree
+}
+
+package java.util.function {
+  interface ToDoubleFunction<T>
+}
+
+package smile.regression {
+  interface Regression<T>
+  
+  class RegressionTree 
+  class "MLP" as MLPr
+  class "KernelMachine<T>" as KMr
+  
+  Regression <|-- RegressionTree
+  Regression <|-- MLPr
+  Regression <|-- KMr
+}
+
+Classifier --|>  ToDoubleFunction
+Regression --|>  ToDoubleFunction
+
+package smile.base {
+  class CART <<abstract>>
+  class KernelMachine<T> <<abstract>>
+  class MultilayerPerceptron <<abstract>>
+  
+  CART -[hidden]down- KernelMachine
+  KernelMachine -[hidden]down- MultilayerPerceptron
+}
+
+ToDoubleFunction -[hidden]down- CART
+
+DecisionTree --|> CART
+RegressionTree --|> CART
+
+SVM --|> KernelMachine
+KMr --|> KernelMachine
+
+MLPc --|> MultilayerPerceptron
+MLPr --|> MultilayerPerceptron
