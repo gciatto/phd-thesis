@@ -2006,7 +2006,7 @@ In the reminder of this chapter we delve into the details of reasoning from both
 In particular, we present the classic approaches and algorithms to automate logical reasoning and we introduce the theory behind the mimicking of symbolic reasoning via sub-symbolic facilities.
 
 \section{Symbolic Reasoning}\label{sec:symbolic-reasoning}
-\mypapers{logictech-information11}
+\mypapers[section]{logictech-information11}
 
 Symbolic (i.e., logic-based) reasoning approaches root back to John McCarthy's work of 1958 \cite{Mccarthy1958}, aimed at developing the idea of formalising the so-called \emph{commonsense reasoning} to build intelligent artefacts---i.e. computational or cyber-physical agents endowed with human-like intelligence.
 %
@@ -2415,7 +2415,7 @@ Notably, NaF subtends a \emph{closed} world assumption, where everything that is
 
 \section{Sub-symbolic Reasoning}
 %
-\mypapers{xaisurvey-ia14}
+\mypapers[section]{xaisurvey-ia14}
 
 Within the sub-symbolic realm, the term `inference' is often abused.
 %
@@ -2811,7 +2811,7 @@ Accordingly, in the reminder of this chapter we discuss the meaning and the role
 \section{eXplainable Artificial Intelligence}\label{sec:xai-background}
 %===============================================================================
 
-\mypapers{agentbasedxai-aamas2020,agentbasedxai-extraamas2020}
+\mypapers[section]{agentbasedxai-aamas2020,agentbasedxai-extraamas2020}
 
 Most intelligent systems (IS) today leverage on \emph{numerical} predictive models which are trained from data through ML.
 %
@@ -3253,7 +3253,7 @@ These are the ``transparent box design'' and the ``black-box explanation'' categ
 %
 While the former category is not further decomposed, the latter comes with three more sub-categories, such as ``model explanation'', the ``outcome explanation'', and the ``model inspection''.
 %
-Notice that, despite the authors' definition of ``explanation'' does not precisely match the one proposed in this paper, we maintained the original categorisation.
+Notice that, despite the authors' definition of ``explanation'' does not precisely match the one proposed in this chapter, we maintained the original categorisation.
 
 The remainder of this section navigates such a taxonomy accordingly, by describing how each (sub-)category -- along with the methods therein located -- fits our abstract framework.
 
@@ -3362,7 +3362,7 @@ In other words, as made evident by our framework, the pedagogical methods exploi
 
 \section{Symbolic Knowledge Extraction}\label{sec:knowledge-extraction}
 
-\mypapers{xmas-aiiot2019,xaisurvey-ia14,xailp-woa2019}%,shallow2deep-extraamas2021}
+\mypapers[section]{xmas-aiiot2019,xaisurvey-ia14,xailp-woa2019}%,shallow2deep-extraamas2021}
 
 Many strategies can be exploited to pursue the purpose of explainability~\cite{GuidottiMRTGP19}.
 %
@@ -3662,7 +3662,8 @@ These include issues arising from the potential lack of fidelity, as well as the
 % We classify this technology as a legacy experimental project.
 
 \subsection{A practical framework for MAS}
-\sidenote{Cite Sabba's WOA21 paper}
+
+\mypapers[subsection]{psyke-woa2021}
 
 In the reminder of this thesis, we commit to computational logics as the preferred means for explainability.
 %
@@ -4749,7 +4750,7 @@ It heavily leverages FP and OOP to let developers extend their solvers with libr
 %
 There, lazy streams of data are treated as flows of solutions to be enumerated via backtracking.
 %
-This makes \twopkt{} very well-suited for handling possibly infinite streams of data via LP---an essential feature in modern AI.
+This makes \twopkt{} very well-suited for handling possibly infinite streams of data via LP -- an essential feature in modern AI -- as further discussed in \cref{chap:lp-streams}.
 
 User experience (UX) is enabled by two more modules -- namely, \module{repl} and \module{ide} --, which provide a CLI and GUI, respectively.
 %
@@ -4763,9 +4764,226 @@ Within the \twopkt{} project, this DSL is extensively exploited for unit testing
 
 Finally, the \module{oop-lib} module is experimental logic library aimed at supporting the exploitation of OOP from within logic programs.
 
-\note{Go on describing \twopkt}
+\section{Illustrative Examples}
+\label{sec:illustrations}
+
+% Provide at least one illustrative example to demonstrate the major functions.
+
+% Optional: you may include one explanatory video that will appear next to your article, in the right-hand side panel. (Please upload any video as a single supplementary file with your article. Only one MP4 formatted, with 50MB maximum size, video is possible per article. Recommended video dimensions are 640 x 480 at a maximum of 30 frames/second. Prior to submission please test and validate your .mp4 file at $ http://elsevier-apps.sciverse.com/GadgetVideoPodcastPlayerWeb/verification$. This tool will display your video exactly in the same way as it will appear on ScienceDirect.).
+
+\begin{figure}\centering
+    \begin{subfigure}{.49\linewidth}
+        \includegraphics[width=\linewidth]{figures/2p-ide-all.png}
+        \caption{The \twopkt{} GUI}
+        \label{fig:gui}
+    \end{subfigure}
+    %
+    \hfill
+    %
+    \begin{subfigure}{.49\linewidth}
+        \includegraphics[width=\linewidth]{figures/2p-kt-repl.png}
+        \caption{The \twopkt{} CLI}
+        \label{fig:cli}
+    \end{subfigure}
+
+    \begin{subfigure}{.7\linewidth}
+        \includegraphics[width=\linewidth]{figures/2p-playground.png}
+        \caption{The \twopkt{} Playground \cite{2P-Playground}}
+        \label{fig:playground}
+    \end{subfigure}
+
+    \begin{subfigure}{.7\linewidth}
+        \includegraphics[width=\linewidth]{figures/2p-kt-dsl.png}
+        \caption{Usage of the Kotlin DSL for Prolog \cite{kotlindsi4prolog-woa2020}, within an IDE}
+        \label{fig:dsl}
+    \end{subfigure}
+    \caption{Usage examples for \twopkt{}}
+    \label{fig:usage-examples}
+\end{figure}
+
+% \Cref{fig:usage-examples} shows the many possible usages \twopkt{}.
+%
+% More precisely, \cref{fig:gui} depicts its GUI for Prolog, whereas \cref{fig:cli} depicts its CLI.
+% %
+% Similarly, \cref{fig:playground} depicts the web GUI \cite{2P-Playground} of \twopkt{}, running within the Chrome Browser and only relying on the generated JS code.
+% %
+% Finally, \cref{fig:dsl} depicts the usage of \twopkt{}'s DSL for Prolog within a simple Kotlin script running within the IntelliJ Idea IDE.
+
+% \gcnote{Espandiamo la discussione o mettiamo solo gli screenshot? Nel primo caso, cosa dico per ogni screenshot?}
+
+The \twopkt{} GUI (\cref{fig:gui}) consists of a minimal IDE based on Java FX.
+%
+It supports users willing to exploit LP interactively, possibly editing a theory repeatedly, performing different queries, and inspecting the mutable internals of the underlying solver.
+%
+Accordingly, the GUI lets users open several files at once, perform queries one-by-one or all-at-once, or inspect the currently loaded libraries, operators, flags, etc.
+%
+Syntax colouring completes the picture, easing users' writing of logic theories.
+
+% \begin{figure}\centering
+    %     \includegraphics[width=.7\linewidth]{img/2p-ide-all.png}
+    %     \caption{The \twopkt{} GUI}
+    %     \label{fig:gui}
+    % \end{figure}
+
+Conversely, the \twopkt{} CLI (\cref{fig:cli}) lets users issue their queries against logic solvers via a textual console.
+%
+It supports both an interactive and non-interactive operation mode.
+%
+In the former case, the application consists of a Read-Eval-Print-Loop accepting logic queries from \texttt{stdin} and progressively prompting solutions to \texttt{stdout}.
+%
+In the latter case, queries and theories are provided as arguments upon CLI launch and the program terminates after prompting all possible solutions.
+
+% \begin{figure}\centering
+    %     \includegraphics[width=.7\linewidth]{img/2p-repl-light.png}
+    %     \caption{The \twopkt{} CLI}
+    %     \label{fig:cli}
+    % \end{figure}
+
+The \twopkt{} Playground (\cref{fig:playground}) is currently a proof-of-concept web application which only lets users write/load theories, issue logic queries, and visualise the corresponding solutions in their browsers.
+%
+% Its main purpose is to demonstrate how the generated JS sources can actually be exploited  within browser- and server-side JS projects.
+%
+The key point here is that a full-fledged \twopkt{} application can be executed in-browser in a server-less fashion.
+%
+In fact, our Playground only requires Internet connection upon page loading.
+%
+After that, it does not interact with the server any longer as the loaded JS scripts are more than sufficient to make \twopkt{} usable from within users' browsers.
+%
+For this reason, logic computations performed through our Playground need not any sandbox -- as no server is needing to be protected against DoS attacks --, nor logic solvers need API limitation for security reasons.
+
+% \begin{figure}\centering
+    %     \includegraphics[width=.7\linewidth]{img/2p-playground.png}
+    %     \caption{The \twopkt{} Playground \cite{2P-Playground}}
+    %     \label{fig:playground}
+    % \end{figure}
+
+Finally, \twopkt{}'s DSL for Prolog can be exploited within Kotlin projects as shown in \cref{fig:dsl}.
+%
+Essentially, it provides a syntactical way to inject LP into Kotlin scripts.
+%
+To make this possible, users must import one or more \module{dsl-*} module as dependencies into their Kotlin projects, e.g. via Gradle or any other build system.
+%
+As discussed in \cite{kotlindsi4prolog-woa2020}, the adoption of this DSL makes the life of logic programmers easier, as they can automatically inherit the many tools available for Kotlin development---e.g. type checking, linters, code completion, debugging, etc.
+
+% \begin{figure}\centering
+    %     \includegraphics[width=.7\linewidth]{img/2p-kt-dsl.png}
+    %     \caption{Usage of the Kotlin DSL for Prolog \cite{kotlindsi4prolog-woa2020}, within an IDE}
+    %     \label{fig:dsl}
+    % \end{figure}
+
+\section{Impact}
+\label{sec:impact}
+
+% \textbf{This is the main section of the article and the reviewers weight the description here appropriately}
+
+% Indicate in what way new research questions can be pursued as a result of the software (if any).
+
+We expect 2P-Kt technology to have sn impact on many research areas.
+
+Within the scope of LP, for instance, \twopkt{} provides a well-grounded technological basis for implementing (or building variants and extensions of) the many solutions proposed into the literature---there including abductive inference procedures \cite{FungIff97}, rule induction methods \cite{Muggleton94}, probabilistic reasoning \cite{RaedtK15}, labelled LP \cite{labelledlp-fi161}, etc.)
+
+Furthermore, as recently shown in \cite{lptech4mas-jaamas35}, the multi-agent systems community have quite an appetite for  \emph{interoperable} and general-purpose logic-based technologies.
+%
+There, \twopkt{} may provide a technological substrate supporting agent automated reasoning via manifold reasoning mechanisms.
+
+Similarly, \twopkt{} represents a valuable technological choice within the field of Coordination \cite{MaloneC94}.
+%
+As demonstrated in \cite{coordination-jlamp2020}, many tuple-based coordination models and technologies rely on LP and logic-based technologies at the fundamental level.
+%
+There, \twopkt{} enables the implementation of \emph{interoperable} \linda{} tuple spaces -- such as in \tusow{} \cite{tusow-icccn2019} -- or tuple \emph{centres}---as we plan to do in \tucson{} \cite{tucson-jaamas2}.
+
+Moreover, as discussed in \cite{kotlindsi4prolog-woa2020}, \twopkt{} impacts on programming paradigms as well.
+%
+In fact, while most successful programming paradigms (imperative programming, OOP, FP) are being increasingly \emph{blended} into modern programming languages, LP remains somewhat isolated.
+%
+In this context, \twopkt{}'s DSL for LP paves the way towards the integration of LP with other programming paradigms.
+
+Finally, we expect \twopkt{} will have a role to play in the field of explainable AI.
+%
+There, the integration among symbolic and sub-symbolic AI is considered a strategical research direction \cite{xaisurvey-ia14} and \twopkt{} may offer a sound technological basis to this purpose.
+
+% Indicate in what way, and to what extent, the pursuit of existing research questions is improved (if so).
+\paragraph{Research directions stemming from \twopkt{}}
+
+Currently, \twopkt{} is already enabling the exploration of many interesting research questions thanks to its modularity and interoperability.
+%
+Any research line involving symbolic manipulation or automated reasoning is then likely to benefit from \twopkt{} functionalities.
+%
+Generally speaking, \twopkt{} paves the way towards:
+%
+\begin{inlinelist}
+    \item the coexistence and integration of different LP aspects,
+    \item the hybridisation of LP with other AI techniques, and
+    \item the exploitation of LP in building flexible intelligent systems.
+\end{inlinelist}
+%
+Along these lines, our goals involve:
+%
+\begin{inlinelist}
+    \item\label{goal:multi-logic} the creation of comprehensive solvers capable of exploiting multiple inference procedures, knowledge-representation means, etc. at once in answering users' queries,
+    \item\label{goal:hybrid-lp} the construction of hybrid systems where logic programmers can transparently exploit machine learning (ML) and sub-symbolic AI, and
+    \item\label{goal:lp-and-mas} the injection of LP into cognitive agents architectures.
+\end{inlinelist}
+
+% Indicate in what way the software has changed the daily practice of its users (if so).
+
+So, as far as goal \ref{goal:multi-logic} is concerned, we are currently exploring the design of probabilistic, abductive, or concurrent resolution under a unique API.
+%
+These functionalities may constitute novel modules enriching the \twopkt{} ecosystem.
+%
+This would enable further research towards, e.g., \emph{mixed} reasoning processes, where multiple inference procedures can be dynamically interleaved while answering some user's query.
+
+As far as goal \ref{goal:hybrid-lp} is concerned, we are currently exploring the design of a logic-based API for ML and, in particular, neural networks.
+%
+The API allows logic-programmers to define, train, assess, and use sub-symbolic predictors via LP.
+%
+At the technical level, the API are reified into yet another module enriching the \twopkt{} ecosystem.
+%
+This would enable further research towards, e.g., the integration of symbolic and sub-symbolic AI, the automation of ML workflows, and the exploitation of fuzzy knowledge induced from data in LP.
+
+Finally, as far as goal \ref{goal:lp-and-mas} is concerned, we are currently exploring the integration of multiple logics within BDI architectures.
+%
+The idea here is to enable intelligent agents to perform the most adequate sort of reasoning or knowledge-representation means for the situation at hand.
+%
+This would enable further research towards, e.g., the exploitation of different logics (e.g. first-order, temporal, spatial, deontic, etc.) to support intelligent, context-specific behaviour for software agents.
+%
+There, \twopkt{} provides a common ground for the implementation of automated reasoners supporting each logic.
+
+% Indicate how widespread the use of the software is within and outside the intended user group.
+\paragraph{\twopkt{} adoption}
+
+While \tuprolog{} has been exploited both in the industry and in the academia\footnote{\url{http://apice.unibo.it/xwiki/bin/view/Tuprolog/Users}}, \twopkt{} has been used in the academia only---so far.
+%
+However, it has already worked -- or, will work in the near future -- as the technological basis of many scientific contributions.
+%
+Some, such as \tucson{} \cite{tucson-jaamas2}, \respect{} \cite{respect-scp41}, \lpaas{} \cite{lpaas-bdcc2}, or \tenderfone{} \cite{blockchainmas-applsci10} leveraged on \tuprolog{} for their implementation, and are now being migrated on \twopkt{}.
+%
+Others, such as \tusow{} \cite{tusow-icccn2019}, \argtwop{} \cite{arg2p-cilc2020}, or the Kotlin-based DSL for LP proposed in \cite{kotlindsi4prolog-woa2020} are already based on \twopkt{}.
+
+% Indicate in what way the software is used in commercial settings and/or how it led to the creation of spin-off companies (if so).
+
+\section{Summarising}
+\label{sec:conclusion}
+
+This chapter introduces \twopkt{}, an open, general, Kotlin Multiplatform ecosystem for LP, supporting manifold mechanisms for automated reasoning, via several loosely-coupled modules.
+%
+Each module makes some specific LP aspects individually usable.
+%
+Selectively reusing/extending modules enables bootstrapping novel LBT without re-implementing everything from scratch or producing Prolog-centered monoliths.
+%
+In particular, \twopkt{} supports \emph{mixed} inference procedures, involving both symbolic and sub-symbolic techniques.
+
+The \twopkt{} ecosystem is structured by keeping reusability, extensibility and interoperability in mind.
+%
+Its functionalities include knowledge representation, (de)serialisation, parsing (and formatting facilities), unification,
+clause in-memory indexing and storage facilities, logic inference via SLDNF, UX, and rich Kotlin API for developers.
+%
+They all support JVM, JavaScript, and Android platforms.
+
+\note{Whet the appetite of the reader by spoilering next chapters}
 
 \chapter{Bridging LP and Stream Processing}
+\label{chap:lp-streams}
 
 \mypapers{2pkt-jelia2021}
 
@@ -6597,7 +6815,7 @@ This is possible because they are part of the DSL, in the same way as Prolog bui
 %
 This implies the Kotlin compiler can prevent standard operators and built-in from being silently mistyped.
 
-\section{Conclusions and future works}\label{sec:conclusions}
+\section{Recap and future works}\label{sec:conclusions}
 
 In this chapter we propose a novel way of integrating the logic, object-oriented, functional, and imperative programming paradigms into a single language, namely Kotlin.
 %
@@ -7334,7 +7552,7 @@ As for the other extractors, both \real{} and \trepan{} are able to achieve good
 
 \input{tables/tab-comparison.tex}
 
-\section{Conclusions}\label{sec:conclusions2}
+\section{Recap and research perspectives}\label{sec:conclusions2}
 
 In this chapter we present the design of \psyke{}, a new general-purpose platform supporting symbolic knowledge extraction from opaque ML predictors.
 %
