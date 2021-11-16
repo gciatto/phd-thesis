@@ -1,0 +1,79 @@
+@startuml
+skinparam stereotypeC<<functions>> {
+  BackgroundColor #FFF
+  'BorderColor #000000
+}
+skinparam spotChar<<functions>> f
+
+interface Predictor {
+  + fit(X, y)
+  + predict(X)
+}
+
+interface Classifier
+
+interface Regressor
+
+Predictor <|-- Classifier
+
+Predictor <|-- Regressor
+
+package sklearn.linear_model {
+  Classifier <|-- LogisticRegression
+
+  Regressor <|--  LinearRegression
+}
+
+package sklearn.svm {
+  Classifier <|-- SVC
+
+  Regressor <|--  SVR
+}
+
+package sklearn.tree {
+  Classifier <|-- DecisionTreeClassifier
+
+  Regressor <|--  DecisionTreeRegressor
+}
+
+package pandas {
+  class DataFrame
+  class Series
+
+  DataFrame "1" o-- "N" Series
+}
+
+pandas -[hidden]down- sklearn.linear_model
+
+package numpy {
+  class ndarray
+}
+
+sklearn.linear_model -[hidden]up- pandas
+sklearn.tree -[hidden]up- numpy
+
+class "sklearn.metrics" <<functions>> {
+   + accuracy_score(y_true, y_pred, *[, …])
+   + f1_score(y_true, y_pred, *[, …])
+   + recall_score(y_true, y_pred, *[, …])
+}
+
+sklearn.svm -[hidden]up- sklearn
+
+package sklearn.feature_selection {
+   class SelectFpr
+   class SelectFdr
+   class SequentialFeatureSelector
+   class RFE
+   
+   SelectFpr -[hidden]up- SequentialFeatureSelector
+   SelectFdr -[hidden]up- RFE
+}
+
+package sklearn.model_selection {
+   class GridSearchCV
+   class KFold
+   class LeaveOneGroupOut
+   class LeaveOneOut
+}
+@enduml

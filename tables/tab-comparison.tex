@@ -1,22 +1,29 @@
 % !TeX root = ../phd-thesis.tex
 
 \begin{table}
-	\caption{Comparison between accuracy and fidelity measurements with different combinations of extractor algorithms and underlying models.}
+	\caption{Comparison between accuracy and fidelity measurements with different combinations of extraction algorithms and underlying models applied to the Iris dataset}
 	\label{tab:comparison}
-	\begin{tabular}{cc|ccc}
-		\hline\hline
-		\multicolumn{2}{c|}{\textbf{Predictor}} & 		\multicolumn{3}{c}{\textbf{Extractor}}\\
- 		\textbf{Type} & \textbf{Accuracy} & \textbf{Algorithm} & \textbf{Fidelity} & \textbf{Accuracy} \\
-		\hline\hline
-		5-NN & 0.94 & \real{} & 0.98 & 0.95 \\
-		& & \trepan{} & 0.96 & 0.96 \\
-		\hline
-		MLP & 0.92 & \real{} & 0.95 & 0.95 \\
-		& & \trepan{} & 0.99 & 0.92 \\
-		\hline
-		DT (continuous features) & 0.92 & \cart{} & 1.00 & 0.92 \\
-		\hline
-		DT (binarised features) & 0.96 & \cart{} & 1.00 & 0.96 \\
-		\hline\hline
-	\end{tabular}
+	\begin{adjustbox}{width=\linewidth}
+        \begin{tabular}{ll@{\hskip 0.8in}lll}
+            \hline
+            \multicolumn{2}{l}{\textbf{Predictor}} &
+            \multicolumn{3}{@{}l}{\textbf{Extractor}}\\
+            \textbf{Type} & \textbf{Accuracy} & \textbf{Algorithm} & \textbf{Fidelity} & \textbf{Accuracy} \\
+            \hline\hline
+            5-NN & 0.94 & \real{} & 0.98 & 0.95 \\
+            & & \trepan{} & 0.95 & 0.95 \\
+            & & \cart{} & 0.95 & 0.95 \\
+            \hline
+            MLP & 0.98 & \real{} & 0.98 & 0.95 \\
+            & & \trepan{} & 0.98 & 0.92 \\
+            & & \cart{} & 0.98 & 0.92 \\
+            \hline
+            DT (binarised features) & 0.98 & \real{} & 0.98 & 0.97 \\
+            & & \trepan{} & 0.98 & 0.92 \\
+            & & \cart{} & 1.00 & 0.98 \\
+            \hline
+            DT (continuous features) & 0.95 & \cart{} & 1.00 & 0.95 \\
+            \hline
+        \end{tabular}
+    \end{adjustbox}
 \end{table}

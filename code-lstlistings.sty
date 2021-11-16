@@ -1,5 +1,6 @@
 \usepackage{listings}
 \usepackage{xcolor}
+\usepackage{prolog-style}
 
 %-----------------------------------------------------
 % LISTING CONFIGURATIONS
@@ -53,5 +54,10 @@
 
 \newcommand{\prolog}[1]{\lstinline[language=Prolog,basicstyle=\ttfamily\normalsize]{#1}}
 \newcommand{\kotlin}[1]{\lstinline[language=Kotlin,basicstyle=\ttfamily\normalsize]{#1}}
+\newcommand{\python}[1]{\lstinline[language=Python,basicstyle=\ttfamily\normalsize]{#1}}
+
+\newcommand{\py}[1]{\texttt{#1}}
 \newcommand{\pl}[1]{\texttt{#1}}
 \newcommand{\kt}[1]{\texttt{#1}}
+
+\newcommand{\prologimport}[2][{}]{\lstinputlisting[#1,style=Prolog-cool]{#2}}

@@ -1,35 +1,62 @@
-# PlantUML Editor
-
-1. select template
-2. write uml diagram
-
 @startuml
-
-package Smile {
-  interface Regression<T>
-  interface Classifier<T>
+package "Underlying ML library" {
+  interface Predictor<R>
   interface DataFrame
+
+  interface Classifier<R>
+  interface Regressor<R>
+
+  Predictor <|-- Classifier
+  Predictor <|-- Regressor
 }
 
-package 2P-Kt {
-  interface Clause
+package "Underlying Symbolic AI library" {
+  interface Rule
   interface Theory
-  
-  Theory " " *-right- "*" Clause
+
+  Theory " " *-right- "*" Rule
 }
 
 package Psyke {
-  interface Extractor<T, P : ToDoubleFunction<T>> {
+  interface Extractor<R, P : Predictor<T>> {
     + predictor: P
     + discretization: Discretization
     + extract(DataFrame): Theory
+    + predict(DataFrame): R
   }
+
+  interface Discretization {
+    + features: Collection<DiscreteFeature>
+  }
+
+  Extractor "1" *-- "1" Discretization: wraps
+
+  interface DiscreteFeature {
+    + name: String
+    + admissibleValues: Map<String, Value>
+  }
+
+  Discretization "1" o-- "N" DiscreteFeature
+
+  abstract class Value
+
+  DiscreteFeature "1" o-- "N" Value
+
+  class Interval {
+    + lower: Double
+    + upper: Double
+  }
+
+  class Constant {
+    + value: Any
+  }
+
+  Value <|-left- Interval
+  Value <|-right- Constant
 }
 
-Extractor --> Regression: may use
-Extractor --> Classifier: may use
+Extractor "1" *-- "1" Predictor: wraps
 
-DataFrame --> Extractor: input of
+DataFrame -left-> Extractor: input of
 Extractor --> Theory: output of
-
 @enduml

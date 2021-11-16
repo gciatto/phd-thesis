@@ -1,0 +1,26 @@
+% !TeX root = ../phd-thesis.tex
+
+\begin{table}
+	\caption{Comparison between predictive performance and fidelity measurements -- expressed as MAE and R$^2$ score -- with different combinations of extraction algorithms and underlying models applied to the CCPP data set}
+	\label{tab:comparisonReg}
+	\begin{adjustbox}{width=\linewidth}
+        \begin{tabular}{lll@{\hskip 0.8in}lllll}
+            \hline
+            \multicolumn{3}{l}{\textbf{Predictor}} & 		\multicolumn{5}{@{}l}{\textbf{Extractor}}\\
+            \textbf{Type} & \textbf{MAE} & \textbf{R$^2$ score} & \textbf{Algorithm} & \textbf{MAE (data)} & \textbf{MAE (predictor)} & \textbf{R$^2$ (data)} & \textbf{R$^2$ (predictor)} \\
+            \hline\hline
+            LR & 3.62 & 0.93 & \iter{} & 5.47 & 4.68 & 0.84 & 0.88 \\
+            & & & \gridex{} & 4.40 & 2.90 & 0.89 & 0.95 \\
+            & & & \cart{} & 4.32 & 2.93 & 0.90 & 0.95 \\
+            \hline
+            MLP & 3.73 & 0.92 & \iter{} & 5.03 & 3.91 & 0.89 & 0.92 \\
+            & & & \gridex{} & 4.40 & 2.93 & 0.89 & 0.96 \\
+            & & & \cart{} & 4.25 & 2.85 & 0.90 & 0.96 \\
+            \hline
+            DT & 3.89 & 0.91 & \iter{} & 4.56 & 3.06 & 0.88 & 0.93 \\
+            & & & \gridex{} & 4.04 & 2.70 & 0.91 & 0.95 \\
+            & & & \cart{} & 3.89 & 0.00 & 0.91 & 1.00 \\
+            \hline
+        \end{tabular}
+    \end{adjustbox}
+\end{table}

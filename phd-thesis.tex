@@ -2860,9 +2860,9 @@ At the same time, there is no consensus on what exactly providing an \emph{expla
 %
 However, several authors agree that not all black boxes are equally \emph{interpretable}---meaning that some black boxes are easier to understand than others for our mind.
 %
-For example, \Cref{fig:trade-off} is a common way to illustrate the differences in black-box interpretability.
+For example, \cref{fig:trade-off} is a common way to illustrate the differences in black-box interpretability.
 
-Even though informal -- as pointed on in \cite{Rudin2019}, given the lack of way to measure ``interpretability'' -- \Cref{fig:trade-off} effectively express why more research is need on understandability.
+Even though informal -- as pointed on in \cite{Rudin2019}, given the lack of way to measure ``interpretability'' -- \cref{fig:trade-off} effectively express why more research is need on understandability.
 %
 In fact, the image essentially states how the better performing black boxes are also the less interpretable ones.
 %
@@ -4804,7 +4804,7 @@ Finally, the \module{oop-lib} module is experimental logic library aimed at supp
     \label{fig:usage-examples}
 \end{figure}
 
-% \Cref{fig:usage-examples} shows the many possible usages \twopkt{}.
+% \cref{fig:usage-examples} shows the many possible usages \twopkt{}.
 %
 % More precisely, \cref{fig:gui} depicts its GUI for Prolog, whereas \cref{fig:cli} depicts its CLI.
 % %
@@ -6933,41 +6933,50 @@ Other than producing inertia w.r.t.\ the adoption of SKE in modern data, such a 
 
 Accordingly, in this chapter we present the design of \psyke{}, a general-purpose Platform for Symbolic Knowledge Extraction aimed at filling the gap between the current state of the art of SKE and the available technology.
 %
-More precisely, \psyke{} is conceived as an open library where different sorts of knowledge extraction algorithms can be realised, exploited, or compared.
+More precisely, \psyke{} is conceived as an open library where different sorts of knowledge extraction algorithms can be implemented, exploited, or compared.
 %
 \psyke{} supports rule extraction from both classifiers and regressors, and makes the extraction procedure as transparent as possible w.r.t.\ the underlying BB, depending on the particular extraction procedure at hand.
 %
 Notably, it also supports the extraction of first-order logic (FOL) clauses, with the twofold advantage of providing human- and machine-interpretable rules as output.
 %
-These can then be used as either an explanation for the original BB, or as a starting point for further symbolic computations.
+Rules can then be used as either an explanation for the original BB, or as a starting point for further symbolic computations.
 %
-More precisely, the current implementation of \psyke{} outputs logic programs \cite{lloyd1990computational,metakides1996principles}, expressed in Prolog syntax \cite{ColmerauerR93}.
+\psyke{} is designed as a general framework that can be specialised on multiple runtimes and programming environments.
+%
+The technology currently comes along with two main implementations to enable SKE in two key domains:
+%
+\begin{inlinelist}
+    \item the JVM implementation for the symbolic AI domain, and
+    \item the Python implementation for the sub-symbolic AI domain.
+\end{inlinelist}
+%
+SKE is one of the elements that act as a bridge between the two domains, as well as the production of logic programs \cite{lloyd1990computational,metakides1996principles} as output---in particular expressed as Prolog programs \cite{ColmerauerR93}.
 
-Furthermore, to demonstrate the versatility of \psyke{}, we present a number of experiments involving rule extraction on a classification task performed on the Iris data set.
+A number of experiments involving rule extraction on both classification and regression tasks -- performed on well-known public data sets -- are discussed to demonstrate the versatility of \psyke{}.
 %
-In particular, we exemplify our framework against various BB predictors, and carry out a comparison between different extraction procedures applied to the same task.
+To this end, we run framework experiments against various BB predictors and perform a comparison between different extraction procedures applied to the same task.
 %
-The comparison takes into account the fidelity of the extracted rules (w.r.t.\ the original BB) and their accuracy w.r.t.\ the data.% but also their shape and readability.
+The comparison takes into account the fidelity of the extracted rules (w.r.t.\ the original BB) and predictive performance w.r.t.\ the data.
 
 Accordingly, the remainder of this chapter is organised as follows.
 %
 \Cref{sec:state} describes the state of the art for SKE as well as some background notion to fully understand the work.
 %
-\Cref{sec:psyke} presents the design of \psyke{}, while in \Cref{sec:experiments} some use cases showing how \psyke{} can be exploited are reported.
+\Cref{sec:psyke} presents the design of \psyke{}, while in \cref{sec:experiments} some use cases showing how \psyke{} can be exploited are reported.
 %
-Conclusions are drawn in \Cref{sec:conclusions2}.
+Conclusions are drawn in \cref{sec:conclusions2}.
 
 \section{State of the Art}\label{sec:state}
 
-In this section we firstly overview the state of the art for symbolic knowledge extraction (\Cref{ssec:extraction}).
+In this section we firstly overview the state of the art for symbolic knowledge extraction (\cref{ssec:extraction}).
 %
-Then, we delve into the details of a selection of extraction algorithms---namely, the ones \psyke{} implementation currently supports (\Cref{ssec:classifiers}--\Cref{ssec:generalpurpose}).
+Then, we delve into the details of a selection of extraction algorithms---namely, the ones \psyke{} implementation currently supports (\cref{ssec:classifiers}--\cref{ssec:generalpurpose}).
 %
 The algorithm selection is performed by keeping \emph{variety} (rather than exhaustivity) in mind, so as to demonstrate the operation and versatility of \psyke{}.
 %
 In particular, our aim is to exemplify the many application scenarios that a data scientist may meet---e.g., extraction from either classifiers or regressors, trained on either categorical or continuous data.
 
-Finally, we briefly outline the currently-available software object-oriented frameworks for ML  (\Cref{ssec:smile}).
+Finally, we briefly outline the currently-available software object-oriented frameworks for ML  (\cref{ssec:smile}).
 %
 The overview is meant to make the chapter self-contained, given that one of these frameworks provides \psyke{} with pure ML functionalities---in particular, the design of \psyke{} assumes basic classification or regression support to be available as a software library.
 
@@ -7001,7 +7010,7 @@ According to \cite{xaisurvey-ia14}, knowledge extraction methods can be categori
     \item\label{item:category:translucency} their \emph{translucency}---i.e., the sort of BB algorithms they can extract symbols from.
 \end{inlinelist}
 
-About \cref{item:category:learning-task}, one can distinguish among algorithms targeting classification tasks, regression tasks, or both.
+About dimension \ref{item:category:learning-task}, one can distinguish among algorithms targeting classification tasks, regression tasks, or both.
 %
 In other words, some extraction algorithms can only deal with BB classifiers -- e.g.\ Rule-extraction-as-learning~\cite{CravenS94} (\real, henceforth), \trepan~\cite{Craven1996} and others \cite{BarakatD2005,MartensBVGV2007} --, while others can only deal with BB regressors -- such as \iter~\cite{HuysmansBV2006}, \gridex~\cite{gridex-extraamas2021}, \textsc{RefAnn}~\cite{SetionoLZ2002}, \textsc{Ann-DT}~\cite{schmitz1999ann} and \textsc{RN2}~\cite{saito2002extracting} --, and only a few can handle both---such as \textsc{G-Rex}~\cite{grex-icdm2008} and \cart~\cite{breiman1984classification}.
 %
@@ -7009,7 +7018,7 @@ Notably, virtually all extraction methods proposed so far are tailored on \emph{
 %
 To the best of our knowledge, no rule extraction procedure has been proposed targetting unsupervised or reinforcement learning tasks.
 
-As far as \cref{item:category:knowledge-form} is concerned, decision rules \cite{freitas2014comprehensible,huysmans2011empirical,murphy1991id2} and trees \cite{quinlan1993c4,simplifyingdt-ijmms27} are the most widespread human-understandable shapes for extracted knowledge, thus most methods produce one of these two structures.
+As far as dimension \ref{item:category:knowledge-form} is concerned, decision rules \cite{freitas2014comprehensible,huysmans2011empirical,murphy1991id2} and trees \cite{quinlan1993c4,simplifyingdt-ijmms27} are the most widespread human-understandable shapes for extracted knowledge, thus most methods produce one of these two structures.
 %
 In both cases, decision rules or nodes are expressed in terms of the same input/output data types the original BB has been trained upon.
 %
@@ -7045,7 +7054,7 @@ This is why they can be applied to any kind of arbitrarily-complex BB.
 %
 In any case, structured data are required.
 %
-The same algorithms are summarised in \Cref{tab:psyke}.
+The same algorithms are summarised in \cref{tab:psyke}.
 
 \input{tables/tab-algos.tex}
 
@@ -7077,7 +7086,7 @@ It is general in its applicability and well scalable with complex models or prob
 %
 However, as \real{}, it cannot be applied to real-valued features.
 
-In \Cref{fig:trepanTree} an example of output tree is reported.
+In \cref{fig:trepanTree} an example of output tree is reported.
 %
 Internal nodes are represented by squares, while leaves are circles.
 %
@@ -7087,26 +7096,26 @@ $C_i$ are the class labels corresponding to each leaf.
 
 \begin{figure}
     \centering
-    \begin{minipage}{0.4\textwidth}
+    \begin{subfigure}{0.4\textwidth}
         \includegraphics[width=\linewidth]{figures/tree.pdf}
-    \end{minipage}
-    \hspace{0.2cm}
+    \end{subfigure}
+    \hfill
     \vrule
-    \hspace{0.2cm}
-    \begin{minipage}{0.45\textwidth}
-        \begin{align*}
+    \hfill
+    \begin{subfigure}{0.45\textwidth}
+        \begin{align*}\footnotesize
             \begin{split}
                 \text{Output} ~ & \text{class is} ~ C_1 ~ \text{if}
                 \begin{cases}
-                    ( \mathit{X} ~ \text{is \textit{True}} ) ~ \text{or} \\
-                    ( \mathit{X} ~ \text{is \textit{False} and} ~ \mathit{Y} \text{is \textit{True}} )
+                    ( \mathit{X} ~ \text{is \textit{True}} ) ~ \text{or}
+                    \\
+                    ( \mathit{X} ~ \text{is \textit{False} and} ~ \mathit{Y} \text{ is \textit{True}} )
                 \end{cases}
                 \\
                 \text{Output} ~ & \text{class is} ~ C_2 ~ \text{otherwise.}
             \end{split}
         \end{align*}
-
-    \end{minipage}
+    \end{subfigure}
     \caption{Example of \trepan{} output tree (left) and corresponding rules (right)}
     \label{fig:trepanTree}
 \end{figure}
@@ -7157,43 +7166,117 @@ The algorithm can be summarised via the following instructions:
 %
 Pruning algorithms can be applied to reduce the number of leaves.
 
-\subsection{Object-Oriented Programming Frameworks for ML}\label{ssec:smile}
+\subsection[OOP Frameworks for ML]{Object-Oriented Programming Frameworks for ML}\label{ssec:smile}
+
+\begin{figure}
+    \includegraphics[width=\linewidth]{figures/scikit-simple.pdf}
+    \caption{Overview on (a small portion of) the API of the \scikit{} library supporting classification and regression tasks}
+    \label{fig:scikit}
+\end{figure}
 
 \begin{figure}
     \includegraphics[width=\linewidth]{figures/smile-simple.pdf}
-    \caption{Overview on the API of the Smile library supporting classification and regression tasks}
+    \caption{Overview on the API of the \smile{} library supporting classification and regression tasks}
     \label{fig:smile}
 \end{figure}
 
+%\gcnote{Bisogna generalizzare questa sezione perchè dia il metamodello di \smile{} e \scikit{}, cogliendo analogie e differenze. È possibile entrare poi nel dettaglio delle tech, e quindi riusare del testo nella parte \smile{}-specific.}
+
 In order to make ML solutions easily available, a number of frameworks -- especially exploiting object-oriented programming (OOP) -- have been developed.
 %
-Such frameworks usually provide users with powerful abstractions for modelling BB models as well as for performing data set pre-processing, feature engineering and predictive performance measurements.
+Such frameworks usually provide users with powerful abstractions for modelling BB as well as for performing data set pre-processing, feature engineering and predictive performance measurements.
 %
 Among the most supported ML models, there are ANN, SVM, and decision trees for both classification and regression tasks.
 %
-The most complete frameworks also provide utilities packages to ease the data set reading from (and writing into) files and to perform feature selection, beyond many other tools for natural language processing, linear algebra, and data visualisation.
+The most complete frameworks also provide utility packages to ease the data set reading from (and writing into) files and to perform feature selection, beyond many other tools for natural language processing, linear algebra, and data visualisation.
 %
-Examples of state-of-the-art OOP frameworks for ML are SciKit-Learn~\cite{PedregosaVGMTGBPWDVPCBPD11} for Python and Smile for the JVM.
-%
-We adopted the latter for the design and development of \psyke{} because of its JVM support.
+Examples of state-of-the-art OOP frameworks for ML are \scikit{}~\cite{PedregosaVGMTGBPWDVPCBPD11} for Python and \smile{} \cite{SmileHomepage} for the JVM.
 
-Smile (Statistical Machine Intelligence and Learning Engine) is defined as ``a fast and comprehensive machine learning engine''\footnotemark{} for Java, Scala, and Kotlin.
+At the conceptual level, the design of such frameworks is similar, and similar are the set of functionalities they provide.
 %
-\footnotetext{\vurl{https://haifengl.github.io}}
+For this reason, the design of \psyke{} assumes an underlying ML framework to be available, from which major ML-related facilities can be borrowed.
 %
-It is worthwhile to notice that the package provides data types for easily managing data set, feature vectors, and tuples (intended as data set columns and rows, respectively) other than all the aforementioned tools.
+In the general case, these facilities include:
+%
+\begin{enumerate}[label=\textbf{F\arabic{*}}]
+    \item\label{facility:predictor-type} a base type for supervised predictors (i.e., either classifiers or regressors), providing a common interface for their training and their exploitation for inference;
+    \item\label{facility:classifier-regressor-types} a base type for classifiers and a base type for regressors, as particular sub-sorts of predictor, providing a way to discern among the two at runtime;
+    \item\label{facility:specific-predictor-types} \emph{ad-hoc} sub-types for well-known predictors -- such as ANN, SVM, decision trees, etc. --, encapsulating the algorithmic strategies for their training and their inference, and supporting the manipulation of individual predictors as instances of those types;
+    \item\label{facility:dataset-schema-types} a type for representing data sets and their schemas, providing a common interface for their manipulation (scaling/translating columns, adding/removing features or instances, renaming/moving/transforming features, etc.);
+    \item\label{facility:parametrisation} the possibility to parametrise predictors' training by letting developers specify hyper-parameters;
+    \item\label{facility:scoring} the possibility to select one or more scoring functions to assess the performance of trained (or in-training) predictors;
+    \item\label{facility:best-practices} support for ML best practices, such as test set separation, cross-validation, grid search, etc.;
+    \item\label{facility:feature-engineering} support for feature engineering (there including selection, encoding, missing values imputation, etc.);
+    \item\label{facility:inspection} the possibility to inspect the internals of any individual predictor (e.g. synapses in neural networks, or decision splits for decision trees, etc.), which is necessary to support the implementation of decompositional extraction algorithms.
+\end{enumerate}
+%
+The abstract architecture of \psyke{} can be reified on each programming platform for which a library providing the facilities above exists.
+%
+Notably, in this paper, we demonstrate the versatility of our design by describing two different implementations of \psyke{}.
+%
+One implementation is based on \scikit{} and targets Python, whereas the other is based on \smile{} and targets the JVM.
 
-\Cref{fig:smile} depicts a (partial) UML class diagram representing the major interfaces and classes composing Smile's supervised learning API.
+\subsubsection{\scikit{}}
+
+\scikit{} \cite{PedregosaVGMTGBPWDVPCBPD11} is amongst the most well-known Python libraries for machine learning.
+%
+It is characterised by a coherent design, an efficient implementation and the wideness of its scope---which covers ML far beyond supervised techniques.
+
+\Cref{fig:scikit} depicts a (partial) UML class diagram representing the major interfaces and classes composing \scikit's supervised learning API.
+%
+Module names are explicitly indicated to help the user understand the organisation of the library.
+%
+Notably, \scikit{} heavily rely on Python's \emph{duck typing} convention.
+%
+So, despite no explicit type definition exists for predictors (neither for classifiers nor for regressors) -- meaning that facility \cref{facility:classifier-regressor-types} is not supported --, all objects exposing the methods \py{fit(\ldots)} and \py{predict(\ldots)} are considered as such---approximating facility \cref{facility:predictor-type} via convention.
+%
+Nevertheless, each kind of ML predictor has a dedicated class (facility \cref{facility:specific-predictor-types}) and each class follows the aforementioned convention.
+%
+Parametrisation of learning (facility \cref{facility:parametrisation}) occurs at the instantiation level, via construction parameters.
+
+External packages, such as Pandas\footnote{\vurl{https://pandas.pydata.org}} and Numpy\footnote{\vurl{https://numpy.org}}, provide data types for easily managing data sets, features, and tuples (intended as data set columns and rows, respectively).
+%
+The three Python packages -- \scikit, Pandas, and Numpy -- are independently maintained and deployed, despite being perfectly interoperable.
+%
+In particular, Numpy features efficient implementations for multi-dimensional arrays, while Pandas provides for higher-level abstraction such \py{DataFrame}s, for data sets, or \py{Series}, for both schemas and instances (facility \cref{facility:dataset-schema-types}).
+%
+Scoring functions (facility \ref{facility:scoring}) are reified as functions having analogous signatures (name apart), hosted by the \py{sklearn.metrics} module.
+%
+Conversely, cross-validation, grid search, and other model-selection tools (facility \cref{facility:best-practices}) are reified into \emph{ad-hoc} classes as well, hosted by the \py{sklearn.model\_selection} module.
+%
+Finally, feature extraction and selection (facility \cref{facility:feature-engineering}) are supported via the \kt{smile.feature\_ex\-trac\-tion} and \kt{smile.fea\-tu\-re\_se\-lec\-tion} modules, respectively, and the many classes therein contained.
+
+Inspectability (facility \cref{facility:inspection}) can be achieved via Python ``consenting adults'' philosophy, which essentially allows expert programmers to freely access the internals of any Python object---there including \scikit{} predictors.
+%
+Therefore, decompositional extraction algorithms can be implemented on top of \scikit{}, provided that the inner functioning of predictors includes enough documentation to let programmers inspect them.
+
+\subsubsection{\smile{}}
+
+\smile{} (Statistical Machine Intelligence and Learning Engine) \cite{SmileHomepage} is defined as ``a fast and comprehensive machine learning engine'' for Java, and any other JVM-based language---e.g. Scala and Kotlin.
+
+\Cref{fig:smile} depicts a (partial) UML class diagram representing the major interfaces and classes composing \smile{} supervised learning API.
 %
 Package names are explicitly indicated to avoid confusion between homonymous classes.
 %
-Notably, each kind of ML predictor has a dedicated class and each class implements either the \kotlin{Classifier} or the \kotlin{Regression} interface.
+Notably, each kind of ML predictor has a dedicated class (facility \ref{facility:specific-predictor-types}) and each class implements either the \kotlin{Classifier} or the \kotlin{Regression} interface (facility \ref{facility:classifier-regressor-types}).
 %
-Both interfaces descend from the \kotlin{ToDoubleFunction} interface, which is, therefore, the most adequate type to represent any supervised ML predictor.
+Both interfaces descend from the \kotlin{ToDoubleFunction} interface, which is, therefore, the most adequate type to represent any supervised ML predictor (facility \ref{facility:predictor-type}).
 %
-This design lets developers easily build more complex concepts over the packages offered by Smile---as in the \psyke{} prototype.
+Parametrisation of learning (facility \ref{facility:parametrisation}) occurs at the instantiation level, via construction parameters.
+
+Other packages (not shown in figure) provide data types for easily managing data sets, feature vectors, and tuples (intended as data set columns and rows, respectively) other than all the aforementioned facilities.
 %
-Of course, the same design could be replicated on different platforms (e.g. Python) and libraries (e.g. SciKit-Learn)---as long as they provide similar API to train and use ML classifiers or regressors.
+So, for instance, the \kotlin{DataFrame}, \kotlin{StructType}, and \kotlin{Tuple} types are the basic types for representing data sets, schemas, and instances, respectively (facility \ref{facility:dataset-schema-types}).
+%
+Scoring functions (facility \ref{facility:scoring}) are reified as classes as well, implementing either the \kotlin{ClassificationMetric} or the \kotlin{RegressionMetrics} interface.
+%
+A similar statement holds for cross-validation (facility \ref{facility:best-practices}).
+%
+Finally, feature engineering and selection (facility \ref{facility:feature-engineering}) are supported via the \kotlin{smile.feature} package and the many classes therein contained.
+
+Inspectability (facility \ref{facility:inspection}) is apparently laying outside the current design goals of \smile{}: the current API of \smile{} does not provide any means to observe the internals of trained predictors.
+%
+Therefore, only pedagogical extraction algorithms can be implemented on top of \smile{}.
 
 \section{\psyke}\label{sec:psyke}
 
@@ -7208,11 +7291,11 @@ Of course, the same design could be replicated on different platforms (e.g. Pyth
 %
 \psyke{} exposes a unified API covering virtually all extraction algorithms targeting supervised learning tasks.
 %
-Currently, the implementation of \psyke{} involves several interoperable, interchangeable, and comparable extraction procedures -- namely, the ones mentioned in \Cref{ssec:extraction} --,  granting access to state-of-the-art knowledge-extraction algorithms to both researchers and data scientists.
+Currently, the implementations of \psyke{} involve several interoperable, interchangeable, and comparable extraction procedures -- namely, the ones mentioned in \cref{ssec:extraction} --, granting access to state-of-the-art knowledge-extraction algorithms to both researchers and data scientists.
 %
 \psyke{} is conceived as an open-ended project, which can be exploited to design and implement new extraction procedures behind a unique API.
 
-Essentially, \psyke{} is designed around the notion of \emph{extractor}, whose API is depicted in \Cref{fig:psyke-design}.
+Essentially, \psyke{} is designed around the notion of \emph{extractor}, whose overall design is depicted in \cref{fig:psyke-design}.
 %
 Within the scope of \psyke{}, an extractor is any algorithm accepting a ML predictor -- either a classifier or a regressor -- as input, and producing a \emph{theory} of \emph{logic} rules as output.
 
@@ -7237,7 +7320,7 @@ However, it is also very common in data science to meet data sets involving cont
 %
 Accordingly, extracting rules out of predictors trained on continuous data may be troublesome in the general case.
 %
-To circumvent this issue, \psyke{} also provides some facilities aimed at discretising (or binarising) data sets including continuous (or categorical) data.
+To circumvent this issue, \psyke{} also provides some facilities aimed at discretising (binarising) data sets including continuous (categorical) data.
 %
 When these are in place, extractors should be provided with the discretised/binarised schema as well, to be able to produce the clearest rules possible.
 
@@ -7245,31 +7328,88 @@ Accordingly, in the rest of this section we detail
 %
 \begin{inlinelist}
     \item the general design of the \psyke{} library and API,
-    \item the one-hot encoding facilities,
+    \item the discretisation facilities,
     \item the general shape of the extracted logic theory.
 \end{inlinelist}
 
 \subsection{General API}\label{ssec:general-api}
 
+%\gcnote{Generalizzare e astrarre questa sezione. Descrivere i) metamodello (estrattore, dataset, schema, task, teoria, predittore, classificatore, regressore), e ii) possibili reificazioni su \smile{} e su Sci-Kit Learn}
+
 \begin{figure}
     \centering
-    \includegraphics[width=.7\linewidth]{figures/extractor-api.pdf}
-    \caption{\psyke{}'s \kotlin{Extractor} interface}
+    \includegraphics[width=\linewidth]{figures/extractor-api.pdf}
+    \caption{\psyke{}'s \kt{Extractor} interface}
     \label{fig:extractor-api}
 \end{figure}
 
-As depicted in \Cref{fig:extractor-api}, a pivotal role in the design of \psyke{} is played by the \kotlin{Extractor} interface -- reported in \Cref{fig:extractor-api} --, defining the general contract of any knowledge-extraction procedure.
+As depicted in \cref{fig:extractor-api}, a pivotal role in the design of \psyke{} is played by the \kt{Extractor} interface, defining the general contract of any knowledge-extraction procedure.
 %
-More precisely, it leverages on the notions of \kotlin{DataFrame} and \kotlin{Theory}, borrowed from Smile and \twopkt{} \cite{kotlindsi4prolog-woa2020,2pkt-jelia2021}, respectively.
+Technically, each \kt{Extractor} encapsulates a single ML \kt{Predictor} and a particular \kt{Discretization} strategy for the data it operates upon.
 %
-All the \psyke{} extractors expose
+Under such conditions, an extractor is capable of extracting a \kt{Theory} of logic \kt{Rule}s out of a \kt{DataFrame}, containing the examples the \kt{Predictor} has been trained upon.
+
+A relevant aspect of \psyke{} design -- and a prerequisite for its understanding --, is that it avoids re-inventing the AI wheel.
+%
+Thus, \psyke{} assumes that some underlying libraries are available on the runtime adopted for implementation, from which AI facilities can be inherited.
+%
+These include:
 %
 \begin{inlinelist}
-    \item a method for extracting an explainable theory from a BB model and
-    \item a method to make predictions by using the extracted rules.
+    \item a ML library, exposing \emph{ad-hoc} types aimed at representing data sets, data schemas, or predictors, and
+    \item a symbolic AI library, exposing \emph{ad-hoc} types for representing and manipulating logic theories, clauses, and rules.
 \end{inlinelist}
 %
-The common API makes it possible to switch between different \psyke{} extractors with no need of major changes in the code.
+From these libraries, \psyke{} borrows high-level abstractions, required for its operation, which would be prohibitive to re-design or re-implement from scratch.
+%
+These include, for instance, the following types:
+%
+\begin{description}
+    \item[\kt{DataFrame}] --- a container of tabular data, where rows commonly denote instances, and columns denote their features, while bulk operations are available to manipulate the table as a whole, as well as any row/column of its;
+    \item[\kt{Predictor<R>}] --- a computational entity which can be trained (a.k.a.\ fitted) against a \kt{DataFrame} and used to draw predictions of type \kt{R};
+    \item[\kt{Classifier<R>}] --- a particular case of predictor where \kt{R} represents a type having a finite amount of admissible values;
+    \item[\kt{Regressor<R>}] --- a particular case of predictor where \kt{R} represents a type having a potentially infinite (possibly continuous) amount of admissible values;
+    \item[\kt{Rule}] --- a semantic, intelligible representation of the function mapping \kt{Predictor}'s inputs into the corresponding outputs, for a particular portion of the input space;
+    \item[\kt{Theory}] --- an ordered collection of rules.
+\end{description}
+%
+For example, \psyke{} may borrow ML-related abstractions -- such as \kt{DataFrame}, \kt{Predictor}, or \kt{Classifier} -- from either \smile{} or \scikit{}, depending on the particular runtime of choice (among JVM or Python), or any library serving the same purpose and exposing analogous abstractions.
+%
+Similarly, it may borrow high-level symbolic-AI-related abstractions -- such as \kt{Theory} or \kt{Rule} -- from \twopkt{} \cite{cco-softwarex-2021-2pkt} which supports both the JVM\footnote{\url{https://github.com/tuProlog/2p-kt}} and Python\footnote{\url{https://github.com/tuProlog/2ppy}} runtimes---and of course any functionally-equivalent library could be used as well.
+
+Upon such premises, \psyke{} constructs a notion of \kt{Extractor}---i.e., any method capable of extracting logic \kt{Rule}s out of some trained \kt{Predictor}.
+%
+In our design, \psyke{} extractors are bound to the particular black-box \kt{Predictor} they aim to extract rules from, as well as a \kt{Discretization} strategy for its input space.
+%
+These fields are provided upon instantiation, and never altered since then.
+%
+\kt{Extractor}s also expose:
+%
+\begin{inlinelist}
+    \item a method for extracting an explainable \kt{Theory} from the \kt{Predictor} -- namely, \kt{extract} -- and
+    \item a method to draw predictions by using the extracted rules---namely, \kt{predict}.
+\end{inlinelist}
+%
+Of course, prediction implies extraction---meaning that each attempt to use the extracted rules to draw explainable predictions shall trigger extraction first.
+%
+Both extraction and prediction rely on a \kt{DataFrame} which must be provided by the user upon invocation.
+%
+It should contain the data the predictor has been trained upon -- or some structurally analogous data --, in order to let the extraction algorithm determine the structure of the extracted rules.
+
+Notice that \kt{Predictor}s are parametric types.
+%
+There, the meta-parameter \kt{R} represents the type of predictions the predictor may produce---unknown at design time.
+%
+%In practice, depending on the particular data and predictors of choice, the extraction and prediction procedures may vary significantly on this aspect.
+The rules possibly extracted by such predictors -- as well as the predictions drawn from them -- may vary significantly depending on the particular data and predictors of choice.
+%
+For instance, when rules must be extracted from mono-dimensional regressors, \kt{R} may be the type of floating point numbers, whereas for multi-class classifiers, \kt{R} may consist of the set of types (like integer, string, etc.).
+% \fsnote{set of classes non mi suona tanto. Cioè, set di stringhe, set di interi, ok, ma set di classi non mi suona come un tipo}
+%
+Of course, the rules possibly extracted by such predictors greatly differ, depending on the nature of \kt{R}.
+%\fsnote{questa mi pare un po' una ripetizione della frase che inizia con in practice. Tu vuoi segnalare che le procedure variano e variano anche le regole, in base a R. Propongo una frase unica che le comprende entrambe}
+%
+However, the proposed API makes it possible to switch between different extraction algorithms and predictors requiring no changes in the architecture of \psyke{}, but only minor adjustments in the user code.
 
 \subsection{Discretisation}
 
@@ -7311,11 +7451,11 @@ This is far from being an issue: in some cases, it is possible to achieve even b
 %
 Notably, \psyke{} traces the input feature transformations by creating a data structure that associates the initial name of the attribute and the newly created features with the corresponding constraints.
 %
-An example of \psyke{} binarisation and corresponding output data structure is reported in \Cref{fig:discretisation}.
+An example of \psyke{} binarisation and corresponding output data structure is reported in \cref{fig:discretisation}.
 %
 This example considers the \emph{petal length} attribute of the Iris data set and adopts the default supervised discretisation method available in our framework.
 %
-The initial continuous feature values are labelled in \Cref{fig:discretisation} with a), and graphically represented in the b1) plot.
+The initial continuous feature values are labelled in \cref{fig:discretisation} with a), and graphically represented in the b1) plot.
 %
 \psyke{} discretisation algorithm consists in calculating the mean attribute value and the corresponding standard deviation \emph{for each data set class}.
 %
@@ -7353,56 +7493,97 @@ The last step -- labelled with d) -- is the one-hot encoding of the discrete val
 
 \subsection{Output rules}
 
-\psyke{} extractors output knowledge in the form of logic theories -- i.e. lists of Horn clauses --, notably in Prolog syntax.
+%\subsubsection{Classification}
+
+\psyke{} extractors output knowledge in the form of logic theories -- i.e., lists of Horn clauses --, notably in Prolog syntax.
 %
 We choose the Prolog syntax to make them simultaneously interpretable by both humans and machines.
 %
 More precisely, \psyke{} output theories are structured as lists of Prolog rules or facts.
 %
-Rule heads are $(n+1)$-ary predicates, where $n$ is the number of input features in the dataset.
+Rule heads are $(n+1)$-ary predicates, where $n$ is the number of input features in the data set.
 %
 These predicates carry $n$ variables -- i.e., one for each input feature -- and either a constant or a list -- i.e., the output value(s) -- as argument.
 %
 Predicate names recall the classification/regression under study.
 %
-Without lack of generality, in the following we assume the case under study to involve \emph{mono-dimensional} classification/regression tasks.
-%
 Rule bodies can be empty -- if rules are \emph{facts} -- or conjunctions of literals where each literal is a predicate expressing inequality, equality, or interval inclusion between attribute actual values and fixed constants calculated through the extraction process.
-%
-Accordingly, a rule-extraction procedure targeting a mono-dimensional classification or regression $task$ on a data set having $n$ input features and $m$ relevant output values, shall output theories of the following form:
+
+Accordingly, a rule-extraction procedure targeting a mono-dimensional classification $task$ on a data set having $n$ input features and $m$ relevant output values, shall output theories of the following form:
 %
 \begin{equation*}
+    %    \scriptsize
     \begin{array}{rcl}
-        \logicrule{\meta{task}(\var{X}_1, \ldots, \var{X}_n, \const{y}_1)}{p_{1,1}(\bar{\var{X}}),\ \ldots,\ p_{n,1}(\bar{\var{X}})}.\\
-        \logicrule{\meta{task}(\var{X}_1, \ldots, \var{X}_n, \const{y}_2)}{p_{1,2}(\bar{\var{X}}),\ \ldots,\ p_{n,2}(\bar{\var{X}})}.\\
-        & \vdots \\
-        \logicrule{\meta{task}(\var{X}_1, \ldots, \var{X}_n, \const{y}_m)}{p_{1,m}(\bar{\var{X}}),\ \ldots,\ p_{n,m}(\bar{\var{X}})}.\\
+        \logicrule{\meta{task}(\var{X}_1, \ldots, \var{X}_n, \const{y}_1)}{p_{1,1}(\bar{\var{X}}),\ \ldots,\ p_{n,1}(\bar{\var{X}})}.
+        \\
+        \logicrule{\meta{task}(\var{X}_1, \ldots, \var{X}_n, \const{y}_2)}{p_{1,2}(\bar{\var{X}}),\ \ldots,\ p_{n,2}(\bar{\var{X}})}.
+        \\
+        & \vdots
+        \\
+        \logicrule{\meta{task}(\var{X}_1, \ldots, \var{X}_n, \const{y}_m)}{p_{1,m}(\bar{\var{X}}),\ \ldots,\ p_{n,m}(\bar{\var{X}})}.
     \end{array}
 \end{equation*}
 %
 where
 %
 \begin{inlinelist}
-    \item $\meta{task}$ is the $(n+1)$-ary relation representing the classification or regression task at hand,
+    \item $\mathit{task}$ is the $(n+1)$-ary relation representing the classification or regression task at hand,
     \item each $\var{X}_i$ is a logic variable named after the $i^{th}$ input attribute of the currently available data set,
     \item $\bar{\var{X}}$ is the $n$-nuple $\var{X}_1, \ldots, \var{X}_n$, and
-    \item each $p_{i,j}$ is either a $n$-ary predicate expressing some constraint about one, two or more variables, or the \texttt{true} literal---which can be omitted.
+    \item each $p_{i,j}$ is either a $n$-ary predicate expressing some constraint about one, two or more variables, or the \pl{true} literal---which can be omitted.
 \end{inlinelist}
+
+Similarly, a rule-extraction procedure targeting a mono-dimensional regression $task$ shall output theories of the following form:
+%
+\begin{equation*}
+    \begin{array}{rcl}
+        \logicrule{\meta{task}(\var{X}_1, \ldots, \var{X}_n, \var{Y})}{p_{1,1}(\bar{\var{X}}),\ \ldots,\ p_{n,1}(\bar{\var{X}}), \var{Y}\ \var{is}\ f_1(\bar{\var{X}})}.
+        \\
+        \logicrule{\meta{task}(\var{X}_1, \ldots, \var{X}_n, \var{Y})}{p_{1,2}(\bar{\var{X}}),\ \ldots,\ p_{n,2}(\bar{\var{X}}), \var{Y}\ \var{is}\ f_2(\bar{\var{X}})}.
+        \\
+        & \vdots
+        \\
+        \logicrule{\meta{task}(\var{X}_1, \ldots, \var{X}_n, \var{Y})}{p_{1,m}(\bar{\var{X}}),\ \ldots,\ p_{n,m}(\bar{\var{X}}), \var{Y}\ \var{is}\ f_m(\bar{\var{X}})}.
+    \end{array}
+\end{equation*}
+%
+where $\meta{task}$, $\var{X}_i$, $\bar{\var{X}}$, and $p_{i,j}$ have the same meaning than the classification case, whereas
+%
+\begin{inlinelist}
+    \item $f_j$ is an $n$-ary function computing the output value for the regression task in the particular portion of the input space handled by the $j^{th}$ rule, and
+    \item $\var{is/2}$ is the well-known Prolog predicate aimed at evaluating functions.
+\end{inlinelist}
+
+Without lack of generality, the aforementioned rule forms assume the case under study to involve \emph{mono-dimensional} classification/regression tasks.
+%
+In fact, multi-dimensional cases can be tackled by allowing lists of constants -- e.g. $\var{[}\const{y}^{(1)}, \const{y}^{(2)}, \ldots \var{]}$ -- in the heads of classifications rules; or lists of variables -- e.g. $\var{[Y}^{(1)}, \var{Y}^{(2)}, \ldots \var{]}$ -- in the head of regression rules, as well as multiple variable assignments in their bodies---e.g. $\var{Y}^{(1)}\ \var{is}\ f_j^{(1)}(\bar{\var{X}}), \var{Y}^{(2)}\ \var{is}\ f_j^{(2)}(\bar{\var{X}}), \ldots$
+
+The rationale behind our proposed way of structuring rules is straightforward: the $j^{th}$ rule selects a portion of the input space via a number of constraints $p_{1,m}(\bar{\var{X}}),\ \ldots,\ \allowbreak p_{n,m}(\bar{\var{X}})$ -- which may be less than $n$ in practice --, and then dictates the most adequate prediction for that portion.
+%
+In classification tasks, the prediction is constant for the whole portion, whereas in regression tasks it is computed via a function $f_j(\bar{\var{X}})$.
+%
+This function may itself output a constant in simpler cases, or a local approximation of the predictor's behaviour in the corresponding portion of the input space---e.g. a linear approximator.
 %
 Notice that, in classification tasks, the total amount of rules ($m$) may still be greater than the total amount of classes ($k$), as there may be more than one rule for the same class. % in the general case.
+%
+In the general case, $m$ is bound to the number of portions of the input space detected by the extraction algorithm of choice.
 
-Currently, the supported sorts of predicates in rules bodies -- i.e. the admissible shapes for each $p_{i,j}$ -- are as follows:
+Currently, the supported sorts of predicates in rules bodies -- i.e., the admissible shapes for each $p_{i,j}$ -- are as follows:
 %
 \begin{description}
-    \item[equality] involving a single variable and a constant---e.g. $\var{X} = c$, where $c$ is a constant of any sort (possibly, a number)\footnote{The same result could be attained by allowing constants in rules heads}
+    \item[equality] involving a single variable and a constant---e.g. $\var{X} = c$, where $c$ is a constant of any sort (possibly, a number)
+    \footnote{The same result could be attained by allowing constants in rules heads}
     %
     \item[inequalities] involving a single variable and a constant---e.g. $\var{X} \gtrless c$
     \item[interval inclusion] involving a single variable and two constants---e.g. $\var{X} \texttt{ in [}l, u\texttt{]}$, where $l,u \in \mathbb{R}$ and $l < u$
     \item[interval exclusion] like the above, but negated---e.g. $\var{X} \texttt{ not\_in [}l, u\texttt{]}$
-    \item[\mofn{}] involving $N$ variables---e.g. $\texttt{at\_least}(M, \texttt{[} \var{X}_1, \ldots, \var{X}_N \texttt{]})$, where $M, N \in \mathbb{N}_{\geq 0}$
+    \item[\mofn{}] involving $N$ variables---e.g. $\texttt{at\_least}(M, \allowbreak \texttt{[} \var{X}_1, \ldots, \var{X}_N \texttt{]})$, where $M, N \in \mathbb{N}_{\geq 0}$
 \end{description}
 %
-Despite many other forms can be adopted for the output theories, we argue the proposed one is a good trade-off among human and machine interpretability.
+%\gcnote{Nel caso della refressione abbiamo anche il parametro d'uscita da gestire. In tal caso potremmo voler assegnare un'intera funzione ad esso. Io descriverei la cosa esplicitamente.}
+This holds for both classification and regression tasks.
+
+Despite many other forms can be adopted for the output theories, we argue the proposed one is a good trade-off between human and machine interpretability.
 %
 In fact, rules of this form are well-formed logic programs, which may be executed by a logic reasoner---such as a Prolog interpreter.
 %
@@ -7411,6 +7592,8 @@ Furthermore, the proposed form is open to many sorts of post-processing.
 For instance, recurrent conjunctions of predicates in rules bodies may be factorised into their own general-purpose rules.
 %
 Similarly, redundant or cumbersome sub-expressions may be simplified.
+%
+%\gcnote{Potremmo fare esempi di semplificazioni successive per allungare il brodo}
 
 However, the proposed form is far from perfection: we plan to explore alternative directions in the future.
 %
@@ -7420,19 +7603,25 @@ For instance, on the one side, by exploiting a Prolog interpreter, rules are int
 %
 On the other side, a Constraint Logic Programming solver \cite{GavanelliR10,JaffarM94} may interpret the same rules as constraints, and compute coherent assignments for any subset of both input and output variables---providing rules with a relational (two-ways, generative) semantics.
 
-\section{Case Study: The Iris Data Set}\label{sec:experiments}
+\section{Case Study}\label{sec:experiments}
 
-Here we exemplify the effectiveness and versatility of \psyke{} by describing its exploitation in a toy scenario.
+In this section the effectiveness and versatility of \psyke{} are tested by exploiting it in different scenarios---i.e.\ the Iris data set\footnote{\vurl{https://archive.ics.uci.edu/ml/datasets/iris}} as classification task and the Combined Cycle Power Plant\footnote{\vurl{https://archive.ics.uci.edu/ml/datasets/combined+cycle+power+plant}} (CCPP) data set as a regression case study.
 %
-In particular we exploit \psyke{} to extract Prolog rules on a number of classifiers trained on the well-known Iris data set\footnotemark.
+Examples of output rules extracted with \psyke{} algorithms are reported, along with a brief discussion on several possible future improvements for the rule final presentation (see \cref{ssec:discussion}).
 %
-\footnotetext{\vurl{https://archive.ics.uci.edu/ml/datasets/iris}} %, since for its clarity it is the most suitable for detailed analysis and graphical representation.
+\Cref{fig:datasets} reports the sample distribution of the Iris and CCPP data sets, with respect to their two most relevant respective features---i.e., petal width and length for the Iris data set (\cref{fig:iris}) and ambient temperature and exhaust vacuum for the CCPP data set (\cref{fig:ccpp}).
+%
+\input{figures/fig-datasets.tex}
+
+\subsection{Classification: the Iris data set}
+%
+In this case study we exploit \psyke{} to extract Prolog rules on a number of classifiers trained on the well-known Iris data set.
 %
 Notably, the Iris data set contains 150 rows describing as many individuals of the Iris flower.
 %
-For each exemplary, 4 continuous input features -- petal and sepal width and length -- are recorded, other than a categorical class label---i.e. which particular sort of Iris plant the exemplary has been classified as.
+For each exemplary, 4 continuous input features -- petal and sepal width and length -- are recorded, other than a categorical class label---i.e., which particular sort of Iris plant the exemplary has been classified as.
 %
-There are three particular sub-sorts of Iris in this data set -- namely, Setosa, Virginica, and Versicolor --, and the 150 examples are evenly distributed among them---i.e. there are 50 instances for each class.
+There are three particular sub-sorts of Iris in this data set -- namely, Setosa, Virginica, and Versicolor --, and the 150 examples are evenly distributed among them---i.e., there are 50 instances for each class.
 
 The experimental setting is as follows.
 %
@@ -7440,20 +7629,15 @@ First, we train 3 different sorts of classifiers on the Iris data set---namely, 
 %
 Then we let \psyke{} extract logic rules out of these classifiers using as many extraction procedures.
 %
-In particular, we rely on \real{},  \trepan{}, and \cart{}.
+In particular, we rely on \real{}, \trepan{}, and \cart{}.
 %
 A portion (50\%) of the original data set -- namely, the test set -- is put aside \emph{before} training to later enable the evaluation of the extracted rule predictive performance.
-%
-% All the algorithms implemented so far in \psyke{} require as input a BB predictor and the data set it has been trained upon---i.e., the training set.
-%
-% The test set taken apart from the original data set can be used to measure the predictive performance of the extraction procedure as well as that of the underlying BB model.
-%
 
 Accordingly, within the scope of this experiment, we rely on \emph{accuracy} as the preferred metric for both predictive performance and fidelity---where the former measures how good a classifier or the corresponding extracted rules are in classifying Iris instances in absolute terms, while the latter measures the adherence of the extractor output rules w.r.t.\ the original classifier.
 
-\subsection{The experiment}
+\subsubsection{The experiment}
 
-Let us assume the Iris data set can be loaded from a CSV file via a Kotlin script using Smile.
+Let us assume the Iris data set can be loaded from a CSV file via a script using one of the third-party libraries exploited by \psyke{}---i.e., \scikit{} or \smile{} for Python or JVM users, respectively.
 %
 The Iris data set only contains continuous features.
 %
@@ -7461,29 +7645,23 @@ Therefore, \cart{} is the only algorithm that can be \emph{directly} applied to 
 %
 Accordingly, \psyke{} provides a simple two-step procedure to binarise the data, involving both discretisation and one-hot encoding: a data set can be discretised, one-hot encoded, and split into training and test set via a couple of instructions, providing the percentage of samples to be taken apart from the whole data set to attain the test set.
 %
-As the next step, we train 3 different classifiers on the training set---namely a kNN, a MLP, and a DT.\footnote{Code of experiments is available at \url{https://github.com/sabbatinif/PSyKE}. Please consider reading the documentation of Smile for a more detailed explanation of the model-specific parameters: \url{https://haifengl.github.io/classification.html} and \url{https://haifengl.github.io/regression.html}.
-}
+As the next step, we train 4 different classifiers on the training set---namely a kNN, a MLP, and two DT---one with the original, continuous data set, and one with its binarised version\footnotemark.
+\footnotetext{Code of experiments is available at \url{https://github.com/psykei/psyke-jvm} and \url{https://github.com/psykei/psyke-python}}
+%\fsnote{Aggiungere rif. a scikit oppure togliere rif \smile{} nella footnote}
 %
 Finally, in the following paragraphs, we show how rules can actually be extracted and what their ultimate shape actually is.
 
-\subsubsection{\real{}}
+\subsubsection{\real{}}\label{sssec:real}
 
-The \psyke{} \real{} algorithm can be applied to any Smile \kotlin{Classifier} model parametrised with a \kotlin{DoubleArray}---e.g., the aforementioned MLP and kNN are suitable, whereas the DT is not.
+\psyke{}'s \real{} algorithm can be applied to any BB classifier accepting binary input features---e.g., among the aforementioned models only the DT trained upon the continuous data set is not suitable to apply this extraction technique.
 %
-The extracted theory is dependent from the training set; different training instances can produce different rules, resulting in slight variations also in the output theory complexity---intended as number of clauses and terms.
+The extracted theory is dependent on the training set; different training instances can produce different rules, resulting in slight variations also in the output theory complexity---intended as the number of clauses and terms.
 %
-An example is reported in the following:
+An example of \real{} applied to a MLP is reported in the following:
 %
-\begin{lstlisting}[language=Prolog]
-iris(SepalLength, SepalWidth, PetalLength, PetalWidth, setosa) :-
-    PetalWidth =< 0.65.
-iris(SepalLength, SepalWidth, PetalLength, PetalWidth, versicolor) :-
-    PetalWidth in [0.65, 1.64].
-iris(SepalLength, SepalWidth, PetalLength, PetalWidth, virginica) :-
-    PetalWidth > 1.64.
-\end{lstlisting}
+\prologimport{listings/iris-real.pl}
 
-The theory produces an input space partitioning as reported in \Cref{fig:real}.
+The theory produces an input space partitioning as reported in \cref{fig:real-mlp}.
 %
 It is worthwhile to notice that -- especially with more complex data sets -- the partitioning could be non-exhaustive---i.e., the logic rules could be unable to classify some samples.
 
@@ -7493,100 +7671,218 @@ It is worthwhile to notice that -- especially with more complex data sets -- the
 %
 Differently from \real{}, \trepan{} accepts as input 3 optional parameters
 %
-stating the minimum number of samples to consider for performing further splits (\kotlin{minExamples}, default: 0), the maximum depth of the produced tree (\kotlin{maxDepth}, default: 0, i.e.\ no constraints), and the criterion to adopt for the best split selection (\kotlin{splitLogic}).
+stating the minimum number of samples to consider for performing further splits (\kt{minExamples}, default: 0), the maximum depth of the produced tree (\kt{maxDepth}, default: 0, i.e.\ no constraints), and the criterion to adopt for the best split selection (\kt{splitLogic}).
 %
-A default logic is chosen if not otherwise specified.
+At the moment \psyke{} can only adopt a default \kt{splitLogic} to assign a binary split  to each \trepan{} node.
 %
-An example of output theory is reported in the following:
+The method is based on the selection of the most discriminating feature at each split, i.e., the feature having higher probability to produce a tree leaf containing all the samples belonging to a specific class without containing samples of other classes.
 %
-\begin{lstlisting}[language=Prolog]
-iris(SepalLength, SepalWidth, PetalLength, PetalWidth, setosa) :-
-    PetalLength =< 2.28.
-iris(SepalLength, SepalWidth, PetalLength, PetalWidth, virginica) :-
-    PetalLength > 2.28, PetalWidth not_in [0.65, 1.64].
-iris(SepalLength, SepalWidth, PetalLength, PetalWidth, versicolor) :- true.
-\end{lstlisting}
+We plan to implement in the future other methods for \emph{if-then} splits as well as for \mofn splits.
+
+An example of output theory obtained by applying \trepan{} to a 5-NN is reported in the following:
 %
-This theory produces an input space partitioning as reported in \Cref{fig:trepan}.
+\prologimport{listings/iris-trepan.pl}
+%
+This theory produces an input space partitioning as reported in \cref{fig:trepan-knn}.
 %
 In this case, the partitioning is always exhaustive.
 
-\subsubsection{\cart{}}
+\subsubsection{\cart{}}\label{sssec:cartClass}
 
 \cart{} is the third algorithm included in \psyke{} to tackle classification tasks.
 %
-It is the only procedure applicable to a \kotlin{DecisionTree} classifier and it does not require any extra parameter, since the extraction only relies on the tree structure of the \kotlin{DecisionTree}---that is, all the parameters have to be tuned during the \kotlin{DecisionTree} creation and training.
+It is directly applicable to DT classifiers and in this case it does not require any extra parameter, since the extraction only relies on the tree structure of the decision tree---that is, all the parameters have to be tuned during the DT creation and training.
 %
-The \kotlin{DecisionTree} can accept both one-hot encoded and continuous features.
+Otherwise, \cart{} can be applied to other kinds of classifiers, but this implies the creation of an intermediate tree structure and thus to have greater control on the output quality it is advisable to impose a maximum value for the tree depth or the number of leaves.
+
+\psyke{}'s \cart{} algorithm can operate with both one-hot encoded and continuous input features.
 %
 In the same way as many other algorithms, \cart{} is able to achieve comparable or even better results when relying on a good discretisation/one-hot encoding technique.
 %
-In the following an example of theory obtained with continuous features is reported:
+In the following an example of theory obtained with \cart{} applied to the DT trained with the continuous Iris data set is reported:
 %
-\begin{lstlisting}[language=Prolog]
-iris(SepalLength, SepalWidth, PetalLength, PetalWidth, setosa) :-
-    PetalLength =< 2.75.
-iris(SepalLength, SepalWidth, PetalLength, PetalWidth, versicolor) :-
-    PetalLength > 2.75, PetalLength =< 4.85.
-iris(SepalLength, SepalWidth, PetalLength, PetalWidth, virginica) :-
-    PetalLength > 2.75, PetalLength > 4.85.
-\end{lstlisting}
+\prologimport{listings/iris-cart.pl}
 %
-\Cref{fig:cart2} reports the corresponding input space partitioning.
+\Cref{fig:cart-dt-cont} reports the corresponding input space partitioning.
 %
 The output rules are always exhaustive.
 %
-The same data set, but previously one-hot encoded, leads to the following theory and to the partitioning reported in \Cref{fig:cart}:
+The same data set, but previously one-hot encoded, leads to the following theory and to the partitioning reported in \cref{fig:cart-dt-cla}:
 %
-\begin{lstlisting}[language=Prolog]
-iris(SepalLength, SepalWidth, PetalLength, PetalWidth, versicolor) :-
-    PetalLength > 2.28, PetalWidth =< 1.64.
-iris(SepalLength, SepalWidth, PetalLength, PetalWidth, virginica) :-
-    PetalLength > 2.28, PetalWidth > 1.64.
-iris(SepalLength, SepalWidth, PetalLength, PetalWidth, setosa) :-
-    PetalLength =< 2.28.
-\end{lstlisting}
+\prologimport{listings/iris-cart-1hot.pl}
 
-\subsection{Results}
+\subsubsection{Results}\label{sssec:resultsClass}
 
 \input{figures/fig-comparison.tex}
 
+\input{tables/tab-comparison.tex}
+
 In the following we report the results of \real{}, \trepan{}, and \cart{} applied to the Iris data set.
 %
-All the results are resumed in \Cref{fig:irisAll}.
+All the results are resumed in \cref{fig:irisAll} and \cref{tab:comparison}.
 %
-\Cref{fig:iris} reports the Iris data set sample distribution in the input space, with emphasis only on the two most relevant features---i.e., petal width and length.
+Column ``Predictor'' represents the ML step of the process.
 %
-Column \textit{Predictors} represents the ML step of the process. Accordingly, \Cref{fig:knn}, \Cref{fig:dt2} and \Cref{fig:dt} represents the decision boundaries of a 5-NN predictor and 2 decision trees trained with a half of the data set samples, respectively.
+Accordingly, \cref{fig:bb-knn,fig:bb-mlp-cla,fig:bb-dt-cla,fig:bb-dt-cont} represent the decision boundaries of a 5-NN predictor, a MLP and 2 decision trees, respectively.
 %
-The first DT is trained with the original Iris data set; the other with the binarised version.
+The first DT is trained with the binarised version of the Iris data set; the other with the original continuous values.
 %
-Finally, column \textit{Extractors} represents the \psyke{} output.
+Finally, column ``Extractor'' represents the output of \psyke{}.
 %
-In particular, different extraction procedures -- namely, \real{} and \trepan{}  -- applied to the 5-NN are depicted in \Cref{fig:real} and \Cref{fig:trepan}, respectively -- and \cart{} extraction applied to decision trees is depicted in \Cref{fig:cart2} and \Cref{fig:cart}.
+In particular, different extraction procedures -- namely, \real{}, \trepan{}, and \cart{} -- are applied to the 4 BB predictors.
+%
+\real{} and \trepan{} are not applied to the DT trained with the continuous data set because these extraction procedures cannot handle real-valued input features.
 
 It is worth noticing that
 %
 \begin{inlinelist}
-    \item \cart{} -- for its design -- always produces partitionings equivalent to those of the underlying DT, and
-    \item all extractor output partitionings are different -- namely, a procedure only uses the petal width attribute, another one uses only the petal length and the remaining use both input features --, but all solutions share a similar predictive performance.
+    \item \cart{} always produces a partitioning equivalent to those of the underlying BB model when the model is a DT, because of its design, and
+    \item each extractor's output partitioning may be different from other extractors' ones -- for instance a procedure may only use the petal width attribute, another procedure may only use the petal length attribute, while other procedures may use both input features, combined in several ways --, but all solutions share a similar predictive performance.
 \end{inlinelist}
 
-Omitted in \Cref{fig:irisAll}, the results of \real{} and \trepan{} applied to a MLP are presented in \Cref{tab:comparison}, where a numerical assessment of the aforementioned predictors and extractors is reported.
+A numerical assessment of the aforementioned predictors and extractors is reported in \cref{tab:comparison}.
 %
-Values are averaged upon 25 executions, each one with different random train/test partitionings, but same test set percentage and same parameters for predictors and extractors.
+Values are averaged upon 25 executions, each one with different random train/test splits, but same test set percentage and same parameters for predictors and extractors.
 %
 The table reports the underlying predictor accuracy as well as the fidelity and accuracy of the extraction procedure.
 %
 We plan to enhance comparisons between different extractors through fidelity assessments carried out by measuring the decision boundary overlapping regions.
+
+\Cref{tab:comparison} shows how the \cart{} extractor always has a fidelity of 1.0 when applied to a DT, since it only inspects the underlying decision tree nodes to build its output rules without any information loss.
 %
-From \Cref{tab:comparison} it can be noticed that the \cart{} extractor always has a fidelity of 1.0, since it only inspects the underlying decision tree nodes to build its output rules without any knowledge loss.
-%
-This implies that \psyke{} \cart{} is an equivalent but explainable alternative to Smile \kotlin{DecisionTree} model, always producing the same output predictions.
+This implies that \psyke{}'s \cart{} extractor is an equivalent (yet explainable) alternative to DT models, as it produces the same output predictions.
 %
 As for the other extractors, both \real{} and \trepan{} are able to achieve good results in terms of fidelity and accuracy -- always above 0.9 in our experiments -- in some cases even with a better performance w.r.t.\ the original model.
 
-\input{tables/tab-comparison.tex}
+\subsection[Regression: the CCPP dataset]{Regression: the Combined Cycle Power Plant dataset}
+
+In our second case study, \psyke{} is exploited to extract Prolog rules out of different BB regressors trained upon the CCPP data set.
+%
+The data set contains 9568 instances, each one composed of 4 real-valued input attributes -- i.e., ambient temperature and pressure, relative humidity and exhaust vacuum -- and one real-valued output feature---i.e., the net hourly electrical energy output of the plant.
+
+For this experiment, 3 different regressors are trained on the CCPP data set: a linear regressor (LR), a MLP and a DT.
+%
+Then, as for the classification case, \psyke{} is exploited to extract logic rules out of these BB models by using all the applicable supported procedures---namely, \iter{}, \gridex{} and \cart{}, each one applied to all the aforementioned ML predictors.
+%
+The data set portion isolated as test set for this experiment is equal to 20\%.
+%
+To assess the predictive performance of BB predictors and extractors as well as the fidelity of extractors w.r.t.\ the underlying models mean absolute error (MAE) and R$^2$ score are adopted.
+
+\subsubsection{The experiment}
+
+The CCPP data set can be loaded from a CSV file.
+%
+Since it only contains continuous attributes, and since this sort of feature is the only one accepted by \psyke{} extractors for regression tasks, no discretisation or binarisation steps are required.
+%
+However, since the input features have very different ranges of values, a normalisation or standardisation pre-processing is suggested to have more robust BB training phases.
+%
+For this experiment, a standardisation has been applied to the input features.
+%
+The operation must be revertible, because extraction techniques applied to BB models trained with standardised (or normalised) data will produce rules containing standardised (or normalised) values.
+%
+Thus, to obtain human-understandable rules a further inverse transformation is required.
+
+In the following paragraphs \psyke{} extractors applicable to BB regressors are described, together with examples of output rules.
+
+\subsubsection{\iter{}}
+
+\psyke{}'s \iter{} algorithm can be applied to any BB regressor accepting real-valued input features.
+%
+\iter{} requires $k + 2$ user defined parameters, where $k$ is the number of input dimensions of the data set.
+%
+The parameters are the hypercube update size for each dimension, the number of starting hypercubes and the similarity threshold used by the extraction procedure to create new cubes instead of expanding the old ones.
+%
+Also in this case the extracted theory is dependent on the training set, but it also depends on the position, number and dimension of the starting hypercubes.
+%
+Furthermore, it could be non-exhaustive---especially when the extraction procedure is applied to high-dimensional data sets.
+%
+An example of input space partitioning produced by \iter{} applied to a LR is reported in \cref{fig:iter-lr}.
+
+\subsubsection{\gridex{}}
+
+\psyke{}'s \gridex{} extractor is applicable under the same constraint described above for \iter{}.
+%
+\gridex{} requires $n + 3$ user-defined parameters, where $n$ is the maximum amount of iterations to perform.
+%
+The other parameters are a similarity threshold, the minimum number of samples to be considered in non-empty hypercubes and the number of slices to perform along each dimension of the hypercubes during each iteration.
+%
+When the algorithm is applied in adaptive splitting mode, users need to specify the number of partitions to perform on the basis of the importance calculated by \gridex{} for each input dimension.
+%
+An example of input space partitioning produced by \gridex{} applied to a MLP is reported in \cref{fig:gridex-mlp}.
+%
+In this case, the partitioning is always exhaustive.
+%
+Blank hypercubes correspond to negligible input space regions, so no rules are created to describe these regions.
+
+\subsubsection{\cart{}}
+
+\cart{} is the other \psyke{} algorithm applicable for regression tasks.
+%
+All the considerations reported for the classification case in \cref{sssec:cartClass} hold in this context as well.
+%
+An example of theory obtained with \cart{} applied to a DT regressor is the following:
+%
+\prologimport{listings/ccpp-iter.pl}
+%
+\Cref{fig:cart-dt} reports the corresponding input space partitioning.
+%
+The output rules are always exhaustive.
+
+\subsubsection{Results}
+
+\input{figures/fig-comparison-reg.tex}
+
+\input{tables/tab-comparison-reg.tex}
+
+The results of \iter{}, \gridex{} and \cart{} applied to the CCPP data set are summarised in \cref{fig:ccppAll} and \cref{tab:comparisonReg}.
+%
+Column names follow the same logic described for the classification case study in \cref{sssec:resultsClass}, so \cref{fig:bb-lr,fig:bb-mlp,fig:bb-dt} represent the decision boundaries of a linear regressor, a MLP and a DT, respectively, while the other figures represent the output of \psyke{} extractors.
+%
+Each one of the extraction procedures suitable for regression tasks is applied to all the aforementioned BB regressors.
+
+\Cref{fig:ccppAll} shows that all the extractors are able to capture the behaviour of the output values w.r.t.\ the input variables, however one may easily notice that \gridex{} and \cart{} tend to produce fewer rules than \iter{}.
+
+The predictive performance of predictors and extractors is assessed in \cref{tab:comparisonReg}.
+%
+Values are averaged upon 25 executions, each one with different train/test splits, but with the same parameters for both predictors and extractors.
+%
+All the tested predictors have comparable performance in terms of MAE and R$^2$ score.
+%
+Conversely, it is possible to notice that \cart{} and \gridex{} always appear more reliable than \iter{} in extracting knowledge out of the underlying predictors.
+
+\subsection{Discussion}\label{ssec:discussion}
+
+We plan to improve the output theory presentation of \psyke{} extractors in several directions.
+%
+First of all, the semantics of the top-down ordering of Prolog theories could be considered.
+%
+Rules can be simplified by removing predicates that are always trivially true---i.e., if preceding rules contain dual predicates that are true.
+%
+For example, second and third rule of the theory reported in \cref{sssec:real} could be simplified to output a more compact theory:
+%
+\prologimport{listings/iris-real-improved.pl}
+%
+Both theories are equivalent since the first rule in the original theory implies that in the following rules the \kt{PetalWidth} attribute is always greater than 0.78, whereas the second rule implies that the third rule will be evaluated only if the \kt{PetalLength} attribute has not a value included in the specified interval.
+%
+This example shows a reduction of 40\% of the total number of rule body predicates (from 5 to 3).
+
+Another direction could be to collapse two predicates regarding the same input feature in the same rule body.
+%
+For example, if a predicate imposes a value greater than a constant for an attribute, and another predicate imposes a value smaller than another constant for the same attribute, the two predicates could be contracted in a unique one by exploiting the semantics of range inclusion.
+%
+Similarly, if a rule body contains two predicates where the condition represented by one of them is more strict than the one represented by the other, it is possible to remove the less strict predicate.
+%
+An example can be a rule body with two or more predicates all imposing an attribute greater (smaller) than a specified constant.
+%
+All the predicates except the one containing the greatest (smallest) constant can be removed without loss of information.
+
+By applying all these rules to the theory regarding the binarised Iris data set presented in \cref{sssec:cartClass} it is possible to simplify all the rules except the first one and thus to obtain the following theory:
+%
+\prologimport{listings/iris-cart-improved.pl}
+%
+This theory can be further simplified by applying the first strategy described in this section, i.e., by substituting the third and fourth rules with a unique rule having as body \kt{true}.
+%
+The resulting theory will have only 3 rules with 4 predicates in their bodies, whereas the starting one has 4 rules and 9 predicates.
 
 \section{Recap and research perspectives}\label{sec:conclusions2}
 
@@ -7623,9 +7919,11 @@ Both projects massively rely on sub-symbolic AI, and in both cases the need of m
 %
 Since \psyke{} currently works as a distiller of knowledge, further investigation will be devoted to the explanation of a single outcome (prediction of a model).
 %
-Moreover, it could be interesting to compare results with those obtained by directly learning a symbolic model .
+Moreover, it could be interesting to compare results with those obtained by directly learning a symbolic model.
 
 \chapter[Enriching the Ecosystem with PLP]{Enriching the Ecosystem with Probabilistic Logic Programming}
+
+\mypapers{dcc-aixia-2021-plp}
 
 Artificial Intelligence (AI) is progressively conquering the software industry to become one of the most pivotal fields, with a fast-paced evolution of challenges and requirements that existing technologies often fail to match. Accordingly, the increasing demand for transparent and pervasive intelligence is opening new horizons for logic programming (LP) and symbolic AI approaches \cite{lptech4mas-jaamas35,xaiethics-aiia2020,ortega2021symbolic}.
 %
@@ -7705,7 +8003,7 @@ Finally, concerning probabilistic reasoning, PLP generally supports reasoning ta
 %
 Broadly speaking, options range from exact to approximate---the former being more precise and computationally demanding, while the latter being more affordable at the price of lower precision.
 %
-In the remainder of this paper we focus on exact methods only.
+In the remainder of this chapter we focus on exact methods only.
 
 Along this line, a common strategy is to rely upon knowledge compilation \cite{darwiche2002knowledge} to make probabilistic reasoning efficient---i.e., by transforming logic formul\ae{} into simpler (more tractable) forms.
 %
@@ -7717,7 +8015,7 @@ A number of programming languages follow the LPAD approach over the DS, there in
 %
 They both rely on (some variant of) BDD to support probabilistic reasoning.
 %
-Within the scope of this paper, we consider them as interesting solutions for PLP as they come with some actually usable technology.
+Within the scope of this chapter, we consider them as interesting solutions for PLP as they come with some actually usable technology.
 %
 In the reminder of this section, we briefly analyse \problog{} and \cplint{} from a technological perspective.
 
@@ -7835,7 +8133,7 @@ This includes terms, clauses, and theories representation, as well as Prolog's S
     \label{fig:design-arch-modules}
 \end{figure}
 
-Accordingly, as depicted in \Cref{fig:design-arch-modules}, PLP support is injected into the ecosystem via multiple self-contained and inter-dependent modules, each one representing a contribution of our proposal.
+Accordingly, as depicted in \cref{fig:design-arch-modules}, PLP support is injected into the ecosystem via multiple self-contained and inter-dependent modules, each one representing a contribution of our proposal.
 %
 Arrows indicate direct dependencies from one module to another.
 %
@@ -7871,7 +8169,7 @@ The other fundamental (and indirect) dependency is the \module{bdd} module, whic
 %
 Additionally, it also depends on \module{solve-classic}---as \problog{} solvers will exploit ordinary Prolog resolution behind the scenes.
 %
-Further details about the inner design and functioning of this module are discussed in the remainder of this section, and represent the main contribution of this paper.
+Further details about the inner design and functioning of this module are discussed in the remainder of this section, and represent the main contribution of this chapter.
 
 Finally, the \module{ide-plp} module implements a stand-alone graphical application based on JavaFX, aimed at letting \twopkt{} users practice with \problog{} via an integrated environment.
 
@@ -7880,7 +8178,7 @@ Finally, the \module{ide-plp} module implements a stand-alone graphical applicat
 
 \begin{figure}[t]
     \centering
-    \caption{Architecture of our \problog{} solver (left), with a focus on the KB recompilation step (right)}
+    \caption[Architecture of our \problog{} solver, with a focus on the KB recompilation step]{Architecture of our \problog{} solver (left), with a focus on the KB recompilation step (right)}
     \label{fig:design-problog-architecture-and-kb-recompilation}
     \begin{subfigure}{0.49\linewidth}
         \includegraphics[width=\linewidth]{figures/design-problog-architecture.pdf}
@@ -8039,7 +8337,7 @@ Also, the solver piloting engine recompiles queries and goals bidirectionally to
 %
 For instance, our solution assumes that each query is represented via the \pl{prob\_query/2} predicate.
 %
-Considering the example in \Cref{fig:valid-probabilistic-graph}, a query such as \pl{path(\textit{From}, \textit{To})} would be transformed in  \pl{prob\_query(\textit{P}, path(\textit{From}, \textit{To}))}.
+Considering the example in \cref{fig:valid-probabilistic-graph}, a query such as \pl{path(\textit{From}, \textit{To})} would be transformed in  \pl{prob\_query(\textit{P}, path(\textit{From}, \textit{To}))}.
 %
 Once solutions are found, the \emph{solver piloting engine} extracts the two terms \pl{\textit{P}} and \pl{path(\textit{From}, \textit{To})}, and presents their values to the clients in the correct format.
 
@@ -8053,7 +8351,7 @@ Once solutions are found, the \emph{solver piloting engine} extracts the two ter
     \begin{subfigure}{0.57\linewidth}
         \includegraphics[width=\linewidth]{figures/valid-probabilistic-graph.pdf}
     \end{subfigure}
-    \caption{Example of Probabilistic Graph Modeling: \problog{} syntax (left) and corresponding graph (right)}
+    \caption[Example of Probabilistic Graph Modeling: \problog{} syntax and corresponding graph]{Example of Probabilistic Graph Modeling: \problog{} syntax (left) and corresponding graph (right)}
     \label{fig:valid-probabilistic-graph}
 \end{figure}
 
@@ -8066,7 +8364,7 @@ More precisely, we show how our solution supports:
     \item a number of mainstream programming platforms and languages.
 \end{inlinelist}
 
-In particular, our demonstration works by solving a probabilistic query against the trivial probabilistic logic program from \Cref{fig:valid-probabilistic-graph} -- where a probabilistic graph is modelled in \problog{} --, enumerating all possible solutions and interpreting them as possible paths and their probabilities.
+In particular, our demonstration works by solving a probabilistic query against the trivial probabilistic logic program from \cref{fig:valid-probabilistic-graph} -- where a probabilistic graph is modelled in \problog{} --, enumerating all possible solutions and interpreting them as possible paths and their probabilities.
 %
 We perform this action multiple times, and in several ways, each time showing a different usage modality.
 %
@@ -8091,7 +8389,7 @@ The whole demonstration can be reproduced by downloading the PLP IDE executable 
         \label{fig:problog-ide:graph}
         \fbox{\includegraphics[width=\linewidth]{figures/valid-bdd-h.pdf}}
     \end{subfigure}
-    \caption{\twopkt{} PLP IDE (\ref{fig:problog-ide:screenshot}) and corresponding BDD built by the solver (\ref{fig:problog-ide:graph})}
+    \caption[\twopkt{} PLP IDE and corresponding BDD built by the solver]{\twopkt{} PLP IDE (\ref{fig:problog-ide:screenshot}) and corresponding BDD built by the solver (\ref{fig:problog-ide:graph})}
     \label{fig:problog-ide}
 \end{figure}
 %
@@ -8131,10 +8429,10 @@ The conceptual flow is analogous:
 %
 \begin{inlinelist}
 \item a \texttt{ClausesParser} is instantiated out of the set of \problog{} predicates (i.e. Prolog's standard predicates, plus \prolog{::/2}),
-\item it is then used to parse the \problog{} program from \Cref{fig:valid-probabilistic-graph},
-\item the resulting \kt{Theory} is used as \emph{static} KB of a newly instantiated \problog{} \kt{Solver},
+\item it is then used to parse the \problog{} program from \cref{fig:valid-probabilistic-graph},
+\item the resulting \kotlin{Theory} is used as \emph{static} KB of a newly instantiated \problog{} \kotlin{Solver},
 \item the query \pl{path(\textit{From},\textit{To})} is programmatically constructed, and
-\item issued to the \kt{Solver}, as a \emph{probabilistic} query.
+\item issued to the \kotlin{Solver}, as a \emph{probabilistic} query.
 %
 Solutions are then
 \item enumerated, and, finally,
@@ -8143,12 +8441,12 @@ Solutions are then
 %
 For the sake of reproducibility, the provided snippets can be executed on all the supported platforms by cloning the Git repository \url{https://github.com/tuProlog/2pkt-problog-compatibility-demo}, and by following the contained instruction.
 %
-As the reader may easily observe, the resulting solutions and probabilities are the same depicted in \Cref{fig:problog-ide:screenshot}.
+As the reader may easily observe, the resulting solutions and probabilities are the same depicted in \cref{fig:problog-ide:screenshot}.
 
-\section{Conclusion and Future Works}
+\section{Recap and Research Perspectives}
 %\label{sec:conclusion}
 
-This paper describes the design and implementation of a \problog{} solver as a module of a logic ecosystem.
+This chapter describes the design and implementation of a \problog{} solver as a module of a logic ecosystem.
 %
 The extension pursues the twofold goal of
 %
@@ -8159,7 +8457,7 @@ The extension pursues the twofold goal of
 
 The proposed solution is still in its infancy, and it is still not suitable to be compared with other proposals in the field---at least for what concerns performance or feature richness.
 %
-However, by working on top of the \twopkt{} ecosystem, our solution inherits large platform support -- as demonstrated in this paper --, thus overcoming the usability and portability constraints that affect other solutions in this field.
+However, by working on top of the \twopkt{} ecosystem, our solution inherits large platform support -- as demonstrated in this chapter --, thus overcoming the usability and portability constraints that affect other solutions in this field.
 %
 In fact, our technology can be deployed on all the platforms supported by \twopkt{}---which currently include, but are not limited to, the JVM, Android, Python, and JavaScript.
 %

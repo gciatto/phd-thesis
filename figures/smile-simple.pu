@@ -1,11 +1,12 @@
+@startuml
 package smile.classification {
   interface Classifier<T>
-  
-  class DecisionTree 
+
+  class DecisionTree
   class SVM<T>
   class "MLP" as MLPc
   class KNN<T>
-  
+
   Classifier <|-- SVM
   Classifier <|-- MLPc
   Classifier <|-- KNN
@@ -18,11 +19,11 @@ package java.util.function {
 
 package smile.regression {
   interface Regression<T>
-  
-  class RegressionTree 
+
+  class RegressionTree
   class "MLP" as MLPr
   class "KernelMachine<T>" as KMr
-  
+
   Regression <|-- RegressionTree
   Regression <|-- MLPr
   Regression <|-- KMr
@@ -33,3 +34,34 @@ Regression -left-|>  ToDoubleFunction
 
 'smile.classification -[hidden]right- java.util.function
 'java.util.function -[hidden]right- smile.regression
+
+package smile.data {
+  interface DataFrame
+  interface Tuple
+  interface StructType
+
+  DataFrame "1" o-- "1" StructType
+  DataFrame "0" *-- "N" Tuple
+}
+
+package smile.validation {
+  interface CrossValidation
+
+  interface ClassificationMetric
+  interface RegressionMetric
+
+  ClassificationMetric <|-- Accuracy
+  ClassificationMetric <|-- FScore
+
+  RegressionMetric <|-- MSE
+  RegressionMetric <|-- R2
+}
+
+package smile.feature {
+  interface FeatureTransform
+
+  FeatureTransform <|-- Normalizer
+  FeatureTransform <|-- Scaler
+  FeatureTransform <|-- Standardizer
+}
+@enduml
