@@ -40,6 +40,18 @@
     sensitive=true,
 }
 
-\newcommand{\prolog}[1]{\lstinline[language=Prolog,basicstyle=\ttfamily\normalsize]{#1}}
+\lstdefinelanguage{JavaScript}{
+    keywords={typeof, new, true, false, catch, function, return, null, catch, switch, var, if, in, while, do, else, case, break, let, const},
+    ndkeywords={class, export, boolean, throw, implements, import, this},
+    sensitive=false,
+    comment=[l]{//},
+    morecomment=[s]{/*}{*/},
+    morestring=[b]',
+    morestring=[b]",
+    emph={Companion},
+}
 
+\newcommand{\prolog}[1]{\lstinline[language=Prolog,basicstyle=\ttfamily\normalsize]{#1}}
 \newcommand{\kotlin}[1]{\lstinline[language=Kotlin,basicstyle=\ttfamily\normalsize]{#1}}
+\newcommand{\pl}[1]{\texttt{#1}}
+\newcommand{\kt}[1]{\texttt{#1}}
