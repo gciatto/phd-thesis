@@ -1262,7 +1262,7 @@ There, despite each single instance of the dataset can be trivially translated i
 
 For instance, time series can be easily modelled as $T$-dimensional vectors -- where $T$ is the total amount of available samples --, and the $t^{th}$ component of the vector represents the sample at time $t$;
 %
-free text can be represented as $W$-dimensional vectors -- where $W$ is the total amount of words/bigram/trigram/\ldots in the text --, and
+free text can be represented as $W$-dimensional vectors -- where $W$ is the total amount of words/bigram/trigram/\ldots{} in the text --, and
 the $w^{th}$ component of the vector represents the frequency of the $w^{th}$ word in the text (according to some ordering of words in the text);
 %
 graphs can described by $N \times N$ adjacency matrices---where $N$ is the total amount of nodes into the graph.
@@ -6043,15 +6043,20 @@ A Prolog solver implementation is available as well, leveraging the state-machin
 %
 Furthermore, \twopkt{} involves an API for writing primitives in Kotlin, by blending an imperative, object-oriented, and functional programming style .
 
-In this section, we first illustrate briefly the portion of the \twopkt{} API involving solvers and primitives, then we discuss an example primitive implementing the TSP example from \ref{ssec:tsp}.
+In this section, we first illustrate briefly the portion of the \twopkt{} API involving solvers and primitives, then we discuss an example primitive implementing the TSP example from \cref{ssec:tsp}.
 
 \subsection{\twopkt{} Solvers and Primitives API}
 
 Here we focus on the resolution-related portion of the \twopkt{} API (cf. \cref{chap:ecosystem} for further details).
 %
-There, logic solvers are modelled as instances of the \kotlin{Solver} type defined as follows:
+There, logic solvers are modelled as instances of the \kotlin{Solver} type defined as shown in \cref{lst:interface-solver}:
 %
-\lstinputlisting[language=Kotlin]{listings/Solver.kt}
+\lstinputlisting[
+    float,
+    caption={Interface of a general purpose \kotlin{Solver} in \twopkt{}},
+    label={lst:interface-solver},
+    language=Kotlin
+]{listings/Solver.kt}
 %
 Essentially, a logic solver is any entity exposing a method \kotlin{solve} which accepts a logic \kotlin{Struct}ure -- i.e., a particular case of logic \kotlin{Term} in the \twopkt{} type system -- as the input goal, and produces a \kotlin{Sequence} -- i.e., a \emph{lazy} stream in the Kotlin type system -- of logic \kotlin{Solution}s as output.
 %
@@ -6071,15 +6076,26 @@ So for instance, objects of type \kotlin{Solution.Yes} always contain an object 
 %
 Similarly, objects of type \kotlin{Solution.Halt} carry the uncaught exception which interrupted the resolution process.
 
-Primitives are modelled in \twopkt{} as functions of the type:
+Primitives are modelled in \twopkt{} as functional interfaces, as shown in \cref{lst:interface-primitive},
 %
-\lstinputlisting[language=Kotlin]{listings/Primitive.kt}
+\lstinputlisting[
+    float,
+    caption={Interface of a general-purpose \kotlin{Primitive} in \twopkt{}},
+    label={lst:interface-primitive},
+    language=Kotlin
+]{listings/Primitive.kt}
 %
-i.e., functions accepting a \kotlin{Request} as input and returning a \kotlin{Sequence} of \kotlin{Responses} as output.
+i.e. as functions accepting a \kotlin{Request} as input and returning a \kotlin{Sequence} of \kotlin{Responses} as output.
 %
-There, \kotlin{Request} is a container of all the information needed at runtime to produce a sequence of \kotlin{Response}s:
+There, \kotlin{Request} (cf. \cref{lst:api-request}) is a container of all the information needed at runtime to produce a sequence of \kotlin{Response}s.
 %
-\lstinputlisting[language=Kotlin]{listings/Request.kt}
+%
+\lstinputlisting[
+    float,
+    caption={API of a primitive's \kotlin{Request} in \twopkt{}},
+    label={lst:api-request},
+    language=Kotlin
+]{listings/Request.kt}
 %
 These include:
 %
@@ -6097,9 +6113,14 @@ Finally, each request supports the spawning of an inner resolution process via i
 %
 This method creates a novel sub-solver through which primitive implementers can resolve sub-queries as part of some primitive execution.
 
-Thanks to this design, any Kotlin method of the form:
+Thanks to this design, any Kotlin function of the form shown in \cref{lst:implementation-primitive}
 %
-\lstinputlisting[language=Kotlin]{listings/method.kt}
+\lstinputlisting[
+    float,
+    caption={General structure of a function acting as primitive in \twopkt{}},
+    label={lst:implementation-primitive},
+    language=Kotlin
+]{listings/method.kt}
 %
 can be considered a primitive in the eyes of a logic solver.
 %
@@ -6107,9 +6128,14 @@ This leverages a particular feature of Kotlin, namely the \kotlin{sequence \{ ..
 %
 This is possible because of the \kotlin{yield(value)} method which users may call inside \kotlin{sequence \{ ... \}} blocks in place of \kotlin{return value} to provide values to the stream.
 
-So, for instance, to implement the predicate \prolog{natural/1} -- which holds true for all natural numbers --, one may write the following primitive:
+So, for instance, to implement the predicate \prolog{natural/1} -- which holds true for all natural numbers --, one may write the primitive from \cref{lst:natural-primitive}.
 %
-\lstinputlisting[language=Kotlin]{listings/natural.kt}
+\lstinputlisting[
+    float,
+    caption={Implementation of a primitive aimed at lazily generating all natural numbers in \twopkt{}},
+    label={lst:natural-primitive},
+    language=Kotlin
+]{listings/natural.kt}
 %
 A Prolog solver would then treat such a primitive as a backtrackable predicate.
 %
@@ -6117,7 +6143,12 @@ Thus, in Prolog, one may use the goal \prolog{natural(X)} to enumerate all the n
 %
 Similarly, to implement the predicate \prolog{even/1} -- which holds true for all \emph{even} natural numbers --, one may simply rewrite method \kotlin{natural} as follows:
 %
-\lstinputlisting[language=Kotlin]{listings/even.kt}
+\lstinputlisting[
+    float,
+    caption={Implementation of a primitive aimed at lazily generating all \emph{even} natural numbers in \twopkt{}},
+    label={lst:even-primitive},
+    language=Kotlin
+]{listings/even.kt}
 
 Summarising, \twopkt{} primitives API supports the creation of backtrackable Prolog predicates out of lazy data streams.
 
@@ -6141,11 +6172,13 @@ Following the discussion from \cref{ssec:tsp}, such a Prolog interpreter exposes
 %
 As an ordinary Prolog interpreter, such facts may be either consulted from a \texttt{.pl} file or dynamically asserted via \prolog{assert/1}.
 
-\begin{figure}
-    \lstinputlisting[basicstyle=\ttfamily\tiny,language=Kotlin]{listings/Tsp.kt}
-    \caption{\twopkt{} primitive implementing the \prolog{tsp/3} predicate}
-    \label{lst:2pkt:tsp}
-\end{figure}
+\lstinputlisting[
+    float,
+    basicstyle=\ttfamily\tiny,
+    caption={\twopkt{} primitive implementing the \prolog{tsp/3} predicate},
+    label={lst:2pkt:tsp},
+    language=Kotlin
+]{listings/Tsp.kt}
 
 The actual operational behaviour of predicate \prolog{tsp/3} is governed by the \texttt{Tsp} primitive whose source code (stub) is shown in \cref{lst:2pkt:tsp} (cf. \cite{2P-Kt-TSP-Example} for full source code).
 %
@@ -7071,7 +7104,7 @@ $C_i$ are the class labels corresponding to each leaf.
         \end{align*}
 
     \end{minipage}
-    \caption{Example of \trepan{} output tree (left) and corresponding rules (right).}
+    \caption{Example of \trepan{} output tree (left) and corresponding rules (right)}
     \label{fig:trepanTree}
 \end{figure}
 
