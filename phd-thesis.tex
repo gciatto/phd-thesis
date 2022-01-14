@@ -6882,6 +6882,8 @@ Finally, we plan to exploit our DSL within the scope of XAI \cite{xaisurvey-ia14
 
 \chapter{Bridging LP and Machine Learning}
 
+\mystudentsthesis{Master's}{Castiglio2021}
+
 Symbolic and sub-symbolic AI are complementary under a number of perspectives.
 %
 The same is true for their major techniques, namely logic programming (LP) and neural networks (NN).
@@ -8541,8 +8543,14 @@ Here, the \pl{iris\_dataset/1} attempts to load the data from the local theory i
 \prologimport[
     float,
     label={lst:training},
-    caption={Declarative description of a ML workflow aimed at selecting the best hyper and learning parameters for a NN classifier}
+    caption={Declarative description of a ML workflow aimed at selecting the best hyper and learning parameters for a NN classifier. Ancillary predicates invoked in this snippet are reported in \cref{lst:training-ancillary}}
 ]{listings/training.pl}
+
+\prologimport[
+    float,
+    label={lst:training-ancillary},
+    caption={Ancillary predicates used in \cref{lst:training}. Each predicate denotes one particular step of a model selection workflow}
+]{listings/training-ancillary.pl}
 
 The automatic exploration of a search space subtended by logic resolution could be exploited to perform model selection.
 %
@@ -8561,7 +8569,9 @@ More precisely, the predicate \pl{model\_selection/5} works by
 \begin{enumerate}
     \item splitting the provided \pl{Dataset} into a \pl{TrainingSet} and a \pl{TestSet}, according to a split ratio (\pl{R}) declared by the \pl{test\_percentage/1} fact
     \item declaring and fitting a pre-processing \pl{Transformation} aimed at normalising the \pl{TrainingSet}'s input attributes, and one-hot encoding its output attributes
-    \item applying such \pl{Transformation} to the \pl{TrainingSet}, hence producing a \pl{ProcessedTrainingSet}
+    \item applying such \pl{Transformation} to the \pl{TrainingSet}, hence producing
+    \\
+    a \pl{ProcessedTrainingSet}
     \item stepping through all possible hyper (\pl{HyperParams}) and learning (\pl{LearnParams}) parameters combinations,
     \item training each corresponding predictor, via 10-fold cross validation (CV), and computing its average validation-test performance (\pl{P})
     \item skipping each hyper and learning parameters combination such that the average performance \pl{P} is lower than the target performance \pl{T}
@@ -8571,9 +8581,9 @@ More precisely, the predicate \pl{model\_selection/5} works by
 %
 In other words, the \pl{model\_selection/5} represents a declarative, and pretty general, workflow for model selection---which may be adapted to other supervised learning tasks with minimal changes.
 %
-It relies on a number of predicates declaring some particular steps of the workflow, and exemplifying many \mllib{} functionalities.
+It relies on a number of ancillary predicates declaring some particular steps of the workflow, and exemplifying many \mllib{} functionalities.
 %
-These are reported in \cref{lst:training} as well.
+These are reported in \cref{lst:training-ancillary}.
 %
 For instance, \pl{train\_cv/4} is in charge of performing 10-fold CV on a given \pl{Dataset}, to assess a given \pl{HyperParams}--\pl{LearnParams} combination, to then compute the \pl{AveragePerformance} of the 10 predictors constructed in this way.
 %

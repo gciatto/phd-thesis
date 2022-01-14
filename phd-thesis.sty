@@ -84,6 +84,12 @@
 	\end{flushright}
 }
 
+\newcommand{\mystudentsthesis}[3][chapter]{
+    \begin{flushright}\tiny
+        This #1 contains contributions from the following #2 thesis: \cite{#3}, which we supervised
+    \end{flushright}
+}
+
 \let\oldparagraph\paragraph
 \renewcommand{\paragraph}[1]{\oldparagraph{#1.}}
 
