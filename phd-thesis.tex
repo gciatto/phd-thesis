@@ -95,7 +95,7 @@ On the one side, CL commonly requires
 %
 The former issue, clearly hinders scalability, making CL fall short on the knowledge provisioning side.
 %
-Vice versa, DS is very well suited on this side, as it naturally leverages on scalable algorithms which have been designed mine information semi-automatically from data, possibly scaling up to very large datasets.
+Vice versa, DS is very well suited on this side, as it naturally leverages on scalable algorithms which are designed to mine information semi-automatically from data, possibly scaling up to very large datasets.
 %
 The latter issue, in turn, makes CL poorly suited to handle fuzzy tasks which are hard to formalise or encode symbolically---think, for instance, to the task of handwritten digits recognition.
 %
@@ -1694,7 +1694,7 @@ Of course, there may be cases where $E^-$, $B$ or $C$ are not required, and ther
 
 The main difference among ILP and SLR lays in the particular language used for knowledge representation.
 %
-While in ILP knowledge bases simply consist of bare definite clauses, SRL leverages on a superset of Horn Logic called ProbLog \cite{RaedtKT07}, where definite clauses are enriched with probability values.
+While in ILP knowledge bases simply consist of bare definite clauses, SRL leverages on a superset of Horn Logic called LPAD (Logic Programs with Annotated Disjunctions) \cite{VennekensVB04}, where definite clauses are enriched with probability values.
 
 According to the SLR nomenclature of \cite{DeRaedt2010} -- where a unifying model generalising ILP and SLR is proposed --, there are two relevant problems which lay under the symbolic supervised learning umbrella, namely:
 %
@@ -6250,7 +6250,7 @@ In our perspective, this work represents one further step towards the \emph{prac
 %
 Notably, our contribution presents some similarities with other works~\cite{Tarau2019,Redl16}.
 %
-In particular, similarly to~\cite{Tarau2019}, we focus on letting Prolog manipulate streams of data; while, similarly to~\cite{Redl16}, we provide a mechanism to let logic solvers delegate computations to extenal entities.
+In particular, similarly to~\cite{Tarau2019}, we focus on letting Prolog manipulate streams of data; while, similarly to~\cite{Redl16}, we provide a mechanism to let logic solvers delegate computations to external entities.
 %
 However, differently from~\cite{Tarau2019}, we require no variation to the syntax, functioning, or libraries of Prolog; while, unlike~\cite{Redl16}, we focus on Prolog rather than ASP.
 
@@ -9789,7 +9789,7 @@ There, a probabilistic logic program is interpreted as a concise description of 
 
 Languages adhering to the distribution semantics may in turn differ in how they represent clauses, and their probabilities.
 %
-A successful approach in this context is LPAD (Logic Programs with Annotated Disjunctions), where clauses admit disjunctions of atoms in their heads, and each atom is labelled with a probability value.
+A successful approach in this context is LPAD (Logic Programs with Annotated Disjunctions) \cite{VennekensVB04}, where clauses admit disjunctions of atoms in their heads, and each atom is labelled with a probability value.
 %
 In other words, LPAD is a special notation supporting the definition of non-binary probabilistic distributions over clauses and facts.
 %
