@@ -1518,7 +1518,6 @@ These algorithms can be categorised in several ways, for instance depending on
     \item or on the underlying strategy adopted for learning (e.g. gradient descent, least squares optimization), etc.
 \end{inlinelist}
 
-
 Some learning algorithms (e.g. neural networks) target regression problems, whereas others (e.g. SVM) target classification problems.
 %
 Similarly, some target multi-dimensional outputs ($\mathbf{y} \in \mathbb{R}^m$), whereas others target mono-dimensional outputs ($m = 1$).
@@ -1683,7 +1682,7 @@ Within the realm of symbolic AI, supervised ML commonly refers to either \emph{i
 In both cases, learning consists of approximating an unknown \emph{intensional} representation $H^*$ for a number of positive examples $E^+$, possibly leveraging on
 %
 \begin{itemize}
-    \item some prior KB $B$, carrying the so-called \emph{background knowledge} about the domain at hand;
+    \item some prior knowledge base $B$, carrying the so-called \emph{background knowledge} about the domain at hand;
     \item a number of \emph{negative} examples $E^-$;
     \item a \emph{language bias} $C$, constraining the admissible shapes for the representation to-be-learned.
 \end{itemize}
@@ -1699,7 +1698,7 @@ While in ILP knowledge bases simply consist of bare definite clauses, SRL levera
 According to the SLR nomenclature of \cite{DeRaedt2010} -- where a unifying model generalising ILP and SLR is proposed --, there are two relevant problems which lay under the symbolic supervised learning umbrella, namely:
 %
 \begin{description}
-    \item[parameters learning] where $H$ consists of a given ProbLog KB, where the shape of facts and rules is known, while their probabilities are not, and learning aims at simply estimating those probabilities
+    \item[parameters learning] where $H$ consists of a given LPAD theory, where the shape of facts and rules is known, while their probabilities are not, and learning aims at simply estimating those probabilities
 
     \item[structure learning] where $H$ is completely unknown, and the whole shape of facts and rules therein contained must be computed, possibly along with their corresponding probabilities
 \end{description}
@@ -1804,12 +1803,99 @@ In the particular case of symbolic supervised learning, that mechanism is the la
 
 \subsection{Overview on learning algorithms}
 
+Here we summarize the most relevant sorts of algorithms supporting symbolic supervised learning.
+%
+In particular, we focus on algorithms aimed at learning either the structure or the parameters of logic programs.
+%
+We discuss approaches targeting structure learning first.
+%
+Then, we introduce approaches for parameter learning---which commonly require the structure to be given.
+
+\subsubsection{Structure Learning}
+
 \note{
     Intuition behind the functioning of the algorithms.
-    ProbLog as the main approach to SRL.
     Bottom up or top down approaches in ILP.
     Mention main approaches: relatively least general generalisation, reverse entailment, bottom clause generalisation, meta-interpretative learning.
     Mention major algorithms developed in this field.
+}
+
+Structure learning of logic programs is commonly attained via some ILP algorithm.
+
+Generally speaking, ILP algorithms aim to construct a good -- i.e. \emph{sufficiently} general -- theory $H^*$ entailing all positive examples in $E^+$ and no negative one from $E^-$.
+%
+Clauses from the theory under construction may leverage upon one or more clauses from the background knowledge $B$.
+%
+In other words, ILP algorithms exploit automated inductive reasoning to produce novel symbolic knowledge -- possibly leveraging on previously available symbolic knowledge -- out of positive and negative symbolic examples.
+
+
+Notably, the notion of ``\emph{sufficiently} general theory'' is quite subtle in this context.
+%
+Roughly speaking, a \emph{general} theory should contain one non-ground clauses, from which the positive examples could be attained via variables substitutions or via deduction.
+%
+Despite the expected result of any ILP algorithm is certainly a \emph{general} from which all the positive examples, looking for the \emph{most} -- or \emph{least} -- possible general rule is likely a mistake.
+%
+In other words, as for sub-symbolic ML, generalising too much is as wrong as generalising too little---i.e. drawing rules which are too specific.
+%
+In fact, any inductive inference process may lead to the construction of too general conclusions which do not hold in the real world.
+%
+To prevent this issue, ILP algorithms commonly include some stopping criterion aimed at avoiding both excessive generalization and excessive generalization.
+
+From a very high-level perspective, ILP algorithms can be categorized w.r.t. the strategy they follow in constructing the target theory.
+%
+Top-down algorithms start from a very general theory and they progressively specialise it, until reaching the most general theory among the most specific ones.
+%
+Conversely, bottom-up algorithms follow the inverse path, starting from a very specific theory and then progressively generalising it, until reaching the most general theory among the most specific ones.
+
+In practice, four major approaches have been proposed into the ILP literature -- namely, relative least-general generalization, inverse entailment, bottom-clause propositionalisation, and meta-interpretative learning --, and most algorithms proposed so far rely on some of them.
+
+\paragraph{Relative least-general generalization (RLGG)}
+
+RLGG \cite{Plotkin1971} is a basic mechanism to be exploited in a bottom-up induction strategy.
+%
+It assumes both the background knowledge and the examples to be ground.
+%
+Under this assumption, it subtends a lattice where vertices represent clauses and arcs represent instances of a subsumption relation.
+%
+Such clauses attained by
+%
+\begin{inlinelist}
+    \item combining the literals from the positive examples among each other and with the literals of the clauses in the background knowledge, and by
+    \item replacing common constant terms with variables, accordingly.
+\end{inlinelist}
+
+To perform induction, the resulting lattice should then be explored looking for the best RLGG, i.e. the one covering the more positive examples, while not covering any negative example.
+%
+Unfortunately, however, the lattice may be very large or even infinite, thus further sub-strategies should be in place to
+%
+%The resulting clause may be very large -- or even infinite --, so further sub-strategies should be in place to
+%
+\begin{inlinelist}
+    \item \emph{lazily} generate and explore the lattice,
+    \item prevent it from exploding in size, and
+    \item prune the lattice as quickly and as much as possible.
+\end{inlinelist}
+
+Golem \cite{MuggletonF1990} is an algorithm and former software system exploiting RLGG in practice.
+%
+In a seek for tractability, Golem puts some constraints on the amount and the position of variables in the literal composition phase.
+%
+It starts by constructing a very large clause using positive examples, and, after a number of generalization steps where constant terms are replaced by variables, the clause reaches its final form as the outcome of the induction process.
+%
+Behind the scenes, negative examples are exploited to prune the resulting clause.
+
+\paragraph{Inverse entailment (IE)}
+
+IE \cite{Muggleton95} is another
+
+\paragraph{Bottom-clause propositionalisation (BCP)}
+
+\paragraph{Meta-interpretative learning (MIL)}
+
+\subsubsection{Parameter Learning}
+
+\note{
+    PLP overview
 }
 
 \section{Symbolic vs. Sub-Symbolic Learning}
