@@ -1779,15 +1779,7 @@ To mitigate such issues -- and to reduce the search space --, the ILP community 
 %
 The general purpose of the linguistic bias is to constrain the particular way relations from $B$ can be combined in $H$.
 %
-For instance, in the meta-interpretative learning approach \cite{MuggletonLPT14}, $C$ consists of a library of higher-order rules (a.k.a. meta-rules), which define the admissible sorts of combinations.
-%
-There, a meta-rule is a rule involving higher-order variables enumerating over predicate symbols, such as:
-%
-\begin{equation}\label{eq:meta-rule-example}
-    \textsf{P}(A,\ B) \leftarrow \textsf{Q}(A,\ C),\ \textsf{R}(C,\ B)
-\end{equation}
-%
-where uppercase, sans-serif letters $\textsf{P}, \textsf{Q}, \textsf{R}$ denote higher-order variables, while $A, B, C$ are ordinary variables; and the whole formula allows an induction algorithm to \emph{invent} \cite{MuggletonB88} some binary predicate $\textsf{P}$ by combinations of two binary predicates $\textsf{Q}$ and $\textsf{R}$.
+This can come in different shapes and flavours, depending on the particular ILP method in place.
 
 Consider for instance the case of an ILP problem aimed at learning the positive example $grandparent(\functor{abraham}, \functor{jacob})$, given the background knowledge containing a number of facts expressing parenthood facts of the form $parent(\functor{p}, \functor{p}')$, describing Abraham's family tree---as in \cref{eq:abraham-family-tree}.
 %
@@ -1929,6 +1921,28 @@ In these systems, neural networks are constructed to reflect the background know
 The neural network is then trained, and an induced clause is then reverse-engineered from the network's weights.
 
 \paragraph{Meta-interpretative learning (MIL)}
+
+MIL \cite{MuggletonLPT14} is a modern approach leveraging on the meta-programming capabilities of logic solvers (cf. \cref{chap:reasoning})---and in particular Prolog ones.
+%
+There, ILP is conceived as an higher-order logic task where a logic program (the meta-interpreter) dynamically constructs another logic program (the induced theory) via meta-programming.
+
+There, the linguistic bias consists of a library of higher-order rules (a.k.a. meta-rules), which define the admissible ways the predicates from the examples and the background knowledge may be combined.
+%
+In particular, a meta-rule is a rule involving higher-order variables enumerating over predicate symbols, such as:
+%
+\begin{equation}\label{eq:meta-rule-example}
+    \textsf{P}(A,\ B) \leftarrow \textsf{Q}(A,\ C),\ \textsf{R}(C,\ B)
+\end{equation}
+%
+where uppercase, sans-serif letters $\textsf{P}, \textsf{Q}, \textsf{R}$ denote higher-order variables, while $A, B, C$ are ordinary variables; and the whole formula allows an induction algorithm to \emph{invent} \cite{MuggletonB88} some binary predicate $\textsf{P}$ by combinations of two binary predicates $\textsf{Q}$ and $\textsf{R}$.
+
+Metagol \cite{MuggletonLT15} is the most prominent example of a system following the MIL approach.
+%
+It follows a bottom-strategy starting from the positive examples and using meta-rules to guide the generalization process.
+%
+After generalising all the examples, Metagol checks the consistency of the induced theory against the negative examples.
+%
+Alternative hypotheses may be explored by the meta-interpreter following the underlying solver's semantics---e.g. backtracking in the case of Prolog.
 
 \subsubsection{Parameter Learning}
 
