@@ -1813,14 +1813,18 @@ Then, we introduce approaches for parameter learning---which commonly require th
 
 \subsubsection{Structure Learning}
 
-\note{
-    Intuition behind the functioning of the algorithms.
-    Bottom up or top down approaches in ILP.
-    Mention main approaches: relatively least general generalisation, reverse entailment, bottom clause generalisation, meta-interpretative learning.
-    Mention major algorithms developed in this field.
-}
+%\note{
+%    Intuition behind the functioning of the algorithms.
+%    Bottom up or top down approaches in ILP.
+%    Mention main approaches: relatively least general generalisation, reverse entailment, bottom clause generalisation, meta-interpretative learning.
+%    Mention major algorithms developed in this field.
+%}
 
 Structure learning of logic programs is commonly attained via some ILP algorithm.
+%
+A nice and update survey of ILP is provided by \cite{CropperD2020}.
+%
+Here, we just provide an overview and some references.
 
 Generally speaking, ILP algorithms aim to construct a good -- i.e. \emph{sufficiently} general -- theory $H^*$ entailing all positive examples in $E^+$ and no negative one from $E^-$.
 %
@@ -1886,9 +1890,43 @@ Behind the scenes, negative examples are exploited to prune the resulting clause
 
 \paragraph{Inverse entailment (IE)}
 
-IE \cite{Muggleton95} is another
+IE \cite{Muggleton95} is another basic mechanism supporting the induction of logic clauses following a bottom-up strategy.
+%
+Like RLGG, IE subtends a generality lattice of clauses to be explored.
+%
+However, differently than RLGG, IE may generalize a clause via \emph{predicate invention}---i.e. by generating a bare new predicate, different than the ones in the examples and background knowledge.
+%
+Thanks to predicate invention, IE can lead to the induction of elegant and concise theories composed by one or more interrelated clauses.
+
+While the IE mechanism itself is straightforward, it simply moves the complexity into predicate invention.
+%
+Indeed, linguistic bias in the form of suggestions and constraints for the predicate invention sub-procedure must be commonly provided by the users.
+
+Progol, for instance, is likely the first and most relevant ILP system leveraging upon IE.
+%
+It has been proposed by the same paper \cite{Muggleton95}. %, and it exploits a mixed strategy which can be considered both top-down and bottom-up.
+%
+Notably, it requires the user to provide ``mode declarations'' via an ad-hoc syntax, to define and constrain predicate invention.
+%
+This is required to construct the ``bottom clause'', i.e.  most-specific clause that explains an example.
+%
+Progol then relies upon an A$^*$-like heuristic search -- exploiting a compression score as the heuristic function -- to generalise the clause to make it cover as much examples as possible.
+%
+%The procedure is repeated as
+%
+%Behind the scenes, Progol exploits an A$^*$-like heuristic algorithm to
 
 \paragraph{Bottom-clause propositionalisation (BCP)}
+
+In the BCP approach \cite{Franca2014}, bottom clauses attained by generalising the examples are \emph{propositionalised} -- i.e. brought into attribute-value form -- by using the set of all body literals that occur in them and in the background knowledge's clauses as possible attributes.
+%
+This reduces the logic knowledge into an extensional dataset of fixed size, which can be used to fed sub-symbolic predictors.
+
+C-IL$^2$P \cite{GarcezZ99} and CILP++ \cite{Franca2014} are notable examples of systems perform ILP by relying on BCP and by constructing a neural network behind the scenes.
+%
+In these systems, neural networks are constructed to reflect the background knowledge's and the examples' literals into its structure.
+%
+The neural network is then trained, and an induced clause is then reverse-engineered from the network's weights.
 
 \paragraph{Meta-interpretative learning (MIL)}
 
