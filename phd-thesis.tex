@@ -1814,7 +1814,7 @@ Then, we introduce approaches for parameter learning---which commonly require th
 
 Structure learning of logic programs is commonly attained via some ILP algorithm.
 %
-A nice and update survey of ILP is provided by \cite{CropperD2020}.
+A nice and up-to-date survey of ILP is provided by \cite{CropperD2020}.
 %
 Here, we just provide an overview and some references.
 
@@ -1827,9 +1827,9 @@ In other words, ILP algorithms exploit automated inductive reasoning to produce 
 
 Notably, the notion of ``\emph{sufficiently} general theory'' is quite subtle in this context.
 %
-Roughly speaking, a \emph{general} theory should contain one non-ground clauses, from which the positive examples could be attained via variables substitutions or via deduction.
+Roughly speaking, a \emph{general} theory should contain one or more non-ground clauses, from which the positive examples could be attained via variables substitutions or via deduction.
 %
-Despite the expected result of any ILP algorithm is certainly a \emph{general} from which all the positive examples, looking for the \emph{most} -- or \emph{least} -- possible general rule is likely a mistake.
+Despite the expected result of any ILP algorithm is certainly a \emph{general} theory from which all the positive examples can be inferred, looking for the \emph{most} -- or \emph{least} -- possible general rule is likely a mistake.
 %
 In other words, as for sub-symbolic ML, generalising too much is as wrong as generalising too little---i.e. drawing rules which are too specific.
 %
@@ -1924,7 +1924,7 @@ The neural network is then trained, and an induced clause is then reverse-engine
 
 MIL \cite{MuggletonLPT14} is a modern approach leveraging on the meta-programming capabilities of logic solvers (cf. \cref{chap:reasoning})---and in particular Prolog ones.
 %
-There, ILP is conceived as an higher-order logic task where a logic program (the meta-interpreter) dynamically constructs another logic program (the induced theory) via meta-programming.
+Following the MIL approach, ILP is conceived as an higher-order logic task where a logic program (the meta-interpreter) dynamically constructs another logic program (the induced theory) via meta-programming.
 
 There, the linguistic bias consists of a library of higher-order rules (a.k.a. meta-rules), which define the admissible ways the predicates from the examples and the background knowledge may be combined.
 %
@@ -1945,10 +1945,49 @@ After generalising all the examples, Metagol checks the consistency of the induc
 Alternative hypotheses may be explored by the meta-interpreter following the underlying solver's semantics---e.g. backtracking in the case of Prolog.
 
 \subsubsection{Parameter Learning}
+\label{ssec:parameter-learning}
 
-\note{
-    PLP overview
-}
+Parameter learning is commonly achieved via probabilistic logic programming (PLP).
+%
+The history of PLP starts with the seminal work of \cite{ng1992probabilistic}, and a nice and up-to-date survey is provided by \cite{riguzzi2018}.
+
+In PLP, theories may contain facts or rules enriched with probabilities, which may, in turn, be queried by the users to investigate not only which statements are true or not, but also under which probability.
+%
+To support this behaviour, probabilistic solvers leverage ad-hoc resolution strategies explicitly taking probabilities into account.
+%
+PLP systems may also support the computation of probabilities in presence of data.
+%
+These features make them ideal to deal with uncertainty and the complex phenomena of the physical world.
+%
+It is thus unsurprising that Bayesian and data-driven AI, other than cyber physical systems (CPS), are among the areas which would benefit the most from the development of robust and interoperable PLP technologies.
+
+A variety of research contributions exploring the field of PLP exist in the logic programming literature.
+%
+Proposals often differ for their semantics or syntaxes, or for the way they perform probabilistic reasoning \cite{fierens-2015,kimmig2011implementation,de-raedt-2007,riguzzi-swift-2011}.
+
+Roughly speaking, semantics are concerned with endowing probabilistic programs with meaning.
+%
+Sato's distribution semantics (DS) \cite{sato1995,sato-1997} is one of the most prominent approaches for the combination of logic programming and probability theory.
+%
+There, a probabilistic logic program is interpreted as a concise description of many possible worlds, and the probabilities of queries are solved by summing up their probability in each possible world.
+
+Languages adhering to the distribution semantics may in turn differ in how they represent clauses, and their probabilities.
+%
+A successful approach in this context is LPAD (Logic Programs with Annotated Disjunctions) \cite{VennekensVB04}, where clauses admit disjunctions of atoms in their heads, and each atom is labelled with a probability value.
+%
+In other words, LPAD is a special notation supporting the definition of non-binary probabilistic distributions over clauses and facts.
+%
+However, in practice, probabilistic logic programs may support a certain \emph{evidence} \cite{horwich2016probability} to be provided via unannotated fact/rules which are known to be true, even though they may be defined over some probability distribution.
+
+Finally, concerning probabilistic reasoning, PLP generally supports reasoning tasks (cf. \cref{chap:reasoning}), and each of them has been richly documented in the literature \cite{RaedtK15}.
+%
+Broadly speaking, options range from exact to approximate---the former being more precise and computationally demanding, while the latter being more affordable at the price of lower precision.
+%
+%In the remainder of this chapter we focus on exact methods only.
+%
+In any case, a common strategy is to rely upon knowledge compilation \cite{darwiche2002knowledge} to make probabilistic reasoning efficient---i.e., by transforming logic formul\ae{} into simpler (more tractable) forms.
+%
+Binary decision diagrams (BDD) \cite{akers1978binary,lovato-2014} and their variants/extensions are commonly exploited to serve this purpose \cite{bellodi2013expectation,vlasselaer2014compiling}.
 
 \section{Symbolic vs. Sub-Symbolic Learning}
 
@@ -9859,20 +9898,14 @@ Moreover, it could be interesting to compare results with those obtained by dire
 
 \mypapers{dcc-aixia-2021-plp}
 
-Artificial Intelligence (AI) is progressively conquering the software industry to become one of the most pivotal fields, with a fast-paced evolution of challenges and requirements that existing technologies often fail to match. Accordingly, the increasing demand for transparent and pervasive intelligence is opening new horizons for logic programming (LP) and symbolic AI approaches \cite{lptech4mas-jaamas35,xaiethics-aiia2020,ortega2021symbolic}.
+Artificial Intelligence (AI) is progressively conquering the software industry to become one of the most pivotal fields, with a fast-paced evolution of challenges and requirements that existing technologies often fail to match.
+%
+Accordingly, the increasing demand for transparent and pervasive intelligence is opening new horizons for logic programming (LP) and symbolic AI approaches \cite{lptech4mas-jaamas35,xaiethics-aiia2020,ortega2021symbolic}.
 %
 However, logic-based approaches alone are often not suitable to be integrated with present-day planning and learning workflows, which natively deal with uncertainty and probabilistic decision-making \cite{logictech-information11,xaisurvey-ia14}.
 
-\emph{Probabilistic logic programming} (PLP) \cite{ng1992probabilistic,riguzzi2018} is a research field that investigates the combination of LP with the probability theory.
+Probabilistic logic programming (PLP) \cite{ng1992probabilistic,riguzzi2018} is a research field that investigates the combination of LP with the probability theory (cf. \cref{ssec:parameter-learning}).
 %
-There, theories may contain facts or rules enriched with probabilities, which may, in turn, be queried by the users to investigate not only which statements are true or not, but also under which probability.
-%
-To support this behaviour, probabilistic solvers leverage ad-hoc resolution strategies explicitly taking probabilities into account.
-%
-This makes them ideal to deal with uncertainty and the complex phenomena of the physical world.
-%
-It is thus unsurprising that Bayesian and data-driven AI, other than cyber physical systems (CPS), are among the areas which would benefit the most from the development of robust and interoperable PLP technologies.
-
 State-of-the-art PLP solutions \cite{de-raedt-2007,riguzzi-2007} have reached a considerable level of maturity and theoretical reach.
 %
 Not only has \emph{exact} probabilistic resolution been reified into actual programming languages, but also approximate resolution, and learning of probabilities from data.
@@ -9912,40 +9945,16 @@ Conversely, we aim to open the horizons for wider adoption of LP and PLP, by fav
 In this regard, we describe a number of examples aimed at demonstrating the usability and portability of our PLP solution on multiple runtimes and programming platforms.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Background}\label{sec:background}
+\section{State-of-the-art technologies for PLP}\label{sec:background}
 %%%%%%%%%%%%%%%%%%%%%%%%%
 
-A variety of research contributions exploring the field of PLP exist in the logic programming literature.
+As discussed in \cref{ssec:parameter-learning}, PLP commonly represents probabilistic theories as LPAD (Logic Programs with Annotated Disjunctions) \cite{VennekensVB04}, where clauses admit disjunctions of atoms in their heads, and each atom is labelled with a probability value.
 %
-Proposals often differ for their semantics or syntaxes, or for the way they perform probabilistic reasoning \cite{fierens-2015,kimmig2011implementation,de-raedt-2007,riguzzi-swift-2011}.
+Meaning is provided via Sato's distribution semantics \cite{sato1995,sato-1997}.
+%
+Implementations may rely upon binary decision diagrams (BDD) \cite{akers1978binary,lovato-2014} (or their variants/extensions) to make probabilistic inference more efficient, following the knowledge compilation approach \cite{bellodi2013expectation,vlasselaer2014compiling}.
 
-Roughly speaking, semantics are concerned with endowing probabilistic programs with meaning.
-%
-Sato's distribution semantics (DS) \cite{sato1995,sato-1997} is one of the most prominent approaches for the combination of logic programming and probability theory.
-%
-There, a probabilistic logic program is interpreted as a concise description of many possible worlds, and the probabilities of queries are solved by summing up their probability in each possible world.
-
-Languages adhering to the distribution semantics may in turn differ in how they represent clauses, and their probabilities.
-%
-A successful approach in this context is LPAD (Logic Programs with Annotated Disjunctions) \cite{VennekensVB04}, where clauses admit disjunctions of atoms in their heads, and each atom is labelled with a probability value.
-%
-In other words, LPAD is a special notation supporting the definition of non-binary probabilistic distributions over clauses and facts.
-%
-However, in practice, probabilistic logic programs may support a certain \emph{evidence} \cite{horwich2016probability} to be provided via unannotated fact/rules which are known to be true, even though they may be defined over some probability distribution.
-
-Finally, concerning probabilistic reasoning, PLP generally supports reasoning tasks, and each of them has been richly documented in the literature \cite{RaedtK15}.
-%
-Broadly speaking, options range from exact to approximate---the former being more precise and computationally demanding, while the latter being more affordable at the price of lower precision.
-%
-In the remainder of this chapter we focus on exact methods only.
-
-Along this line, a common strategy is to rely upon knowledge compilation \cite{darwiche2002knowledge} to make probabilistic reasoning efficient---i.e., by transforming logic formul\ae{} into simpler (more tractable) forms.
-%
-\emph{Binary decision diagrams} (BDD) \cite{akers1978binary,lovato-2014} and their variants/extensions are commonly exploited to serve this purpose \cite{bellodi2013expectation,vlasselaer2014compiling}.
-
-\subsection{State-of-the-art technologies for PLP}
-
-A number of programming languages follow the LPAD approach over the DS, there including \problog{} and \cplint{}.
+A number of programming languages follow the LPAD approach over the distribution semantic, there including \problog{} and \cplint{}.
 %
 They both rely on (some variant of) BDD to support probabilistic reasoning.
 %
