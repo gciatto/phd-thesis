@@ -1676,6 +1676,7 @@ Hence why DNN are good at solving complex pattern-recognition tasks, such as in 
 Unfortunately, however, unprecedented predictive performances of DNN come at the cost of their increased internal complexity and greater data greediness.
 
 \section{Symbolic Supervised Learning}
+\label{sec:symbolic-supervised-learning}
 
 Within the realm of symbolic AI, supervised ML commonly refers to either \emph{inductive logic programming} (ILP) \cite{Muggleton91} or \emph{statistical relational learning} (SRL) \cite{DeRaedt2010}, despite the overlap among the two disciplines is wide.
 
@@ -7060,6 +7061,7 @@ Finally, we plan to exploit our DSL within the scope of XAI \cite{xaisurvey-ia14
 
 
 \chapter{Bridging LP and Machine Learning}
+\label{chap:mllib}
 
 \mystudentsthesis{Master's}{Castiglio2021}
 
@@ -10476,7 +10478,7 @@ In contrast to the explicit parallelism, there are no extensions to the logic la
 %
 Instead, concurrency is achieved automatically, by relying on multiple processes/threads/tasks cooperating or competing to explore the proof tree, hence computing solutions to logic queries.
 %
-Accordingly, the aim is to speed up existing and new logic programs without any change to the code.
+Accordingly, the aim of explicit parallelism is to speed up existing and new logic programs without any change to the code.
 
 There are two major sorts of implicit parallelism, namely AND- and OR-parallelism, overviewed below.
 
@@ -10487,7 +10489,7 @@ In particular, it allows the resolution of multiple sub-goals to occur concurren
 This sort of parallelism, as mentioned into \cite{Zhang94} and \cite{YuhuaHL93}, subtends two relevant situations:
 %
 \begin{inlinelist}
-    \item independent sub-goals, where clauses' literals are independent from each other -- as they do not share any variable -- and can be concurrently solved, and.
+    \item independent sub-goals, where clauses' literals are independent from each other -- as they do not share any variable -- and can be concurrently solved, and
     \item dependent sub-goals, where clauses' literals are dependent from each other -- as they share some variables -- and should be solved in some particular order.
 \end{inlinelist}
 %
@@ -10501,49 +10503,58 @@ Mixing these AND- and OR-parallelism together is of course possible, but it impl
 
 \subsection{Why is it interesting}
 
-The technology for sequential implementation of logic programming languages has evolved considerably since its birth.
+The technology supporting the \emph{sequential} implementation of LP languages has evolved considerably since its birth.
 %
 In recent years, it has reached a notable state of maturity and efficiency.
 %
 Today, a wide variety of commercial logic programming systems and excellent public-domain implementations are available that are being used to develop large real-life applications.
 
-For years logic programming has been considered well suited for execution on multiprocessor architectures.
+For years, LP has been considered well suited for execution on multi-processor architectures.
 %
-Indeed research in concurrent logic programming is vast and dates back to the inception of logic programming itself.
+Indeed research in concurrent LP is vast and dates back to the inception of LP itself.
 %
 %There is a healthy interest in parallel logic programming ever since, as is obvious from the number of papers that have been published in proceedings and journals devoted to logic programming and parallel processing.
-However, in practice, software solutions were built on top of
+%However, in practice, software solutions were built on top of ancient software abstractions or tailored on hardware architectures which are not there any more.
+%
+Various systems have been developed during the years to support concurrent LP, each one with different features.
+%
+Unfortunately, most of them are not supported any more while others are now suffering for the design choices which only made sense for the machines they were designed for.
 
-Technology evolved year after year moving from machines with limited resources to modern computers with a multiprocessor and a lot of memory, improving their performances drastically. The software evolved hand in hand with the hardware in all areas, like the operating systems and the programming languages. This evolution raised the abstraction of the technologies available increasing the software development reachable complexity.
-
-There are many types of parallelism and even more techniques to exploit them. Logic programming is very well suited for concurrent resolution because each sub-goal can be solved in parallel. Furthermore each matching clause, when more than one is found, can create a separate resolution branch. While the theory is quite simple, practically many problems arise like, for example, the preservation of the Prolog semantics or the handling of variable dependencies.
-
-Various systems have been developed during the years to support concurrency in logic programming, each one with different features. The problem is that most of them are not supported anymore due to the complexity they have and, furthermore, these systems are designed for the machine available at that particular time.
-
-We want to adapt the vast knowledge on the field of concurrent logic programming to actual technologies, like the modern programming language Kotlin and the lightweight coroutines, to develop a concurrent Prolog solver.
-
-The goal of this thesis is to extend the 2P-Kt ecosystem with Concurrent Logic Programming support and, hence, to till the soil for future works. The contribution of this thesis is four folded: an overview of the state of art on the concurrent logic programming field, the design of an OR-parallel Prolog solver, its implementation and some comparative benchmarks.
-
-The knowledge about concurrency in logic programming is very broad and overwhelming. For ease of reading we report the main aspects available in papers and works about this field, giving an overview to the reader. Then we deepen the concepts useful for our work to support its understanding.
-
-The core of the contribution given by this thesis is the design of an OR-parallel Prolog solver. Firstly we formally describe the design using a labelled transition system and then we present the concrete design of the main entities of the solver.
-
-Another important contribution is the implementation of the concurrent Prolog solver. We keep a high level of abstraction to ease the reusability of each component, but also to increase the extensibility. Furthermore we set up a framework for testing concurrent solvers, which is reusable, extensible and flexible.
-
-The last contribution of this thesis is the measurement of the speedup gained by our solver. This is obtained through comparative benchmarks of the concurrent solver with respect to the sequential Prolog solver.
+Since then, technology has evolved moving from machines with limited resources to modern computers with multi-core processors, and lots of memory, improving their performances drastically.
+%
+Software facilities have evolved hand in hand with the hardware in all areas, like the operating systems, the programming languages, and the concurrency-related primitives they support.
+%
+This evolution raised the abstraction level of the software technologies available for the mainstream programmer.
+%
+Hence, nowadays, there exist a plethora of new methods to support concurrent LP, to be explored.
+%Logic programming is very well suited for concurrent resolution because each sub-goal can be solved in parallel. Furthermore each matching clause, when more than one is found, can create a separate resolution branch. While the theory is quite simple, practically many problems arise like, for example, the preservation of the Prolog semantics or the handling of variable dependencies.
+%
+Thus, it would be interesting to adapt the vast knowledge on the field of concurrent logic programming to actual technologies, like the Kotlin programming language and its lightweight coroutines, to develop concurrent logic solvers.
 
 \subsection{Relation w.r.t. the ecosystem}
 
-ConcurrentSolver API: generic type for concurrent solvers
+Accordingly, in \cite{Giordano2021}, the authors propose to extend the \twopkt{} ecosystem towards concurrent LP, hence, tilling the soil for future works.
+%
+In doing so, they formalize and design OR-parallel solvers, as well as their implementation.
 
-support for primitives in concurrent resolution
+%The knowledge about concurrency in logic programming is very broad and overwhelming. For ease of reading we report the main aspects available in papers and works about this field, giving an overview to the reader. Then we deepen the concepts useful for our work to support its understanding.
 
-design and formalization of OR-concurrent Prolog-like solvers
+More precisely, the authors provide four major contributions.
+%
+First, they propose a general, object-oriented API supporting the definition and construction of concurrent solvers of any form.
+%
+Then, they formally describe the design of an OR-concurrent Prolog-like solver via labelled transition systems---following the state-machine approach adopted in \cref{chap:lp-streams}.
+%
+Third, they provide an implementation for solvers of such a sort, rooted into the \twopkt{} ecosystem.
+%
+Last, but not least, they make the concurrent solver compliant w.r.t. the notion of primitive introduced in \cref{chap:lp-streams}---paving the way towards the creation of concurrent solvers handling stream processing or LP--OOP interoperability scenarios.
 
-OR-concurrent solver module for 2p-kt
+The potential of \twopkt{}-powered concurrent LP lays in the possibility of combining concurrency with ILP (cf. \cref{sec:symbolic-supervised-learning}), as well as the \mllib{} (cf. \cref{chap:mllib}).
+%
+In all such cases, concurrency may speed up learning without corrupting the declarativeness of LP.
 
 
-\section{Graph Neural Network}
+\section{Graph Neural Networks}
 
 \mypapers[section]{gnn-woa2021}
 
