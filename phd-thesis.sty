@@ -55,9 +55,10 @@
 
 \newcommand{\chapterWithoutNumber}[1]{\chapter*{#1}\addcontentsline{toc}{chapter}{#1}}
 
+\newcommand{\finalpart}[2][{}]{\part*{#2}\addcontentsline{toc}{part}{#1}}
+
 \let\oldbibliography\bibliography
 \renewcommand{\bibliography}[1]{
-	\addcontentsline{toc}{part}{}
 	\addcontentsline{toc}{chapter}{\bibname}
 	\oldbibliography{#1}
 }
