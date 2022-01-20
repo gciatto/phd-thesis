@@ -10562,7 +10562,139 @@ In all such cases, concurrency may speed up learning without corrupting the decl
 
 \subsection{Brief overview of the field}
 
+Most ML approaches can handle data having a \emph{fixed} structure and size---most notably, vectors, matrices, or tensors of real numbers.
+%
+This may be troublesome in some contexts, given the ever-increasing popularity of applications involving data which cannot be suitably represented by fixed-size, rigid structures.
+%
+Among the most relevant applications in this category, we can find a number of \emph{graph}-processing scenarios.
+%
+To tackle this issue, research effort has focused on extending ML approaches to graph-structured data.
+%
+Notably, \emph{graph neural networks} (GNN) are a novel approach to let ordinary NN-based processing be applied to graphs.
+
+GNN are mathematical models operating upon \emph{directed} graphs, whose vertices (resp., arcs) are labelled with vectors (or matrices, or tensors) of real numbers, each one carrying further numeric information about the corresponding vertex (resp., arc).
+%
+GNN output depends on the learning task to be performed, which commonly ranging in any of three wide classes of tasks:
+%
+\begin{inlinelist}
+    \item the classification of similar graphs having different topology -- i.e. \emph{graph classification} -- \cite{ShuiIcdm2020},
+    \item the classification of vertices of unknown graphs  -- i.e. \emph{nodes classification} -- \cite{WangCorr2020}, or
+    \item the identification of missing but statistically probable arcs---i.e. \emph{link prediction} \cite{FanWww2019}.
+\end{inlinelist}
+
+Graphs handled by GNN usually carry information in the form of vertices and arcs vectors/matrices/tensors.
+%
+Consider for instance the graph representation of a chemical molecule: it is necessary to represent the sort of atomic element associated with each vertex.
+%
+The same holds for the details of the chemical bonds among two any atoms of a molecule---which must be associated with the graph's arcs.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=.8\linewidth]{figures/gnn_workflow_1.pdf}
+    \caption{Graph Neural Networks are composed as a cascade of simpler blocks.}
+    \label{fig:gnn_blocks_1}
+\end{figure}
+
+\Cref{fig:gnn_blocks_1} depicts the general architecture of a GNN.
+%
+It consists of a cascade of three functional blocks (each one composed by one or more layers of neurons) serving specific purposes, namely:
+%
+\begin{enumerate}
+    \item the \emph{convolutor} block, which is in charge of accepting the graph $G$ as input and producing a new \emph{convoluted} graph $G'$ as output, having the same topology of $G$, where the vector associated with each vertex $v$ has been replaced by another vector describing the relevance of each vertex w.r.t. the whole graph $G$.
+    %
+    Convolutor block relies on convolution operation, extensively exploited in DL to express relevance of local data w.r.t.\ to global data.
+    %
+    Howenver, the application of convolution operation to non-Euclidean data -- like graphs -- is not straightforward.
+    %
+    An equivalent notion of convolution over graphs has been proposed to compute the relevance of each vertex w.r.t. to its neighbours.
+
+    \item the \emph{aggregator} block, which is in charge of computing a fixed-sized, tensorial representation of the graph $G'$ (i.e. an \emph{embedding} of $G$)
+
+    \item the \emph{predictor} block, which acts as an ordinary NN on top of the embedding computed by the previous block, hence supporting regression or classification tasks on the graph $G$.
+\end{enumerate}
+
 \subsection{Why is it interesting}
+
+Computational Logics (CL) essentially deals with logics as a means for computing \cite{Paulson2018}.
+%
+Provided that knowledge can be expressed in terms of logic theories (a.k.a. knowledge bases, KB), made up of several logic clauses, CL endows software agents with automated reasoning capabilities, via many sorts of \emph{inference} rules.
+
+%Despite the variety of algorithms and procedures provided by CL to attain automated reasoning, a logical formalism aimed at representing knowledge and expressing inference rules is always the underlying requirement.
+%%
+%The language of first order logic (FOL) is a common choice to serve this purpose, as well as Horn logic---which is a subset of FOL.
+%%
+%They both deal with the syntactic and semantic aspects of automatic knowledge manipulation.
+%%
+%On the syntactic level, they dictate how knowledge can be represented as formul\ae{} involving terms, predicates, relations, logic connectors, variables, and quantifiers.
+%%
+%On the semantic level, they govern how inferences can be attained over those formul\ae{}, via ad-hoc algorithms.
+%
+%Our focus here is on the syntactic level, and, in particular, on the many ways to let a (G)NN accept a knowledge base as input---to perform sub-symbolic computations on it.
+%%
+%A fundamental aspect along this line regards the way knowledge bases can be encoded into graphs---and, possibly, vice versa.
+%%
+%Accordingly, we briefly recall the definitions of \emph{clause} and \emph{knowledge base} from CL, and we discuss the many ways a graph can be attained out of them.
+%%
+%In particular, and without lack of generality, we focus on Horn logic to simplify the notation, as well as our discussion.
+%
+%\paragraph{Horn clauses}
+%
+%A Horn clause is a formula of the form $h \leftarrow b_1 \wedge \ldots \wedge b_n$ where all $b_i$ (for $i = 1, \ldots, n$) as well as $h$ are predicates, i.e. statements (or compositions of statements) about one or more entities, represented by logic terms.
+%%
+%Predicates may be atomic -- e.g. $p(t_1, t_2, \ldots)$ s.t. each $t_j$ is a term --, or compositions of simpler predicates via logic connectives or other predicate symbols---e.g. $\vee$, $\rightarrow$, $>$, $\mathit{fatherOf}$, etc.
+%%
+%Terms may be constants (e.g. numbers, or strings), variables (i.e. placeholders for unknown terms), or compositions of simpler terms via functor symbols---e.g. $f(t_1, t_2, \ldots)$ s.t. each $t_j$ is a term.
+%%
+%A term containing no variable -- neither directly nor recursively -- is called \emph{ground}, similarly to any clause whose predicates only contain ground terms.
+%%
+%A knowledge base is a collection of clauses.
+%%
+%Similarly to clauses, knowledge bases are ground if they only contain ground clauses.
+
+%\paragraph{KB as graphs.}
+
+Knowledge bases can be encoded into graphs in several ways and to serve disparate purposes.
+%
+Generally speaking, KB can be encoded into graphs by aggregating the graphs attained by encoding all clause therein contained.
+%
+In all such cases, encoding schemas can act at either the \emph{semantic} or at the \emph{syntactic } level.
+
+%\subparagraph{Syntactic level.}
+
+Encoding schemas operating at the \emph{syntactic} level capture static relationships inferable from the mere syntax of clauses and KB.
+%
+Abstract syntax trees (AST) are the simplest example of graphs which can be attained from KB.
+%
+They consist of direct acyclic graphs where %each vertex has no more than one ingoing arc.
+%
+%There,
+vertices are of as many sorts as the possible syntactical categories of which may occur in a KB -- namely, theories, clauses, predicates, or terms --, whereas arcs simply describe container-contained relations among vertices.
+%
+%Each vertex may then carry further information, such as the predicate symbol of each predicate -- which makes sense for predicates' vertices --, or the functor symbol of each term vertex---which only makes sense for terms' vertices.
+%%
+%Edges as well may carry further information, such as the position of a contained vertex into its container---which makes sense for clauses', predicates', and terms' vertices.
+%
+Dependency graphs are another kind of graph that may be attained from a KB.
+%
+They consist of directed graphs where each vertex represents a predicate, and each arc represents a logic dependency among two predicates---meaning that the predicate corresponding to the destination vertex must be proven true before the predicate corresponding to the source vertex, in a resolution process.
+
+%\subparagraph{Semantic level.}
+
+Encoding schemas operating at the \emph{semantic} level capture high level relationships that can be inferred from the actual meaning of a logic theory.
+%
+Entity-Relationship (ER) graphs are the simplest kind of graph in this category.
+%
+They aim at expressing via graphs the same information a ground KB expresses via formul\ae{}.
+%
+They consist of directed graphs where vertices may either represent entities (i.e. terms) or relationships (i.e. predicates) and arcs represent the participation of an entity into a relationship.
+%
+Triplet graphs are another simple way of representing ground theories where all terms are constants and all predicates are either unary or binary.
+%
+When this is the case, each constant is considered an entity, binary predicates are considered as relations among two entities, and unary predicates are considered as properties an entity may or may not have.
+%
+Thus, a graph can be attained by defining a vertex for each different constant in a KB, and arc for each couple of constants involved in at least a binary predicate.
+%
+%Vertices may then carry further information describing which properties (i.e. unary predicates) are true for the corresponding entity (i.e. constant) in the KB, whereas arcs may carry further information describing which relations (i.e. binary predicates) the two entities (i.e. constants) are involved into.
 
 \subsection{Relation w.r.t. the ecosystem}
 
