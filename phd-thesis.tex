@@ -10554,7 +10554,7 @@ The potential of \twopkt{}-powered concurrent LP lays in the possibility of comb
 In all such cases, concurrency may speed up learning without corrupting the declarativeness of LP.
 
 
-\section{Graph Neural Networks}
+\section{Graph Neural Networks for Computational Logic}
 
 \mypapers[section]{gnn-woa2021}
 
@@ -10570,7 +10570,7 @@ Among the most relevant applications in this category, we can find a number of \
 %
 To tackle this issue, research effort has focused on extending ML approaches to graph-structured data.
 %
-Notably, \emph{graph neural networks} (GNN) are a novel approach to let ordinary NN-based processing be applied to graphs.
+Notably, \emph{graph neural networks} (GNN) \cite{WuNeuralnetworkslearningsystems2021} are a novel approach to let ordinary NN-based processing be applied to graphs.
 
 GNN are mathematical models operating upon \emph{directed} graphs, whose vertices (resp., arcs) are labelled with vectors (or matrices, or tensors) of real numbers, each one carrying further numeric information about the corresponding vertex (resp., arc).
 %
@@ -10601,63 +10601,35 @@ It consists of a cascade of three functional blocks (each one composed by one or
 %
 \begin{enumerate}
     \item the \emph{convolutor} block, which is in charge of accepting the graph $G$ as input and producing a new \emph{convoluted} graph $G'$ as output, having the same topology of $G$, where the vector associated with each vertex $v$ has been replaced by another vector describing the relevance of each vertex w.r.t. the whole graph $G$.
-    %
-    Convolutor block relies on convolution operation, extensively exploited in DL to express relevance of local data w.r.t.\ to global data.
-    %
-    Howenver, the application of convolution operation to non-Euclidean data -- like graphs -- is not straightforward.
-    %
-    An equivalent notion of convolution over graphs has been proposed to compute the relevance of each vertex w.r.t. to its neighbours.
 
     \item the \emph{aggregator} block, which is in charge of computing a fixed-sized, tensorial representation of the graph $G'$ (i.e. an \emph{embedding} of $G$)
 
     \item the \emph{predictor} block, which acts as an ordinary NN on top of the embedding computed by the previous block, hence supporting regression or classification tasks on the graph $G$.
 \end{enumerate}
 
+Notably, the convolutor and aggregator block aim at converting an arbitrarily-sized graph into a fixed-side tensorial representation, upon with ordinary sub-symbolic processing can be performed.
+%
+The convolutor block, in particular, relies on convolution operation, extensively exploited in DL to express relevance of local data w.r.t.\ to global data.
+%
+However, the application of convolution operation to non-Euclidean data -- like graphs -- is not straightforward.
+%
+An equivalent notion of convolution over graphs has been proposed to compute the relevance of each vertex w.r.t. to its neighbours.
+
 \subsection{Why is it interesting}
 
-Computational Logics (CL) essentially deals with logics as a means for computing \cite{Paulson2018}.
+In \cite{gnn-woa2021}, we discuss the problem of enabling the sub-symbolic processing of logic knowledge-bases.
 %
-Provided that knowledge can be expressed in terms of logic theories (a.k.a. knowledge bases, KB), made up of several logic clauses, CL endows software agents with automated reasoning capabilities, via many sorts of \emph{inference} rules.
+In particular, we focus on the exploitation of neural networks (NN) as a means to complement computational logic (CL) when it comes to process symbolic data expressed in logic form.
+%
+More precisely, we study the possible use of graphs as a bridge between CL and neural networks.
+%
+Notably, we consider graphs as the ideal bridge because of their versatility in representing virtually any sort of data structures, there including recursive ones---an aspect that is very common in logics as well as quite critical in ML.
 
-%Despite the variety of algorithms and procedures provided by CL to attain automated reasoning, a logical formalism aimed at representing knowledge and expressing inference rules is always the underlying requirement.
-%%
-%The language of first order logic (FOL) is a common choice to serve this purpose, as well as Horn logic---which is a subset of FOL.
-%%
-%They both deal with the syntactic and semantic aspects of automatic knowledge manipulation.
-%%
-%On the syntactic level, they dictate how knowledge can be represented as formul\ae{} involving terms, predicates, relations, logic connectors, variables, and quantifiers.
-%%
-%On the semantic level, they govern how inferences can be attained over those formul\ae{}, via ad-hoc algorithms.
-%
-%Our focus here is on the syntactic level, and, in particular, on the many ways to let a (G)NN accept a knowledge base as input---to perform sub-symbolic computations on it.
-%%
-%A fundamental aspect along this line regards the way knowledge bases can be encoded into graphs---and, possibly, vice versa.
-%%
-%Accordingly, we briefly recall the definitions of \emph{clause} and \emph{knowledge base} from CL, and we discuss the many ways a graph can be attained out of them.
-%%
-%In particular, and without lack of generality, we focus on Horn logic to simplify the notation, as well as our discussion.
-%
-%\paragraph{Horn clauses}
-%
-%A Horn clause is a formula of the form $h \leftarrow b_1 \wedge \ldots \wedge b_n$ where all $b_i$ (for $i = 1, \ldots, n$) as well as $h$ are predicates, i.e. statements (or compositions of statements) about one or more entities, represented by logic terms.
-%%
-%Predicates may be atomic -- e.g. $p(t_1, t_2, \ldots)$ s.t. each $t_j$ is a term --, or compositions of simpler predicates via logic connectives or other predicate symbols---e.g. $\vee$, $\rightarrow$, $>$, $\mathit{fatherOf}$, etc.
-%%
-%Terms may be constants (e.g. numbers, or strings), variables (i.e. placeholders for unknown terms), or compositions of simpler terms via functor symbols---e.g. $f(t_1, t_2, \ldots)$ s.t. each $t_j$ is a term.
-%%
-%A term containing no variable -- neither directly nor recursively -- is called \emph{ground}, similarly to any clause whose predicates only contain ground terms.
-%%
-%A knowledge base is a collection of clauses.
-%%
-%Similarly to clauses, knowledge bases are ground if they only contain ground clauses.
-
-%\paragraph{KB as graphs.}
-
-Knowledge bases can be encoded into graphs in several ways and to serve disparate purposes.
+Symbolic knowledge bases can be encoded into graphs in several ways and to serve disparate purposes.
 %
 Generally speaking, KB can be encoded into graphs by aggregating the graphs attained by encoding all clause therein contained.
 %
-In all such cases, encoding schemas can act at either the \emph{semantic} or at the \emph{syntactic } level.
+In all such cases, encoding schemas can act at either the \emph{semantic} or at the \emph{syntactic} level.
 
 %\subparagraph{Syntactic level.}
 
