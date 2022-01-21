@@ -8860,6 +8860,7 @@ This is made possible by our logic API for ML, which reduces the abstraction gap
 The second thread concerns the extensions of the \mllib{}, which should be eventually delivered to cover currently unsupported functionalities---as well as other ML predictors than NN.
 
 \chapter{Bridging LP and XAI}
+\label{chap:psyke}
 
 \mypapers{psyke-woa2021}
 
@@ -10953,7 +10954,7 @@ Works by \cite{Ballard86,TrespHA92} describe methods of the latter sort.
 %
 Finally, approaches of the third sort attempt to \emph{embed} symbolic knowledge into tensorial form to then be processed via ordinary NN, as well as other ML predictors.
 %
-The GNN-based manipulation of logic theories discussed in \cref{sec:gnn} is an approach of this sort, as well as the many methods for knowledge graph embedding---nicely surveyed in \cite{WangMWG17}.
+The GNN-based manipulation of logic theories discussed in \cref{sec:gnn} falls under this category, as well as the many methods for knowledge graph embedding---nicely surveyed in \cite{WangMWG17}.
 
 Accordingly, all such approaches may leverage upon one or more strategies to manipulate symbolic knowledge.
 %
@@ -10990,14 +10991,46 @@ As discussed in \cref{chap:explaining}, a major issue in supervised ML is the us
 It is not trivial to understand what NN actually learn from training data, and how they generalise from that data to the whole domain.
 %
 Currently, state of the art solutions address this issue by supporting their inspection via a plethora of different mechanisms \cite{GuidottiMRTGP19}.
+%
+On our side, the same issue is tackled via symbolic knowledge extraction, as discussed in \cref{chap:psyke}.
 
-In this work we tackle the problem from another prospective.
+However, a third way is possible.
 %
-We discuss how prior \emph{symbolic} knowledge can be \emph{injected} (SKI) into NN, during learning, in order to endow them with the designer's common sense.
+Thanks to SKI, sub-symbolic predictors can be made safe \emph{by-construction}, as they can be trained by taking the the designer's common sense -- suitably represented in symbols -- into account.
 %
-The injected knowledge may thus encourage the NN to learn desired information, while preventing it from violating the designer's constraints---expressed by symbols.
+In other words, SKI lets us circumvent the opacity issue of ML predictors.
+%
+Indeed, the injected knowledge may encourage the NN to learn desired information, while preventing it from violating the designer's constraints---expressed by symbols.
+
+More generally, SKI enables a higher degree of \emph{control} over a sub-symbolic predictor and its behaviour, constraining it with human-like common-sense---suitably encoded into symbolic form.
+%
+In this way, data scientists may \emph{correct} a misbehaving predictor or train one despite lack of examples describing a particular phenomenon.
+%
+For example, symbolic knowledge may encode impossible or meaningless situations to be avoided (e.g. ``if $X$ has two legs, then $X$ cannot be a cat''), as well as obvious (for the human) relations which may be hard (for the predictor) to learn from data alone (e.g. ``if $X$ is $Y$'s parent, then $Y$ is $X$'s child'').
+
+Furthermore, the greatest potential comes from the \emph{combined} exploitation of SKE and SKI.
+%
+Indeed, they can be exploited cascade-like fashion where sub-symbolic predictors are
+%
+\begin{inlinelist}
+    \item inspected (via SKE),
+    \item debugged, and
+    \item fixed (via SKI)
+\end{inlinelist}
+%
+by data scientists, as part of their ML workflows.
 
 \subsection{Relation w.r.t. the ecosystem}
+
+SKI is dual w.r.t. to SKE, as the former aims at injecting symbolic knowledge into ML predictors, and the latter aims at extracting it.
+
+In \cref{chap:psyke}, we propose the design and implementation of \psyke{}, i.e. our platform for SKE.
+%
+There, the \twopkt{} ecosystem supports the construction of logic rules, as part of the extraction process.
+
+We envision a similar, yet dual platform for SKI, namely \psyki{}, providing a general-purpose notion of \emph{Injector}, with many possible implementations---each one reifying a particular injection algorithm/method.
+%
+There, the \twopkt{} ecosystem would support the representation and (programmatic) manipulation of the symbolic knowledge acting as input of the injection process.
 
 \section{Tuple-based Coordination}
 
