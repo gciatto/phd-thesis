@@ -11041,9 +11041,113 @@ There, the \twopkt{} ecosystem would support the representation and (programmati
 
 \subsection{Brief overview of the field}
 
+Coordination is the discipline of enabling and constraining interactions among software components \cite{ciancarini-acmcs28} or, more generally, of managing the dependencies among activities \cite{coordination-csur26}.
+%
+In a world were billions of computational machines have access to the Internet, this translates to governing the interactions among devices and services, so as to fully realise the system functionality, through appropriate technologies backed by well-founded models.
+
+Among the many coordination models, tuple-based ones are the most studied \cite{techsurvey-coord2018}, mainly due to their expressiveness, elegance, and flexibility.
+%
+There, interaction among computational entities of a system are mediated by a \emph{tuple space}, the data repository ruling \emph{associative access} to information chunks called \emph{tuples}.
+%
+Tuples may represent messages by interacting components, data they intend to share, or a reification of the events of interest for them.
+%
+In tuple spaces, interaction is governed by defining \emph{how} and \emph{when} agents are allowed to \emph{insert}, \emph{read}, or \emph{consume} data.
+
+\linda{} is the archetypal tuple-based coordination model \cite{linda-toplas7}.
+%
+It lets interacting agents share tuples in tuple spaces by means of three primitive operations: \texttt{out}, to produce a tuple; \texttt{rd}, to read a tuple; and \texttt{in}, to consume a tuple.
+%
+The set of the basic \linda{} primitives could be interpreted as constituting a sort of API of a tuple space, whose essential features enable agents to synchronise their activities (hence coordinate): \emph{generative} communication, \emph{associative} access, and \emph{suspensive} semantics.
+
+Generative communication makes tuples exist in tuple spaces \emph{independently} of their creators -- that is, tuples sprout with an \texttt{out} and die with an \texttt{in}, regardless of the life of the producer --, and supports \emph{reference} (or, \emph{name}), \emph{time}, and \emph{space uncoupling} among interacting processes.
+%
+Associative access makes tuples be accessed (i.e.\ either consumed or observed) through \emph{templates} predicating over their content -- e.g., regular expressions can work as templates for tuples represented as strings --, and supports dealing with \emph{partial information} and \emph{incomplete knowledge}: \emph{getter primitives} (\texttt{rd}, \texttt{in}) expect a template as their argument and return a \emph{matching tuple}.
+%
+Finally, suspensive semantics makes getter primitives \emph{wait to be served} until a tuple matching given the provided template becomes available -- when the waiting primitive is eventually \emph{completed} returning the matching tuple --, and supports \emph{synchronisation} (ordering) of actions, hence coordination of activities.
+
 \subsection{Why is it interesting}
 
+As witnessed by the large amount of \linda{}-based technologies exploiting FOL terms as tuples (cf. \cite{coordination-jlamp2020}), the history of tuple-based coordination is deeply entangled with CL.
+%
+There, FOL brought key benefits to the field of Coordination, and vice versa.
+
+Indeed, from a Coordination perspective, FOL enables
+%
+\begin{inlinelist}
+    \item the exchange of arbitrarily complex data, possibly intensionally represented, and
+    \item powerful and expressive associative access, based on logic unification.
+\end{inlinelist}
+%
+Furthermore and foremost, FOL enables the coordination of intelligent software agents via the \emph{direct} exchange of logic knowledge.
+%
+This particular aspect is considered very relevant within the MAS community.
+
+Conversely, from a logic perspective, \linda{}'s tuple spaces provide a means to support explicit parallelism among two or more logic solvers.
+%
+There, logic solvers act as independent agents running in parallel, and tuple spaces act as shared blackboards upon which all such agents can read, write, or delete tuples to coordinate their reasoning processes.
+%
+This is in turn the basic brick enabling many sorts of competitive or cooperative protocols.
+
 \subsection{Relation w.r.t. the ecosystem}
+
+Unfortunately, logic-based technologies in the field of Coordination are characterised by an high degree of obsolescence, as we further discuss in \cite{coordination-jlamp2020}.
+%
+In many cases, technologies are unmaintained, proof of concepts, or based on other logic-based technologies subject to the same issues.
+%
+The overall effect is that most of them are inadequate to serve the needs of modern Web-, Cloud-, or Edge-based applications, because of their poor interoperability.
+%
+To mitigate this issue, in \cite{tusow-icccn2019}, we propose a layered reference model, architecture, and technology for tuple-based coordination, namely \tusow{} (Tuple Spaces over the Web).
+
+%%%%
+\begin{figure}
+    \centering
+    \includegraphics[width=.5\linewidth]{figures/tusow-architecture.pdf}
+    \caption{\tusow{} architecture. Circles represent \tusow{} remote API. Clients API exploiting \mqtt{} and \grpc{} remote API are not depicted.}
+    \label{tusow-components}
+\end{figure}
+%%%%
+
+\tusow{} is modelled according to the \emph{Coordination as a Service} (Coord-aaS) architecture \cite{coord-fundinfo73}, where clients are the software entities requiring coordination services to achieve their goals.
+%
+Clients may communicate with services, hence interact \emph{through} tuple spaces, by means of a set of \emph{remote API} geared toward different settings, including HTTP, WebSockets, \grpc{}, and \mqtt{}.
+%
+This is made possible by \tusow{}'s modular architecture, whose main components are shown in \cref{tusow-components}.
+
+At the architectural level, \tusow{} consists of a core module defining the base types for tuples, templates, matchings, and tuple spaces, which is then specialised by different implementation modules---one for each pair of tuple-template languages.
+%
+All implementations support \emph{local} coordination of multiple concurrent processes, threads, or agents running on the same machine.
+%
+Distribution is enabled by the \emph{remote API}.
+%
+Remote API reifies the Coord-aaS notion upon different technologies, targeting different settings.
+%
+Currently, \tusow{} supports three mainstream technologies widely used in \cps{} and \wot{}/\iot{} scenarios: HTTP, \grpc{}, and \mqtt{}.
+
+Notably, \tusow{} represents data (e.g.\ tuples) and queries (e.g.\ templates) is modular as well, and independent of the remote API.
+%
+The idea of making \linda{} primitives orthogonal w.r.t.\ the specific tuple / template language adopted is not new, as it has already been extensively discussed in \cite{coord-sac99}, for instance.
+%
+Nevertheless, to the best of our knowledge, no existing implementation allows for this, although in \cite{coordination-woa2017} an intuition concerning the potential of supporting several tuple / template languages is discussed.
+
+In particular, \tusow{} lets clients represent tuples with
+%
+\begin{itemize}
+    \item YAML, JSON, and XML formats | to target web-related contexts such as \soa{} and \rest{}ful web services;
+    %
+    \item first order logic (FOL) terms -- in particular Prolog concrete syntax -- to target intelligent agents and multi-agents systems;
+    %
+    \item plain text documents as a fallback for contexts where structuring knowledge is neither possible nor desirable.
+\end{itemize}
+%
+In principle, any other data representation format / language may be supported, thanks to \tusow{} modular architecture.
+%
+Each data representation format comes with one or more preferred ways for retrieving or querying data stored with that format, hence, to express templates and perform matching.
+%
+For instance, JSON or YAML data can be queried through JsonPath, in the same way as XML data are queried through XPath.
+%
+Plain text is often queried through Regular Expressions, whereas FOL terms may be matched against other FOL terms through unification.
+%
+Of course, the exploitation of terms and unification in \tusow{} is made possible by \twopkt{}.
 
 \section{Inductive Logic Programming}
 
