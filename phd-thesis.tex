@@ -9638,7 +9638,7 @@ The extracted theory is dependent on the training set; different training instan
 %
 An example of \real{} applied to a MLP is reported in the following:
 %
-\prologimport{listings/iris-real.pl}
+\prologimport[nolol]{listings/iris-real.pl}
 
 The theory produces an input space partitioning as reported in \cref{fig:real-mlp}.
 %
@@ -9660,7 +9660,7 @@ We plan to implement in the future other methods for \emph{if-then} splits as we
 
 An example of output theory obtained by applying \trepan{} to a 5-NN is reported in the following:
 %
-\prologimport{listings/iris-trepan.pl}
+\prologimport[nolol]{listings/iris-trepan.pl}
 %
 This theory produces an input space partitioning as reported in \cref{fig:trepan-knn}.
 %
@@ -9680,7 +9680,7 @@ In the same way as many other algorithms, \cart{} is able to achieve comparable 
 %
 In the following an example of theory obtained with \cart{} applied to the DT trained with the continuous Iris data set is reported:
 %
-\prologimport{listings/iris-cart.pl}
+\prologimport[nolol]{listings/iris-cart.pl}
 %
 \Cref{fig:cart-dt-cont} reports the corresponding input space partitioning.
 %
@@ -9688,7 +9688,7 @@ The output rules are always exhaustive.
 %
 The same data set, but previously one-hot encoded, leads to the following theory and to the partitioning reported in \cref{fig:cart-dt-cla}:
 %
-\prologimport{listings/iris-cart-1hot.pl}
+\prologimport[nolol]{listings/iris-cart-1hot.pl}
 
 \subsubsection{Results}\label{sssec:resultsClass}
 
@@ -9801,7 +9801,7 @@ All the considerations reported for the classification case in \cref{sssec:cartC
 %
 An example of theory obtained with \cart{} applied to a DT regressor is the following:
 %
-\prologimport{listings/ccpp-iter.pl}
+\prologimport[nolol]{listings/ccpp-iter.pl}
 %
 \Cref{fig:cart-dt} reports the corresponding input space partitioning.
 %
@@ -9839,7 +9839,7 @@ Rules can be simplified by removing predicates that are always trivially true---
 %
 For example, second and third rule of the theory reported in \cref{sssec:real} could be simplified to output a more compact theory:
 %
-\prologimport{listings/iris-real-improved.pl}
+\prologimport[nolol]{listings/iris-real-improved.pl}
 %
 Both theories are equivalent since the first rule in the original theory implies that in the following rules the \kt{PetalWidth} attribute is always greater than 0.78, whereas the second rule implies that the third rule will be evaluated only if the \kt{PetalLength} attribute has not a value included in the specified interval.
 %
@@ -9857,7 +9857,7 @@ All the predicates except the one containing the greatest (smallest) constant ca
 
 By applying all these rules to the theory regarding the binarised Iris data set presented in \cref{sssec:cartClass} it is possible to simplify all the rules except the first one and thus to obtain the following theory:
 %
-\prologimport{listings/iris-cart-improved.pl}
+\prologimport[nolol]{listings/iris-cart-improved.pl}
 %
 This theory can be further simplified by applying the first strategy described in this section, i.e., by substituting the third and fourth rules with a unique rule having as body \kt{true}.
 %
@@ -10296,7 +10296,7 @@ Once solutions are found, the \emph{solver piloting engine} extracts the two ter
 
 \begin{figure}[t]
     \begin{subfigure}{0.4\textwidth}
-        \lstinputlisting[language=Prolog, basicstyle=\tiny\ttfamily]{listings/probabilistic-graph.pl}
+        \lstinputlisting[nolol,language=Prolog, basicstyle=\tiny\ttfamily]{listings/probabilistic-graph.pl}
     \end{subfigure}
     \begin{subfigure}{0.57\linewidth}
         \includegraphics[width=\linewidth]{figures/valid-probabilistic-graph.pdf}
@@ -10357,13 +10357,13 @@ Notably, BDD representation is yet another function of our IDE, attained via an 
 
 \begin{figure}
     %    \begin{adjustbox}{width=.8\linewidth,center}
-        \lstinputlisting[language=Kotlin, basicstyle=\tiny\ttfamily, label={lst:probabilistic-graph-kt}]{listings/probabilistic-graph.kt}
+        \lstinputlisting[nolol,language=Kotlin, basicstyle=\tiny\ttfamily, label={lst:probabilistic-graph-kt}]{listings/probabilistic-graph.kt}
         %   \end{adjustbox}
     %   \begin{adjustbox}{width=.8\linewidth,center}
-        \lstinputlisting[language=Python, basicstyle=\tiny\ttfamily, label={lst:probabilistic-graph-py}]{listings/probabilistic-graph.py}
+        \lstinputlisting[nolol,language=Python, basicstyle=\tiny\ttfamily, label={lst:probabilistic-graph-py}]{listings/probabilistic-graph.py}
         %    \end{adjustbox}
     %\begin{adjustbox}{width=.8\linewidth,center}
-    \lstinputlisting[language=JavaScript, basicstyle=\tiny\ttfamily, label={lst:probabilistic-graph-js}]{listings/probabilistic-graph.js}
+    \lstinputlisting[nolol,language=JavaScript, basicstyle=\tiny\ttfamily, label={lst:probabilistic-graph-js}]{listings/probabilistic-graph.js}
     %    \end{adjustbox}
 \caption{Usage of \twopkt's \problog{} module ``as a library'' on multiple programming languages}
 \label{fig:problog-as-a-library}
@@ -10554,6 +10554,7 @@ The potential of \twopkt{}-powered concurrent LP lays in the possibility of comb
 In all such cases, concurrency may speed up learning without corrupting the declarativeness of LP.
 
 \section{Graph Neural Networks for Computational Logic}
+\label{sec:gnn}
 
 \mypapers[section]{gnn-woa2021}
 
@@ -10912,11 +10913,89 @@ Despite this may seem a technical marginal aspect, it is indeed a key enabling f
 
 \section{Symbolic Knowledge Injection}
 
+\mypapers[section]{MagniniCO2022}
+
 \note{Introduce the section}
 
 \subsection{Brief overview of the field}
 
+We denote as ``symbolic knowledge injection'' (SKI) the task of letting a sub-symbolic predictor exploit formal, symbolic information to improve its predictive performance (e.g.\ accuracy, f1-measure, learning time) over data.
+%
+Unlike numeric data upon which predictors are commonly trained, symbolic data is generally more compact and expressive, as intensional representations of complex concepts may be concisely written.
+%
+In particular, symbolic information may encode bold rules that must be satisfied by the concepts the predictor is willing to learn.
+%
+Hence, provided that some SKI procedure is available, data scientists may craft ad-hoc collections of symbolic expressions aimed at aiding the training of a particular predictor, for a specific learning task.
+%
+In other words, injection enables provisioning prior knowledge -- namely, the designer's common sense --  to ML predictors under training.
+
+When it comes to neural networks, approaches for SKI are manifold, and the literature on this topic is vast.
+%
+Broadly speaking, there exist three major sorts of approaches supporting the injection of symbolic knowledge into neural networks.
+%
+In particular, SKI can be performed by
+%
+\begin{inlinelist}
+    \item constraining,
+    \item structuring, or
+    \item feeding
+\end{inlinelist}
+%
+the network via symbolic knowledge.
+
+Approaches of the first sort perform injection during the network's training, using the symbolic knowledge as either a constraint or a guide for the optimization process.
+%
+The works by \cite{DiligentiGS17,MarraGDG2019} describe methods of this sort.
+%
+Conversely, approaches of the second sort perform injection by altering the network's architecture to make it mirror the symbolic knowledge.
+%
+Works by \cite{Ballard86,TrespHA92} describe methods of the latter sort.
+%
+Finally, approaches of the third sort attempt to \emph{embed} symbolic knowledge into tensorial form to then be processed via ordinary NN, as well as other ML predictors.
+%
+The GNN-based manipulation of logic theories discussed in \cref{sec:gnn} is an approach of this sort, as well as the many methods for knowledge graph embedding---nicely surveyed in \cite{WangMWG17}.
+
+Accordingly, all such approaches may leverage upon one or more strategies to manipulate symbolic knowledge.
+%
+One strategy works by generating structured data form the symbolic information to use it in conjunction with the training set (see \cite{vonRudenMGBS2019,ZhouYHZXZ18}) to train the predictor.
+%
+Another strategy works by encoding the symbolic knowledge via fuzzy logic, i.e. into functions of real numbers.
+%
+Such functions could then be exploited to interpret symbolic knowledge numerically, e.g. as constraints for the optimization process subtended by training (cf. \cite{DiligentiRG17,DiligentiGS17,MarraGDG2019}).
+%
+One further strategy may be exploited where convolution-like operations (such as GNN) are exploited to distil concise, fixed-size representations of the symbolic information to later feed the sub-symbolic predictor with.
+
+%
+%Examples of such knowledge injection are \cite{DBLP:DiligentiRG17}, \cite{DBLP:DiligentiGS17} and \cite{DBLP:abs-1903-07534}.
+Concerning the symbolic knowledge, virtually all techniques we are aware of require information to be represented via (some subset of) first order logic (FOL) formul\ae{}.
+%
+Actual methods may then vary, depending on
+%
+\begin{inlinelist}
+    \item which particular sub-set of FOL they rely upon,
+    \item how are logic formul\ae{} interpreted as constraints, and
+    \item whether formul\ae{} require to be \emph{grounded} or not, before SKI can occur.
+\end{inlinelist}
+%
+To the best of our understanding, most of the methods proposed so far in th literature require the knowledge base be ground, at some point in the SKI process.
+%
+When this is not the case, the KB should be grounded---which of course is only possible if the Herbrand base of the KB is finite.
+%
+This, in turns, subtends hidden methodological constraints for the current state of the art of SKI, which commonly only supports \emph{strict} sub-sets of FOL---where, e.g. structure symbols are forbidden.
+
 \subsection{Why is it interesting}
+
+As discussed in \cref{chap:explaining}, a major issue in supervised ML is the usage of \emph{opaque} predictors -- such as NN -- as black boxes.
+%
+It is not trivial to understand what NN actually learn from training data, and how they generalise from that data to the whole domain.
+%
+Currently, state of the art solutions address this issue by supporting their inspection via a plethora of different mechanisms \cite{GuidottiMRTGP19}.
+
+In this work we tackle the problem from another prospective.
+%
+We discuss how prior \emph{symbolic} knowledge can be \emph{injected} (SKI) into NN, during learning, in order to endow them with the designer's common sense.
+%
+The injected knowledge may thus encourage the NN to learn desired information, while preventing it from violating the designer's constraints---expressed by symbols.
 
 \subsection{Relation w.r.t. the ecosystem}
 
