@@ -10553,7 +10553,6 @@ The potential of \twopkt{}-powered concurrent LP lays in the possibility of comb
 %
 In all such cases, concurrency may speed up learning without corrupting the declarativeness of LP.
 
-
 \section{Graph Neural Networks for Computational Logic}
 
 \mypapers[section]{gnn-woa2021}
@@ -10591,7 +10590,7 @@ The same holds for the details of the chemical bonds among two any atoms of a mo
 \begin{figure}
     \centering
     \includegraphics[width=.8\linewidth]{figures/gnn_workflow_1.pdf}
-    \caption{Graph Neural Networks are composed as a cascade of simpler blocks.}
+    \caption{Graph Neural Networks are composed as a cascade of simpler blocks}
     \label{fig:gnn_blocks_1}
 \end{figure}
 
@@ -10624,6 +10623,8 @@ In particular, we focus on the exploitation of neural networks (NN) as a means t
 More precisely, we study the possible use of graphs as a bridge between CL and neural networks.
 %
 Notably, we consider graphs as the ideal bridge because of their versatility in representing virtually any sort of data structures, there including recursive ones---an aspect that is very common in logics as well as quite critical in ML.
+
+\paragraph{KB as Graphs}
 
 Symbolic knowledge bases can be encoded into graphs in several ways and to serve disparate purposes.
 %
@@ -10668,7 +10669,246 @@ Thus, a graph can be attained by defining a vertex for each different constant i
 %
 %Vertices may then carry further information describing which properties (i.e. unary predicates) are true for the corresponding entity (i.e. constant) in the KB, whereas arcs may carry further information describing which relations (i.e. binary predicates) the two entities (i.e. constants) are involved into.
 
+\paragraph{Handling logic tasks via GNN}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=.7\linewidth]{figures/workflow.pdf}
+    \caption{Proposed roadmap along with its theoretical framework.
+        Logic level and graph level can be mapped directly, in order for logical problems to benefit from sub-symbolical techniques -- e.g. GNN -- available at the graph level.}
+    \label{fig:workflow}
+\end{figure}
+
+Manipulation of logic knowledge enables the resolution of complex queries via logical inference.
+%
+There exist, however, relevant tasks which are hard to formalise or solve into the logic realm, because of either their numerical nature or algorithmic infeasibility.
+%
+Here, in particular, we identify four relevant operations on knowledge bases for which, we argue, it is worth investigating sub-symbolic solutions.
+
+% In particular, we consider logical tasks that may benefit from the leverage of sub-symbolic techniques.
+%
+The tasks considered -- shown in the upper box of \cref{fig:workflow} -- are
+%
+\begin{inlinelist}
+    \item knowledge filling,
+    \item knowledge inclusion,
+    \item program equivalence, and
+    \item resolution speed-up.
+\end{inlinelist}
+
+\subparagraph{Knowledge Filling}
+%
+Entities and relations available in a logic theory may sometime lack some instances.
+%
+For example, this may happen because the human operator handcrafting the theory was imprecise or when an agent's knowledge is incomplete.
+%
+When this is the case, we consider the knowledge base as \emph{fragmented}.
+% %
+% We consider a theory \emph{fragmented} whenever it is missing some relations or entities attributes.
+
+To deal with such fragmented theories, it may be useful to identify missing relations between existing entities.
+%
+This task may be tackled via statistical analysis of the theory under examination, which may lead to the identification of latent relations among entities.
+%
+%The considered task is very complex from a logical perspective, as it requires a shift from the perspective of rules and knowledge manipulation.
+
+A knowledge filling problem would be hard to handle symbolically, as logic reasoners commonly struggle in processing knowledge they do not have.
+%
+While most solvers operate under a closed world assumption -- letting them considers as false everything they do not explicitly know to be true --, even the ones operating under an open world assumption do not commonly include mechanisms to generate new knowledge out of thin air.
+%
+In all such cases, the coherence and completeness of the knowledge base is usually considered as an a-priori requirement for logic computations to work properly.
+%
+% Indeed, missing relations usually belong to the same knowledge base of the logic theory.
+%
+% Therefore, a symbolic approach leveraging only known rules is probably not sufficient to extract missing information from an fragmented theory.
+%
+Conversely, in the sub-symbolic realm, semantic similarities among the entities and relations of a logic theory may be better captured, which may help reconstructing missing facts.
+%
+% Additional information may be used  in order to reconstruct the missing facts, requiring a more complex approach and the assumption of the existence of a broader and more complete knoweldge.
+
+Consider for instance the case of a simple theory representing kinship relationships.
+%
+The lack of a single relation -- say that ``John and Mary are siblings'' -- may significantly hinder a solver's ability to deduce kinships among entities of a family---e.g. ``the sons of John and Mary are cousins''.
+%
+The solution for this task is not straightforward, thus attracting our attention.
+%
+%To reconstruct the missing information, a purely symbolic approach would probably require to resort to a broader knowledge set, which is not straightforward in most cases.
+%%
+
+\subparagraph{Knowledge Inclusion}
+
+Knowledge inclusion represents the task checking whether a given theory (usually smaller) is complementary w.r.t. another given theory (usually larger) or not.
+%
+% The additional entities and rules come from the information of a broader knowledge set---thus the name knowledge inclusion.
+%
+The same clauses could occur with slightly-different shapes---e.g. using different predicates/functor names or different positions arguments in the same predicates.
+%
+% Nevertheless, clauses should be compared depending on their relevance with respect to the original theory.
+
+This task requires the ability to express equivalence or similarity among \emph{groups} of clauses, which is not straightforward~\cite{EiterLpmr2004, JiIjcai2015}.
+%
+Computing exact solutions to this problem may soon become infeasible as the dimensions of the involved theories increases.
+%
+Conversely, in the sub-symbolic realm, the same problem may be modelled as a pattern-matching problem.
+%
+This may pave the way towards the computation of \emph{approximate} solutions to the knowledge inclusion problem in reasonable time.
+
+As an example, consider multiple agents sharing partially-similar information. In this case, it would be desirable to identify agents common knowledge and ease their interaction.
+%
+Suppose that agents information is expressed via two theories $\tau_1$ and $\tau_2$, both representing family trees.
+%
+$\tau_1$ expresses $1^{st}$ degree relatives only, while $\tau_2$ includes also $2^{nd}$ degree relatives.
+%
+$\tau_1$ may consider more/less/different family members w.r.t. $\tau_2$, and kinships may also be defined in different ways between the two theories.
+%
+However, $\tau_1$ is -- logically speaking -- a subset of $\tau_2$, and we need to detect this property.
+%
+
+\subparagraph{Program Equivalence}
+%
+Program equivalence represents the task of computing a simpler and equivalent theory $\tau'$ starting from a theory $\tau$.
+%
+This may imply removing redundancies and simplifying clauses.
+%
+As for the knowledge inclusion task, program equivalence requires a procedure to compare sets of clauses, other than the capability of generating reduced equivalent variants of clauses.
+%
+It is our opinion that both these procedures may be better expressed into sub-symbolical realm.
+
+Considering again agents storing kinships information, it may be desirable to compress a single agent information to produce a new theory for a simpler agent.
+%
+This new theory should ideally have fewer rules, while spanning the same family tree of the original theory.
+%
+Such a requirement is difficult to satisfy, and would probably require notions of semantically-equivalent sets of kinships---e.g., the set of relations containing only \textit{parent} spans the same family tree of the set of relations $\{mother,$ $father\}$.
+
+\subparagraph{Query Resolution Speed-Up}
+
+% Given a theory, it is possible to ask for queries resolution through symbolic execution of the theory.
+Logic theories are commonly exploited by logic solvers to draw inferences, via some resolution procedure.
+%
+The execution time of any query resolution vastly depends on the complexity of the algorithm(s) expressed by the logic theory.
+%
+To this regard, %it represents a relevant task to speed-up query resolution, compressing the pipeline of rules execution.
+a number of efficiency tweaks may affect the execution time in the average case.
+%
+For instance, the solutions to most frequent queries may be cached, or smart strategies may be employed to affect the way the solver explores a solution space.
+%
+However, caching costs space, whereas any \emph{rigid} resolution strategy may result efficient on some sorts of queries, while still being slow on some others.
+
+In all those cases, sub-symbolic sub-systems capable to learn from experience can bring about huge benefits.
+%
+There, a sub-symbolic helper may be trained to predict the outcomes of most frequent queries, thus speeding up queries with constant space requirements.
+%
+Furthermore, an online learning procedure may be injected into the solver, making it adapt the resolution strategy to the query at hand, on the basis of the experience accumulated via previous queries.
+
+This task may be particularly relevant when considering real-time agents working with complex knowledge bases.
+%
+Focusing again on kinships, when the number of family members is huge and relations between family members are complex -- e.g., fourth grade cousins --, query resolution may suffer from delays hindering agents ability to make real-time decision and perform real-time tasks.
+%
+Therefore, it may be interesting to use techniques that aim at speeding up the resolution of queries over such huge theories.
+%
+Sub-symbolical approaches may ease this task, by compressing theory knowledge to simple and easy-to-handle embeddings.
+
+\paragraph{Graphs as Bridges}
+
+Here we discuss the role of GNN in addressing the relevant logic tasks from the paragraph above.
+%
+In particular, we show how all such tasks can be mapped onto known graph-related problems which can be addressed via GNN.
+%
+In other words, we comment the upper part of \cref{fig:workflow}.
+
+\subparagraph{Knowledge filling $\rightarrow$ Link prediction}
+%
+The knowledge filling task usually requires semantic knowledge to be taken into consideration.
+%
+Therefore, to map the knowledge filling task to an equivalent problem over graphs we should consider preserving the semantic information of the theory.
+%
+We can then assume to map entities of a theory to vertices of a graph.
+%
+Rules and relations can then be represented as vectorised arcs existing between the graph vertices.
+%
+Each position of an arc vector represents a specific relation, preserving the original semantic of the theory.
+%
+In this scenario, the task of predicting possible missing relations or rules is mapped to the problem of identifying which arcs are missing from the graph.
+%
+% In the graph ML community, this problem is known as link prediction---i.e. given a graph, predict which arcs should or will form between vertices which are not linked yet.
+%
+
+% Link prediction for knowledge filling is more complex than common link prediction.
+%
+% Indeed, it requires to predict not only arc existence but also the class of link that should form---i.e. which class of relation involves the entities considered.
+%
+
+\subparagraph{Knowledge Inclusion $\rightarrow$ Graph matching}
+%
+In the same way as for the knowledge filling task, knowledge inclusion requires semantic knowledge of the theory to be taken into account.
+%
+Therefore, we require the mapping between logic and graphs to preserve the theory semantic.
+%
+Moreover, knowledge inclusion requires a comparison between two or more theories: entities and relations from a theory should be compared to their counterparts of the other theory and matched upon need.
+%
+
+As done for knowledge filling, let us assume entities to be represented as vertices, and rules or relations as vectorised arcs.
+%
+The mapping produces as many graphs as the theories available for the inclusion task.
+%
+Therefore, from a graph perspective, knowledge inclusion is mapped to a graph matching problem.
+%
+Indeed, the two or more graphs corresponding to their theory counterparts should be matched for some portion of them.
+
+The matching between graphs is still an open research problem, as it is computationally very expensive, but is easier to tackle than rules and entities matching.
+%
+This holds in particular whenever entities do not match exactly, or, rules share analogous semantics but are defined in different forms---e.g., parent and mother.
+
+\subparagraph{Program equivalence $\rightarrow$ Graph compression}
+%
+Given a specific theory, program equivalence aims at obtaining a simpler -- smaller -- theory that preserve the same expressiveness.
+%
+Depending on the considered approach the mapping between logic and graph level may bear different requirements.
+%
+In its simplest form program equivalence requires to simply remove unnecessary relations and rules of a theory to compress it.
+%
+This approach does not require explicitly the semantic level to be considered while processing the theory.
+%
+More interestingly, program equivalence may also require to map set of rules and relations to a single (or a smaller set of) rules(s).
+%
+This increased complexity introduces the need for semantic to be taken into account and to be preserved in the mapping from logic to graphs.
+%
+If we consider the same mapping of previous examples, program equivalence can be linked to the graph compression problem.
+%
+Indeed, obtaining a smaller set of equivalent rules and entities can be done removing or merging together arcs and vertices of the graph theory counterpart.
+%
+
+\subparagraph{Query resolution speed-up $\rightarrow$ Graph classification}
+%
+Query resolution speed-up aims at obtaining faster execution of given queries over a logic theory.
+%
+It may be helpful for query resolution to maintain the semantic information embedded in the theory.
+%
+Therefore, the mapping between logic and graphs may benefit from the preservation of semantic information, and generally speaking vastly depends on the requirements of the desired speed-up.
+%
+Differently from previous tasks, for query resolution speed-up we consider obtaining graphs for queries to be solved---rather than a single graph for the whole theory.
+%
+The graph representing a query is matched with the query resolution, considered as the graph label.
+%
+Following this mapping, the query resolution speed-up is mapped to a graph classification problem, where the label of a graph should be predicted.
+%
+Any approach can then be leveraged to classify graphs---i.e. obtain query solutions.
+%
+This approach may not be significant for simple queries applied to small knowledge basis.
+%
+However, it may result in great speed-up when complex knowledge bases and queries are considered.
+%
+Indeed, GNN scalability over large graphs is mostly not an issue, resulting in quick graph classification.
+
 \subsection{Relation w.r.t. the ecosystem}
+
+Despite the \twopkt{} ecosystem is not explicitly mentioned in \cite{gnn-woa2021}, its potential role in this framework is straightforward.
+%
+In fact, as clearly shown in \cref{fig:workflow}, any GNN-powered workflow aimed at processing symbolic information shall accept logic theories as inputs, and, possibly, produce logic theories as output.
+%
+In both cases, the existence of a software library supporting the representation and manipulation of clauses and theories is of paramount importance.
+%
+Despite this may seem a technical marginal aspect, it is indeed a key enabling factor for any pre- and post-processing algorithm to be applied before or after the sub-symbolic computation is triggered.
 
 \section{Symbolic Knowledge Injection}
 
@@ -10700,8 +10940,6 @@ Thus, a graph can be attained by defining a vertex for each different constant i
 \note{Introduce the section}
 
 \subsection{Brief overview of the field}
-
-
 
 \subsection{Why is it interesting}
 
