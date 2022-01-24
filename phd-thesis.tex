@@ -10464,8 +10464,8 @@ However, but it can create difficulties in debugging and testing, and, above all
 There are three sub-types of \emph{explicitly} parallel logic languages:
 %
 \begin{itemize}
-    \item those that add explicit \emph{message passing} primitives.
-    \item those that add \emph{blackboard} primitives used by multiple processes running concurrently to communicate with each other.
+    \item those that add explicit \emph{message passing} primitives,
+    \item those that add \emph{blackboard} primitives used by multiple processes running concurrently to communicate with each other (cf. \cref{sec:tuple-based-coord}),
     \item those based on \emph{guards}, committed choice, and data flow synchronization.
 \end{itemize}
 %
@@ -10473,7 +10473,7 @@ There are three sub-types of \emph{explicitly} parallel logic languages:
 
 \paragraph{Implicit parallelism}
 
-This type of parallelism involves the capability of the logic program engine to perform concurrent operations autonomously, extracting parallelism from logic programs without any programmer intervention.
+This type of parallelism involves the capability of the LP engine to perform concurrent operations autonomously, injecting parallelism into logic programs without any programmer intervention.
 %
 In contrast to the explicit parallelism, there are no extensions to the logic language so that the programmer writes classic logic programs.
 %
@@ -10508,18 +10508,15 @@ The technology supporting the \emph{sequential} implementation of LP languages h
 %
 In recent years, it has reached a notable state of maturity and efficiency.
 %
-Today, a wide variety of commercial logic programming systems and excellent public-domain implementations are available that are being used to develop large real-life applications.
+Today, a wide variety of commercial LP systems and excellent open-source implementations are available that are being used to develop large real-life applications.
 
 For years, LP has been considered well suited for execution on multi-processor architectures.
 %
 Indeed research in concurrent LP is vast and dates back to the inception of LP itself.
 %
-%There is a healthy interest in parallel logic programming ever since, as is obvious from the number of papers that have been published in proceedings and journals devoted to logic programming and parallel processing.
-%However, in practice, software solutions were built on top of ancient software abstractions or tailored on hardware architectures which are not there any more.
-%
 Various systems have been developed during the years to support concurrent LP, each one with different features.
 %
-Unfortunately, most of them are not supported any more while others are now suffering for the design choices which only made sense for the machines they were designed for.
+Unfortunately, most of them are not supported any more, while others are now suffering for the design choices which only made sense for the machines they were designed for.
 
 Since then, technology has evolved moving from machines with limited resources to modern computers with multi-core processors, and lots of memory, improving their performances drastically.
 %
@@ -10528,7 +10525,6 @@ Software facilities have evolved hand in hand with the hardware in all areas, li
 This evolution raised the abstraction level of the software technologies available for the mainstream programmer.
 %
 Hence, nowadays, there exist a plethora of new methods to support concurrent LP, to be explored.
-%Logic programming is very well suited for concurrent resolution because each sub-goal can be solved in parallel. Furthermore each matching clause, when more than one is found, can create a separate resolution branch. While the theory is quite simple, practically many problems arise like, for example, the preservation of the Prolog semantics or the handling of variable dependencies.
 %
 Thus, it would be interesting to adapt the vast knowledge on the field of concurrent logic programming to actual technologies, like the Kotlin programming language and its lightweight coroutines, to develop concurrent logic solvers.
 
@@ -10537,8 +10533,6 @@ Thus, it would be interesting to adapt the vast knowledge on the field of concur
 Accordingly, in \cite{Giordano2021}, the authors propose to extend the \twopkt{} ecosystem towards concurrent LP, hence, tilling the soil for future works.
 %
 In doing so, they formalize and design OR-parallel solvers, as well as their implementation.
-
-%The knowledge about concurrency in logic programming is very broad and overwhelming. For ease of reading we report the main aspects available in papers and works about this field, giving an overview to the reader. Then we deepen the concepts useful for our work to support its understanding.
 
 More precisely, the authors provide four major contributions.
 %
@@ -10573,7 +10567,7 @@ To tackle this issue, research effort has focused on extending ML approaches to 
 %
 Notably, \emph{graph neural networks} (GNN) \cite{WuNeuralnetworkslearningsystems2021} are a novel approach to let ordinary NN-based processing be applied to graphs.
 
-GNN are mathematical models operating upon \emph{directed} graphs, whose vertices (resp., arcs) are labelled with vectors (or matrices, or tensors) of real numbers, each one carrying further numeric information about the corresponding vertex (resp., arc).
+GNN are mathematical models operating upon \emph{directed} graphs, whose vertices (resp., arcs) are labelled with (fixed-size) arrays of real numbers, each one carrying further numeric information about the corresponding vertex (resp., arc).
 %
 GNN output depends on the learning task to be performed, which commonly ranging in any of three wide classes of tasks:
 %
@@ -10583,7 +10577,7 @@ GNN output depends on the learning task to be performed, which commonly ranging 
     \item the identification of missing but statistically probable arcs---i.e. \emph{link prediction} \cite{FanWww2019}.
 \end{inlinelist}
 
-Graphs handled by GNN usually carry information in the form of vertices and arcs vectors/matrices/tensors.
+Graphs handled by GNN usually carry information in the form of vertices and arcs arrays.
 %
 Consider for instance the graph representation of a chemical molecule: it is necessary to represent the sort of atomic element associated with each vertex.
 %
@@ -10607,8 +10601,10 @@ It consists of a cascade of three functional blocks (each one composed by one or
 
     \item the \emph{predictor} block, which acts as an ordinary NN on top of the embedding computed by the previous block, hence supporting regression or classification tasks on the graph $G$.
 \end{enumerate}
+%
+Overall, the three blocks constitute a feed-forward NN which can be optimized via gradient descent.
 
-Notably, the convolutor and aggregator block aim at converting an arbitrarily-sized graph into a fixed-side tensorial representation, upon with ordinary sub-symbolic processing can be performed.
+Notably, the convolutor and aggregator blocks aim at converting an arbitrarily-sized graph into a fixed-side tensorial representation, upon with ordinary sub-symbolic processing can be performed.
 %
 The convolutor block, in particular, relies on convolution operation, extensively exploited in DL to express relevance of local data w.r.t.\ to global data.
 %
@@ -10620,7 +10616,7 @@ An equivalent notion of convolution over graphs has been proposed to compute the
 
 In \cite{gnn-woa2021}, we discuss the problem of enabling the sub-symbolic processing of logic knowledge-bases.
 %
-In particular, we focus on the exploitation of neural networks (NN) as a means to complement computational logic (CL) when it comes to process symbolic data expressed in logic form.
+In particular, we focus on the exploitation of NN as a means to complement CL when it comes to process symbolic data expressed in logic form.
 %
 More precisely, we study the possible use of graphs as a bridge between CL and neural networks.
 %
@@ -10634,26 +10630,15 @@ Generally speaking, KB can be encoded into graphs by aggregating the graphs atta
 %
 In all such cases, encoding schemas can act at either the \emph{semantic} or at the \emph{syntactic} level.
 
-%\subparagraph{Syntactic level.}
-
 Encoding schemas operating at the \emph{syntactic} level capture static relationships inferable from the mere syntax of clauses and KB.
 %
 Abstract syntax trees (AST) are the simplest example of graphs which can be attained from KB.
 %
-They consist of direct acyclic graphs where %each vertex has no more than one ingoing arc.
-%
-%There,
-vertices are of as many sorts as the possible syntactical categories of which may occur in a KB -- namely, theories, clauses, predicates, or terms --, whereas arcs simply describe container-contained relations among vertices.
-%
-%Each vertex may then carry further information, such as the predicate symbol of each predicate -- which makes sense for predicates' vertices --, or the functor symbol of each term vertex---which only makes sense for terms' vertices.
-%%
-%Edges as well may carry further information, such as the position of a contained vertex into its container---which makes sense for clauses', predicates', and terms' vertices.
+They consist of direct acyclic graphs where vertices are of as many sorts as the possible syntactical categories of which may occur in a KB -- namely, theories, clauses, predicates, or terms --, whereas arcs simply describe container-contained relations among vertices.
 %
 Dependency graphs are another kind of graph that may be attained from a KB.
 %
 They consist of directed graphs where each vertex represents a predicate, and each arc represents a logic dependency among two predicates---meaning that the predicate corresponding to the destination vertex must be proven true before the predicate corresponding to the source vertex, in a resolution process.
-
-%\subparagraph{Semantic level.}
 
 Encoding schemas operating at the \emph{semantic} level capture high level relationships that can be inferred from the actual meaning of a logic theory.
 %
@@ -10668,8 +10653,6 @@ Triplet graphs are another simple way of representing ground theories where all 
 When this is the case, each constant is considered an entity, binary predicates are considered as relations among two entities, and unary predicates are considered as properties an entity may or may not have.
 %
 Thus, a graph can be attained by defining a vertex for each different constant in a KB, and arc for each couple of constants involved in at least a binary predicate.
-%
-%Vertices may then carry further information describing which properties (i.e. unary predicates) are true for the corresponding entity (i.e. constant) in the KB, whereas arcs may carry further information describing which relations (i.e. binary predicates) the two entities (i.e. constants) are involved into.
 
 \paragraph{Handling logic tasks via GNN}
 
@@ -10687,8 +10670,6 @@ There exist, however, relevant tasks which are hard to formalise or solve into t
 %
 Here, in particular, we identify four relevant operations on knowledge bases for which, we argue, it is worth investigating sub-symbolic solutions.
 
-% In particular, we consider logical tasks that may benefit from the leverage of sub-symbolic techniques.
-%
 The tasks considered -- shown in the upper box of \cref{fig:workflow} -- are
 %
 \begin{inlinelist}
@@ -10699,20 +10680,16 @@ The tasks considered -- shown in the upper box of \cref{fig:workflow} -- are
 \end{inlinelist}
 
 \subparagraph{Knowledge Filling}
-%
+
 Entities and relations available in a logic theory may sometime lack some instances.
 %
 For example, this may happen because the human operator handcrafting the theory was imprecise or when an agent's knowledge is incomplete.
 %
 When this is the case, we consider the knowledge base as \emph{fragmented}.
-% %
-% We consider a theory \emph{fragmented} whenever it is missing some relations or entities attributes.
 
 To deal with such fragmented theories, it may be useful to identify missing relations between existing entities.
 %
 This task may be tackled via statistical analysis of the theory under examination, which may lead to the identification of latent relations among entities.
-%
-%The considered task is very complex from a logical perspective, as it requires a shift from the perspective of rules and knowledge manipulation.
 
 A knowledge filling problem would be hard to handle symbolically, as logic reasoners commonly struggle in processing knowledge they do not have.
 %
@@ -10720,32 +10697,19 @@ While most solvers operate under a closed world assumption -- letting them consi
 %
 In all such cases, the coherence and completeness of the knowledge base is usually considered as an a-priori requirement for logic computations to work properly.
 %
-% Indeed, missing relations usually belong to the same knowledge base of the logic theory.
-%
-% Therefore, a symbolic approach leveraging only known rules is probably not sufficient to extract missing information from an fragmented theory.
-%
 Conversely, in the sub-symbolic realm, semantic similarities among the entities and relations of a logic theory may be better captured, which may help reconstructing missing facts.
-%
-% Additional information may be used  in order to reconstruct the missing facts, requiring a more complex approach and the assumption of the existence of a broader and more complete knoweldge.
 
 Consider for instance the case of a simple theory representing kinship relationships.
 %
 The lack of a single relation -- say that ``John and Mary are siblings'' -- may significantly hinder a solver's ability to deduce kinships among entities of a family---e.g. ``the sons of John and Mary are cousins''.
 %
 The solution for this task is not straightforward, thus attracting our attention.
-%
-%To reconstruct the missing information, a purely symbolic approach would probably require to resort to a broader knowledge set, which is not straightforward in most cases.
-%%
 
 \subparagraph{Knowledge Inclusion}
 
 Knowledge inclusion represents the task checking whether a given theory (usually smaller) is complementary w.r.t. another given theory (usually larger) or not.
 %
-% The additional entities and rules come from the information of a broader knowledge set---thus the name knowledge inclusion.
-%
 The same clauses could occur with slightly-different shapes---e.g. using different predicates/functor names or different positions arguments in the same predicates.
-%
-% Nevertheless, clauses should be compared depending on their relevance with respect to the original theory.
 
 This task requires the ability to express equivalence or similarity among \emph{groups} of clauses, which is not straightforward~\cite{EiterLpmr2004, JiIjcai2015}.
 %
@@ -10764,10 +10728,9 @@ $\tau_1$ expresses $1^{st}$ degree relatives only, while $\tau_2$ includes also 
 $\tau_1$ may consider more/less/different family members w.r.t. $\tau_2$, and kinships may also be defined in different ways between the two theories.
 %
 However, $\tau_1$ is -- logically speaking -- a subset of $\tau_2$, and we need to detect this property.
-%
 
 \subparagraph{Program Equivalence}
-%
+
 Program equivalence represents the task of computing a simpler and equivalent theory $\tau'$ starting from a theory $\tau$.
 %
 This may imply removing redundancies and simplifying clauses.
@@ -10784,13 +10747,11 @@ Such a requirement is difficult to satisfy, and would probably require notions o
 
 \subparagraph{Query Resolution Speed-Up}
 
-% Given a theory, it is possible to ask for queries resolution through symbolic execution of the theory.
 Logic theories are commonly exploited by logic solvers to draw inferences, via some resolution procedure.
 %
 The execution time of any query resolution vastly depends on the complexity of the algorithm(s) expressed by the logic theory.
 %
-To this regard, %it represents a relevant task to speed-up query resolution, compressing the pipeline of rules execution.
-a number of efficiency tweaks may affect the execution time in the average case.
+To this regard, a number of efficiency tweaks may affect the execution time in the average case.
 %
 For instance, the solutions to most frequent queries may be cached, or smart strategies may be employed to affect the way the solver explores a solution space.
 %
@@ -10831,23 +10792,14 @@ Rules and relations can then be represented as vectorised arcs existing between 
 Each position of an arc vector represents a specific relation, preserving the original semantic of the theory.
 %
 In this scenario, the task of predicting possible missing relations or rules is mapped to the problem of identifying which arcs are missing from the graph.
-%
-% In the graph ML community, this problem is known as link prediction---i.e. given a graph, predict which arcs should or will form between vertices which are not linked yet.
-%
-
-% Link prediction for knowledge filling is more complex than common link prediction.
-%
-% Indeed, it requires to predict not only arc existence but also the class of link that should form---i.e. which class of relation involves the entities considered.
-%
 
 \subparagraph{Knowledge Inclusion $\rightarrow$ Graph matching}
-%
+
 In the same way as for the knowledge filling task, knowledge inclusion requires semantic knowledge of the theory to be taken into account.
 %
 Therefore, we require the mapping between logic and graphs to preserve the theory semantic.
 %
 Moreover, knowledge inclusion requires a comparison between two or more theories: entities and relations from a theory should be compared to their counterparts of the other theory and matched upon need.
-%
 
 As done for knowledge filling, let us assume entities to be represented as vertices, and rules or relations as vectorised arcs.
 %
@@ -10862,7 +10814,7 @@ The matching between graphs is still an open research problem, as it is computat
 This holds in particular whenever entities do not match exactly, or, rules share analogous semantics but are defined in different forms---e.g., parent and mother.
 
 \subparagraph{Program equivalence $\rightarrow$ Graph compression}
-%
+
 Given a specific theory, program equivalence aims at obtaining a simpler -- smaller -- theory that preserve the same expressiveness.
 %
 Depending on the considered approach the mapping between logic and graph level may bear different requirements.
@@ -10878,10 +10830,9 @@ This increased complexity introduces the need for semantic to be taken into acco
 If we consider the same mapping of previous examples, program equivalence can be linked to the graph compression problem.
 %
 Indeed, obtaining a smaller set of equivalent rules and entities can be done removing or merging together arcs and vertices of the graph theory counterpart.
-%
 
 \subparagraph{Query resolution speed-up $\rightarrow$ Graph classification}
-%
+
 Query resolution speed-up aims at obtaining faster execution of given queries over a logic theory.
 %
 It may be helpful for query resolution to maintain the semantic information embedded in the theory.
@@ -11028,11 +10979,12 @@ In \cref{chap:psyke}, we propose the design and implementation of \psyke{}, i.e.
 %
 There, the \twopkt{} ecosystem supports the construction of logic rules, as part of the extraction process.
 
-We envision a similar, yet dual platform for SKI, namely \psyki{}, providing a general-purpose notion of \emph{Injector}, with many possible implementations---each one reifying a particular injection algorithm/method.
+We envision a similar, yet dual platform for SKI, namely \psyki{}, providing a general-purpose notion of \emph{injector}, with many possible implementations---each one reifying a particular injection algorithm/method.
 %
 There, the \twopkt{} ecosystem would support the representation and (programmatic) manipulation of the symbolic knowledge acting as input of the injection process.
 
 \section{Tuple-based Coordination}
+\label{sec:tuple-based-coord}
 
 \mypapers[section]{tusow-icccn2019}
 \mystudentsthesis[section]{Bachelor's}{Rizzato2018}
@@ -11153,13 +11105,34 @@ Of course, the exploitation of terms and unification in \tusow{} is made possibl
 
 \mystudentsthesis[section]{Master's}{Speciale2021}
 
-\note{Introduce the section}
+The field of ILP is extensively presented in \cref{sec:symbolic-supervised-learning}, as well as its role within the scope of this thesis.
+%
+Here, we simply discuss the (potential) relation among ILP and the \twopkt{} ecosystem.
+%
+In doing so, we report the discussion proposed in \cite{Speciale2021}, where the design of a \twopkt{} module for ILP is sketched.
 
-\subsection{Brief overview of the field}
+\lstinputlisting[
+    float,
+    language=Kotlin,
+    caption={Inducer interface, tailored onto the \twopkt{} API},
+    label={lst:inducer}
+]{listings/Inducer.kt}
 
-\subsection{Why is it interesting}
+There, the authors propose a general-purpose, object-oriented API for ILP, namely, via the \kt{Inducer} interface, represented in \cref{lst:inducer}.
+%
+Essentially, an \emph{inducer} is any object capable of performing logic induction on a number of positive and negative examples (which are clauses, in the general case), and a background theory.
+%
+The result of any induction process, in the general case, is theory as well---possibly containing one or more clauses.
 
-\subsection{Relation w.r.t. the ecosystem}
+Virtually all ILP algorithms may be wrapped behind this general interface.
+%
+In this sense, the main contribution of \cite{Speciale2021} is to provide general support for ILP, at the OO level.
+%
+This, in turn, is very interesting as it represents a first step towards the provisioning of a principled library supporting the engineering of ILP solutions, where programming-in-the-large tools may be exploited, and ILP itself is not bound to any particular LP language.
+
+ILP algorithms may be added to the ecosystem by simply writing new implementations for the \kt{Inducer} interface.
+%
+These implementations may then be exploited in main-stream programming as well as in any logic solver built on top of the \twopkt{} ecosystem.
 
 \part{Who}
 \label{part:who}
