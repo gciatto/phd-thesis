@@ -6409,10 +6409,10 @@ It is worth to highlight that the whole pipeline is \emph{lazy}.
 This implies that even once the first TSP solution has been presented to the user, the other ones are still to be computed.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Towards Side-Effects and Concurrency}
+\section{Recap and Research Perspectives}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\note{remove recap, expand future works. mention concurrency in future works}
+%\note{remove recap, expand future works. mention concurrency in future works}
 
 In this chapter we address the issue of stream processing in logic programming.
 
@@ -6433,7 +6433,7 @@ To demonstrate the feasibility of our approach in the specific (and technically 
 %
 The proposed formalisation preserves the standard operation of Prolog and requires no modification to the language, while enabling Prolog solvers to process data streams.
 
-Finally, we discuss the use case of \twopkt{} \cite{homepage2PKt}, a Kotlin-based technology for LP including an implementation of Prolog solvers relying on our state-machine-based formalisation.
+Finally, we discuss the use case of \twopkt{} \cite{cco-softwarex-2021-2pkt}, a Kotlin-based technology for LP including an implementation of Prolog solvers relying on our state-machine-based formalisation.
 %
 We then exploit \twopkt{} to show how primitives can be used to bridge different sorts of solvers together via a few lines of Kotlin code.
 
@@ -6447,11 +6447,13 @@ However, differently from~\cite{Tarau2019}, we require no variation to the synta
 
 A number of issues remain uncovered in this work, and will be the subject of our future research.
 %
-Among the many, the most relevant issues concern \emph{time} and \emph{side effects}.
+Among the many, the most relevant issues concern \emph{time}, \emph{side effects}, and \emph{concurrency}.
 %
 In particular we plan to explore the temporal dimension in LP-based stream processing, by providing for instance some means to support time-dependent or time-limited data streams.
 %
 Similarly, we would like to explore the intricacies related to the processing of data streams which may affect the internal state of a logic solver -- e.g. by affecting the KB -- in a predictable way.
+%
+Finally, as further discussed in \cref{sec:concurrent-lp}, we are interested developing a framework for \emph{concurrent} resolution, following the same state-machine-based approach we exploit in this chapter.
 
 \chapter{Bridging LP and Mainstream Programming Paradigms}
 
@@ -7044,7 +7046,7 @@ This is possible because they are part of the DSL, in the same way as Prolog bui
 %
 This implies the Kotlin compiler can prevent standard operators and built-in from being silently mistyped.
 
-\section{Recap and future works}\label{sec:conclusions}
+\section{Recap and Research Perspectives}\label{sec:conclusions}
 
 In this chapter we propose a novel way of integrating the logic, object-oriented, functional, and imperative programming paradigms into a single language, namely Kotlin.
 %
@@ -7062,7 +7064,7 @@ Furthermore, we plan to provide other implementations of our DSL, targeting othe
 
 As concerns possible research directions and applications, in the future, we plan to exploit our DSL in several contexts.
 %
-For instance, we argue our DSL may ease the usage of the logic tuple spaces offered by the \textsc{TuSoW} technology \cite{tusow-icccn2019}.
+For instance, we argue our DSL may ease the usage of the logic tuple spaces offered by the \tusow{} technology \cite{tusow-icccn2019}.
 %
 Similarly, we believe our DSL may be used as a basic brick in the creation of logic-based technologies for MAS, as the MAS community is eager of general-purpose, logic-based technologies targetting the JVM platform \cite{lptech4mas-jaamas35}.
 %
@@ -8829,7 +8831,7 @@ It is worth to be highlighted that, from the caller perspective, the \pl{iris/5}
 
 %----------------------------------------------------------------------------------------
 
-\section{Recap and Future Works}
+\section{Recap and Research Perspectives}
 \label{sec:conclusions3}
 
 In this chapter, we propose a logic API supporting the seamless integration of logic solvers with sub-symbolic AI, and, in particular neural-network-based supervised ML.
@@ -8860,7 +8862,7 @@ It consists in the seamless integration of logic and sub-symbolic AI at the func
 %
 In fact, thanks to our \mllib{}, trained sub-symbolic predictors may be used in LP as ordinary predicates.
 
-\paragraph{Future Works}
+\paragraph{Research Perspectives}
 
 In the future, we expect contributions to stem from our \mllib{} along two different research threads.
 %
@@ -9875,7 +9877,7 @@ This theory can be further simplified by applying the first strategy described i
 %
 The resulting theory will have only 3 rules with 4 predicates in their bodies, whereas the starting one has 4 rules and 9 predicates.
 
-\section{Recap and research perspectives}\label{sec:conclusions2}
+\section{Recap and Research Perspectives}\label{sec:conclusions2}
 
 In this chapter we present the design of \psyke{}, a new general-purpose platform supporting symbolic knowledge extraction from opaque ML predictors.
 %
