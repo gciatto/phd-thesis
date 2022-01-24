@@ -365,7 +365,7 @@ Prolog-based solvers \cite{ColmerauerR93,colmerauer1986-theoreticalProlog}, for 
 %
 They commonly do so in response to users' queries, provided via a textual interface.
 %
-Yet, a number of Prolog solvers exists supporting the same inference procedure via different strategies (e.g. tabled-resolution\missingref) or as well as entirely different principles (e.g. Constraint Logic Programming).
+Yet, a number of Prolog solvers exists supporting the same inference procedure via different strategies (e.g. tabled resolution \cite{ChenW96,SwiftW12}) or as well as entirely different principles (e.g. Constraint Logic Programming).
 %
 Of course, other options exist targetting other logics as well, like, e.g., abductive \cite{FungIff97}, inductive \cite{Muggleton94}, probabilistic \cite{RaedtK15} inference.
 %
@@ -398,7 +398,7 @@ Roughly speaking, more expressive logic languages make it easier for human being
 %
 This is a well-understood phenomenon in both CS and CL \cite{LevesqueB87, BrachmanL2004}, often referred to as the \emph{expressiveness--tractability} trade-off.
 %
-In practice, however, a good trade-off is represented by FOL and its subsets (e.g. Horn logic\missingref), or modal variants (e.g. linear temporal logic\missingref).
+In practice, however, a good trade-off is represented by FOL and its subsets (e.g. Horn logic \cite{Makowsky1987}), or modal variants (e.g. linear temporal logic \cite{Pnueli77}).
 %
 Despite consisting of Turing-equivalent formalisms -- for which the existence of undecidable or intractable situations cannot be excluded in the general case --, they come with sufficiently wide representational capabilities and effective inference procedures, making them exploitable in practice---provided that human developers avoid writing undecidable/intractable algorithms.
 
@@ -420,11 +420,11 @@ Unfortunately, this implies the degree of automatism in knowledge production is 
 %
 Many attempts have been performed over the years to distil human knowledge into symbolic form to formalise common-sense for software agents.
 %
-To date, there exist a number of common-sense knowledge bases and ontologies, supporting practical textual-reasoning tasks on real-world documents including analogy-making, and other context oriented inferences---see for instance \missingref[lieberman2004, trinh2018, liu2004conceptnet, liu2002goose, shapiro1999sneps from information-2020]).
+To date, there exist a number of common-sense knowledge bases and ontologies, supporting practical textual-reasoning tasks on real-world documents including analogy-making, and other context oriented inferences---see for instance \cite{lieberman2004,trinh2018,liu2004conceptnet,liu2002goose, shapiro1999sneps}).
 %
 Yet, most of these solutions are either semi-automatically constructed, or community driven -- when not both --, therefore exhaustiveness, consistency, or coherence may be lacking.
 %
-There have also been a number of attempts to construct very large knowledge bases of commonsense knowledge by hand, one of the largest being the CYC program by Douglas Lenat at CyCorp \missingref[lenat1995-cyc from information-2020]---which is, however, only usable behind payment.
+There have also been a number of attempts to construct very large knowledge bases of commonsense knowledge by hand, one of the largest being the CYC program by Douglas Lenat at CyCorp \cite{lenat1995-cyc}---which is, however, only usable behind payment.
 
 Finally, symbols grounding deals with the problem of letting software agents provide semantics for the symbols they manipulate.
 %
