@@ -676,13 +676,23 @@ More precisely, each predicate may carry $N \geq 0$ terms.
 %
 When this is the case, the predicate is said $N$-ary (meaning that its arity, or amount of arguments, is $N$).
 %
-Terms may be of three sorts, namely \emph{constants}, \emph{structures}, or \emph{variables}.
+Terms may be of three sorts, namely \emph{constants}, \emph{structures}\footnotemark, or \emph{variables}.
+%
+\footnotetext{
+    structures are also (and most commonly) known as ``functions'' into the CL literature.
+    %
+    However, functions in CL denote data structures rather than associations among a domain and a co-domain, as they are commonly intended.
+    %
+    Thus, to avoid ambiguity, we choose to call then ``structures'' instead.
+}
 %
 Constants represent the many entities from the domain of the discourse.
 %
 In particular, each constant references a different entity.
 %
-Structures are combinations of one or more entities via one \emph{functor}.
+Structures are combinations of one or more entities via one \emph{functor}\footnotemark.
+%
+\footnotetext{functors are also known as ``function symbols'' in the CL literature}
 %
 Similarly to predicates, structures may carry $M \geq 0$ terms.
 %
