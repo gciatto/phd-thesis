@@ -10424,13 +10424,39 @@ Among the others, we envision future directions involving: approximate inference
 
 \chapter{Enriching the Ecosystem: Future Directions}
 
-\note{Introduce the chapter}
+In this chapter we discuss a number of research directions stemming from, building upon, or overlapping the contribution of this thesis.
+%
+Some initial steps have been already performed along all such directions, by either us or the students we have (co-)supervised.
+%
+Hence, for each research direction, we briefly provide
+%
+\begin{inlinelist}
+    \item some background or a brief overview of the literature of the field,
+    \item a discussion about why the field is interesting w.r.t. the scope and the goals of this thesis,
+    \item some insight about how that research direction fits the \twopkt{} ecosystem (or vice versa), and
+    \item a few reference about what we or our students have already done along that direction.
+\end{inlinelist}
+
+Accordingly, in the reminder of this chapter we discuss the following research lines, in no particular order:
+%
+concurrent logic programming and its role in speeding up logic or hybrid computations (\cref{sec:concurrent-lp});
+%
+graph neural networks and their role in the sub-symbolic processing of symbolic knowledge (\cref{sec:gnn});
+%
+symbolic knowledge \emph{injection}, its role within XAI, and its duality w.r.t. symbolic knowledge extraction (\cref{sec:ski});
+%
+tuple-based coordination and its role in the interaction of intelligent agents among the Internet (\cref{sec:tuple-based-coord}); and finally
+%
+inductive logic programming and its role into the \twopkt{} ecosystem (\cref{sec:ilp-speciale}).
 
 \section{Concurrent Logic Programming}
+\label{sec:concurrent-lp}
 
 \mystudentsthesis[section]{Master's}{Giordano2021}
 
-\note{Introduce the section}
+Here we present the fundamental notions of \emph{concurrent} logic programming, and their potential role in the speed up of logic resolution.
+%
+This is a very relevant topic within the LP community itself, and, as we further discuss in this section, it has the potential to impact hybrid systems as well---i.e. systems combining or integrating LP and sub-symbolic AI.
 
 \subsection{Brief overview of the field}
 
@@ -10440,14 +10466,13 @@ This is the basis for one of the most relevant properties of LP: declarativeness
 %
 Hence, the efficiency of resolution for any given logic program, can be improved without any change in the program itself, simply by changing the solver.
 %
-\emph{Concurrent} LP is the field where algorithms and techniques for concurrent/parallel resolution are studied.
+Concurrent LP is the field where algorithms and techniques for concurrent/parallel resolution are studied.
 %
 Informally, it deals whit speeding up computations expressed in LP, by exploiting multi-processor, multi-core, or distributed computing architectures.
 
 Concurrency may be reified into LP in many different flavours.
 %
 These, in turn, are commonly grouped in two main categories: explicit and implicit---depending on who is in charge of handling concurrency (among the programmer or the solver).
-%In LP many kinds of concurrency can be exploited and they are grouped in three main categories: explicit, implicit, and hybrid parallelism.
 
 \paragraph{Explicit parallelism}
 
@@ -10458,8 +10483,6 @@ This means that the programmer is in charge of controlling concurrency-related a
 Explicit control of concurrency needs a highly-skilled programmer who can take advantage of the available constructs to produce very efficient code.
 %
 However, but it can create difficulties in debugging and testing, and, above all, it may easily break the declarativity of LP---depending on which constructs are provided to the logic programmer, and how much the enable the programmer to decide ``what happens when''.
-%
-%Explicit control of concurrency needs a highly-skilled programmer who can take advantage of the available constructs to produce very efficient code, but it can create difficulties in debugging and testing so it is not suited for everyone.
 
 There are three sub-types of \emph{explicitly} parallel logic languages:
 %
@@ -10468,8 +10491,6 @@ There are three sub-types of \emph{explicitly} parallel logic languages:
     \item those that add \emph{blackboard} primitives used by multiple processes running concurrently to communicate with each other (cf. \cref{sec:tuple-based-coord}),
     \item those based on \emph{guards}, committed choice, and data flow synchronization.
 \end{itemize}
-%
-%In order to keep this thesis focused, we consider these approaches only marginally and in those cases where they introduce execution mechanisms that are applicable also in the case of implicit exploitation of concurrency.
 
 \paragraph{Implicit parallelism}
 
@@ -10547,13 +10568,23 @@ Last, but not least, they make the concurrent solver compliant w.r.t. the notion
 The potential of \twopkt{}-powered concurrent LP lays in the possibility of combining concurrency with ILP (cf. \cref{sec:symbolic-supervised-learning}), as well as the \mllib{} (cf. \cref{chap:mllib}).
 %
 In all such cases, concurrency may speed up learning without corrupting the declarativeness of LP.
+%
+In particular, concerning ILP, concurrency may speed up the generation and evaluation of the many possible hypotheses the induction algorithm should step through.
+%
+Similarly, concerning the \mllib{}, concurrency may enable the simultaneous training of multiple predictors -- which, in turn, would speed up any hyper parameters tuning procedure -- as well as the simultaneous drawing of multiple predictions via as many predictors---which in turn would speed up the inference phase of any hybrid system.
 
 \section{Graph Neural Networks for Computational Logic}
 \label{sec:gnn}
 
 \mypapers[section]{gnn-woa2021}
 
-\note{Introduce the section}
+Here we discuss the possibility of exploiting graph neural networks (GNN) as a bridge among symbolic and sub-symbolic AI.
+%
+In particular, we argue that GNN support the sub-symbolic processing of logic knowledge, in all those cases where logic knowledge can be converted into a graph.
+%
+GNN are a novel topic within the ML community itself, and, as we further discuss in this section, they have the potential to provide novel solutions for well known CL problems.
+%
+This may bring several benefits, in particular, in those cases -- elicited below -- where sub-symbolic processing is expected to perform more efficiently than exact symbolic algorithms.
 
 \subsection{Brief overview of the field}
 
@@ -10565,7 +10596,7 @@ Among the most relevant applications in this category, we can find a number of \
 %
 To tackle this issue, research effort has focused on extending ML approaches to graph-structured data.
 %
-Notably, \emph{graph neural networks} (GNN) \cite{WuNeuralnetworkslearningsystems2021} are a novel approach to let ordinary NN-based processing be applied to graphs.
+Notably, graph neural networks \cite{WuNeuralnetworkslearningsystems2021} are a novel approach to let ordinary NN-based processing be applied to graphs.
 
 GNN are mathematical models operating upon \emph{directed} graphs, whose vertices (resp., arcs) are labelled with (fixed-size) arrays of real numbers, each one carrying further numeric information about the corresponding vertex (resp., arc).
 %
@@ -10864,14 +10895,21 @@ In both cases, the existence of a software library supporting the representation
 Despite this may seem a technical marginal aspect, it is indeed a key enabling factor for any pre- and post-processing algorithm to be applied before or after the sub-symbolic computation is triggered.
 
 \section{Symbolic Knowledge Injection}
+\label{sec:ski}
 
 \mypapers[section]{MagniniCO2022}
 
-\note{Introduce the section}
+While symbolic knowledge extraction (cf. \cref{chap:explaining}, and \cref{chap:psyke}) is the preferred way to provide explanations within the scope of this thesis, here we provide insights about a dual approach, namely symbolic knowledge injection (SKI).
+%
+SKI is not exactly a keyword from the literature, but rather an umbrella term we use to denote a plethora of methods from the recent literature of knowledge graph embedding, and neuro-symbolic computation.
+%
+Intuitively, it deals with putting symbolic knowledge into sub-symbolic predictors.
+%
+In this section, we provide a brief overview of what we mean by SKI and how it may be useful within the ML playground to work around the lack of interpretability.
 
 \subsection{Brief overview of the field}
 
-We denote as ``symbolic knowledge injection'' (SKI) the task of letting a sub-symbolic predictor exploit formal, symbolic information to improve its predictive performance (e.g.\ accuracy, f1-measure, learning time) over data.
+We denote as ``symbolic knowledge injection'' the task of letting a sub-symbolic predictor exploit formal, symbolic information to improve its predictive performance (e.g.\ accuracy, f1-measure, learning time) over data.
 %
 Unlike numeric data upon which predictors are commonly trained, symbolic data is generally more compact and expressive, as intensional representations of complex concepts may be concisely written.
 %
@@ -10989,7 +11027,11 @@ There, the \twopkt{} ecosystem would support the representation and (programmati
 \mypapers[section]{tusow-icccn2019}
 \mystudentsthesis[section]{Bachelor's}{Rizzato2018}
 
-\note{Introduce the section}
+Here we discuss the role of the \twopkt{} logic ecosystem to support tuple-based coordination, i.e. a well-established research field studying models, mechanisms, and technologies aimed at governing the interaction of intelligent agents in concurrent and distributed systems.
+%
+There, the logic plays a fundamental role in the representation and manipulation of data and events produced/consumed by agents during interaction.
+%
+In particular, we report the proposal of \tusow{}, a tuple-based technology leveraging on \twopkt{} to support coordination among distributed agents interacting via most common network protocols.
 
 \subsection{Brief overview of the field}
 
@@ -11102,6 +11144,7 @@ Plain text is often queried through Regular Expressions, whereas FOL terms may b
 Of course, the exploitation of terms and unification in \tusow{} is made possible by \twopkt{}.
 
 \section{Inductive Logic Programming}
+\label{sec:ilp-speciale}
 
 \mystudentsthesis[section]{Master's}{Speciale2021}
 
