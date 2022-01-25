@@ -4482,96 +4482,6 @@ More precisely, we consider technologies as unmaintained based on the last prova
 %
 \footnotetext{Since our original assessment (September 2020), some technologies described as unmaintained reworked their repositories, code and/or documentation---as in the case of DALI (\url{https://github.com/AAAI-DISIM-UnivAQ/DALI}) and MCAPL (\url{https://autonomy-and-verification.github.io/tools/mcapl})}
 
-%%===============================================================================
-\section{Main outcomes}\label{sec:outcomes}
-%%===============================================================================
-
-The outcome of the \slr{} highlights that, as far as logic-based technologies for MAS are concerned, there is still room for technological advancements---except for a few relevant success stories.
-%
-In fact, despite the enormous technological effort clearly carried out by the MAS community in the last decades, several surveyed technologies cannot be considered as mature and ready for use in the new challenging contexts required by AI.
-%
-Several technologies are in fact unmaintained, outdated, or just proof of concepts.
-
-In our original work the discussion attempts to provide a comprehesive answer to all the \slr{} research questions.
-%
-In the following we summarise some general remarks in relation to key features of modern intelligent systems, namely:
-%
-\begin{inlinelist}
-    \item inherent distribution and decentralisation and deep intertwist with domains like the Internet of (Intelligent) Things (Io(I)T) and Cyber-Physical Systems (CPS);
-    %
-    \item support to key properties such as robustness, efficiency, interoperability, portability, standardisation, situatedness, and real-time support;
-    %
-    \item need to reconcile and synthesise symbolic and sub-symbolic AI, exploiting the former to \emph{explain} the latter so as to overcome fears and ethical issues posed by AI by providing for explainability, observability, interpretability, responsibility, and trustability---the scope of XAI.
-\end{inlinelist}
-
-%----
-\subsubsection{Applicability to distributed domains such as \iot{} and CPS}
-%----
-
-The existing agent-oriented logic-based solutions applicable to the \iot{} and CPS are only available for a specific and limited set of devices and platforms.
-%
-For instance, Agent Factory Micro Edition (AFME) \cite{afme-iccs2006} enables the execution of a deliberative agent on top of mobile phones with CLDC/MIDP profiles and Sun-SPOT sensor by means of TCP/IP and Zigbee protocols.
-
-However, some technologies, more than others, are explicitly designed to support \iot{} domains and CPS.
-%
-For example, the \lpaas{} architecture \cite{lpaas-tplp18} is designed to promote distributed intelligence for the \iot{} world---offering logic programming as a service, and explicitly addressing the requirements and issues of cloud and edge architectures.
-%
-Analogously, the situated coordination approach promoted by the \tucson{}/\respect{} model and technology can be explicitly exploited to handle situatedness in MAS as a coordination issue.
-%
-Also, \tucson{} \cite{tucson-jaamas2} provides the main abstractions for \iot{} environments: environmental resources can be sources of perceptions (like sensors), targets of actions (like actuators), or even both.
-
-Finally, there are technologies that are not explicitly meant to address the \iot{} and CPS domains, but still let us suppose they would be easily portable to those domains---because of their standard compliance, interoperability, and portability features.
-%
-Among the many, \jason{} \cite{jason-clima2005} supports interoperability with non-\jason{} agents via \jade{} \cite{jade-mapbook2005} through \fipa{}-ACL communication \cite{fipa-acl}.
-%
-Similarly, there are extensions to \jack{} \cite{jack-mapbook2005} that make it work in open systems.
-%
-Finally, the Teleo-Reactive \cite{nilsson2001-teleoreactive} approach has been often exploited to facilitate the development of the \iot{} systems as a set of communicating Teleo-Reactive nodes.
-
-%----
-\subsubsection{Symbolic and sub-symbolic integration}
-%----
-
-With respect to the need to reconcile and integrate symbolic and sub-symbolic techniques, none of the selected technologies has been experimented yet \cite{xaisurvey-ia14}, due to their original design purpose out of this scope.
-%
-However, we argue that portable and interoperable technologies might be more suitable for the integration.
-%
-Anyway, the field is still unexplored and represents a frontier research domain.
-
-%----
-\subsubsection{Can existing technologies be labelled as ready? If not, what is missing?}
-%----
-
-The role of logic-based technologies in MAS nowadays exhibits a huge potential for covering the vast majority of intelligent system abstractions.
-%
-However, just a few among the technologies surveyed can be actually labelled as \emph{ready-to-go}, in particular when considering the new challenges for symbolic technologies in AI.
-
-Even though 10\% of the selected technologies can be considered as mature -- in terms of cross-platform support, code quality, and ease of distribution in heterogeneous environments --, most of the times they have not been tested in pervasive and real-world scenarios, yet.
-%
-This implies, at least, that further research and technical activity are required to ensure that any technological barrier can be overcome.
-%
-Furthermore, integration with sub-symbolic techniques remains a \emph{nice-to-have} feature, but it is not actually a thing in any MAS technology, for the time being.
-%
-Nevertheless, the selected technologies are an excellent starting point for \emph{(i)} highlighting the advantages of logic-based technologies, and  \emph{(ii)} broadening the scope of research towards the directions envisioned.
-
-%In the end, we forward the interested readers to the original SLR for the full details \cite{lptech4mas-jaamas35}.
-
-%\section{Current State of Logic-Based Technologies}
-
-%\cite{lptech4mas-aamas2021}
-%\cite{lptech4mas-jaamas35}
-%\cite{logictech-information11}
-
-%\section{Current State of Machine Learning Technologies}
-
-%\section{Current State of XAI Technologies}
-
-%\cite{xaisurvey-ia14}
-
-%\chapter{Need for An Open Ecosystem for Logic-Based AI}
-%
-%\cite{cco-softwarex-2021-2pkt}
-
 %-----------------------------------------------------------------------
 \section{Detailed Technological Analysis}\label{sec:table-evaluation}
 %-----------------------------------------------------------------------
@@ -4709,7 +4619,134 @@ Indeed, considering the 1-5 ranges defined above, only 34.04\% of the technologi
 
 %\note{A chapter on the state of Prolog systems?}
 
-\note{Link next chapter}
+%%===============================================================================
+\section{Main Outcomes}\label{sec:outcomes}
+%%===============================================================================
+
+The outcome of the \slr{} highlights that, as far as logic-based technologies for MAS are concerned, there is still room for technological advancements---except for a few relevant success stories.
+%
+In fact, despite the enormous technological effort clearly carried out by the MAS community in the last decades, several surveyed technologies cannot be considered as mature and ready for use in the new challenging contexts required by AI.
+%
+Several technologies are in fact unmaintained, outdated, or just proof of concepts.
+
+In our original work the discussion attempts to provide a comprehensive answer to all the \slr{} research questions.
+%
+In the following we summarise some general remarks in relation to key features of modern intelligent systems, namely:
+%
+\begin{inlinelist}
+    \item inherent distribution and decentralisation and deep entanglement with domains like the Internet of (Intelligent) Things (Io(I)T) and Cyber-Physical Systems (CPS);
+    %
+    \item support to key properties such as robustness, efficiency, interoperability, portability, standardisation, situatedness, and real-time support;
+    %
+    \item need to reconcile and synthesise symbolic and sub-symbolic AI, exploiting the former to \emph{explain} the latter so as to overcome fears and ethical issues posed by AI by providing for explainability, observability, interpretability, responsibility, and trustability---the scope of XAI.
+\end{inlinelist}
+
+%----
+\subsubsection{Applicability to distributed domains such as \iot{} and CPS}
+%----
+
+The existing agent-oriented logic-based solutions applicable to the \iot{} and CPS are only available for a specific and limited set of devices and platforms.
+%
+For instance, Agent Factory Micro Edition (AFME) \cite{afme-iccs2006} enables the execution of a deliberative agent on top of mobile phones with CLDC/MIDP profiles and Sun-SPOT sensor by means of TCP/IP and Zigbee protocols.
+
+However, some technologies, more than others, are explicitly designed to support \iot{} domains and CPS.
+%
+For example, the \lpaas{} architecture \cite{lpaas-tplp18} is designed to promote distributed intelligence for the \iot{} world---offering logic programming as a service, and explicitly addressing the requirements and issues of cloud and edge architectures.
+%
+Analogously, the situated coordination approach promoted by the \tucson{}/\respect{} model and technology can be explicitly exploited to handle situatedness in MAS as a coordination issue.
+%
+Also, \tucson{} \cite{tucson-jaamas2} provides the main abstractions for \iot{} environments: environmental resources can be sources of perceptions (like sensors), targets of actions (like actuators), or even both.
+
+Finally, there are technologies that are not explicitly meant to address the \iot{} and CPS domains, but still let us suppose they would be easily portable to those domains---because of their standard compliance, interoperability, and portability features.
+%
+Among the many, \jason{} \cite{jason-clima2005} supports interoperability with non-\jason{} agents via \jade{} \cite{jade-mapbook2005} through \fipa{}-ACL communication \cite{fipa-acl}.
+%
+Similarly, there are extensions to \jack{} \cite{jack-mapbook2005} that make it work in open systems.
+%
+Finally, the Teleo-Reactive \cite{nilsson2001-teleoreactive} approach has been often exploited to facilitate the development of the \iot{} systems as a set of communicating Teleo-Reactive nodes.
+
+%----
+\subsubsection{Symbolic and sub-symbolic integration}
+%----
+
+With respect to the need to reconcile and integrate symbolic and sub-symbolic techniques, none of the selected technologies has been experimented yet \cite{xaisurvey-ia14}, due to their original design purpose out of this scope.
+%
+However, we argue that portable and interoperable technologies might be more suitable for the integration.
+%
+Anyway, the field is still unexplored and represents a frontier research domain.
+
+%----
+\subsubsection{Can existing technologies be labelled as ready? If not, what is missing?}
+%----
+
+The role of logic-based technologies in MAS nowadays exhibits a huge potential for covering the vast majority of intelligent system abstractions.
+%
+However, just a few among the technologies surveyed can be actually labelled as \emph{ready-to-go}, in particular when considering the new challenges for symbolic technologies in AI.
+
+Even though 10\% of the selected technologies can be considered as mature -- in terms of cross-platform support, code quality, and ease of distribution in heterogeneous environments --, most of the times they have not been tested in pervasive and real-world scenarios, yet.
+%
+This implies, at least, that further research and technical activity are required to ensure that any technological barrier can be overcome.
+%
+Furthermore, integration with sub-symbolic techniques remains a \emph{nice-to-have} feature, but it is not actually a thing in any MAS technology, for the time being.
+%
+Nevertheless, the selected technologies are an excellent starting point for
+%
+\begin{inlinelist}
+    \item highlighting the advantages of logic-based technologies, and
+    \item broadening the scope of research towards the directions envisioned.
+\end{inlinelist}
+
+%In the end, we forward the interested readers to the original SLR for the full details \cite{lptech4mas-jaamas35}.
+
+%\section{Current State of Logic-Based Technologies}
+
+%\cite{lptech4mas-aamas2021}
+%\cite{lptech4mas-jaamas35}
+%\cite{logictech-information11}
+
+%\section{Current State of Machine Learning Technologies}
+
+%\section{Current State of XAI Technologies}
+
+%\cite{xaisurvey-ia14}
+
+%\chapter{Need for An Open Ecosystem for Logic-Based AI}
+%
+%\cite{cco-softwarex-2021-2pkt}
+
+\section*{The Need for Interoperability}
+
+%\note{Link next chapter}
+
+Our survey identifies two major lack in the logic-based technology playground, namely \emph{maintenance} and \emph{interoperability}.
+
+Maintenance (and its lack) is essentially an organizational aspect concerning individual research groups around the globe.
+%
+Career incentives within academia discourage the maintenance of software on the long run.
+%
+So, the current maintenance status of logic-based technologies is unsurprising.
+%
+In this perspective, we consider as positive that a non-negligible percentage of logic-based technologies has a decades-long life span.
+
+The actual issue we detect through our survey concerns \emph{interoperability} among the logic-based technologies which survived so far.
+%
+Arguably, this is the most relevant aspect research communities should be concerned by.
+%
+Existing logic-based technologies often address specific uses cases, or rely upon monolithic runtimes, often targeting single platforms or having inconvenient constraints and dependencies.
+%
+Poor care is devoted to favour their interoperability and joint exploitation, probably because of the different programming platforms/runtimes they leverage upon, or the use cases they have been designed for.
+%
+In other words, logic-based technologies are often constructed as technological \emph{silos} -- being so optimised for performance and correctness while being poorly interoperable among each other -- targetting the LP or MAS communities alone.
+
+On the other side, the data science playground is flourishing, also because of the emergent selection few key platforms -- e.g. Python or R -- upon which many inter-dependent and interoperable research project are built, adding value to each other.
+
+Hence, the need for efforts pushing the state of the art of logic-based technologies towards an higher degree of interoperability -- both internally, and with DS technologies -- is compelling.
+%
+Along this line, in the next chapter, we propose a paradigm shift aimed at satisfying this need.
+%
+In particular, we propose the design and implementation of a general-purpose \emph{logic-ecosystem}, upon which other logic-based (as well as ML-oriented) technologies can be constructed, embedded, or made interoperable with.
+%
+Then, in the remainder of this thesis, we discuss how our ecosystem can be designed and extended to cover the need for interoperable technologies at the intersection among symbolic and sub-symbolic AI.
 
 \chapter{The 2P-Kt Ecosystem for Logic-Based AI}\label{chap:ecosystem}
 
