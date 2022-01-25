@@ -4340,11 +4340,12 @@ The new AI era calls for two fundamentals enabling factors:
     \item the availability of huge amounts of context-related data.
 \end{inlinelist}
 %
-Such factors on the one side make it possible to learn from experience, which is the playground of  sub-symbolic algorithms; on the other, make logic algorithms, historically used for expert systems and hence very effective as for transparency and explainability, computable \emph{in reasonable time}.
+Such factors on the one side make it possible to learn from experience, which is the playground of sub-symbolic algorithms; on the other, make logic algorithms, historically used for expert systems and hence very effective as for transparency and explainability, computable \emph{in reasonable time}.
 
 Big data have naturally led sub-symbolic approaches to prevail, because of their effectiveness in elaborating and getting valuable results from context-related data, learning trends and repeating patterns: yet, their inherent black-box nature is a clear issue.
 %
 This is precisely where the integration with symbolic approaches can naturally provide added-value, complementing symbolic and sub-symbolic approaches with each other.
+%
 In fact, the two main weaknesses of symbolic approaches concern specifically
 %
 \begin{inlinelist}
@@ -4352,7 +4353,8 @@ In fact, the two main weaknesses of symbolic approaches concern specifically
     \item computational complexity---the first being the natural territory of sub-symbolic approaches.
 \end{inlinelist}
 
-Computational complexity, in its turn, can be partially addressed thanks to the exponential increase of computational power, by suitably exploiting  parallelism, as well as by re-defining and re-tuning symbolic approaches so as to fit nowadays computing paradigms and architectures---as in the case, for instance, of \lpaas{} \cite{lpaas-tplp18}.
+Computational complexity, in its turn, can be partially addressed thanks to the exponential increase of computational power, by suitably exploiting  parallelism, as well as by re-defining and re-tuning symbolic approaches so as to fit nowadays computing paradigms and architectures.
+%---as in the case, for instance, of \lpaas{} \cite{lpaas-tplp18}.
 %
 However, it still remains an issue in some application contexts, often leading to higher processing costs.
 %
@@ -4386,7 +4388,26 @@ Overall, the synergy of symbolic and sub-symbolic approaches appears to be a via
 %
 In particular, the adoption of symbolic approaches can help to achieve the key features of e-justice, fairness, ethics and transparency.
 
-\note{Frase di chiusura che colleghi il prossimo capitolo}
+\paragraph{The role of technology}
+
+It is worth to be highlighted how in this chapter we mostly focus on the \emph{role} of logic based technologies from an utilitarian perspective, i.e. in terms of what functionalities they may offer and what applicative scenarios they may serve.
+%
+However, in practice, a key role in the rise (or fall) of a technology lays in a number of technical aspects.
+%
+These include
+%
+\begin{inlinelist}
+    \item its ease of use,
+    \item the problem it solves, as well as
+    \item the problems it indirectly helps solving,
+    \item how it interoperates with other well established technologies, and therefore
+    \item the value it adds to (and receives from) them, other than
+    \item its resilience w.r.t. the fast-paced change which is inherent in software technologies---i.e. whether it is actively \emph{maintained} or not.
+\end{inlinelist}
+
+To further asses all such aspects, in the next chapter we analyse the state of the art of logic-based technologies from a technical perspective.
+%
+In doing so, we analyse the maturity, technical reach, and maintenance-level of most relevant logic-based technologies.
 
 \chapter{Technological State of the Art}
 
@@ -4457,9 +4478,9 @@ We also perform a technical assessment of each technology, according to number o
 %
 Arguably, the analysis enables a detailed discussion on the current state of logic-based MAS technologies---in particular highlighting their state of maintenance.
 %
-More precisely, we consider technologies as unmaintained based on the last provable edit involving either the technology source code or any of its software artefacts.
+More precisely, we consider technologies as unmaintained based on the last provable edit involving either the technology source code or any of its software artefacts\footnotemark.
 %
-\footnote{Since our original assessment (September 2020), some technologies described as unmaintained reworked their repositories, code and/or documentation---as in the case of DALI (\url{https://github.com/AAAI-DISIM-UnivAQ/DALI}) and MCAPL (\url{https://autonomy-and-verification.github.io/tools/mcapl})}
+\footnotetext{Since our original assessment (September 2020), some technologies described as unmaintained reworked their repositories, code and/or documentation---as in the case of DALI (\url{https://github.com/AAAI-DISIM-UnivAQ/DALI}) and MCAPL (\url{https://autonomy-and-verification.github.io/tools/mcapl})}
 
 %%===============================================================================
 \section{Main outcomes}\label{sec:outcomes}
