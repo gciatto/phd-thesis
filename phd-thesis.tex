@@ -4707,7 +4707,9 @@ Finally, it is worth to be mentioned how -- except for a few notable exceptions,
 %
 Indeed, considering the 1-5 ranges defined above, only 34.04\% of the technologies come with a code base whose quality is greater than 3, whereas only 19.15\% are scored similarly as far as documentation is concerned.
 
-\note{A chapter on the state of Prolog systems?}
+%\note{A chapter on the state of Prolog systems?}
+
+\note{Link next chapter}
 
 \chapter{The 2P-Kt Ecosystem for Logic-Based AI}\label{chap:ecosystem}
 
@@ -5091,11 +5093,7 @@ As discussed in \cite{kotlindsi4prolog-woa2020}, the adoption of this DSL makes 
 \section{Impact}
 \label{sec:impact}
 
-% \textbf{This is the main section of the article and the reviewers weight the description here appropriately}
-
-% Indicate in what way new research questions can be pursued as a result of the software (if any).
-
-We expect 2P-Kt technology to have sn impact on many research areas.
+We expect \twopkt{} technology to have an impact on many research areas.
 
 Within the scope of LP, for instance, \twopkt{} provides a well-grounded technological basis for implementing (or building variants and extensions of) the many solutions proposed into the literature---there including abductive inference procedures \cite{FungIff97}, rule induction methods \cite{Muggleton94}, probabilistic reasoning \cite{RaedtK15}, labelled LP \cite{labelledlp-fi161}, etc.)
 
@@ -5119,6 +5117,16 @@ Finally, we expect \twopkt{} will have a role to play in the field of explainabl
 %
 There, the integration among symbolic and sub-symbolic AI is considered a strategical research direction \cite{xaisurvey-ia14} and \twopkt{} may offer a sound technological basis to this purpose.
 
+\paragraph{\twopkt{} adoption}
+
+While \tuprolog{} has been exploited both in the industry and in the academia\footnote{\url{http://apice.unibo.it/xwiki/bin/view/Tuprolog/Users}}, \twopkt{} has been used in the academia only---so far.
+%
+However, it has already worked -- or, will work in the near future -- as the technological basis of many scientific contributions.
+%
+Some, such as \tucson{} \cite{tucson-jaamas2}, \respect{} \cite{respect-scp41}, \lpaas{} \cite{lpaas-bdcc2}, or \tenderfone{} \cite{blockchainmas-applsci10} leveraged on \tuprolog{} for their implementation, and are now being migrated on \twopkt{}.
+%
+Others, such as \tusow{} \cite{tusow-icccn2019}, \argtwop{} \cite{arg2p-cilc2020}, or the Kotlin-based DSL for LP proposed in \cite{kotlindsi4prolog-woa2020} are already based on \twopkt{}.
+
 % Indicate in what way, and to what extent, the pursuit of existing research questions is improved (if so).
 \paragraph{Research directions stemming from \twopkt{}}
 
@@ -5128,11 +5136,14 @@ Any research line involving symbolic manipulation or automated reasoning is then
 %
 Generally speaking, \twopkt{} paves the way towards:
 %
-\begin{inlinelist}
-    \item the coexistence and integration of different LP aspects,
-    \item the hybridisation of LP with other AI techniques, and
-    \item the exploitation of LP in building flexible intelligent systems.
-\end{inlinelist}
+%\begin{inlinelist}
+%    \item
+    the coexistence and integration of different LP aspects,
+%    \item
+    the hybridisation of LP with other AI techniques, and
+%    \item
+    the exploitation of LP in building flexible intelligent systems.
+%\end{inlinelist}
 %
 Along these lines, our goals involve:
 %
@@ -5141,8 +5152,6 @@ Along these lines, our goals involve:
     \item\label{goal:hybrid-lp} the construction of hybrid systems where logic programmers can transparently exploit machine learning (ML) and sub-symbolic AI, and
     \item\label{goal:lp-and-mas} the injection of LP into cognitive agents architectures.
 \end{inlinelist}
-
-% Indicate in what way the software has changed the daily practice of its users (if so).
 
 So, as far as goal \ref{goal:multi-logic} is concerned, we are currently exploring the design of probabilistic, abductive, or concurrent resolution under a unique API.
 %
@@ -5166,38 +5175,60 @@ This would enable further research towards, e.g., the exploitation of different 
 %
 There, \twopkt{} provides a common ground for the implementation of automated reasoners supporting each logic.
 
-% Indicate how widespread the use of the software is within and outside the intended user group.
-\paragraph{\twopkt{} adoption}
+\emptyparagraph
 
-While \tuprolog{} has been exploited both in the industry and in the academia\footnote{\url{http://apice.unibo.it/xwiki/bin/view/Tuprolog/Users}}, \twopkt{} has been used in the academia only---so far.
-%
-However, it has already worked -- or, will work in the near future -- as the technological basis of many scientific contributions.
-%
-Some, such as \tucson{} \cite{tucson-jaamas2}, \respect{} \cite{respect-scp41}, \lpaas{} \cite{lpaas-bdcc2}, or \tenderfone{} \cite{blockchainmas-applsci10} leveraged on \tuprolog{} for their implementation, and are now being migrated on \twopkt{}.
-%
-Others, such as \tusow{} \cite{tusow-icccn2019}, \argtwop{} \cite{arg2p-cilc2020}, or the Kotlin-based DSL for LP proposed in \cite{kotlindsi4prolog-woa2020} are already based on \twopkt{}.
+Accordingly, in the reminder of this thesis, we explore a number of contributions stemming from (and enabled by) \twopkt{}.
 
-% Indicate in what way the software is used in commercial settings and/or how it led to the creation of spin-off companies (if so).
+In particular, in \cref{chap:lp-streams}, we introduce a fundamental mechanism -- namely, \emph{primitives} -- which \twopkt{} solvers may exploit to lazily handle streams of data.
+%
+Despite its simplicity, the mechanism is very powerful, as it enables the interoperability of LP with other runtimes, e.g. JVM libraries.
+%
+This, in turn, enables most of the subsequent contributions discussed in this thesis.
+%
+Similarly, in \cref{chap:kt-dsl}, we discuss the integration of logic, object-oriented, and functional programming at the paradigm and language level, as made possible by \twopkt{}.
 
-\section{Summarising}
-\label{sec:conclusion}
+In \cref{chap:mllib}, we propose the design of a logic API for ML, aimed at enabling the manipulation of ML predictors in LP, and, therefore, the creation of hybrid (symbolic + sub-symbolic) AI solution.
+%
+We also discuss how such API can be reified into yet another module expanding the \twopkt{} ecosystem.
 
-This chapter introduces \twopkt{}, an open, general, Kotlin Multiplatform ecosystem for LP, supporting manifold mechanisms for automated reasoning, via several loosely-coupled modules.
+In \cref{chap:psyke}, we propose the design and implementation of a ``platform for symbolic knowledge extraction'' (\psyke{}) reifying the vision and the architecture discussed in \cref{sec:knowledge-extraction}.
 %
-Each module makes some specific LP aspects individually usable.
+The proposed technology enables the extraction of logic rules out of sub-symbolic predictors.
 %
-Selectively reusing/extending modules enables bootstrapping novel LBT without re-implementing everything from scratch or producing Prolog-centered monoliths.
-%
-In particular, \twopkt{} supports \emph{mixed} inference procedures, involving both symbolic and sub-symbolic techniques.
+Such rules are of course represented as clauses, as enabled by \twopkt{}.
 
-The \twopkt{} ecosystem is structured by keeping reusability, extensibility and interoperability in mind.
+Furthermore, in \cref{chap:plp} we discuss the extension of the \twopkt{} ecosystem towards probabilistic logic programming.
 %
-Its functionalities include knowledge representation, (de)serialisation, parsing (and formatting facilities), unification,
-clause in-memory indexing and storage facilities, logic inference via SLDNF, UX, and rich Kotlin API for developers.
+Despite the benefits of supporting probabilistic reasoning, such extension confirms the advantages of the ecosystem-based approach.
 %
-They all support JVM, JavaScript, and Android platforms.
+In fact, we show how probabilistic reasoning support can be achieved by reusing as much functionalities from the \twopkt{} ecosystem as possible.
 
-\note{Whet the appetite of the reader by spoilering next chapters}
+Finally, in \cref{chap:2pkt-future} we discuss a number of future research directions, stemming from or overlapping \twopkt{}.
+%
+Despite some steps have already been performed along these directions, they are not mature enough to be included as chapters in this thesis.
+%
+Hence, we report them as future works, providing insights about their backgrounds and presenting what we have already done so far.
+
+
+%\section{Summarising}
+%\label{sec:conclusion}
+%
+%This chapter introduces \twopkt{}, an open, general, Kotlin Multiplatform ecosystem for LP, supporting manifold mechanisms for automated reasoning, via several loosely-coupled modules.
+%%
+%Each module makes some specific LP aspects individually usable.
+%%
+%Selectively reusing/extending modules enables bootstrapping novel LBT without re-implementing everything from scratch or producing Prolog-centered monoliths.
+%%
+%In particular, \twopkt{} supports \emph{mixed} inference procedures, involving both symbolic and sub-symbolic techniques.
+%
+%The \twopkt{} ecosystem is structured by keeping reusability, extensibility and interoperability in mind.
+%%
+%Its functionalities include knowledge representation, (de)serialisation, parsing (and formatting facilities), unification,
+%clause in-memory indexing and storage facilities, logic inference via SLDNF, UX, and rich Kotlin API for developers.
+%%
+%They all support JVM, JavaScript, and Android platforms.
+%
+%\note{Whet the appetite of the reader by spoilering next chapters}
 
 \chapter{Bridging LP and Stream Processing}
 \label{chap:lp-streams}
@@ -6477,6 +6508,7 @@ Similarly, we would like to explore the intricacies related to the processing of
 Finally, as further discussed in \cref{sec:concurrent-lp}, we are interested developing a framework for \emph{concurrent} resolution, following the same state-machine-based approach we exploit in this chapter.
 
 \chapter{Bridging LP and Mainstream Programming Paradigms}
+\label{chap:kt-dsl}
 
 \mypapers{kotlindsi4prolog-woa2020}
 
@@ -9936,6 +9968,7 @@ Since \psyke{} currently works as a distiller of knowledge, further investigatio
 Moreover, it could be interesting to compare results with those obtained by directly learning a symbolic model.
 
 \chapter[Enriching the Ecosystem with PLP]{Enriching the Ecosystem with Probabilistic Logic Programming}
+\label{chap:plp}
 
 \mypapers{dcc-aixia-2021-plp}
 \mystudentsthesis{Master's}{Dellaluce2021}
@@ -10456,7 +10489,8 @@ Our design is purposely abstract, and we endorse the future exploration of alter
 %
 Among the others, we envision future directions involving: approximate inference support, more efficient knowledge compilation data structures, or the exploitation alternative resolution strategies such as the tabled or concurrent ones---other than, of course, comparative benchmarks aimed at assessing our solutions w.r.t. the state of the art.
 
-\chapter{Enriching the Ecosystem: Future Directions}
+\chapter{Enriching the Ecosystem: the Future}
+\label{chap:2pkt-future}
 
 In this chapter we discuss a number of research directions stemming from, building upon, or overlapping the contribution of this thesis.
 %
