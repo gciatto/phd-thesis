@@ -7624,7 +7624,7 @@ Here we discuss the design of \mllib, i.e. a logic programming library reifying 
 \begin{figure}
     \centering
     \includegraphics[width=.5\linewidth]{figures/mllib-layers.pdf}
-    \caption{Layered view of our \mllib{}. An OO library is assumed behind the scenes, providing high-level abstraction to optimize ML predictors, possibly via HW acceleration}
+    \caption[Layered view of our \mllib{}]{Layered view of our \mllib{}. An OO library is assumed behind the scenes, providing high-level abstraction to optimize ML predictors, possibly via HW acceleration}
     \label{fig:mllib-layers}
 \end{figure}
 
@@ -7651,7 +7651,7 @@ However, while technological choices are contingent and subject to change, the o
 \begin{sidewaysfigure}
     \centering
     \includegraphics[width=\linewidth]{figures/entities.pdf}
-    \caption{Overview of our \mllib{} design. The chart represents the many entities logic programmers may exploit via our \mllib{}, and the many predicates supporting their creation, manipulation, or representation. Predicates are depicted with either a yellow diamond in case they are non-deterministic (a.k.a. backtrackable), or a green circle otherwise.}
+    \caption[Overview of our \mllib{}'s design]{Overview of our \mllib{}'s design. The chart represents the many entities logic programmers may exploit via our \mllib{}, and the many predicates supporting their creation, manipulation, or representation. Predicates are depicted with either a yellow diamond in case they are non-deterministic (a.k.a. backtrackable), or a green circle otherwise.}
     \label{fig:design-overview}
 \end{sidewaysfigure}
 
@@ -8861,7 +8861,7 @@ For the moment, we simply stress the declarative nature of the script which can 
 \begin{figure}
     \centering
     \includegraphics[width=.3\linewidth]{figures/mlp.png}
-    \caption{Simplified representation of a multi-layer perceptron having 4 input neurons, 2 hidden layers with 5 and 7 neurons respectively, and 3 output neurons}
+    \caption[Simplified representation of a multi-layer perceptron]{Simplified representation of a multi-layer perceptron having 4 input neurons, 2 hidden layers with 5 and 7 neurons respectively, and 3 output neurons}
     \label{fig:mlp}
 \end{figure}
 
@@ -8888,13 +8888,13 @@ Here, the \pl{iris\_dataset/1} attempts to load the data from the local theory i
 \prologimport[
     float,
     label={lst:training},
-    caption={Declarative description of a ML workflow aimed at selecting the best hyper and learning parameters for a NN classifier. Ancillary predicates invoked in this snippet are reported in \cref{lst:training-ancillary}}
+    caption={[Declarative description of a ML workflow]Declarative description of a ML workflow aimed at selecting the best hyper and learning parameters for a NN classifier. Ancillary predicates invoked in this snippet are reported in \cref{lst:training-ancillary}}
 ]{listings/training.pl}
 
 \prologimport[
     float,
     label={lst:training-ancillary},
-    caption={Ancillary predicates used in \cref{lst:training}. Each predicate denotes one particular step of a model selection workflow}
+    caption={[Ancillary predicates used in \cref{lst:training}]Ancillary predicates used in \cref{lst:training}. Each predicate denotes one particular step of a model selection workflow}
 ]{listings/training-ancillary.pl}
 
 The automatic exploration of a search space subtended by logic resolution could be exploited to perform model selection.
@@ -8949,7 +8949,7 @@ If all aspects of the model selection workflow are correctly declared, the query
 \prologimport[
     float,
     label={lst:hybrid-predictor},
-    caption={Exploitation of the NN classifier trained in \cref{lst:training} to create an hybrid predicate -- namely \pl{iris/5} -- aimed at classifying Iris flowers}
+    caption={[Declaration of an hybrid predicate aimed at classifying Iris flowers]Exploitation of the NN classifier trained in \cref{lst:training} to create an hybrid predicate -- namely \pl{iris/5} -- aimed at classifying Iris flowers}
 ]{listings/hybrid-predictor.pl}
 
 Finally, \cref{lst:hybrid-predictor} shows the exploitation of a trained NN predictor as a predicate aimed at classifying (possibly) unseen instances of the Iris flower.
@@ -8977,7 +8977,7 @@ It is worth to be highlighted that, from the caller perspective, the \pl{iris/5}
 \prologimport[
     float,
     label={lst:symbolic-predictor},
-    caption={A purely symbolic classifier for Iris flowers, functionally equivalent to the hybrid one from \cref{lst:hybrid-predictor}}
+    caption={[A purely symbolic classifier for Iris flowers]A purely symbolic classifier for Iris flowers, functionally equivalent to the hybrid one from \cref{lst:hybrid-predictor}}
 ]{listings/symbolic-predictor.pl}
 
 %----------------------------------------------------------------------------------------
@@ -10856,8 +10856,10 @@ Thus, a graph can be attained by defining a vertex for each different constant i
 \begin{figure}
     \centering
     \includegraphics[width=.7\linewidth]{figures/workflow.pdf}
-    \caption{Proposed roadmap along with its theoretical framework.
-        Logic level and graph level can be mapped directly, in order for logical problems to benefit from sub-symbolical techniques -- e.g. GNN -- available at the graph level.}
+    \caption[General workflow for sub-symbolically processing symbolic knowledge via GNN]{
+        General workflow for sub-symbolically processing symbolic knowledge via GNN.
+        Logic level and graph level can be mapped directly, in order for logical problems to benefit from sub-symbolical techniques -- e.g. GNN -- available at the graph level.
+    }
     \label{fig:workflow}
 \end{figure}
 
@@ -11262,7 +11264,9 @@ To mitigate this issue, in \cite{tusow-icccn2019}, we propose a layered referenc
 \begin{figure}
     \centering
     \includegraphics[width=.5\linewidth]{figures/tusow-architecture.pdf}
-    \caption{\tusow{} architecture. Circles represent \tusow{} remote API. Clients API exploiting \mqtt{} and \grpc{} remote API are not depicted.}
+    \caption[\tusow{} architecture]{
+        \tusow{} architecture. Circles represent \tusow{} remote API. Clients API exploiting \mqtt{} and \grpc{} remote API are not depicted.
+    }
     \label{tusow-components}
 \end{figure}
 %%%%
