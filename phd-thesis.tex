@@ -11370,11 +11370,100 @@ These implementations may then be exploited in main-stream programming as well a
 %\cite{proactivesc-blockchain2019}
 %\cite{blockchainmas-applsci10}
 
-
-\finalpart{}
+\finalpart{Epilogue}
 
 \chapter{Conclusions}
 \label{chap:conclusions}
+
+In this chapter, conclusions are drawn and the achievement of the goals of this thesis is discussed.
+%
+Instead, future research directions are discussed in \cref{chap:2pkt-future}.
+
+As outlined in \cref{chap:introduction}, this thesis tackles the problem of bridging computational logic and data science, as a particular case of the more general problem of combining symbolic and sub-symbolic AI.
+%
+Along this line, our contribution is split in two major parts.
+
+\paragraph{The computational perspective}
+
+In \cref{part:what}, we analyse CL and DS w.r.t. four major dimensions, under a computational perspective. %, namely knowledge representation, learning, reasoning, and explaining.
+%
+Hence, stemming from an historical perspective on the two branches of AI, we draw a detailed comparison about how knowledge is represented, learnt, inferred, and explained both in symbolic and sub-symbolic AI.
+%
+Coherently with the goals \ref{goal:analogies-and-differences} and \ref{goal:4-dimensional-framework} (cf. \cref{chap:introduction}), we identify the key differences and complementarities among the two, other than the most relevant issues arising when \emph{hybrid} systems -- i.e. systems jointly exploiting CL and DS -- are designed.
+
+\subparagraph{Key differences}
+
+Among the key differences, it is worth mentioning the way knowledge is represented, and learnt.
+
+Concerning representation (cf. \cref{chap:kr}), the main difference lays in the ability to represent information intensionally---i.e. implicitly, as opposed to the need of extensionally describing each single datum.
+%
+Indeed, this is, at the time of writing, is a prerogative of CL, whereas DS most often requires knowledge to be provided in the form of numeric arrays.
+
+Consequently, as far as learning is concerned (cf. \cref{chap:learning}), another key difference lays in the way useful knowledge is acquired from novel evidence---i.e. data.
+%
+While DS commonly relies on numeric algorithms to fit the parameters of a target function, CL relies upon symbolic algorithms which are capable of learning full logic relations.
+
+Furthermore, one may empirically observe how numeric algorithms are inherently data-eager, while symbolic ones can attain good learning performances even in presence of very few examples.
+%
+However, in practice, it is worth remarking how the two learning approaches are heavily unbalanced when it comes to technological support.
+%
+Indeed, while technologies for numeric learning are flourishing, the same is not true for symbolic learning.
+
+\subparagraph{Key complementarities}
+
+Among the key complementarities, it is worth mentioning the way knowledge relates to both inference, and explanation.
+
+Concerning inference (cf. \cref{chap:reasoning}), we stress that CL and DS subtend different -- yet complementary -- ways of interpreting inference.
+%
+Indeed, CL subtends a rational way of drawing conclusions out of premises -- i.e. reasoning, in a nutshell --, possibly following a deductive, abductive, or inductive strategy.
+%
+Conversely, DS subtends an intuitive way of recognising patterns in (possibly, unseen) data, hence interpreting inference as a form of perception.
+%
+Notably, the two ways are complementary rather than competing.
+%
+Hybrid systems may be designed where fuzzy tasks are devoted to sub-symbolic processing, whereas higher-level, crisp, decision-taking tasks are devoted to some symbolic component.
+
+As far as explanation is concerned (cf. \cref{chap:explaining}), we acknowledge that the interpretation of symbols is straightforward in CL, while it may easily become cumbersome when knowledge is represented through arrays of numbers---as in DS.
+%
+Accordingly, explainability of ML predictors makes the complementarity among symbolic and sub-symbolic AI even more evident.
+%
+Along this line, we model the explanation the act of extracting symbolic knowledge out of sub-symbolic predictors---while of course guaranteeing the extracted knowledge actually reflects what the predictors has learnt.
+%
+Notably, this is a relevant contribution within the field of XAI, which is currently striving to make ML predictors explainable.
+
+\paragraph{The technological perspective}
+
+In \cref{part:how}, we analyse the state of the art of CL under a technological perspective.
+
+Coherently with goal \ref{goal:tech-soa}, we assess the currently available logic-based technologies w.r.t. their capability to serve the needs of modern and future AI (cf. chapters \ref{chap:lbt-role} and \ref{chap:tech-soa})---possibly, in a synergy with DS.
+%
+It turns out a considerable amount of logic-based technologies is nowadays unmaintained, while many others are flourishing within the MAS community (cf. \cref{chap:tech-soa}).
+%
+However, we observe a tendency towards the creations of what we call ``technological silos'', i.e. poorly interoperable technologies serving specific purposes---despite very well.
+%
+Interoperability issues arise for a number of reasons, mostly related to design or technological choices (e.g. the runtime platform), which made sense sense in the past but are constraining nowadays.
+
+Accordingly, we address goal \ref{goal:logic-ecosystem} by designing a notion of logic ecosystem, and by reifying into the \twopkt{} technology, as discussed in \cref{chap:ecosystem}.
+%
+There, a logic ecosystem consists of a collection of loosely coupled software modules, each one supporting a particular CL aspect, notion, or functionality in an unopinionated way.
+%
+In other words, it is designed in such a way to support CL -- as well as its interoperability with DS -- without committing to any particular functionality of use case.
+%
+Ad-hoc modules are designed for knowledge representation and automated reasoning, as basic functionalities, while the addition of further modules targetting, e.g., learning or explanation is enabled by building on top of the base modules and their open API.
+%
+Furthermore, to prevent \twopkt{} from becoming a technological silos itself, we have designed as a \emph{multi-platform} software ecosystem.
+
+Consequently, in the subsequent chapters, we address goal \ref{goal:extending-the-ecosystem} by designing -- and possibly implementing -- a number of extensions for our logic ecosystem pushing it towards DS.
+%
+Notably, such extensions serve the purpose of demonstrating \twopkt{}'s interoperability as well.
+%
+In particular, we develop extensions bridging DS and our logic ecosystem in several ways.
+%
+For instance, we bridge the ecosystem with data stream processing (\cref{chap:lp-streams}), mainstream programming paradigms such as object-oriented and functional programming (\cref{chap:kt-dsl}), machine learning (\cref{chap:mllib}), eXplanable AI (\cref{chap:psyke}), and probabilistic logic programming (\cref{chap:plp}).
+%
+A number of further bridges are envisioned and discussed in \cref{chap:2pkt-future}, concerning for instance concurrent logic programming, graph neural networks, symbolic knowledge injection, tuple-based coordination, and inductive logic programming.
+
+Hopefully, in the future, our logic ecosystem will be enriched enough to act as the most adequate conceptual and technological basis for hybrid intelligent systems.
 
 %----------------------------------------------------------------------------------------
 % BIBLIOGRAPHY
@@ -11382,9 +11471,6 @@ These implementations may then be exploited in main-stream programming as well a
 
 \backmatter
 
-\note{Write conclusions}
-
-% \nocite{*} % uncomment this to show all the reference in the .bib file
 \bibliographystyle{alpha}
 \bibliography{phd-thesis,ccdo-information-2020}
 
