@@ -47,11 +47,14 @@
 \newcommand{\supervisor}[1]{\def\thesupervisor{#1}}
 \newcommand{\cycle}[1]{\def\thecycle{#1}}
 \newcommand{\examyear}[1]{\def\theexamyear{#1}}
+\newcommand{\keywords}[1]{\def\thekeywords{#1}}
 
-\newenvironment{abstract}{\chapter*{\centering\abstractname}\addcontentsline{toc}{chapter}{\abstractname}}{}
+\newenvironment{abstract}{\chapter*{\centering\abstractname}\addcontentsline{toc}{chapter}{\abstractname}}{{\small\textbf{Keywords:} \thekeywords}}
 \newenvironment{acknowledgements}{\chapter*{\acknowledgementsname}}{}
 \newenvironment{dedication}{\chapter*{}\begin{flushright}\itshape}{\normalfont\end{flushright}}
 \newenvironment{inlinelist}{\begin{enumerate*}[label=\emph{(\roman{*})}]}{\end{enumerate*}}
+
+\newcommand{\sep}{$\cdot$~}
 
 \newcommand{\chapterWithoutNumber}[1]{\chapter*{#1}\addcontentsline{toc}{chapter}{#1}}
 
