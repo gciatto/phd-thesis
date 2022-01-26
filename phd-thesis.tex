@@ -110,9 +110,9 @@ The former issue actually constrains the exploitation of DS into use cases where
 %
 Vice versa, CL is data efficient as it can bring valuable results even in presence of very small prior knowledge.
 %
-The interpretability issue is, in turn, among the most relevant topic nowadays.
+In turn, the interpretability issue is nowadays among the most relevant topics.
 %
-Given the wide exploitation of DS in some many areas of expertise, clarity and intelligibility of its outcomes are becoming a critical aspects---mostly because of their sub-symbolic nature.
+Given the wide exploitation of DS in so many areas of expertise, clarity and intelligibility of its outcomes are becoming a critical aspects---mostly because of their sub-symbolic nature.
 %
 Vice versa, CL is inherently symbolic in nature and therefore less subject to such interpretability issues.
 
@@ -129,18 +129,18 @@ On the one side, we \emph{elicit} analogies, dichotomies, and possible synergies
 \begin{description}
     \item[representation] | i.e. the way knowledge is expressed and made interpretable by either machines or human beings, or both; e.g. via symbols, formul\ae, or tensors of real numbers
 
-    \item[acquisition] | i.e. the way novel knowledge is learned from prior information, mined from data, or attained from external sources; e.g. via data mining, via induction, or via interaction
+    \item[acquisition] (a.k.a. learning) | i.e. the way novel knowledge is learned from prior information, mined from data, or attained from external sources; e.g. via data mining, via induction, or via interaction
 
-    \item[inference] |  i.e. the way decisions, suggestions, recommendations, or predictions can be automatically computed out of prior knowledge; e.g. via automated deduction/abduction, or via classification/regression
+    \item[inference] (a.k.a. reasoning) |  i.e. the way decisions, suggestions, recommendations, or predictions can be automatically computed out of prior knowledge; e.g. via automated deduction/abduction, or via classification/regression
 
-    \item[explanation] | i.e. the way knowledge can be transferred to another entity---be it computational or human
+    \item[explanation] | i.e. the way knowledge can be transferred to another entity -- be it computational or human --, in such a way that the recipient can take advantage of it, similarly to how the provider would
 \end{description}
 
 On the other side, we acknowledge that both CL and DS have a prominent overlap with computer science (CS) and software engineering (SE).
 %
 Regardless of how they manipulate knowledge, both approaches subtend a mathematical modelling of many computational aspects, which must then be reified into well-engineered software technologies to let practitioners actually exploit them.
 %
-Accordingly, we further analyse CL and DS from both a computational and technological perspective.
+Along this line, we further analyse CL and DS from both a \emph{computational} and \emph{technological} perspective.
 %
 While the computational perspective focuses on \emph{what} data structures, algorithms, and workflows they leverage upon to attain intelligence, the technological perspective focuses on \emph{how} such aspects can be translated in practice, via robust software architectures and effective implementations.
 %
@@ -156,45 +156,85 @@ We may refer to agents as ``intelligent'' in case the come equipped with human-l
 %
 Under such a mindset, human agents are intelligent by definition, whereas software agents may tend to intelligence by acquiring one or more of these capabilities via either CS or DS---or, hopefully, a combination of them.
 %
-Accordingly, what we have so far called ``machines'' are indeed ``software agents'', and the overall role of the agent-oriented mindset is about focussing on \emph{who} is charge of manipulating knowledge and \emph{when}. %, other than \emph{where} should knowledge be located in the meanwhile.
+Hence, what we have so far called ``machines'' are indeed ``software agents'', and the overall role of the agent-oriented mindset is about focussing on \emph{who} is charge of manipulating knowledge and \emph{when}. %, other than \emph{where} should knowledge be located in the meanwhile.
 
-\note{Discuss the goal of the thesis}
-
-\paragraph{Structure of the thesis}
+\paragraph{Goals of the thesis}
 
 Summarising, the whole thesis discusses in what ways CL and DS can jointly contribute to the management of knowledge within the scope of modern and future intelligent systems, and how technically sound software technologies can be realised along the path.
 %
 An agent-oriented mindset permeates the whole discussion, by stressing pivotal role of autonomous agents in exploiting both means to reach higher degrees of intelligence.
 %
-Accordingly, this thesis is organised in three parts, named \emph{What}, \emph{How}, and \emph{Who}, respectively.
+Along this line, the goals of this thesis can be concisely enumerated as follows:
+%
+\begin{enumerate}
+    \item\label{goal:analogies-and-differences} understanding the analogies and differences among DS and CS, hence looking for possible synergies and complementarities;
 
-In the first part (\emph{What}), we focus on the computational perspective.
-%
-There, we present the two main branches of AI---namely, the \emph{symbolic} and \emph{sub-symbolic} ones.
-%
-In particular, we recall classical definitions and survey the current state of the art for both CL and DS.
-%
-We finally present their strengths and weaknesses, and the many possible bridges among them, w.r.t. knowledge representation, acquisition, manipulation, and transfer.
+    \item\label{goal:4-dimensional-framework} derive a conceptual framework through which bridges among DS and CS can be described and designed, along the 4 main dimensions;
 
-In the second part (\emph{How}), we focus on the technological perspective.
-%
-There, we survey the current state of technologies.
-%
-In particular, we focus on logic-based technologies laying at the intersection with DS, identifying the current lacks w.r.t. current theoretical advances.
-%
-We then propose the notion of AI ecosystem, and \twopkt{} as its main reification in software.
-%
-Finally, we present a number of possible ways to extend the \twopkt{} ecosystem towards DS.
+    \item\label{goal:tech-soa} evaluate the current state of the art of AI technologies, w.r.t. their capability to support the realisation of those bridges;
 
-%Finally, the third part (\emph{Who}) closes the loop by discussing the role of agents \ldots
+    \item\label{goal:logic-ecosystem} propose the notion of \emph{logic ecosystem} as the new conceptual, architectural, and technological solution supporting the \emph{incremental} integration of symbolic and sub-symbolic AI;
 
-\note{provide details}
+    \item\label{goal:extending-the-ecosystem} discuss how our notion of logic ecosystem can be
+    %
+    \begin{inlinelist}
+        \item reified into actual software technology and
+        \item extended to support the joint exploitation of DS and CL in practice.
+    \end{inlinelist}
+\end{enumerate}
+%
+Notably, goals \ref{goal:analogies-and-differences} and \ref{goal:4-dimensional-framework} deal with the computational perspective, whereas goals \ref{goal:tech-soa}--\ref{goal:extending-the-ecosystem} deal with the technological one.
+
+\paragraph{Structure of the thesis}
+
+Accordingly, this thesis is organised in two parts, namely ``What'' and ``How''. %, and \emph{Who}, respectively.
+
+\subparagraph{What}
+
+In \cref{part:what}, %(namely ``What''),
+we focus on the computational perspective.
+%
+This is where we address goals \ref{goal:analogies-and-differences} and \ref{goal:4-dimensional-framework}.
+
+Our discussion starts from \cref{chap:history}, where we provide a brief recap of the history of AI, with a focus on the symbolic--connectionist dichotomy.
+%
+There, we introduce the two main branches of AI---namely, the \emph{symbolic} and \emph{sub-symbolic} (initially referred to as ``connectionist'') ones.
+
+In the subsequent chapters, we recall classical definitions and survey the current \emph{theoretical} state of the art for both CL and DS.
+%
+In doing so, we present and compare their strengths and weaknesses, and the many possible bridges among them, w.r.t. the 4 principal dimensions---namely, knowledge representation (\cref{chap:kr}), learning (\cref{chap:learning}), inference (\cref{chap:reasoning}), and explanation (\cref{chap:explaining}).
+
+\subparagraph{How}
+
+Conversely, in \cref{part:how}, %(namely ``How''),
+we focus on the technological perspective.
+%
+This is where we address goals \ref{goal:tech-soa}, \ref{goal:logic-ecosystem}, and \ref{goal:extending-the-ecosystem}.
+
+Our discussion starts from \cref{chap:lbt-role}, where we discuss the role of logic-based approaches and technologies in the modern AI playground.
+%
+Then, to fully accomplish goal \ref{goal:tech-soa}, we provide a state of the art for logic-based technologies in \cref{chap:tech-soa}.
+%
+There, we focus on logic-based technologies coming some actually usable reification in software, and identify the current lacks w.r.t. recent theoretical advances.
+
+In \cref{chap:ecosystem}, we introduce our notion of logic ecosystem, and we propose \twopkt{} as its main reification in software, hence addressing goal \ref{goal:logic-ecosystem}.
+%
+Then, in chapters \ref{chap:lp-streams}--\ref{chap:2pkt-future}, we present a number of possible ways to extend the \twopkt{} ecosystem towards DS.
+%
+A detailed overview of these chapters is provided in \cref{sec:impact}.
+%
+Notably, \cref{chap:2pkt-future} is entirely dedicated to future research directions.
+
+\emptysubparagraph
+
+Finally, \cref{chap:conclusions} concludes the thesis and summarises our contribution.
 
 
 \part{What}
 \label{part:what}
 
 \chapter{Historical Perspective on AI}
+\label{chap:history}
 
 AI is a multi-faceted discipline leveraging on contributions coming from several areas of human knowledge, there including Mathematics, Computer Science, Statistics, Psychology, Philosophy, and many others.
 %
@@ -549,6 +589,7 @@ Accordingly, the focus here is on speeding up -- through parallelisation -- the 
 There, parallelisation may occur on either on multiple cores of the same machine, or multiple \emph{distributed} machines.
 
 \chapter{Representing Data and Knowledge}
+\label{chap:kr}
 
 % \note{General introduction on KR as the lingua franca among humans and machines}
 Representation deals with the expression of information to make it understandable and manipulable by agents---be they computational or humans.
@@ -1355,7 +1396,8 @@ Finally, item \ref{item:tensor-products} implies that the maximum level of recur
 %
 All such issues arise because sub-symbolic KR is inherently extensional, and it involves no simple way to express data intensionally -- and therefore concisely -- as in logic.
 
-\chapter{Learning Knowledge from Data}\label{chap:learning}
+\chapter{Learning Knowledge from Data}
+\label{chap:learning}
 
 A famous definition of machine learning from \cite{Mitchell1997} states:
 %
@@ -2147,7 +2189,8 @@ A similar argument may hold for language bias, since it may be considers as meta
 
 % \note{Sub-symbolic approaches care a lot about model validation as a means to assess the generalisation capabilities of a trained model. ILP model care less. Speculating on the motivation: the outcome of ILP is symbolic, therefore the human being can understand if it is correct or not. Or maybe it's simply because it has not been applied on a large scale, yet?}
 
-\chapter{Reasoning over Knowledge}\label{chap:reasoning}
+\chapter{Reasoning over Knowledge}
+\label{chap:reasoning}
 
 The Cambridge dictionary\footnote{\url{https://dictionary.cambridge.org/dictionary/english/reasoning}} defines \emph{reasoning} as
 %
@@ -2898,7 +2941,8 @@ Of course, grounding is only possible in practice when the amount of items in th
 %
 Notably, by admitting structured terms for KR, the Herbrand universe will certainly be infinite (cf. \cref{par:herbrand})---hence why leveraging on grounding usually subtends forbidding (at least) structured terms from the KR formalism.
 
-\chapter{Explaining AI via Symbolic Knowledge}\label{chap:explaining}
+\chapter{Explaining AI via Symbolic Knowledge}
+\label{chap:explaining}
 
 % Despite the open philosophical issues, i
 It is undeniable that AI and ML are nowadays becoming more and more intertwined with a growing number of aspects of people's every day life \cite{helbing2019, elliott2019}.
@@ -3037,7 +3081,7 @@ In fact, understanding IS is essential to guarantee algorithmic fairness, to ide
 %%%%
 \begin{figure}
     \centering
-    \includegraphics[width=\linewidth]{figures/interpretability-performance-tradeoff}
+    \includegraphics[width=.8\linewidth]{figures/interpretability-performance-tradeoff}
     \caption[Interpretability/performance trade-off]{Interpretability/performance trade-off for some common sorts of black-box predictors}
     \label{fig:tradeoff}
 \end{figure}
@@ -3049,9 +3093,9 @@ At the same time, there is no consensus on what exactly providing an \emph{expla
 %
 However, several authors agree that not all black boxes are equally \emph{interpretable}---meaning that some black boxes are easier to understand than others for our mind.
 %
-For example, \cref{fig:trade-off} is a common way to illustrate the differences in black-box interpretability.
+For example, \cref{fig:tradeoff} is a common way to illustrate the differences in black-box interpretability.
 
-Even though informal -- as pointed on in \cite{Rudin2019}, given the lack of way to measure ``interpretability'' -- \cref{fig:trade-off} effectively express why more research is need on understandability.
+Even though informal -- as pointed on in \cite{Rudin2019}, given the lack of way to measure ``interpretability'' -- \cref{fig:tradeoff} effectively express why more research is need on understandability.
 %
 In fact, the image essentially states how the better performing black boxes are also the less interpretable ones.
 %
@@ -3970,6 +4014,7 @@ The interested readers may consider reading \cite{xmas-aiiot2019, expectation-ex
 \label{part:how}
 
 \chapter{The Role of Logic Based Technologies}
+\label{chap:lbt-role}
 
 \mypapers{logictech-information11}
 
@@ -4410,6 +4455,7 @@ To further asses all such aspects, in the next chapter we analyse the state of t
 In doing so, we analyse the maturity, technical reach, and maintenance-level of most relevant logic-based technologies.
 
 \chapter{Technological State of the Art}
+\label{chap:tech-soa}
 
 \mypapers{lptech4mas-jaamas35,lptech4mas-aamas2021}
 
@@ -4748,7 +4794,8 @@ In particular, we propose the design and implementation of a general-purpose \em
 %
 Then, in the remainder of this thesis, we discuss how our ecosystem can be designed and extended to cover the need for interoperable technologies at the intersection among symbolic and sub-symbolic AI.
 
-\chapter{The 2P-Kt Ecosystem for Logic-Based AI}\label{chap:ecosystem}
+\chapter{The 2P-Kt Ecosystem for Logic-Based AI}
+\label{chap:ecosystem}
 
 \mypapers{cco-softwarex-2021-2pkt}
 
@@ -11309,6 +11356,7 @@ These implementations may then be exploited in main-stream programming as well a
 \finalpart{}
 
 \chapter{Conclusions}
+\label{chap:conclusions}
 
 %----------------------------------------------------------------------------------------
 % BIBLIOGRAPHY
