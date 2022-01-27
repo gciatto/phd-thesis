@@ -2774,7 +2774,7 @@ Generally speaking, the key advantage of these approaches sub-symbolic emulation
 
 \paragraph{Logic as constraints}
 
-Paradigmatic works in this category are for instance: DNN with Logic Rules \cite{hu2016}, Logic Tensor Networks (LTN) \cite{serafini2016,Serafini2017}, Semantic Loss Function (SLF) \cite{xu2018}, and Lyrics \cite{marra2019lyrics}.
+Paradigmatic works in this category are for instance: DNN with Logic Rules \cite{hu2016}, Logic Tensor Networks (LTN) \cite{serafini2016,Serafini2017}, Semantic Loss Function (SLF) \cite{xu2018}, and Lyrics \cite{MarraGDG2019}.
 
 DNN with Logic Rules (no concise name is given) \cite{hu2016}, proposes a method for constraining a (deep) neural network behaviour via FOL rules.
 %
@@ -2817,7 +2817,7 @@ To do so, SLF constrains the training process of a neural network via some \emph
 %
 Such formul\ae{} consist of boolean variables representing input and output neurons of the networks to be constrained, possibly combined via classical logic connectors.
 
-Finally, Lyrics \cite{marra2019lyrics} is an extension of LTN, improving the way symbolic knowledge is declaratively enforced while training the sub-symbolic part of an intelligent system.
+Finally, Lyrics \cite{MarraGDG2019} is an extension of LTN, improving the way symbolic knowledge is declaratively enforced while training the sub-symbolic part of an intelligent system.
 %
 According to the authors, the major applications of Lyrics are related to predictive model verification, semi-supervised learning with background knowledge, collective classification \cite{SenNBGGE08}, and text chunking.
 %
@@ -9147,7 +9147,7 @@ The technology currently comes along with two main implementations to enable SKE
     \item the Python implementation for the sub-symbolic AI domain.
 \end{inlinelist}
 %
-SKE is one of the elements that act as a bridge between the two domains, as well as the production of logic programs \cite{lloyd1990computational,metakides1996principles} as output---in particular expressed as Prolog programs \cite{ColmerauerR93}.
+SKE is one of the elements that act as a bridge between the two domains, as well as the production of logic programs \cite{lloyd1990computational,Nerode1996} as output---in particular expressed as Prolog programs \cite{ColmerauerR93}.
 
 A number of experiments involving rule extraction on both classification and regression tasks -- performed on well-known public data sets -- are discussed to demonstrate the versatility of \psyke{}.
 %
@@ -9191,7 +9191,7 @@ To mitigate interpretability issues without sacrificing predictive performance, 
 %
 Explanations, in this case, consist of \emph{surrogate} predictors trained to mimic the ones to be explained, as closely as possible.
 
-In practice, among the manifold proposals, some authors describe methods to extract if-then-else rules \cite{CravenS94,HuysmansBV2006,gridex-extraamas2021}, whereas others propose methods extracting decision trees \cite{Craven1996}.
+In practice, among the manifold proposals, some authors describe methods to extract if-then-else rules \cite{CravenS94,HuysmansBV2006,gridex-extraamas2021}, whereas others propose methods extracting decision trees \cite{CravenS95}.
 %
 While the shape of the extracted knowledge may vary from an extraction procedure to another, all the proposed methods share the trait of extracting \emph{symbolic} (i.e. human-intelligible) knowledge out of \emph{sub-symbolic} ML predictors.
 %
@@ -9209,7 +9209,7 @@ According to \cite{xaisurvey-ia14}, knowledge extraction methods can be categori
 
 About dimension \ref{item:category:learning-task}, one can distinguish among algorithms targeting classification tasks, regression tasks, or both.
 %
-In other words, some extraction algorithms can only deal with BB classifiers -- e.g.\ Rule-extraction-as-learning~\cite{CravenS94} (\real, henceforth), \trepan~\cite{Craven1996} and others \cite{BarakatD2005,MartensBVGV2007} --, while others can only deal with BB regressors -- such as \iter~\cite{HuysmansBV2006}, \gridex~\cite{gridex-extraamas2021}, \textsc{RefAnn}~\cite{SetionoLZ2002}, \textsc{Ann-DT}~\cite{schmitz1999ann} and \textsc{RN2}~\cite{saito2002extracting} --, and only a few can handle both---such as \textsc{G-Rex}~\cite{grex-icdm2008} and \cart~\cite{breiman1984classification}.
+In other words, some extraction algorithms can only deal with BB classifiers -- e.g.\ Rule-extraction-as-learning~\cite{CravenS94} (\real, henceforth), \trepan~\cite{CravenS95} and others \cite{BarakatD2005,MartensBVGV2007} --, while others can only deal with BB regressors -- such as \iter~\cite{HuysmansBV2006}, \gridex~\cite{gridex-extraamas2021}, \textsc{RefAnn}~\cite{SetionoLZ2002}, \textsc{Ann-DT}~\cite{schmitz1999ann} and \textsc{RN2}~\cite{saito2002extracting} --, and only a few can handle both---such as \textsc{G-Rex}~\cite{grex-icdm2008} and \cart~\cite{breiman1984classification}.
 %
 Notably, virtually all extraction methods proposed so far are tailored on \emph{supervised} machine learning.
 %
@@ -9275,7 +9275,7 @@ Output rules are disjunctive normal form expressions; each term is the conjuncti
 
 \paragraph{\trepan}\label{par:trepan}
 
-\trepan{} \cite{Craven1996} is a pedagogical algorithm able to extract symbolic and comprehensible model representations from trained classifier BB by inducing a decision tree approximating the BB represented concept.
+\trepan{} \cite{CravenS95} is a pedagogical algorithm able to extract symbolic and comprehensible model representations from trained classifier BB by inducing a decision tree approximating the BB represented concept.
 %
 It usually maintains high fidelity levels w.r.t.\ the underlying BB while being comprehensible and accurate.
 %
@@ -10815,7 +10815,7 @@ Among the most relevant applications in this category, we can find a number of \
 %
 To tackle this issue, research effort has focused on extending ML approaches to graph-structured data.
 %
-Notably, graph neural networks \cite{WuNeuralnetworkslearningsystems2021} are a novel approach to let ordinary NN-based processing be applied to graphs.
+Notably, graph neural networks \cite{WuPCLZY2021} are a novel approach to let ordinary NN-based processing be applied to graphs.
 
 GNN are mathematical models operating upon \emph{directed} graphs, whose vertices (resp., arcs) are labelled with (fixed-size) arrays of real numbers, each one carrying further numeric information about the corresponding vertex (resp., arc).
 %
@@ -11256,7 +11256,7 @@ In particular, we report the proposal of \tusow{}, a tuple-based technology leve
 
 \subsection{Brief overview of the field}
 
-Coordination is the discipline of enabling and constraining interactions among software components \cite{ciancarini-acmcs28} or, more generally, of managing the dependencies among activities \cite{coordination-csur26}.
+Coordination is the discipline of enabling and constraining interactions among software components \cite{ciancarini-acmcs28} or, more generally, of managing the dependencies among activities \cite{MaloneC94}.
 %
 In a world were billions of computational machines have access to the Internet, this translates to governing the interactions among devices and services, so as to fully realise the system functionality, through appropriate technologies backed by well-founded models.
 
@@ -11525,7 +11525,7 @@ Hopefully, in the future, our logic ecosystem will be enriched enough to act as 
 \backmatter
 
 \bibliographystyle{alpha}
-\bibliography{phd-thesis,ccdo-information-2020}
+\bibliography{phd-thesis}
 
 
 \end{document}
