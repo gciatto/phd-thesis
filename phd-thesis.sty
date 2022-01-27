@@ -50,7 +50,9 @@
 \newcommand{\keywords}[1]{\def\thekeywords{#1}}
 
 \newenvironment{abstract}{\chapter*{\centering\abstractname}\addcontentsline{toc}{chapter}{\abstractname}}{{\small\textbf{Keywords:} \thekeywords}}
-\newenvironment{acknowledgements}{\chapter*{\acknowledgementsname}}{}
+\newenvironment{acknowledgements}{\chapter*{\acknowledgementsname}}{
+    \par\small\begin{flushright}\theauthor, \today\end{flushright}
+}
 \newenvironment{dedication}{\chapter*{}\begin{flushright}\itshape}{\normalfont\end{flushright}}
 \newenvironment{inlinelist}{\begin{enumerate*}[label=\emph{(\roman{*})}]}{\end{enumerate*}}
 
