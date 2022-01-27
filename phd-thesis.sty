@@ -16,6 +16,7 @@
 \usepackage{makecell}
 \usepackage{adjustbox}
 \usepackage{rotating}
+\usepackage{xurl}
 
 \fancypagestyle{plain}{
 	\fancyhf{}
@@ -49,8 +50,10 @@
 \newcommand{\examyear}[1]{\def\theexamyear{#1}}
 \newcommand{\keywords}[1]{\def\thekeywords{#1}}
 
-\newenvironment{abstract}{\chapter*{\centering\abstractname}\addcontentsline{toc}{chapter}{\abstractname}}{\par\bigskip\noindent{\small\textbf{Keywords:} \thekeywords}}
-\newenvironment{acknowledgements}{\chapter*{\acknowledgementsname}}{\par{\small\begin{flushright}\theauthor, \today\end{flushright}}}
+\newcommand{\unnumberedchap}[1]{\chapter*{\centering#1}\addcontentsline{toc}{chapter}{#1}}
+
+\newenvironment{abstract}{\unnumberedchap{\abstractname}}{\par\bigskip\noindent{\small\textbf{Keywords:} \thekeywords}}
+\newenvironment{acknowledgements}{\unnumberedchap{\acknowledgementsname}}{\par{\small\begin{flushright}\theauthor, \today\end{flushright}}}
 \newenvironment{dedication}{\chapter*{}\begin{flushright}\itshape}{\normalfont\end{flushright}}
 \newenvironment{inlinelist}{\begin{enumerate*}[label=\emph{(\roman{*})}]}{\end{enumerate*}}
 
@@ -105,6 +108,14 @@
 \setlist[description]{leftmargin=2\parindent,labelindent=\parindent}
 
 \newcommand{\footnoteref}[1]{{\normalfont\textsuperscript{\ref{#1}}}}
+
+\newenvironment{activity}[4]{
+    \subsubsection*{#1 \hfill #2}
+    #3 \hfill #4
+    \begin{itemize}[noitemsep]
+}{
+    \end{itemize}
+}
 
 \newcommand{\frontispiece}{
 	\newgeometry{margin=0.8in}
