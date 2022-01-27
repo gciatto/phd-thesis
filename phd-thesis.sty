@@ -17,6 +17,7 @@
 \usepackage{adjustbox}
 \usepackage{rotating}
 \usepackage{xurl}
+\usepackage{natbib}
 
 \fancypagestyle{plain}{
 	\fancyhf{}
@@ -65,8 +66,9 @@
 
 \let\oldbibliography\bibliography
 \renewcommand{\bibliography}[1]{
-	\addcontentsline{toc}{chapter}{\bibname}
 	\oldbibliography{#1}
+    \label{chap:bibliography}
+    \addcontentsline{toc}{chapter}{\bibname}
 }
 
 \def\themainlinespacing{1}
@@ -108,14 +110,6 @@
 \setlist[description]{leftmargin=2\parindent,labelindent=\parindent}
 
 \newcommand{\footnoteref}[1]{{\normalfont\textsuperscript{\ref{#1}}}}
-
-\newenvironment{activity}[4]{
-    \subsubsection*{#1 \hfill #2}
-    #3 \hfill #4
-    \begin{itemize}[noitemsep]
-}{
-    \end{itemize}
-}
 
 \newcommand{\frontispiece}{
 	\newgeometry{margin=0.8in}

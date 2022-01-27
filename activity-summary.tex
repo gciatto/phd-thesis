@@ -1,7 +1,15 @@
 % !TeX root = phd-thesis.tex
 % !TeX spellcheck = en_GB
 
-\unnumberedchap{Summary of Candidate's Activity}
+\newenvironment{activity}[4]{
+    \subsubsection*{#1 \hfill #2}
+    #3 \hfill #4
+    \begin{itemize}[noitemsep]
+    }{
+    \end{itemize}
+}
+
+\unnumberedchap{Candidate's Activity Summary}
 
 \section*{Education}
 
