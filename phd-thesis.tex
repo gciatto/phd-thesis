@@ -8,7 +8,7 @@
 
 \newcommand{\versionmajor}{1}
 \newcommand{\versionminor}{0}
-\newcommand{\versionpatch}{0}
+\newcommand{\versionpatch}{1}
 \newcommand{\version}{\versionmajor.\versionminor.\versionpatch}
 
 \school{\MakeUppercase{\unibo}}
@@ -134,7 +134,7 @@ I wouldn't have made it this far without her, nor I'd wish.
 
 In the last decade, we have witnessed an explosion in the exploitation of artificial intelligence (AI) both in the academy and in the industry, and in virtually all strategical sectors of human expertise.
 %
-This is not the first time in history that AI attains unprecedented levels of attention, expectations, and fundings, yet it is the first time that such momentum is driven by a pervasive adoption of data science (DS) and, in particular, machine learning (ML).
+This is not the first time in history that AI attains unprecedented levels of attention, expectations, and funding, yet it is the first time that such momentum is driven by a pervasive adoption of data science (DS) and, in particular, machine learning (ML).
 
 Nowadays, the tree terms -- AI, DS, and ML -- are often used mistakenly interchangeably, especially by practitioners.
 %
@@ -474,7 +474,7 @@ In any case, logic information is represented in such a way that both human and 
 
 One powerful trait of logics is that they enable the representation of complex, intricate, or infinite domains \emph{intensively} (i.e. implicitly) rather than explicitly---e.g. via multiple recursive clauses.
 %
-So, if a domain involves an infinite amount of entites, these do not necessarily require an infinite amount of memory to be represented.
+So, if a domain involves an infinite amount of entities, these do not necessarily require an infinite amount of memory to be represented.
 %
 For instance, the set of natural integers can be represented in logic using just two FOL clauses---of which, one is recursive.
 
@@ -517,7 +517,7 @@ The higher the expressiveness, the more the complexity of the problems which may
 %
 This opens to the possibility, for the solver, to meet queries which cannot be answered in useful time, or relying upon a limited amount of memory, or at all.
 %
-Roughly speaking, more expressive logic languages make it easier for human beings to describe a particular domain -- usually, requiring them to write less and more concise clauses --, at the expense of an higher difficulty for software agents to draw inferences autonomously---because of computational \emph{tractability}.
+Roughly speaking, more expressive logic languages make it easier for human beings to describe a particular domain -- usually, requiring them to write less and more concise clauses --, at the expense of a higher difficulty for software agents to draw inferences autonomously---because of computational \emph{tractability}.
 %
 This is a well-understood phenomenon in both CS and CL \cite{LevesqueB87, BrachmanL2004}, often referred to as the \emph{expressiveness--tractability} trade-off.
 %
@@ -543,7 +543,7 @@ Unfortunately, this implies the degree of automatism in knowledge production is 
 %
 Many attempts have been performed over the years to distil human knowledge into symbolic form to formalise common-sense for software agents.
 %
-To date, there exist a number of common-sense knowledge bases and ontologies, supporting practical textual-reasoning tasks on real-world documents including analogy-making, and other context oriented inferences---see for instance \cite{lieberman2004,trinh2018,liu2004conceptnet,liu2002goose, shapiro1999sneps}).
+To date, there exist a number of common-sense knowledge bases and ontologies, supporting practical textual-reasoning tasks on real-world documents including analogy-making, and other context oriented inferences---see for instance \cite{lieberman2004,trinh2018,liu2004conceptnet,liu2002goose, shapiro1999sneps}.
 %
 Yet, most of these solutions are either semi-automatically constructed, or community driven -- when not both --, therefore exhaustiveness, consistency, or coherence may be lacking.
 %
@@ -604,10 +604,10 @@ Several algorithms can be used in DS to perform a well-established pool of data-
 Most common tasks in DS are for instance:
 %
 \begin{description}
-    \item[function fitting] (a.k.a. classification or regression) | i.e. the \emph{supervised} learning task of inferring the input-output relation among a number samples, to be later able to estimate likely outputs for novel, unseen inputs;
+    \item[function fitting] (a.k.a. classification or regression) | i.e. the \emph{supervised} learning task of inferring the input-output relation among a number of samples, to be later able to estimate likely outputs for novel, unseen inputs;
     \item[clustering] | i.e. the \emph{unsupervised} learning task of finding similar groups of instances in a dataset -- according to a given notion of \emph{similarity} or distance --, to be later able to classify novel instances according to some group;
     \item[anomaly detection] | i.e. the \emph{unsupervised} learning task of tuning an algorithm to discern ``normal'' situations from exceptional ones, provided that some historical data is available, to later be able to detect the latter;
-    \item[filtering] (resp. \textbf{smoothing} or \textbf{forecasting}) | i.e. the Bayesian task of estimating the unknown \emph{current} (resp. \emph{past} or \emph{future}) state of a system given a sample of observations capturing the evolution of a number of variables which should depend of that state;
+    \item[filtering] (resp. \textbf{smoothing} or \textbf{forecasting}) | i.e. the Bayesian task of estimating the unknown \emph{current} (resp. \emph{past} or \emph{future}) state of a system given a sample of observations capturing the evolution of a number of variables which should depend on that state;
     \item[most likely explanation] | like the above, but focussing on the most likely \emph{sequence} of states a system has traversed.
 \end{description}
 %
@@ -1399,7 +1399,7 @@ For instance, time series can be easily modelled as $T$-dimensional vectors -- w
 free text can be represented as $W$-dimensional vectors -- where $W$ is the total amount of words/bigram/trigram/\ldots{} in the text --, and
 the $w^{th}$ component of the vector represents the frequency of the $w^{th}$ word in the text (according to some ordering of words in the text);
 %
-graphs can described by $N \times N$ adjacency matrices---where $N$ is the total amount of nodes into the graph.
+graphs can be described by $N \times N$ adjacency matrices---where $N$ is the total amount of nodes into the graph.
 %
 These data representation approaches are inherently distributed and non-rigid.
 %
@@ -1523,9 +1523,9 @@ In reinforcement learning, the learning task consists of letting an agent estima
 %
 There, a plan can be described as a relation among the possible states of the world, the actions to be performed in those states, and the reward the agents expects to receive from that action.
 
-Such categorization of learning approaches can be applied to both symbolic and sub-symbolic techniques.
+Such categorisation of learning approaches can be applied to both symbolic and sub-symbolic techniques.
 %
-Indeed, in this chapter, we provide an overview of learning on a per representation basis.
+Indeed, in this chapter, we provide an overview of learning on a per-representation basis.
 %
 In particular, in the following sections we summarise the state of the art for what concerns both symbolic and sub-symbolic forms of \emph{supervised} learning.
 
@@ -1537,7 +1537,7 @@ Within the scope of sub-symbolic supervised ML, a \emph{learning algorithm} is c
 %
 There, common choices for both $\mathcal{X}$ and $\mathcal{Y}$ are, for instance, the set of vectors, matrices, or tensors of numbers of a given size---hence the sub-symbolic nature of the approach.
 
-An important assumption significantly affecting both the theory and the practice of sub-symbolic supervised learning is that vectors, matrices, or tensors in $\mathcal{X}$ and $\mathcal{Y}$ are of \emph{fixed} size---despite items in $\mathcal{X}$ may have a different sizes than the items in $\mathcal{Y}$.
+An important assumption significantly affecting both the theory and the practice of sub-symbolic supervised learning is that vectors, matrices, or tensors in $\mathcal{X}$ and $\mathcal{Y}$ are of \emph{fixed} size---despite items in $\mathcal{X}$ may have different sizes than the items in $\mathcal{Y}$.
 %
 Without lack of generality, in what follows we refer to items in $\mathcal{X}$ as $n$-dimensional vectors denoted as $\mathbf{x}$, whereas items in $\mathcal{Y}$ are $m$-dimensional vectors denoted as $\mathbf{y}$---despite matrices or tensors may be suitable choices as well.
 
@@ -1650,7 +1650,7 @@ These algorithms can be categorised in several ways, for instance depending on
 \begin{inlinelist}
     \item the supervised learning task they support (classification vs. regression),
     \item on when they consume data (lazy vs. eager),
-    \item or on the underlying strategy adopted for learning (e.g. gradient descent, least squares optimization), etc.
+    \item or on the underlying strategy adopted for learning (e.g. gradient descent, least squares optimisation), etc.
 \end{inlinelist}
 
 Some learning algorithms (e.g. neural networks) target regression problems, whereas others (e.g. SVM) target classification problems.
@@ -1796,7 +1796,7 @@ Most common NN architectures are feed-forward, meaning that neurons are organise
 %
 The first layer is considered the input layer, which is used to \emph{feed} the whole network, while the last one is the output layer, where prediction are drawn.
 %
-In these kind of architectures, inference lets information flow from the input to the output layers -- assuming the weights of synapses are fixed --, while training lets information flow from the output to the input layers---provoking the variation of weights to minimise the prediction error of the overall network.
+In architectures of these kinds, inference lets information flow from the input to the output layers -- assuming the weights of synapses are fixed --, while training lets information flow from the output to the input layers---provoking the variation of weights to minimise the prediction error of the overall network.
 
 The recent success of deep learning \cite{GoodfellowBC2016} has proved the flexibility and the predictive performance of \emph{deep} neural networks (DNN).
 %
@@ -1839,7 +1839,7 @@ According to the SLR nomenclature of \cite{DeRaedt2010} -- where a unifying mode
     \item[structure learning] where $H$ is completely unknown, and the whole shape of facts and rules therein contained must be computed, possibly along with their corresponding probabilities
 \end{description}
 
-In both cases, learning can be defined as an optimisation problem aimed at approximating $H^*$ by search for the best KB $\hat{H}$ into an hypothesis space $\mathcal{H}_{B,C}$, defined by applying all possible combinations of clauses in $B$, as dictated by $C$.
+In both cases, learning can be defined as an optimisation problem aimed at approximating $H^*$ by search for the best KB $\hat{H}$ into a hypothesis space $\mathcal{H}_{B,C}$, defined by applying all possible combinations of clauses in $B$, as dictated by $C$.
 %
 There, each KB $H \in \mathcal{H}_{B,C}$ consists of a number of definite clauses defining the $n$-ary relation $h$, possibly leveraging on the relations defined in $B$, and satisfying the suggestions/constraints expressed by $C$.
 %
@@ -2060,7 +2060,7 @@ The neural network is then trained, and an induced clause is then reverse-engine
 
 MIL \cite{MuggletonLPT14} is a modern approach leveraging on the meta-programming capabilities of logic solvers (cf. \cref{chap:reasoning})---and in particular Prolog ones.
 %
-Following the MIL approach, ILP is conceived as an higher-order logic task where a logic program (the meta-interpreter) dynamically constructs another logic program (the induced theory) via meta-programming.
+Following the MIL approach, ILP is conceived as a higher-order logic task where a logic program (the meta-interpreter) dynamically constructs another logic program (the induced theory) via meta-programming.
 
 There, the linguistic bias consists of a library of higher-order rules (a.k.a. meta-rules), which define the admissible ways the predicates from the examples and the background knowledge may be combined.
 %
@@ -2290,7 +2290,7 @@ Indeed, within the scope of this thesis, we consider reasoning as the activity p
 %
 Of course, as for learning, the particular way knowledge is drawn heavily depends on how it is represented.
 
-When knowledge is symbolically represented, reasoning leverages on one or more \emph{inference rules}, i.e. logic formul\ae{} dictating under which conditions conclusions may be draw out of premises.
+When knowledge is symbolically represented, reasoning leverages on one or more \emph{inference rules}, i.e. logic formul\ae{} dictating under which conditions conclusions may be drawn out of premises.
 %
 This reflects the Oxford definition, where the \emph{logic} nature of reasoning is stressed.
 %
@@ -2330,7 +2330,7 @@ It is such an obvious capability for human beings that most of it is not even ex
 
 Despite the formalisation of commonsense soon proved to be very challenging -- mostly because of the many non-trivial involved issues, such as the need of formalising the situation the agent is immersed into, actions it may perform of be subject to, and physical and legal laws governing its environment and context, etc. --, many frameworks and tools have been developed over the years while pursuing such goal.
 %
-There are freely available commonsense knowledge bases and natural language processing toolkits, supporting practical textual-reasoning tasks on real-world documents including analogy-making, and other context oriented inferences---see for instance \cite{lieberman2004,liu2004conceptnet,liu2002goose,shapiro1999sneps}).
+There are freely available commonsense knowledge bases and natural language processing toolkits, supporting practical textual-reasoning tasks on real-world documents including analogy-making, and other context oriented inferences---see for instance \cite{lieberman2004,liu2004conceptnet,liu2002goose,shapiro1999sneps}.
 %
 There have been also a number of attempts to construct very large knowledge bases of commonsense knowledge by hand, one of the largest being the CYC program by Douglas Lenat at CyCorp \cite{lenat1995-cyc}.
 
@@ -2574,7 +2574,7 @@ Logic programming (LP) is computational paradigm where logic is used to represen
 %
 From a human-centred perspective, LP is a means for programming computers to perform symbolic AI related tasks.
 %
-However, from a agent-oriented perspective, LP is the means to endow software agents with automated reasoning capabilities.
+However, from an agent-oriented perspective, LP is the means to endow software agents with automated reasoning capabilities.
 
 There are a few peculiar milestones in the history of LP.
 %
@@ -2908,7 +2908,7 @@ It is an extension of ProbLog exploiting neural networks for
     \item letting neural classifiers be used as logic predicates---defined as ``neural predicates'' by the authors.
 \end{inlinelist}
 %
-In particular, each DeepProbLog program is translated into a tensorial computational graph -- possibly including one ore more neural classifiers as sub-graphs -- to be optimised via gradient descend.
+In particular, each DeepProbLog program is translated into a tensorial computational graph -- possibly including one or more neural classifiers as sub-graphs -- to be optimised via gradient descend.
 %
 The structure of the computational graph reflects the structure of the rules contained into the DeepProbLog program.
 %
@@ -3181,7 +3181,7 @@ Even though informal -- as pointed on in \cite{Rudin2019}, given the lack of way
 %
 In fact, the image essentially states how the better performing black boxes are also the less interpretable ones.
 %
-This is a problem in practice since only rarely predictive performances can be sacrificed in favour of an higher degree of interpretability.
+This is a problem in practice since only rarely predictive performances can be sacrificed in favour of a higher degree of interpretability.
 
 To tackle such issues, the \emph{eXplainable AI} (XAI henceforth) research field has recently emerged.
 %
@@ -3199,7 +3199,7 @@ Notions such as explanation, interpretation, transparency, etc., are mentioned, 
 %
 However, a coherent framework has not emerged yet.
 
-In this subsection we recall some of the main contributions from the literature where the concepts of explanation and interpretation -- or any variant of theirs -- are discussed.
+In this subsection we recall some main contributions from the literature where the concepts of explanation and interpretation -- or any variant of theirs -- are discussed.
 %
 Our goal here is to highlight the current lack of consensus on the meaning of such terms, for which we propose a possible, unambiguous alternative in the next sections.
 
@@ -3801,7 +3801,7 @@ In fact, in most cases the extraction algorithm works by querying the black box 
 %
 This behaviour is repeated until the set of rules given by the white-box model converges to that of the black box.
 %
-In other words, the extraction procedure terminates when the rule set as whole reaches an high \emph{fidelity} w.r.t. the original black box.
+In other words, the extraction procedure terminates when the rule set as whole reaches a high \emph{fidelity} w.r.t. the original black box.
 
 %%%%
 \paragraph{Decompositional approaches}
@@ -3853,7 +3853,7 @@ There, the authors propose a method for extracting if-then-else rules with linea
 
 Generally speaking, rule extraction techniques provide \emph{post-hoc} explainability via model simplification.
 %
-In fact, all the surveyed extraction procedures aims at creating a list of rule having an high-fidelity w.r.t. the source black-box predictor.
+In fact, all the surveyed extraction procedures aims at creating a list of rule having a high-fidelity w.r.t. the source black-box predictor.
 %
 This rule list can then be considered a symbolic, intelligible explanation of the source predictor.
 %
@@ -3918,7 +3918,7 @@ In other words, the main difference with decision rules lays in the hierarchical
 
 Given the small amount of techniques for decision tree extraction surveyed in this section, we do not split our discussion any further to distinguish between pedagogical or decompositional approaches.
 %
-Rather we provide this information as part of the details description of each method, provided below.
+Rather we provide this information as part of the detailed description of each method, provided below.
 %
 We provide a joint discussion of decision tree extraction methods from the XAI perspective, at the end of the paragraph.
 
@@ -4100,7 +4100,7 @@ The interested readers may consider reading \cite{xmas-aiiot2019, expectation-ex
 
 \mypapers{logictech-information11}
 
-Artificial intelligence (AI) is getting ever growing attention from both the academia and the industry, in terms of resources, economical impact, available technologies and widespread adoption in virtually any application area.
+Artificial intelligence (AI) is getting ever growing attention from both the academia and the industry, in terms of resources, economic impact, available technologies and widespread adoption in virtually any application area.
 %
 In fact, more and more industries are adopting and applying state-of-the-art AI techniques, to actively pursue challenging business objectives.
 
@@ -4393,7 +4393,7 @@ Rule-based scheduling methods aim to emulate the decision-making behaviour of hu
 %
 Correspondingly, rule-based systems are typically envisioned as a means to replicate the actions of experienced humans with specific scheduling skills.
 %
-Unsurprisingly, this is one the most successful application domains of CLP techniques: the scheduler goal is to identify feasible solutions which balance different constraints or schedule requirements.
+Unsurprisingly, this is one of the most successful application domains of CLP techniques: the scheduler goal is to identify feasible solutions which balance different constraints or schedule requirements.
 
 Applications spread from manufacturing to traffic scheduling and management (e.g., autonomous vehicles, aircraft, \ldots), up to urban search and rescue activities (e.g., traffic assignment in natural disaster evacuations, \ldots), and many others.
 %
@@ -4401,7 +4401,7 @@ A typical example of a constraint-based scheduling application is ATLAS \cite{ak
 %
 PLANE \cite{Simonis2001} is another system used at Dassault Aviation to plan the production of the military Mirage 2000 jet and the Falcon business jet: the objective is to minimize changes in the production rate, which has a high set-up cost, while finishing the aircraft just in time for delivery.
 %
-The COBRA system \cite{Simonis2001} generates workplans for train drivers of North Western Trains in the UK: each week, about 25000 activities need to be scheduled in nearly 3000 diagrams on a complex route network.
+The COBRA system \cite{Simonis2001} generates work plans for train drivers of North Western Trains in the UK: each week, about 25000 activities need to be scheduled in nearly 3000 diagrams on a complex route network.
 %
 The DAYSY Esprit project \cite{simonis2000} and the SAS-Pilot program \cite{baues1994} consider the operational re-assignment of airline crews to flights.
 %
@@ -4868,7 +4868,7 @@ In other words, logic-based technologies are often constructed as technological 
 
 On the other side, the data science playground is flourishing, also because of the emergent selection few key platforms -- e.g. Python or R -- upon which many inter-dependent and interoperable research project are built, adding value to each other.
 
-Hence, the need for efforts pushing the state of the art of logic-based technologies towards an higher degree of interoperability -- both internally, and with DS technologies -- is compelling.
+Hence, the need for efforts pushing the state of the art of logic-based technologies towards a higher degree of interoperability -- both internally, and with DS technologies -- is compelling.
 %
 Along this line, in the next chapter, we propose a paradigm shift aimed at satisfying this need.
 %
@@ -5093,7 +5093,7 @@ Another common need in LP is the in-memory storage of clauses into ordered -- e.
 %
 The \module{theory} module follows this purpose, by providing notions such as \texttt{ClauseQueue}, \texttt{ClauseMultiset}---all coming both in an \emph{immutable} (access-efficient) and \emph{mutable} (update-efficient) implementation.
 %
-These data structures differ from ordinary collections as they enable an unification-based retrieval and indexing of clauses.
+These data structures differ from ordinary collections as they enable a unification-based retrieval and indexing of clauses.
 %
 Prolog's notions of theory, and static/dynamic KB are built on top these data structures, exploiting the most adequate implementation in each case.
 
@@ -5101,11 +5101,11 @@ The practice of LP may also involve several ancillary operations over terms and 
 %
 \begin{inlinelist}
     \item formatting -- into some \emph{customisable} form --,
-    \item (de)serialization -- into/from open data-representation formats such as JSON or YAML --, and
+    \item (de)serialisation -- into/from open data-representation formats such as JSON or YAML --, and
     \item parsing---out of a particular concrete syntax, such as, e.g., Prolog syntax.
 \end{inlinelist}
 %
-While formatting is considered a \module{core} functionality, attained via the \texttt{TermFormatter} type, (de)serialization and parsing come with their own modules.
+While formatting is considered a \module{core} functionality, attained via the \texttt{TermFormatter} type, (de)serialisation and parsing come with their own modules.
 %
 Thus, module \module{serialize-core} (resp. \moduleStyle{-theory}) supports the serialisation and deserialisation of terms (resp. theories) into JSON or YAML, according to a human-readable schema.
 %
@@ -5529,7 +5529,7 @@ More precisely, solvers may need KB to retrieve some clauses, selected via unifi
 
 In particular, clause retrieval highlights how the interaction between solver and KB can be described in terms of streams as well.
 %
-As depicted in \cref{fig:solver-kb-interaction}, clause retrieval from KB can be modelled as a operation -- e.g., \texttt{get} -- accepting a clause template $C$ and returning the \emph{stream} of clauses unifying with $C$ currently stored into the KB.
+As depicted in \cref{fig:solver-kb-interaction}, clause retrieval from KB can be modelled as an operation -- e.g., \texttt{get} -- accepting a clause template $C$ and returning the \emph{stream} of clauses unifying with $C$ currently stored into the KB.
 %
 The solver can then consume the stream as needed, e.g. either lazily or not, depending on the search strategy adopted.
 
@@ -5564,7 +5564,7 @@ A primitive is a special Prolog facility capable of affecting and inspecting the
 %
 It is invoked by a solver and produces a \emph{stream of facts} to be consumed by the same solver.
 %
-However, from the solvers perspective, primitives are ordinary built-in predicates denoted by \emph{signatures}---i.e., name/arity couples of the form $p/n$.
+However, from the solvers' perspective, primitives are ordinary built-in predicates denoted by \emph{signatures}---i.e., name/arity couples of the form $p/n$.
 
 \begin{figure}\centering
     \includegraphics[width=\linewidth]{figures/primitive.pdf}
@@ -5708,7 +5708,7 @@ Conversely, the latter case is only possible if the last solution was provided b
 %
 In that case, the automaton backtracks and looks for the next solution.
 %
-This may involve stepping through \state{Backtracking}, then moving back into the \state{Primitive} (resp. \state{Rule}) \state{Execution}, in order to consume one more element from some previously-opened response (resp. caluse) stream.
+This may involve stepping through \state{Backtracking}, then moving back into the \state{Primitive} (resp. \state{Rule}) \state{Execution}, in order to consume one more element from some previously-opened response (resp. clause) stream.
 
 Overall, our state machine affects the operation of a Prolog solver as follows:
 %
@@ -5943,7 +5943,7 @@ When this is the case, the automaton simply pops the current execution context f
 }
 \]
 %
-Before popping the current execution context $E_0$, the automaton sprads its $\theta_0$ substitution to the parent execution context $E_1$---as $\theta_0$ can contain more assignments than $\theta_1$.
+Before popping the current execution context $E_0$, the automaton spreads its $\theta_0$ substitution to the parent execution context $E_1$---as $\theta_0$ can contain more assignments than $\theta_1$.
 
 Finally, the following transition rule handles the case in which the current execution context contains a non-empty stream of goals $\stream{g}$.
 %
