@@ -6,9 +6,9 @@
 \pagenumbering{gobble}
 
 %opening
-\title{Thesis summary}
+\title{Thesis Summary}
 \subtitle{[AIxIA] Premio per NeoDottori di Ricerca ``Marco Cadoli'' 2022}
-\author{Giovanni Ciatto}
+\author{\href{mailto:giovanni.ciatto@unibo.it}{Giovanni Ciatto} (UNIBO)}
 \date{\today}
 
 \begin{document}
@@ -19,7 +19,7 @@
 
 \begin{description}
     \item[Title:] On the role of Computational Logic in Data Science: representing, learning, reasoning, and explaining knowledge
-    \item[Supervised by:] Prof. \href{mailto:andrea.omicini@unibo.it}{Andrea Omicini}
+    \item[Supervised by:] Prof. \href{mailto:andrea.omicini@unibo.it}{Andrea Omicini} (UNIBO)
     \item[Reviewed by:] Prof. \href{mailto:giuseppe.vizzari@unimib.it}{Giuseppe Vizzari} (UNIMIB), Prof. \href{mailto:santoro@dmi.unict.it}{Corrado Santoro} (UNICT)
     %
     \begin{center}
@@ -60,90 +60,87 @@
 %
 %Finally, we discuss how our notion of logic ecosystem can be reified into actual software technology and extended towards many DS-related directions.
 
-The thesis tackles the problem of bridging computational logic (CL) and data science (DS), as a particular case of the more general problem of combining symbolic and sub-symbolic AI.
+The thesis aims to bridge computational logic (CL) and data science (DS), and, more generally, to combine symbolic and sub-symbolic AI.
 %
-Along this line, our contribution is split in two major parts, respectively addressing the problem from a theoretical (computational) and practical (technological) perspective.
+Accordingly, its contribution is split in two major parts, respectively addressing the problem from a theoretical (computational) and practical (technological) perspective.
 
 \paragraph{The computational perspective.}
 
-In part I, we analyse CL and DS w.r.t. four major dimensions, under a computational perspective. %, namely knowledge representation, learning, reasoning, and explaining.
-%
-Hence, stemming from an historical perspective on the two branches of AI, we draw a detailed comparison about how knowledge is represented, learnt, inferred, and explained both in symbolic and sub-symbolic AI.
-%
-Along this line, we identify the key differences and complementarities among the two, other than the most relevant issues arising when \emph{hybrid} systems -- i.e. systems jointly exploiting CL and DS -- are designed.
+We analyse CL and DS w.r.t. four major dimensions, under a computational perspective. %, namely knowledge representation, learning, reasoning, and explaining.
 
-\indent\textbf{\textsf{Key differences.}}
+Stemming from an historical perspective on AI, we draw a detailed comparison about how knowledge is represented, learnt, inferred, and explained both in symbolic and sub-symbolic AI.
 %
-Among the key differences, it is worth mentioning the way knowledge is represented, and learnt.
+We identify key differences and complementarities among the two, other than the most relevant issues arising when \emph{hybrid} systems -- i.e. systems jointly exploiting CL and DS -- are designed.
 
-Concerning representation, the main difference lays in the ability to represent information intensionally---i.e. implicitly, as opposed to the need of extensionally describing each single datum.
+%\indent\textbf{\textsf{Key differences.}}
+\subparagraph{Key differences.}
 %
-Indeed, this is, at the time of writing, a prerogative of CL, whereas DS most often requires knowledge to be provided in the form of numeric arrays.
+CL and DS mostly differ in the way they represent and learn knowledge.
 
-Consequently, as far as learning is concerned, another key difference lays in the way useful knowledge is acquired from novel evidence---i.e. data.
+Concerning representation, the main difference lays in the ability to represent information \emph{intensionally}---i.e. implicitly, as opposed to the need of extensionally describing each single datum.
 %
-While DS commonly relies on numeric algorithms to fit the parameters of a target function, CL relies upon symbolic algorithms which are capable of learning full logic relations.
+Indeed, this is a prerogative of CL, whereas DS most often requires knowledge to be provided in the form of numeric arrays.
 
-Furthermore, one may empirically observe how numeric algorithms are inherently data-eager, while symbolic ones can attain good learning performances even in presence of very few examples.
+Concerning learning, key differences lay in the way useful knowledge is acquired from evidence---i.e. data.
 %
-However, in practice, it is worth remarking how the two learning approaches are heavily unbalanced when it comes to technological support.
+While DS relies on \emph{numeric} algorithms to fit the parameters of a target \emph{function}, CL relies upon symbolic algorithms which are capable of learning full logic \emph{relations}.
+
+Furthermore, we observe how numeric algorithms are inherently data-eager, while symbolic ones can attain good performances even in presence of very few examples.
+%
+However, in practice, the two learning approaches are heavily unbalanced when it comes to technological support.
 %
 Indeed, while technologies for numeric learning are flourishing, the same is not true for symbolic learning.
 
-\indent\textbf{\textsf{Key complementarities.}}
-%\subparagraph{Key complementarities}
+%\indent\textbf{\textsf{Key complementarities.}}
+\subparagraph{Key complementarities.}
 %
-Among the key complementarities, it is worth mentioning the way knowledge relates to both inference, and explanation.
+CL and DS are complementary w.r.t. the way they support inference and explanation.
 
-Concerning inference, we stress that CL and DS subtend different -- yet complementary -- ways of interpreting inference.
+Concerning inference, CL subtends a \emph{rational} way of drawing conclusions out of premises -- i.e. reasoning, in a nutshell --, possibly following a deductive, abductive, or inductive strategy.
 %
-Indeed, CL subtends a rational way of drawing conclusions out of premises -- i.e. reasoning, in a nutshell --, possibly following a deductive, abductive, or inductive strategy.
+Conversely, DS subtends an \emph{intuitive} way of recognising patterns in (possibly, unseen) data, hence interpreting inference as a form of perception.
 %
-Conversely, DS subtends an intuitive way of recognising patterns in (possibly, unseen) data, hence interpreting inference as a form of perception.
-%
-Notably, the two ways are complementary rather than competing.
-%
-Hybrid systems may be designed where fuzzy tasks are devoted to sub-symbolic processing, whereas higher-level, crisp, decision-taking tasks are devoted to some symbolic component.
+Clearly, the two ways are not in competition: hybrid systems may be designed where fuzzy tasks are devoted to sub-symbolic processing, whereas higher-level, crisp, decision-taking tasks are devoted to symbolic components.
 
-As far as explanation is concerned, we acknowledge that the interpretation of symbols is straightforward in CL, while it may easily become cumbersome when knowledge is represented through arrays of numbers---as in DS.
+Concerning explanation, the interpretation of symbols is straightforward in CL, while it may easily become cumbersome when knowledge is represented through arrays of numbers---as in DS.
 %
 Accordingly, explainability of ML predictors makes the complementarity among symbolic and sub-symbolic AI even more evident.
 %
-Along this line, we model the explanation the act of extracting symbolic knowledge out of sub-symbolic predictors---while of course guaranteeing the extracted knowledge actually reflects what the predictors has learnt.
+Along this line, we model the explanation the act of extracting symbolic knowledge out of sub-symbolic predictors---while of course guaranteeing the extracted knowledge actually reflects what the predictors have learnt.
 %
 Notably, this is a relevant contribution within the field of XAI, which is currently striving to make ML predictors explainable.
 
 \paragraph{The technological perspective.}
 
-In part II, we analyse the state of the art of CL under a technological perspective.
+We also analyse the state of the art of CL under a technological perspective.
 
-Along this line, we assess the currently available logic-based technologies w.r.t. their capability to serve the needs of modern and future AI---possibly, in a synergy with DS.
+In particular, we assess currently available logic-based technologies (LBT) w.r.t. their capability to serve the needs of modern and future AI---possibly, in a synergy with DS.
 %
-It turns out a considerable amount of logic-based technologies is nowadays unmaintained, while many others are flourishing within the MAS community.
+It turns out a considerable amount of LBT are nowadays unmaintained, while many others are flourishing within the MAS community.
 %
-However, we observe a tendency towards the creations of what we call ``technological silos'', i.e. poorly interoperable technologies serving specific purposes---despite very well.
+However, there is tendency towards the creations of what ``technological \emph{silos}'', i.e. poorly interoperable technologies serving specific purposes---despite very well.
 %
 Interoperability issues arise for a number of reasons, mostly related to design or technological choices (e.g. the runtime platform), which made sense sense in the past but are constraining nowadays.
 
-Accordingly, we tackle this issue by proposing a notion of logic ecosystem, and by reifying into the \twopkt{} technology. %\footnote{\url{https://github.com/tuProlog/2p-kt}}.
+To tackle this issue, we propose the notion of logic ecosystem, as reified by the \twopkt{} technology\footnote{\url{https://github.com/tuProlog/2p-kt}}.
 %
-There, a logic ecosystem consists of a collection of loosely coupled software modules, each one supporting a particular CL aspect, notion, or functionality in an unopinionated way.
+There, a logic ecosystem is of a collection of loosely coupled software modules, each one supporting a particular CL aspect or functionality, in an unopinionated way.
 %
-In other words, it is designed in such a way to support CL -- as well as its interoperability with DS -- without committing to any particular functionality of use case.
+In other words, it is designed in such a way to support CL without committing to any particular functionality of use case.
 %
 Ad-hoc modules are designed for knowledge representation and automated reasoning, as basic functionalities, while the addition of further modules targetting, e.g., learning or explanation is enabled by building on top of the base modules and their open API.
 %
-Furthermore, to prevent \twopkt{} from becoming a technological silos itself, we have designed as a \emph{multi-platform} software ecosystem.
+%Furthermore, to prevent \twopkt{} from becoming a technological silos itself, we have designed as a \emph{multi-platform} software ecosystem.
 
-Consequently, we address of bridging \twopkt{} with sub-symbolic AI, by designing -- and possibly implementing -- a number of extensions for our logic ecosystem pushing it towards DS.
+Finally, we bridge \twopkt{} with sub-symbolic AI, by designing -- and prototyping -- several extensions aimed at pushing our logic ecosystem towards DS.
 %
-Notably, such extensions serve the purpose of demonstrating \twopkt{}'s interoperability as well.
+%Such extensions serve the purpose of demonstrating \twopkt{}'s interoperability as well.
 %
 In particular, we develop extensions bridging DS and our logic ecosystem in several ways.
 %
 For instance, we bridge the ecosystem with data stream processing, mainstream programming paradigms such as object-oriented and functional programming, machine learning, eXplanable AI, and probabilistic logic programming.
 %
-A number of further bridges are envisioned and discussed in the future works, concerning for instance concurrent logic programming, graph neural networks, symbolic knowledge injection, tuple-based coordination, and inductive logic programming.
+A number of further bridges are envisioned and discussed in the future works, concerning for instance: concurrent logic programming, graph neural networks, symbolic knowledge injection, tuple-based coordination, and inductive logic programming.
 
 Hopefully, in the future, our logic ecosystem will be enriched enough to act as the most adequate conceptual and technological basis for hybrid intelligent systems.
 
